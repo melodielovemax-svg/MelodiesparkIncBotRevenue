@@ -4,7 +4,6 @@ from pathlib import Path
 
 from .paths import workspace_root
 
-
 GROUPS = [
     "apps",
     "packages",

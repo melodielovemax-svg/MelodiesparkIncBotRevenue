@@ -19,6 +19,7 @@ def run_native(command: str, args: list[str]):
     result = subprocess.run(
         [executable, *args],
         cwd=str(WORKSPACE),
+        check=False,
         shell=False
     )
 

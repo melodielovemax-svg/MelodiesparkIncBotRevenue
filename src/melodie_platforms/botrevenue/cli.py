@@ -9,7 +9,6 @@ from rich.table import Table
 from .ledger import ledger_path, read_events, summarize
 from .policy import policy
 
-
 app = typer.Typer(
     add_completion=False,
     help="Melodiespark Inc. BotRevenue Automation CLI",

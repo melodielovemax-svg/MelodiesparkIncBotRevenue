@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from ..core.process import capture, installed
 
-
 PROVIDERS = {
     "npm": ["--version"],
     "npx": ["--version"],

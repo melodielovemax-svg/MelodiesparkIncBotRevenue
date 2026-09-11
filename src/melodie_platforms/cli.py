@@ -12,13 +12,12 @@ from .automation.engine import automation_status
 from .botrevenue.ledger import read_events, summarize
 from .botrevenue.policy import policy
 from .core.paths import workspace_root
-from .core.process import capture, installed, passthrough, resolve
+from .core.process import installed, passthrough, resolve
 from .core.workspace import inventory
 from .evidence.writer import evidence_directory, write_json
 from .providers.packages import audit_packages
 from .providers.services import audit_services
 from .registry import load_registry
-
 
 app = typer.Typer(
     add_completion=False,

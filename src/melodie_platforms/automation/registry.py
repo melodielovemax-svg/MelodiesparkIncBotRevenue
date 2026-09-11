@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-
 AUTOMATIONS = {
     "workspace-audit": {
         "description": "Inventory Melodiespark workspace components.",

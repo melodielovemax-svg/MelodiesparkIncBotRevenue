@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import socket
 
-
 SERVICES = {
     "ollama": ("127.0.0.1", 11434),
     "litellm": ("127.0.0.1", 4000),

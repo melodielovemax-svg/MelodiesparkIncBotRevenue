@@ -42,7 +42,7 @@ class FulfillmentEvidence(BaseModel):
 
 
 class RevenueSummary(BaseModel):
-    verified_revenue: Decimal = Field(default=Decimal("0"))
+    verified_revenue: Decimal = Field(default=Decimal(0))
     verified_payments: int = 0
     fulfilled_orders: int = 0
     status: EvidenceStatus = EvidenceStatus.UNVERIFIED

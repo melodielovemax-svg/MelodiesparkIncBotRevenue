@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-
 FINANCIAL_POLICY = {
     "autonomous_spending": False,
     "autonomous_payouts": False,
