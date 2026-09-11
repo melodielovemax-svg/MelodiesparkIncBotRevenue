@@ -1,1 +1,3 @@
-__version__ = "0.1.0"
+"""Melodiespark Inc. unified Platforms CLI."""
+
+__version__ = "0.2.0"

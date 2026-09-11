@@ -1,64 +1,107 @@
 {
+  "melodie": {
+    "name": "Melodie CLI",
+    "category": "core",
+    "command": "melodie"
+  },
   "platforms": {
-    "opencode": {
-      "name": "OpenCode",
-      "command": "opencode",
-      "category": "coding-agent"
-    },
-    "devin": {
-      "name": "Devin CLI",
-      "command": "devin",
-      "category": "coding-agent"
-    },
-    "kilo": {
-      "name": "Kilo CLI",
-      "command": "kilo",
-      "category": "coding-agent"
-    },
-    "agy": {
-      "name": "Antigravity CLI",
-      "command": "agy",
-      "category": "coding-agent"
-    },
-    "claude": {
-      "name": "Claude CLI",
-      "command": "claude",
-      "category": "coding-agent"
-    },
-    "cline": {
-      "name": "Cline",
-      "command": "cline",
-      "category": "coding-agent"
-    },
-    "codex": {
-      "name": "Codex CLI",
-      "command": "codex",
-      "category": "coding-agent"
-    },
-    "gemini": {
-      "name": "Gemini CLI",
-      "command": "gemini",
-      "category": "coding-agent"
-    },
-    "github": {
-      "name": "GitHub CLI",
-      "command": "gh",
-      "category": "developer-platform"
-    },
-    "ollama": {
-      "name": "Ollama",
-      "command": "ollama",
-      "category": "local-ai"
-    },
-    "matrix": {
-      "name": "Melodie Matrix Engine",
-      "command": "matrix",
-      "category": "melodiespark"
-    },
-    "melodie": {
-      "name": "Melodie CLI",
-      "command": "melodie",
-      "category": "melodiespark"
-    }
+    "name": "Melodiespark Platforms CLI",
+    "category": "core",
+    "command": "platforms"
+  },
+  "botrevenue": {
+    "name": "BotRevenue CLI",
+    "category": "commerce",
+    "command": "botrevenue"
+  },
+  "codex": {
+    "name": "OpenAI Codex",
+    "category": "coding-agent",
+    "command": "codex"
+  },
+  "claude": {
+    "name": "Claude Code",
+    "category": "coding-agent",
+    "command": "claude"
+  },
+  "gemini": {
+    "name": "Gemini CLI",
+    "category": "coding-agent",
+    "command": "gemini"
+  },
+  "cline": {
+    "name": "Cline",
+    "category": "coding-agent",
+    "command": "cline"
+  },
+  "opencode": {
+    "name": "OpenCode",
+    "category": "coding-agent",
+    "command": "opencode"
+  },
+  "kilo": {
+    "name": "Kilo Code",
+    "category": "coding-agent",
+    "command": "kilo"
+  },
+  "agy": {
+    "name": "Antigravity",
+    "category": "coding-agent",
+    "command": "agy"
+  },
+  "devin": {
+    "name": "Devin CLI",
+    "category": "coding-agent",
+    "command": "devin"
+  },
+  "ollama": {
+    "name": "Ollama",
+    "category": "model-runtime",
+    "command": "ollama"
+  },
+  "litellm": {
+    "name": "LiteLLM",
+    "category": "gateway",
+    "command": "litellm"
+  },
+  "npm": {
+    "name": "npm",
+    "category": "package-manager",
+    "command": "npm"
+  },
+  "npx": {
+    "name": "npx",
+    "category": "package-runner",
+    "command": "npx"
+  },
+  "pnpm": {
+    "name": "pnpm",
+    "category": "package-manager",
+    "command": "pnpm"
+  },
+  "python": {
+    "name": "Python",
+    "category": "runtime",
+    "command": "python"
+  },
+  "pip": {
+    "name": "pip",
+    "category": "package-manager",
+    "command": "pip"
+  },
+  "pipx": {
+    "name": "pipx",
+    "category": "package-manager",
+    "command": "pipx"
+  },
+  "git": {
+    "name": "Git",
+    "category": "developer-tool",
+    "command": "git"
+  },
+  "gh": {
+    "name": "GitHub CLI",
+    "category": "developer-tool",
+    "command": "gh"
   }
 }

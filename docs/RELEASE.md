@@ -1,0 +1,16 @@
+# Release Gates
+
+1. SOURCE
+2. SECURITY
+3. COMPILE
+4. STATIC ANALYSIS
+5. TEST
+6. BUILD
+7. PACKAGE
+8. CLEAN INSTALL
+9. CLI SMOKE
+10. GIT COMMIT
+11. GITHUB PUSH
+12. REMOTE SHA MATCH
+
+Public npm or PyPI publishing is a separate explicit operation.
