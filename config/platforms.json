@@ -1,0 +1,64 @@
+{
+  "platforms": {
+    "opencode": {
+      "name": "OpenCode",
+      "command": "opencode",
+      "category": "coding-agent"
+    },
+    "devin": {
+      "name": "Devin CLI",
+      "command": "devin",
+      "category": "coding-agent"
+    },
+    "kilo": {
+      "name": "Kilo CLI",
+      "command": "kilo",
+      "category": "coding-agent"
+    },
+    "agy": {
+      "name": "Antigravity CLI",
+      "command": "agy",
+      "category": "coding-agent"
+    },
+    "claude": {
+      "name": "Claude CLI",
+      "command": "claude",
+      "category": "coding-agent"
+    },
+    "cline": {
+      "name": "Cline",
+      "command": "cline",
+      "category": "coding-agent"
+    },
+    "codex": {
+      "name": "Codex CLI",
+      "command": "codex",
+      "category": "coding-agent"
+    },
+    "gemini": {
+      "name": "Gemini CLI",
+      "command": "gemini",
+      "category": "coding-agent"
+    },
+    "github": {
+      "name": "GitHub CLI",
+      "command": "gh",
+      "category": "developer-platform"
+    },
+    "ollama": {
+      "name": "Ollama",
+      "command": "ollama",
+      "category": "local-ai"
+    },
+    "matrix": {
+      "name": "Melodie Matrix Engine",
+      "command": "matrix",
+      "category": "melodiespark"
+    },
+    "melodie": {
+      "name": "Melodie CLI",
+      "command": "melodie",
+      "category": "melodiespark"
+    }
+  }
+}
