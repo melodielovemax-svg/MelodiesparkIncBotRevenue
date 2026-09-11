@@ -26,11 +26,7 @@ def inventory() -> dict:
             groups[name] = []
             continue
 
-        groups[name] = sorted(
-            entry.name
-            for entry in target.iterdir()
-            if entry.is_dir()
-        )
+        groups[name] = sorted(entry.name for entry in target.iterdir() if entry.is_dir())
 
     return {
         "workspace": str(root),

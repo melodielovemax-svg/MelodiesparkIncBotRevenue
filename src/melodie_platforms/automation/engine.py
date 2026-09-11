@@ -28,8 +28,6 @@ def require_enabled(name: str) -> dict:
     entry = entries[name]
 
     if not entry["enabled"]:
-        raise PermissionError(
-            f"Automation '{name}' is DISABLED by policy."
-        )
+        raise PermissionError(f"Automation '{name}' is DISABLED by policy.")
 
     return entry

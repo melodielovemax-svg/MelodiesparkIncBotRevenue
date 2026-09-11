@@ -28,11 +28,7 @@ def audit_packages() -> list[dict]:
 
         result = capture(command, args)
 
-        value = (
-            result.stdout.strip()
-            or result.stderr.strip()
-            or None
-        )
+        value = result.stdout.strip() or result.stderr.strip() or None
 
         rows.append(
             {

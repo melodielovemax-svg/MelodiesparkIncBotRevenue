@@ -85,9 +85,7 @@ def doctor(json_output: bool = typer.Option(False, "--json")) -> None:
                 "name": item["name"],
                 "command": item["command"],
                 "path": resolve(item["command"]),
-                "status": "VERIFIED"
-                if installed(item["command"])
-                else "UNVERIFIED",
+                "status": "VERIFIED" if installed(item["command"]) else "UNVERIFIED",
             }
         )
 
@@ -234,9 +232,7 @@ def evidence() -> None:
         payload,
     )
 
-    console.print(
-        f"[green]Evidence written:[/green] {target}"
-    )
+    console.print(f"[green]Evidence written:[/green] {target}")
 
 
 @app.command(

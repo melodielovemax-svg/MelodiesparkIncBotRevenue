@@ -87,9 +87,7 @@ def golden_path() -> None:
     ]
 
     for number, stage in enumerate(stages, start=1):
-        console.print(
-            f"{number}. {stage}: [yellow]UNVERIFIED until supported by real evidence[/yellow]"
-        )
+        console.print(f"{number}. {stage}: [yellow]UNVERIFIED until supported by real evidence[/yellow]")
 
 
 def main() -> None:
