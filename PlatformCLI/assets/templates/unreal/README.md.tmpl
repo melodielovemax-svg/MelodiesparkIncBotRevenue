@@ -1,0 +1,62 @@
+# {{PLUGIN_NAME}}
+
+{{DESCRIPTION}}
+
+Generated from the `unreal` template v{{TEMPLATE_VERSION}} by `@melodiespark/cli` on
+{{GENERATED_AT}}.
+
+## Status: SCAFFOLD
+
+**This plugin was not compiled when it was generated.** No Unreal Engine
+installation is present in the environment that produced it, so compile success,
+link success, and runtime behaviour are all **UNVERIFIED**. The files here are a
+starting point, not a validated plugin.
+
+## What you get
+
+A single **runtime** module named `{{PLUGIN_NAME}}` that depends only on `Core`,
+`CoreUObject` and `Engine` — all of which ship with the engine. There is no
+editor module, no content, no assets, and no dependency on any paid or
+Marketplace plugin.
+
+| Path | Purpose |
+|---|---|
+| `{{PLUGIN_NAME}}.uplugin` | Plugin descriptor. `CanContainContent` is `false`. |
+| `Source/{{PLUGIN_NAME}}/{{PLUGIN_NAME}}.Build.cs` | Module rules. |
+| `Source/{{PLUGIN_NAME}}/Public/` | Public header, `{{PLUGIN_NAME}}Module.h`. |
+| `Source/{{PLUGIN_NAME}}/Private/` | Module implementation. |
+| `Config/Default{{PLUGIN_NAME}}.ini` | Defaults. No network, no credentials. |
+
+## Requirements
+
+- Unreal Engine 5.x
+- A C++-enabled project (a Blueprint-only project cannot host a C++ plugin)
+
+## Install
+
+1. Copy this folder into your project's `Plugins/` directory, so you end up with
+   `<YourProject>/Plugins/{{PLUGIN_NAME}}/`.
+2. Right-click the `.uproject` file and choose **Generate Visual Studio project
+   files**.
+3. Build. On first load the engine logs
+   `{{PLUGIN_NAME}} runtime module started.` — that log line is the only proof
+   the module loaded, and it is your first thing to check.
+
+If the plugin does not appear, confirm **Plugins** is enabled for the project
+and that the engine version matches your project's.
+
+## Verify it works
+
+There is no automated test in this scaffold, because there is no behaviour to
+test yet. The minimum honest check is:
+
+1. The module compiles and links.
+2. `{{PLUGIN_NAME}} runtime module started.` appears in the output log.
+3. `{{PLUGIN_NAME}} runtime module shut down.` appears on shutdown.
+
+Once you add behaviour, add tests alongside it. A module with logic and no tests
+is a scaffold that stopped being honest.
+
+## Licence
+
+{{LICENSE}}. See `LICENSE`.

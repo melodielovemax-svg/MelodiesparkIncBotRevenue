@@ -1,0 +1,1 @@
+MelodieOS layers: Control Plane -> Provider Router -> Model Registry -> Agent Registry -> Task Execution -> Evidence/Audit -> Product/Revenue -> Wallet/Web3 -> Deployment. External actions require evidence and approval.

@@ -1,0 +1,134 @@
+Metadata-Version: 2.4
+Name: melodiespark-cli
+Version: 0.1.0
+Summary: Python frontend for the Melodiespark content catalog and template CLI. Deny-by-default extraction, Web3-safe scaffolding, pip/pipx distribution.
+Author: Melodiespark
+License-Expression: LicenseRef-Proprietary
+Project-URL: Homepage, https://github.com/melodielovemax-svg
+Project-URL: Source, https://github.com/melodielovemax-svg
+Keywords: melodiespark,cli,catalog,scaffolding,web3,template
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: Topic :: Utilities
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: dev
+Requires-Dist: build>=1.0; extra == "dev"
+Requires-Dist: twine>=4.0; extra == "dev"
+Requires-Dist: pytest>=7.4; extra == "dev"
+Dynamic: license-file
+
+# melodiespark-cli
+
+Python frontend for the Melodiespark content catalog and template CLI.
+
+```
+pip install melodiespark-cli
+pipx install melodiespark-cli
+```
+
+The same catalog, the same classification rules, the same templates, and the
+same policy as the TypeScript CLI (`@melodiespark/cli`). One catalog, two
+frontends.
+
+## Why this package exists
+
+Two frontends, one contract. The TypeScript CLI builds the catalog; this one
+reads it. Neither re-implements the extraction rules, because two independent
+implementations of a security policy drift — and they drift permissively,
+silently.
+
+A parity test in the Node package runs both frontends against one catalog and
+asserts they agree on summary counts, per-category counts, per-query counts,
+template sets, and the set of failing `verify` checks. If Python is unavailable,
+that test reports `SKIPPED` rather than passing.
+
+**Known limitation, accepted:** building the catalog is Node-only. Run
+`melodie catalog --build` once from a checkout. A wheel ships the catalog as
+package data, so this only matters when the catalog is stale.
+
+## Commands
+
+| Command | Purpose |
+|---|---|
+| `melodiespark-cli catalog` | Summarize the catalog. |
+| `melodiespark-cli inspect <path…>` | Query catalog metadata. Never prints file contents. |
+| `melodiespark-cli extract <path…>` | Copy content. **Deny by default.** Every decision is audited. |
+| `melodiespark-cli template [name]` | List and describe templates. |
+| `melodiespark-cli init <dir> -t <name>` | Scaffold a project. |
+| `melodiespark-cli verify` | Catalog integrity plus a secret-leak scan. `--deep` re-hashes the source. |
+| `melodiespark-cli status` | Capability status, with evidence. |
+
+Every command accepts `--json`.
+
+## The one rule
+
+> **The catalog says a file exists. It does not expose its contents.**
+
+## Deny by default
+
+```bash
+melodiespark-cli inspect --category SOURCE          # see what exists
+melodiespark-cli extract "src/index.py" --dry-run  # decide, write nothing
+melodiespark-cli extract "src/index.py" --out ./SOURCE
+```
+
+Two independent layers:
+
+1. **Path and filename patterns.** A copy of a known secret in a directory
+   nobody enumerated is still denied.
+2. **Content scan.** Before content is copied, it is scanned for high-signal
+   credential patterns. A live key pasted into an ordinary `.md` file is caught
+   even though the path looks harmless.
+
+`SECRET` is **permanently** denied. `--i-have-authorization` does not unlock it.
+
+Decisions append to `extract-audit.jsonl` next to the destination.
+
+## Command name collision — read this before installing
+
+This package declares **both** console scripts `melodiespark-cli` and
+`melodiespark`. The existing `melodiespark-py` package also declares
+`melodiespark`.
+
+Installing both into one environment makes the second install overwrite the
+first one's shim. They are different programs. This is unresolved and is a
+product decision, not a technical one — see `DECISIONS.md` D9.
+
+**Until it is resolved, do not install `melodiespark` and `melodiespark-cli` into
+the same environment.** `melodiespark-cli` is unambiguous and safe.
+
+## Development
+
+```bash
+python -m pip install -e ".[dev]"
+python scripts/sync_data.py                          # copy catalog + rules + templates into the package
+python -m unittest discover -s tests -v              # 18 policy + dispatch tests
+python -m build
+python -m twine check dist/*
+```
+
+`sync_data.py` must run before `python -m build`. It copies the shared catalog,
+the classification rules, and the templates into
+`src/melodiespark_cli/data/` so the wheel is self-contained and does not need
+the monorepo present at runtime.
+
+## Status
+
+Packaging is validated locally: wheel and sdist build, `twine check` passes, the
+wheel installs into a clean virtualenv, and `pipx` installs it. See
+`BUILD_REPORT.md`.
+
+**Nothing has been published to PyPI.** No registry credentials were used or
+requested. Local build success is not publication.
+
+The presence of this package, a template, or a scaffold is not evidence that any
+described capability is built, tested, secure, or operational.

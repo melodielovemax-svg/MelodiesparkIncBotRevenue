@@ -61,6 +61,8 @@ import { runEvidence } from './commands/evidence.ts';
 import { runSandbox } from './commands/sandbox.ts';
 import { runDeployment } from './commands/deployment.ts';
 import { runAudit } from './commands/audit.ts';
+import { runWeb3 } from './commands/web3.ts';
+import { runIde } from './commands/ide.ts';
 
 const COMMANDS: Record<string, (args: ReturnType<typeof parseArgs>) => void | Promise<void>> = {
   // Catalog & Scaffolding
@@ -91,11 +93,17 @@ const COMMANDS: Record<string, (args: ReturnType<typeof parseArgs>) => void | Pr
   evidence: runEvidence,
   sandbox: runSandbox,
   deployment: runDeployment,
+
+  // Web3 & Crypto (NEW V9.34.32999)
+  web3: runWeb3,
+
+  // IDE & Development (NEW V9.34.32999)
+  ide: runIde,
 };
 
 function help(): void {
-  heading(`${NAME} ${VERSION} - Melodie CLI Coding-Agent Platform`);
-  line('  Evidence-first governed coding agent platform, model router, and catalog CLI.');
+  heading(`${NAME} ${VERSION} - Melodie CLI V9.34.32999`);
+  line('  Unified MelodieMetamelo-DS Ultimate CLI with Web3, IDE orchestration, and coding-agent platform.');
   line();
   line('  Usage: melodie <command> [subcommand] [options]');
   line();
@@ -140,6 +148,20 @@ function help(): void {
   line('    workflow history        Inspect past workflow execution traces');
   line('    workflow create/pause/resume/cancel');
   line();
+  line('  Web3 & Crypto (NEW V9.34.32999)');
+  line('    web3 connect           Connect to Web3 wallet (read-only)');
+  line('    web3 status            Show wallet status and balance');
+  line('    web3 intent <addr>     Create transaction intent (no execution)');
+  line('    web3 sign <msg>         Sign message (requires explicit consent)');
+  line('    web3 config             Configure Web3 settings');
+  line();
+  line('  IDE & Development (NEW V9.34.32999)');
+  line('    ide launch [name]       Launch IDE (default: antigravity)');
+  line('    ide status              Show IDE status and configurations');
+  line('    ide config              Configure IDE settings');
+  line('    ide open <path>         Open project in IDE');
+  line('    ide template <type>     Create IDE-specific project');
+  line();
   line('  Evidence & Sandbox');
   line('    evidence list           List cryptographic evidence records');
   line('    evidence verify <id>    Verify SHA-256 integrity of evidence record');
@@ -161,6 +183,7 @@ function help(): void {
   line('    init <dir>              Scaffold a project from template');
   line();
   line(style.dim('  Governance rule: Catalog entry != Connected provider != Live inference != Production ready.'));
+  line(style.dim('  Web3 operations are read-only by default. Transaction signing requires explicit consent.'));
 }
 
 async function main(): Promise<void> {

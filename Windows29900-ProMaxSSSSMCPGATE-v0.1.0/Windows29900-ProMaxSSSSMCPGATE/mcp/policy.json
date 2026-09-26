@@ -1,0 +1,35 @@
+{
+  "version": "0.1.0",
+  "default": "deny",
+  "audit": true,
+  "capabilities": {
+    "read_system_info": {
+      "enabled": true,
+      "approval": false
+    },
+    "read_project_files": {
+      "enabled": true,
+      "approval": true
+    },
+    "write_project_files": {
+      "enabled": true,
+      "approval": true
+    },
+    "execute_commands": {
+      "enabled": false,
+      "approval": true
+    },
+    "install_packages": {
+      "enabled": false,
+      "approval": true
+    },
+    "modify_boot": {
+      "enabled": false,
+      "approval": true
+    },
+    "modify_security_policy": {
+      "enabled": false,
+      "approval": true
+    }
+  }
+}

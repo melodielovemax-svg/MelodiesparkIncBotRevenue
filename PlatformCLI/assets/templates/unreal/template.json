@@ -1,0 +1,39 @@
+{
+  "name": "unreal",
+  "version": "1.0.0",
+  "description": "Minimal Unreal Engine 5 runtime module plugin scaffold.",
+  "kind": "unreal",
+  "targets": ["unreal-engine-5"],
+  "install": {
+    "copy": "Copy the plugin folder into <YourProject>/Plugins/",
+    "regen": "Right-click the .uproject > Generate Visual Studio project files"
+  },
+  "run": {
+    "verify-sources": "Open the .uproject and confirm the module appears in the output log",
+    "package": "UnrealEditor-Cmd <YourProject>.uproject -run=DerivedDataCache -fill -DDC=NoShared"
+  },
+  "variables": {
+    "PLUGIN_NAME": "MelodiesparkScaffold",
+    "DESCRIPTION": "Minimal Unreal Engine 5 runtime module plugin scaffold."
+  },
+  "consent_gated_files": [],
+  "web3": null,
+  "files": [
+    "MelodiesparkScaffold.uplugin",
+    "README.md",
+    "LICENSE",
+    ".gitignore",
+    "Config/DefaultMelodiesparkScaffold.ini",
+    "Source/MelodiesparkScaffold/MelodiesparkScaffold.Build.cs",
+    "Source/MelodiesparkScaffold/Public/MelodiesparkScaffoldModule.h",
+    "Source/MelodiesparkScaffold/Private/MelodiesparkScaffoldModule.cpp"
+  ],
+  "notes": [
+    "Emits 8 files plus MELODIESPARK_SCAFFOLD.json from the generator.",
+    "This scaffold was NOT compiled: no Unreal Engine installation is present in this workspace. Treat compile success as UNVERIFIED until you build it in your own project.",
+    "Runtime module only. No editor module, no content, no assets, no build.cs dependency on any paid Marketplace plugin.",
+    "Depends only on Core, CoreUObject and Engine, which ship with the engine.",
+    "Non-web3: no wallet, signing, broadcasting, custody or token handling of any kind.",
+    "Status of generated projects: SCAFFOLD. Nothing here has been built, tested, audited or deployed."
+  ]
+}

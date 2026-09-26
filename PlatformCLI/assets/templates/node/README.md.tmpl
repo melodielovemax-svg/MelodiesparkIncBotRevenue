@@ -1,0 +1,115 @@
+# {{PACKAGE_NAME}}
+
+{{DESCRIPTION}}
+
+A zero-dependency TypeScript CLI plus library, scaffolded from the `{{TEMPLATE}}` template
+(version `{{TEMPLATE_VERSION}}`, kind `{{TEMPLATE_KIND}}`) by `@melodiespark/cli` on {{GENERATED_AT}}.
+
+Status: **SCAFFOLD**
+
+The presence of this project is not evidence that it is built, tested, secure, reviewed or
+operational. The code has not been compiled, executed, audited or deployed as part of
+generation. Every command shown below is an instruction, not a report of something that
+happened. Run the commands yourself, read the code, and treat it as unreviewed input.
+
+## Requirements
+
+- Node.js **>= 22.18.0** (the `engines` field is enforced by npm).
+- **Zero runtime dependencies.** `dependencies` is empty and stays empty unless you change
+  it deliberately.
+- Two dev-only tools, needed to compile and test: `typescript` and `@types/node`
+  (`devDependencies`). They are never installed for consumers of the published package.
+
+```sh
+npm install             # installs the dev toolchain
+npm install --omit=dev  # if you only want to run the CLI
+```
+
+## Install
+
+```sh
+npm install          # installs the dev toolchain; there are no runtime dependencies
+pnpm add -g .        # global install with pnpm
+npx .                # run straight from the folder
+```
+
+## Usage
+
+```sh
+{{CLI_BIN}} --help
+{{CLI_BIN}} --version
+{{CLI_BIN}} hash "hello"      # -> sha256 hex digest
+{{CLI_BIN}} slug "Hello World" # -> hello-world
+{{CLI_BIN}} selftest          # built-in checks, exits 0 when they pass
+```
+
+Run the CLI straight from a checkout, with no install and no build step:
+
+```sh
+node bin/{{CLI_BIN}}.mjs hash "hello"
+node bin/{{CLI_BIN}}.mjs slug "Hello World"
+```
+
+The CLI loads the built `dist/index.js` when it is present and falls back to `src/index.ts`
+otherwise, which Node >= 22.18 loads natively by stripping the types. So every subcommand
+works on a fresh clone, before `npm install` and before `npm run build`.
+
+### Library
+
+```ts
+import { sha256, slugify } from '{{PACKAGE_NAME}}';
+
+sha256('abc');           // 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'
+slugify('The Long Song') // 'the-long-song'
+```
+
+The entry point is the built output, so `npm run build` must succeed before
+`npm pack` or `npm publish`. Consumers see `dist/index.js` plus `dist/index.d.ts`.
+
+## Scripts
+
+| Script | What it does |
+| --- | --- |
+| `npm run build` | Compile `src/` to `dist/` with type declarations. |
+| `npm run typecheck` | Type-check without emitting. |
+| `npm run lint` | Type-check, then syntax-check the `bin/` entry. No style rules. |
+| `npm test` | Build, then run the `node:test` suite over `dist/**/*.test.js`. |
+| `npm run selftest` | Run the CLI's own built-in checks. Needs no build. |
+| `npm run clean` | Delete `dist/`. |
+
+`lint` is deliberately weak: this package has no linter dependency, so it runs the two
+checks Node and `tsc` can do for free. It will not catch style, unused exports or
+suspicious patterns. Add ESLint, Biome or whatever your team uses, and wire it into this
+script, once you decide that is worth the dependencies.
+
+The glob in `npm test` is deliberate. `node --test dist/` reports success while running
+nothing at all, and a bare `node --test` in the project root picks up `src/index.test.ts`,
+which cannot resolve its `./index.js` import before a build. Test the compiled output
+explicitly.
+
+## Publishing notes
+
+- `publishConfig.access` is `public`.
+- `repository` is **not** set. This scaffold cannot know where the code lives, and it will
+  not invent a URL. Add `repository`, `homepage` and `bugs` before publishing.
+- `npm pack` ships `bin/`, `dist/`, `README.md` and `LICENSE` only. Run the build first;
+  a stale `dist/` is published as-is.
+- Because `files` includes all of `dist/`, the compiled `index.test.js` ships too. Harmless,
+  and no dev dependency is needed to run it. If you would rather not publish it, list the
+  `dist/` files you want explicitly in `files` instead of the whole directory.
+- `.npmignore` cannot trim anything `files` already asked for. It is there as a fallback.
+- The `bin` **file name** is fixed at `bin/melodie-app.mjs`. The `bin` **key** in
+  `package.json` is templated, so if you renamed the key, rename the file to match or the
+  installed command will not resolve.
+
+## Security
+
+- No network access, no environment variables, no child processes.
+- The only filesystem reads are the CLI's own `dist/index.js` or `src/index.ts`. Both are
+  local files inside the package.
+- No wallet, key, token or transaction handling of any kind.
+- Keep it that way unless you have a reason and a reviewer.
+
+## License
+
+{{LICENSE}} — see [LICENSE](./LICENSE). Copyright (c) {{YEAR}} {{AUTHOR}}.

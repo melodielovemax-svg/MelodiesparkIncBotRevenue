@@ -10,8 +10,8 @@ import { resolvePaths } from '../paths.ts';
 import { loadCatalog, type LoadedCatalog } from '../store.ts';
 import { bytesHuman, heading, line, style, table } from '../output.ts';
 
-export const VERSION = '0.1.0';
-export const NAME = '@melodiespark/cli';
+export const VERSION = '9.34.32999';
+export const NAME = 'Melodie-CLI V9.34.32999';
 
 function printSummary(loaded: LoadedCatalog): void {
   const { catalog } = loaded;

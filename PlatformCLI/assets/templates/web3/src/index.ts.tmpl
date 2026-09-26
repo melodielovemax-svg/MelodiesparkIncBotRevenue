@@ -1,0 +1,254 @@
+/**
+ * {{PACKAGE_NAME}} - entry point.
+ *
+ * What this program does, in order:
+ *   1. feature-detects the two OPTIONAL consent-gated modules and prints the
+ *      safety posture banner;
+ *   2. attempts a read-only wallet connection;
+ *   3. performs read-only chain calls (skipped cleanly when no RPC is set);
+ *   4. builds and PRINTS an unsigned withdrawal intent for a human to inspect;
+ *   5. states plainly that nothing was signed and nothing was broadcast.
+ *
+ * ---------------------------------------------------------------------------
+ * WHY THE TWO OPTIONAL IMPORTS BELOW ARE NOT STATIC
+ * ---------------------------------------------------------------------------
+ * `src/wallet/signing.ts` and `src/wallet/broadcast.ts` are only written to
+ * disk when the operator passed `--{{CONSENT_FLAG}}` to `melodie init`. A
+ * default scaffold therefore does not contain them, and a static
+ * `import ... from './wallet/signing.ts'` would break the build of the default
+ * scaffold - the one configuration that must always work.
+ *
+ * So the specifiers below are held in variables on purpose. TypeScript does not
+ * resolve a dynamic import whose specifier is not a string literal, so
+ * `tsc --noEmit` stays green in both configurations, and the `try/catch` turns
+ * "module absent" into an ordinary read-only state instead of a crash.
+ *
+ * This file never calls the optional modules even when they are present. It
+ * only reports that they exist.
+ */
+
+import { DEFAULT_CHAIN, describeChain, findChain, readEnv, resolveRpcUrl, type ChainConfig, type EnvSource } from './config.ts';
+import {
+  connectWallet,
+  describeSession,
+  NoInjectedWalletError,
+  WalletProtocolError,
+  type HexAddress,
+  type WalletSession,
+} from './wallet/connect.ts';
+import { summarizeChainReads, type ChainReadSummary } from './wallet/reads.ts';
+import {
+  buildWithdrawalIntent,
+  formatIntent,
+  INTENT_DEFAULT_TTL_SECONDS,
+  INTENT_MAX_TTL_SECONDS,
+  UNSIGNED_NOTICE,
+  VALIDATION_FIXTURE_ADDRESS,
+  type BuildWithdrawalIntentInput,
+  type IntentValidationError,
+  type WithdrawalIntentPayload,
+} from './wallet/intent.ts';
+import { describePosture, isConsentGatedModule, summarizePosture, type ConsentGatedModule } from './safety.ts';
+
+/** Held in variables so TypeScript does not try to resolve them at compile time. */
+const SIGNING_MODULE_SPECIFIER = './wallet/signing.ts';
+const BROADCAST_MODULE_SPECIFIER = './wallet/broadcast.ts';
+
+/**
+ * Demonstration amount used when `INTENT_AMOUNT_WEI` is not set: 0.001 of the
+ * chain's native testnet currency. It is a print-only fixture on a testnet.
+ */
+const DEMO_AMOUNT_WEI = '1000000000000000';
+
+const env: EnvSource = readEnv();
+
+function heading(text: string): void {
+  console.log(`\n${text}`);
+}
+
+function line(text = ''): void {
+  console.log(text);
+}
+
+async function loadOptionalModule(specifier: string): Promise<unknown> {
+  try {
+    const loaded: unknown = await import(specifier);
+    return loaded;
+  } catch {
+    // Absent module, or a module that failed to evaluate. Both mean the same
+    // thing to us: the capability is not available in this scaffold.
+    return null;
+  }
+}
+
+function asConsentGated(value: unknown): ConsentGatedModule | null {
+  return isConsentGatedModule(value) ? value : null;
+}
+
+async function detectConsentGatedModules(): Promise<{
+  signing: ConsentGatedModule | null;
+  broadcasting: ConsentGatedModule | null;
+}> {
+  const [signing, broadcasting] = await Promise.all([
+    loadOptionalModule(SIGNING_MODULE_SPECIFIER),
+    loadOptionalModule(BROADCAST_MODULE_SPECIFIER),
+  ]);
+  return { signing: asConsentGated(signing), broadcasting: asConsentGated(broadcasting) };
+}
+
+function printPosture(signing: boolean, broadcasting: boolean): void {
+  const posture = describePosture(signing, broadcasting);
+  line('--- safety posture ---');
+  for (const entry of posture.lines) line(entry);
+  line();
+  line(`  ${summarizePosture(posture)}`);
+  for (const warning of posture.warnings) line(`  WARNING: ${warning}`);
+  line();
+}
+
+async function runConnect(chain: ChainConfig): Promise<WalletSession | null> {
+  heading('Wallet connection (read-only)');
+  try {
+    const session = await connectWallet();
+    line(`  connected    ${describeSession(session, chain)}`);
+    line('  accounts are public addresses only; connecting authorises nothing and moves nothing.');
+    return session;
+  } catch (error) {
+    if (error instanceof NoInjectedWalletError) {
+      line(`  skipped      ${error.message}`);
+    } else if (error instanceof WalletProtocolError) {
+      line(`  refused      ${error.message}`);
+    } else {
+      line(`  skipped      ${error instanceof Error ? error.message : String(error)}`);
+    }
+    line('  no wallet is required: every read below falls back to a public address or is skipped.');
+    return null;
+  }
+}
+
+async function runReads(chain: ChainConfig, address: HexAddress | null): Promise<ChainReadSummary> {
+  heading('Read-only chain access');
+  const resolved = resolveRpcUrl(chain, env);
+  if (resolved.url === null) {
+    line(`  skipped      no RPC endpoint configured. Set ${resolved.envVar} in the environment.`);
+    line('  no endpoint is bundled with this template, and no credential is required or stored.');
+    return {
+      chain: chain.name,
+      endpointChainId: null,
+      headBlockNumber: null,
+      balanceWei: null,
+      balanceFormatted: null,
+      failures: [],
+    };
+  }
+  line(`  endpoint     supplied via ${resolved.envVar} (value not printed)`);
+  line('  calls        eth_chainId, eth_getBlockNumber, eth_getBalance - read paths only');
+
+  const summary = await summarizeChainReads({ chain, env, address });
+  line(`  chain        ${summary.chain}`);
+  line(`  chainId      ${summary.endpointChainId ?? 'unavailable'}`);
+  line(`  head block   ${summary.headBlockNumber ?? 'unavailable'}`);
+  if (summary.balanceWei !== null) {
+    line(`  balance      ${summary.balanceWei} wei (${summary.balanceFormatted ?? 'unavailable'})`);
+  } else if (address) {
+    line('  balance      unavailable');
+  }
+  for (const failure of summary.failures) line(`  note         ${failure}`);
+  return summary;
+}
+
+function resolveDemoChain(): ChainConfig {
+  const requested = env.CHAIN_ID;
+  if (requested === undefined || requested.trim() === '') return DEFAULT_CHAIN;
+  const chainId = Number(requested.trim());
+  if (!Number.isSafeInteger(chainId) || chainId <= 0) {
+    line(`  CHAIN_ID is not a positive integer; falling back to the default testnet (${DEFAULT_CHAIN.name}).`);
+    return DEFAULT_CHAIN;
+  }
+  return findChain(chainId) ?? DEFAULT_CHAIN;
+}
+
+function buildDemoIntent(chain: ChainConfig, connectedAddress: HexAddress | null, now: number): WithdrawalIntentPayload {
+  const requestedDestination = env.INTENT_DESTINATION?.trim();
+  const destination = requestedDestination && requestedDestination !== '' ? requestedDestination : VALIDATION_FIXTURE_ADDRESS;
+
+  const input: BuildWithdrawalIntentInput = {
+    amountWei: env.INTENT_AMOUNT_WEI?.trim() || DEMO_AMOUNT_WEI,
+    destination,
+    chainId: chain.id,
+    nonce: env.INTENT_NONCE?.trim() || String(now),
+    memo: env.INTENT_MEMO ?? `demonstration intent on ${chain.name} (testnet)`,
+    ttlSeconds: INTENT_DEFAULT_TTL_SECONDS,
+    connectedAddress,
+    now,
+  };
+
+  return buildWithdrawalIntent(input);
+}
+
+function printIntent(chain: ChainConfig, connectedAddress: HexAddress | null): void {
+  heading('Withdrawal intent (unsigned data, printed for inspection)');
+  const now = Date.now();
+  line(`  destination  ${env.INTENT_DESTINATION?.trim() || `${VALIDATION_FIXTURE_ADDRESS} (validation fixture: the standard burn address, used only so this run has a well-formed address that is nobody's)`}`);
+  line(`  amountWei    ${env.INTENT_AMOUNT_WEI?.trim() || `${DEMO_AMOUNT_WEI} (demonstration fixture on a testnet)`}`);
+  line(`  ttlSeconds   ${INTENT_DEFAULT_TTL_SECONDS} (hard maximum ${INTENT_MAX_TTL_SECONDS})`);
+
+  try {
+    const intent = buildDemoIntent(chain, connectedAddress, now);
+    line(formatIntent(intent, now));
+  } catch (error) {
+    const validation = error as Partial<IntentValidationError>;
+    const code = typeof validation.code === 'string' ? validation.code : 'UNKNOWN';
+    const field = typeof validation.field === 'string' ? validation.field : '(unknown)';
+    const message = error instanceof Error ? validation.message ?? error.message : String(error);
+    line(`  intent REJECTED by validation: [${code}] ${field}: ${message}`);
+    line('  Rejection is the safe outcome. Nothing was built, signed or sent.');
+    return;
+  }
+
+  line();
+  line(`  ${UNSIGNED_NOTICE}`);
+  line('  To act on this, a human takes the payload above into their own wallet and signs it there.');
+  line('  This application will not do that for them, and cannot.');
+}
+
+function printClosing(): void {
+  heading('What just happened');
+  line('  A read-only inspection ran, and an unsigned intent record was printed.');
+  line('  Nothing was signed.            No signature was requested, produced or stored.');
+  line('  Nothing was broadcast.         No transaction was sent to any network.');
+  line('  No key was involved.           No private key or seed phrase was generated,');
+  line('                                imported, read, requested or written anywhere.');
+  line("  No funds moved.                Custody of value stays with the user's wallet.");
+  line();
+  line('  Status: SCAFFOLD - generated from the "{{TEMPLATE}}" template v{{TEMPLATE_VERSION}} by @melodiespark/cli on {{GENERATED_AT}}.');
+  line('  Its presence is not evidence that any described capability is built, tested or operational.');
+}
+
+async function main(): Promise<void> {
+  const modules = await detectConsentGatedModules();
+  printPosture(modules.signing !== null, modules.broadcasting !== null);
+
+  const chain = resolveDemoChain();
+  line(`Configured chain: ${describeChain(chain, env)}`);
+  line('No mainnet is configured in this template.');
+
+  const session = await runConnect(chain);
+  const summary = await runReads(chain, session?.address ?? null);
+  printIntent(chain, session?.address ?? null);
+  printClosing();
+
+  session?.disconnect();
+  if (summary.failures.length > 0) {
+    // A failed read is information, not a crash. Exit code stays 0.
+    line();
+    line(`  (${summary.failures.length} read call(s) did not return. The scaffold is still read-only and nothing was sent.)`);
+  }
+}
+
+main().catch((error: unknown) => {
+  console.error('');
+  console.error('Unexpected failure:', error instanceof Error ? error.message : String(error));
+  console.error('Nothing was signed. Nothing was broadcast.');
+  process.exitCode = 1;
+});

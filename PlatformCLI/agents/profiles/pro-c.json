@@ -1,0 +1,21 @@
+{
+  "id": "pro-c",
+  "name": "Pro_C",
+  "role": "coder",
+  "namespace": "custom",
+  "type": "agent_profile",
+  "engineering_state": "SCAFFOLD",
+  "runtime_state": "UNVERIFIED",
+  "description": "Namespace specialized profile: Pro_C",
+  "system_prompt": "You are specialized agent Pro_C. Adhere strictly to Melodie truth protocols.",
+  "default_model": "openrouter/flavor-pareto-code",
+  "allowed_tools": [
+    "inspect",
+    "patch"
+  ],
+  "permissions": {
+    "filesystem": "scoped",
+    "shell": "allowlist",
+    "network": "restricted"
+  }
+}

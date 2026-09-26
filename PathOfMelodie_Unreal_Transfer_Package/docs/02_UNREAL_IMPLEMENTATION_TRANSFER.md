@@ -12,11 +12,13 @@ The package now contains a minimal Unreal Engine 5.8 C++ project scaffold:
   transient world creation, actor spawn, and `BeginPlay`
 
 This is implementation scaffolding, not a verified Unreal capability. The
-project has not yet been compiled or opened in the Editor, the automation test
-has not run, and no packaged build or custom gameplay level exists. The local
-environment has Unreal Engine 5.8 installed but no detected Visual Studio C++
-toolchain; build verification is therefore blocked until a supported compiler
-toolchain is available.
+project has not yet been compiled or loaded by the Editor, the automation test
+has not run, and no packaged build or custom gameplay level exists. UnrealBuildTool
+recognized the Editor target but failed Win64 SDK validation, reporting missing
+Windows SDK `10.0.19041.0`. The headless Editor attempt exited during platform
+validation before loading the project. No Visual Studio C++ toolchain was
+detected. Build and runtime verification are blocked until the supported
+Windows SDK and compiler toolchain are available.
 
 ## Source-of-truth order
 1. Verified source code and tests

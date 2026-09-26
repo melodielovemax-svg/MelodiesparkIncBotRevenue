@@ -1,0 +1,19 @@
+{
+  "project": "Windows 29900 ProMaxSSSSMCPGATE",
+  "version": "0.1.0",
+  "components": {
+    "kernel": "PLANNED",
+    "bootloader": "PLANNED",
+    "hal": "PLANNED",
+    "drivers": "PLANNED",
+    "memory_manager": "PLANNED",
+    "scheduler": "PLANNED",
+    "filesystem": "PLANNED",
+    "security": "SCAFFOLD",
+    "shell": "SCAFFOLD",
+    "cli": "SCAFFOLD",
+    "package_manager": "SCAFFOLD",
+    "mcp_gate": "SCAFFOLD",
+    "windows_compatibility": "UNVERIFIED"
+  }
+}

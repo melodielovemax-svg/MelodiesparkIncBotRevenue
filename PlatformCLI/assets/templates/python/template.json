@@ -1,0 +1,49 @@
+{
+  "name": "python",
+  "version": "1.0.0",
+  "description": "Zero-dependency Python CLI + library package with a src/ layout, for pip and pipx.",
+  "kind": "python",
+  "targets": ["pip", "pipx"],
+  "install": {
+    "pip": "python -m pip install -e .",
+    "pipx": "pipx install .",
+    "dev": "python -m pip install -e \".[dev]\""
+  },
+  "run": {
+    "local": "python -m {{PY_MODULE}}",
+    "help": "{{CLI_BIN}} --help",
+    "selftest": "{{CLI_BIN}} selftest",
+    "tests": "python -m unittest discover -s tests -v"
+  },
+  "variables": {
+    "DESCRIPTION": "Zero-dependency Python CLI + library package.",
+    "AUTHOR": "Melodiespark",
+    "LICENSE": "MIT"
+  },
+  "consent_gated_files": [],
+  "web3": null,
+  "files": [
+    "pyproject.toml",
+    ".gitignore",
+    "MANIFEST.in",
+    "README.md",
+    "LICENSE",
+    "src/{{PY_MODULE}}/__init__.py",
+    "src/{{PY_MODULE}}/__main__.py",
+    "src/{{PY_MODULE}}/cli.py",
+    "src/{{PY_MODULE}}/core.py",
+    "tests/test_core.py"
+  ],
+  "notes": [
+    "Emits 10 files. The generator additionally writes MELODIESPARK_SCAFFOLD.json and extract-audit.jsonl at the destination root; those come from the CLI, not from this template.",
+    "The `files` array lists TEMPLATE-SPACE paths, so the package directory appears as src/{{PY_MODULE}}. The CLI renders path segments as well as file contents, so scaffolding into a directory named my-tool emits src/my_tool/ and my_tool.cli:main. `melodie template show <name> --files` prints the same unrendered paths.",
+    "Both console scripts are declared: {{CLI_BIN}} (default melodie-app) and {{PY_MODULE}} (default melodie_app). They are the same entry point, exposed under both names so either spelling works.",
+    "No imports outside the Python standard library. `import melodie_app` must work in any bare interpreter on Python >= 3.10.",
+    "Build backend is setuptools with a src/ layout; `python -m build` produces an sdist and a wheel in dist/.",
+    "The PEP 621 `name` is taken verbatim from the target directory name. PEP 508 forbids spaces, so scaffold into a directory named like a valid identifier (or pass --name); the CLI does not normalize it for you.",
+    "No [project.urls] section: this scaffold cannot know the real repository or homepage and will not invent URLs.",
+    "The install/run strings in this manifest are printed verbatim by `melodie init` and `melodie template show`; the CLI does not substitute {{TOKEN}} in them, so the {{CLI_BIN}} and {{PY_MODULE}} placeholders show up literally in that panel. The README of the generated project is rendered correctly.",
+    "Non-web3 template: no wallet, signing, broadcasting, custody or token handling of any kind.",
+    "Status of generated projects: SCAFFOLD. Nothing here has been built, tested, audited or deployed."
+  ]
+}

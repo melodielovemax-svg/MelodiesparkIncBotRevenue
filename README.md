@@ -39,10 +39,11 @@ melodiespark-cli status           # same catalog, same templates, same policy
 
 ## Two things that need attention
 
-1. **A live Stripe secret key was found** in
-   `Melodiespark_Source/MelodieCLI/docs/API_KEY_ROTATION_GUIDE.md`. Treat it as
-   exposed and rotate it at Stripe. Excluding it from packages does not reduce
-   the exposure; only rotation does. This repository cannot do that.
+1. **A live Stripe secret key is committed** in the `MelodieCLI` repository —
+   10 commits, reachable from `origin/main`. Treat it as exposed: **rotate it at
+   Stripe**, then purge that repository's history and treat the repository as
+   fully compromised. Excluding it from packages does not reduce the exposure;
+   only rotation revokes it. This repository cannot do any of that.
 2. **Publication is not authorised.** Three gates are open, computed by the
    build and recorded in `BUILD_EVIDENCE.json`: credential rotation, the
    `melodiespark` command-name collision, and an explicit release decision. A

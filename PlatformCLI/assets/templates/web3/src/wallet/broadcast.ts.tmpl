@@ -1,0 +1,281 @@
+/**
+ * ===========================================================================
+ * CONSENT-GATED MODULE - READ BEFORE ENABLING
+ * ===========================================================================
+ *
+ * This file is NOT written to disk by a normal
+ *
+ *     melodie init <dir> --template web3
+ *
+ * run. It is only produced when the operator explicitly passes
+ *
+ *     --{{CONSENT_FLAG}}
+ *
+ * at generation time. By then the code is on disk and the operator owns every
+ * line of it. Read this header before you keep it.
+ *
+ * ===========================================================================
+ * NEVER CALLED AUTOMATICALLY
+ * ===========================================================================
+ * This module puts a transaction on a wire. It is therefore the most dangerous
+ * code in the template, and the rules below are not stylistic:
+ *
+ *   1. There is NO scheduler here. No `setInterval`, no `setTimeout`, no cron,
+ *      no queue, no retry loop, no "auto-approve" list, no batching, no
+ *      reconnect-and-resend. There is no code path in this file that reaches
+ *      the network without a synchronous human confirmation in the same call
+ *      stack.
+ *
+ *   2. Every send requires the caller to supply a `confirmation` callback. The
+ *      callback receives a {@link BroadcastConfirmation} describing exactly
+ *      what is about to happen and must return the boolean `true`. The check
+ *      is `=== true`, not a truthiness test, so `1`, `'yes'`, `{}` and
+ *      `undefined` are all rejections. If it does not return exactly `true`,
+ *      this module throws and nothing is sent.
+ *
+ *   3. The consent token is enforced before the callback is even reached, so
+ *      there is no way to skip the confirmation by reordering a call.
+ *
+ *   4. No private key is handled, generated, imported or stored here. The
+ *      transaction is signed by the user's own wallet through the injected
+ *      EIP-1193 provider.
+ *
+ *   5. This module does not decide WHAT to send. It executes exactly the
+ *      transaction the caller described, and it describes it back to the
+ *      human before doing so. If you cannot describe a transaction in one
+ *      line of plain text, do not send it.
+ *
+ * ===========================================================================
+ */
+
+import { createWalletClient, custom, type EIP1193Provider, type WalletClient } from 'viem';
+import type { Chain } from 'viem/chains';
+import type { HexAddress } from './connect.ts';
+import type { Eip1193Provider } from './connect.ts';
+
+/** Identity of this consent-gated module, used by the startup feature detection. */
+export const moduleId = 'melodiespark.consent-gated.broadcasting' as const;
+
+/** Marker: this module cannot be used without an explicit operator consent token. */
+export const requiresOperatorConsent = true as const;
+
+/** The exact string a caller must pass as `consentToken`. */
+export const BROADCAST_CONSENT_TOKEN = 'operator-consent:--{{CONSENT_FLAG}}';
+
+/** Thrown when broadcasting is attempted without the explicit consent token. */
+export class BroadcastConsentError extends Error {
+  constructor(message = 'Refusing to broadcast: the caller did not supply the explicit operator consent token.') {
+    super(message);
+    this.name = 'BroadcastConsentError';
+  }
+}
+
+/** Thrown when the human confirmation callback did not return exactly `true`. */
+export class BroadcastDeclinedError extends Error {
+  readonly summary: BroadcastConfirmation;
+  constructor(summary: BroadcastConfirmation) {
+    super(`Broadcast declined: the confirmation callback for ${describeBroadcast(summary)} did not return true. Nothing was sent.`);
+    this.name = 'BroadcastDeclinedError';
+    this.summary = summary;
+  }
+}
+
+/**
+ * @throws {BroadcastConsentError} when `token` is not exactly the consent token.
+ */
+export function assertBroadcastConsent(token: unknown): void {
+  if (typeof token !== 'string' || token !== BROADCAST_CONSENT_TOKEN) {
+    throw new BroadcastConsentError(
+      'Refusing to broadcast: consentToken must be passed by the caller and must match BROADCAST_CONSENT_TOKEN exactly.'
+    );
+  }
+}
+
+export type BroadcastKind = 'transaction' | 'contract-write';
+
+/** Exactly what is about to be sent. Shown to the human before anything moves. */
+export interface BroadcastConfirmation {
+  readonly kind: BroadcastKind;
+  readonly chainId: number;
+  readonly chainName: string;
+  readonly from: HexAddress;
+  readonly to: HexAddress | null;
+  /** Decimal wei. `'0'` for a pure contract write. */
+  readonly valueWei: string;
+  /** Human description of the calldata. Never the raw blob. */
+  readonly dataSummary: string;
+  /** Always true in the confirmation text. It is not a real safeguard. */
+  readonly isTestnet: boolean;
+}
+
+export type ConfirmationCallback = (summary: BroadcastConfirmation) => Promise<boolean> | boolean;
+
+/** The decision a human makes, and the proof that they made it. */
+export interface ConfirmedBroadcast {
+  readonly summary: BroadcastConfirmation;
+  /** Milliseconds the human took to decide. Recorded for the caller's audit log. */
+  readonly confirmationLatencyMs: number;
+}
+
+function toViemProvider(provider: Eip1193Provider): EIP1193Provider {
+  return provider as unknown as EIP1193Provider;
+}
+
+/**
+ * The only viem surface this module uses, typed from viem's own signatures.
+ *
+ * Returning the bare `WalletClient` interface instead makes every call site
+ * depend on viem's default generic instantiation, whose parameter types do not
+ * line up with a plain request object and force an unsound cast. Deriving the
+ * method types from `WalletClient` itself keeps the calls fully type-checked
+ * against whatever viem version is installed, with no cast at the call site.
+ */
+type ViemSendTransactionArgs = Parameters<WalletClient['sendTransaction']>[0];
+
+interface ViemBroadcastClient {
+  sendTransaction(args: ViemSendTransactionArgs): Promise<`0x${string}`>;
+}
+
+function asViemWalletClient(provider: Eip1193Provider, chain: Chain): ViemBroadcastClient {
+  const client = createWalletClient({ chain, transport: custom(toViemProvider(provider)) });
+  return {
+    sendTransaction: (args) => client.sendTransaction(args),
+  };
+}
+
+function describeBroadcast(summary: BroadcastConfirmation): string {
+  const target = summary.to ?? '(contract creation)';
+  return `${summary.kind} on ${summary.chainName} to ${target} for ${summary.valueWei} wei - ${summary.dataSummary}`;
+}
+
+/** Render the confirmation as the multi-line text a human should read. */
+export function formatBroadcastConfirmation(summary: BroadcastConfirmation): string {
+  return [
+    'About to broadcast. Read this before approving:',
+    `  kind         ${summary.kind}`,
+    `  chain        ${summary.chainName} (chainId ${summary.chainId}, ${summary.isTestnet ? 'testnet' : 'NOT A TESTNET'})`,
+    `  from         ${summary.from}`,
+    `  to           ${summary.to ?? '(contract creation)'}`,
+    `  valueWei     ${summary.valueWei}`,
+    `  calldata     ${summary.dataSummary}`,
+    '  This is a real, irreversible, on-chain action. It cannot be undone.',
+  ].join('\n');
+}
+
+export interface SendTransactionRequest {
+  readonly provider: Eip1193Provider;
+  readonly chain: Chain;
+  readonly chainName: string;
+  readonly from: HexAddress;
+  readonly to: HexAddress;
+  readonly valueWei: bigint;
+  /** One line describing the purpose of this transfer. Shown to the human. */
+  readonly reason: string;
+  /** MUST return exactly `true` to proceed. Anything else aborts the send. */
+  readonly confirmation: ConfirmationCallback;
+  /** Must equal {@link BROADCAST_CONSENT_TOKEN}. */
+  readonly consentToken: string;
+  readonly isTestnet: boolean;
+}
+
+/**
+ * Send one native-currency transaction, after a human says yes.
+ *
+ * @throws {BroadcastConsentError} when the consent token is absent or wrong.
+ * @throws {BroadcastDeclinedError} when the confirmation callback did not
+ *         return exactly `true`. Nothing is sent in that case.
+ */
+export async function sendConfirmedTransaction(
+  request: SendTransactionRequest
+): Promise<{ hash: `0x${string}`; confirmed: ConfirmedBroadcast }> {
+  assertBroadcastConsent(request.consentToken);
+
+  const summary: BroadcastConfirmation = {
+    kind: 'transaction',
+    chainId: request.chain.id,
+    chainName: request.chainName,
+    from: request.from,
+    to: request.to,
+    valueWei: request.valueWei.toString(),
+    dataSummary: request.reason,
+    isTestnet: request.isTestnet,
+  };
+
+  const startedAt = Date.now();
+  const accepted = await request.confirmation(summary);
+  if (accepted !== true) throw new BroadcastDeclinedError(summary);
+  const confirmationLatencyMs = Date.now() - startedAt;
+
+  const client = asViemWalletClient(request.provider, request.chain);
+  const hash = await client.sendTransaction({
+    account: request.from,
+    chain: request.chain,
+    to: request.to,
+    value: request.valueWei,
+  });
+
+  return { hash, confirmed: { summary, confirmationLatencyMs } };
+}
+
+export interface WriteContractRequest extends SendTransactionRequest {
+  readonly data: `0x${string}`;
+  /** One line describing which function is being called. Shown to the human. */
+  readonly functionSummary: string;
+}
+
+/**
+ * Send one contract write, after a human says yes.
+ *
+ * @throws {BroadcastConsentError} when the consent token is absent or wrong.
+ * @throws {BroadcastDeclinedError} when the confirmation callback did not
+ *         return exactly `true`. Nothing is sent in that case.
+ */
+export async function writeContractConfirmed(
+  request: WriteContractRequest
+): Promise<{ hash: `0x${string}`; confirmed: ConfirmedBroadcast }> {
+  assertBroadcastConsent(request.consentToken);
+
+  const summary: BroadcastConfirmation = {
+    kind: 'contract-write',
+    chainId: request.chain.id,
+    chainName: request.chainName,
+    from: request.from,
+    to: request.to,
+    valueWei: request.valueWei.toString(),
+    dataSummary: `${request.functionSummary} (${request.data.length / 2 - 1} bytes of calldata)`,
+    isTestnet: request.isTestnet,
+  };
+
+  const startedAt = Date.now();
+  const accepted = await request.confirmation(summary);
+  if (accepted !== true) throw new BroadcastDeclinedError(summary);
+  const confirmationLatencyMs = Date.now() - startedAt;
+
+  const client = asViemWalletClient(request.provider, request.chain);
+  // Opaque calldata goes through `sendTransaction`, not viem's `writeContract`:
+  // `writeContract` requires an ABI and a function name, and this module
+  // deliberately never models either. The resulting transaction is identical.
+  const hash = await client.sendTransaction({
+    account: request.from,
+    chain: request.chain,
+    to: request.to,
+    value: request.valueWei,
+    data: request.data,
+  });
+
+  return { hash, confirmed: { summary, confirmationLatencyMs } };
+}
+
+/**
+ * Explicit, one-line reminder suitable for an operator log line, and greppable
+ * so a reviewer can find every place in a codebase that can put a transaction
+ * on a wire.
+ */
+export function describeBroadcastModule(): string {
+  return [
+    'consent-gated broadcasting module',
+    'sends: native transactions and contract writes',
+    'automatic: never, under any circumstance',
+    'requires: explicit operator consent token AND a human confirmation callback returning exactly true',
+  ].join(' | ');
+}

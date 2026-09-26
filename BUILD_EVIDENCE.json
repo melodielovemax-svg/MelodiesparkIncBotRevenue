@@ -1,6 +1,6 @@
 {
   "schema": "melodiespark-build-evidence/1.0.0",
-  "generated_at": "2026-09-26T06:01:13.7289848Z",
+  "generated_at": "2026-09-26T06:32:46.9161994Z",
   "scope": "Local build and validation of apps/melodie-cli and python/melodiespark-cli. No registry was contacted. No credential was used or required.",
   "establishes": "That the named paths behaved as described on this host at this time.",
   "does_not_establish": [
@@ -106,67 +106,67 @@
     {
       "Step": "Build catalog (hashes every source file)",
       "Result": "PASS",
-      "Seconds": 182.2
+      "Seconds": 25.8
     },
     {
       "Step": "Install Node dependencies",
       "Result": "PASS",
-      "Seconds": 9.8
+      "Seconds": 3.3
     },
     {
       "Step": "Typecheck TypeScript CLI",
       "Result": "PASS",
-      "Seconds": 8.2
+      "Seconds": 5.1
     },
     {
       "Step": "Sync shared assets into the Python package",
       "Result": "PASS",
-      "Seconds": 1.0
+      "Seconds": 0.6
     },
     {
       "Step": "Node tests: policy + Node/Python parity",
       "Result": "PASS",
-      "Seconds": 75.2
+      "Seconds": 20.4
     },
     {
       "Step": "Python policy tests",
       "Result": "PASS",
-      "Seconds": 2.2
+      "Seconds": 1.1
     },
     {
       "Step": "Build Python wheel and sdist",
       "Result": "PASS",
-      "Seconds": 65.8
+      "Seconds": 28.3
     },
     {
       "Step": "twine check",
       "Result": "PASS",
-      "Seconds": 3.4
+      "Seconds": 2.6
     },
     {
       "Step": "Verify catalog integrity and secret scan",
       "Result": "PASS",
-      "Seconds": 2.0
+      "Seconds": 1.4
     },
     {
       "Step": "Pack the Node CLI",
       "Result": "PASS",
-      "Seconds": 18.9
+      "Seconds": 9.9
     },
     {
       "Step": "Safety: credential files are permanently denied",
       "Result": "PASS",
-      "Seconds": 0.6
+      "Seconds": 0.4
     },
     {
       "Step": "Safety: extracting credentials writes nothing",
       "Result": "PASS",
-      "Seconds": 0.5
+      "Seconds": 0.3
     },
     {
       "Step": "Safety: content guard blocks a live key in an ordinary doc",
       "Result": "PASS",
-      "Seconds": 0.5
+      "Seconds": 0.4
     },
     {
       "Step": "Safety: the default web3 scaffold withholds signing code",
@@ -176,7 +176,7 @@
     {
       "Step": "Secret scan of the built artifacts",
       "Result": "PASS",
-      "Seconds": 14.1
+      "Seconds": 5.9
     }
   ],
   "test_suites": [
@@ -198,18 +198,18 @@
   "artifacts": [
     {
       "name": "melodiespark-cli-0.1.0.tgz",
-      "bytes": 848433,
-      "sha256": "2c51c55da9c7a8c98882fe213209875ac78dde9ebefc47a5021981ee9a728e50"
+      "bytes": 848726,
+      "sha256": "0846e67fb10b0db0570fb0132c71282957b9f274a732dd71397c3f03137fd79b"
     },
     {
       "name": "melodiespark_cli-0.1.0-py3-none-any.whl",
-      "bytes": 893668,
-      "sha256": "0ba347d6e86ccddc199bfc54d1d7d03551ac3ffe8c11c5ed54f9f69120fefdad"
+      "bytes": 893813,
+      "sha256": "1f818e024932617fe8f3cac0990bb3eb40932248ec3344750332aff336c75051"
     },
     {
       "name": "melodiespark_cli-0.1.0.tar.gz",
-      "bytes": 852021,
-      "sha256": "75ab0f123178cd60f5eeb80725599db25c69bc72916a968d7dbbdc914126f47f"
+      "bytes": 852191,
+      "sha256": "848042fb31a5a47025a210ff7bfe74b59418dfcf7be77fb5966452b9e75553a6"
     }
   ],
   "secret_scan": {
@@ -248,9 +248,10 @@
           "npm publication",
           "PyPI publication"
         ],
-        "summary": "A live Stripe sk_live_ secret was found in the source tree and is treated as exposed.",
-        "requirement": "Rotated at Stripe by the credential owner, and the rotation confirmed in writing.",
-        "note": "Removing the value from the package does not reduce the exposure. Only rotation does.",
+        "summary": "A live Stripe sk_live_ secret is committed in the MelodieCLI repository and is treated as exposed.",
+        "scope": "Present in 10 commits spanning 2026-07-21 to 2026-09-02 and reachable from origin/main. The working tree is clean, so this is committed history rather than an uncommitted local file. The Melodiespark_Source entries are gitlinks here, so the value is not in THIS repository history; it lives in the submodule repository.",
+        "requirement": "Rotated at Stripe by the credential owner, and the rotation confirmed. History purged in the MelodieCLI repository, and that repository treated as fully compromised.",
+        "note": "Rotation is the only action that revokes a credential. Exclusion from artifacts, the content guard, and catalog classification are hygiene: they stop this tool redistributing the value and do nothing to a secret already committed and pushed. Purging history does not un-expose copies already cloned or forked.",
         "owner": "operator"
       },
       {

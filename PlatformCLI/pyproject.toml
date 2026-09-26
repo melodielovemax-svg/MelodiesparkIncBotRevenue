@@ -1,0 +1,29 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "melodiespark-platform-cli"
+version = "0.1.0"
+description = "Melodie CLI Agent Platform - Multi-model AI router, governed coding agents, and content catalog."
+authors = ["Melodiespark INC <dev@melodiespark.com>"]
+readme = "README.md"
+license = "Proprietary"
+packages = [
+    { include = "melodiespark_cli", from = "python/src" }
+]
+include = [
+    "models/**/*",
+    "agents/**/*",
+    "tasks/**/*",
+    "docs/**/*",
+    "assets/**/*"
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+
+[tool.poetry.scripts]
+melodie = "melodiespark_cli.cli:main"
+melodiespark-cli = "melodiespark_cli.cli:main"
+melodie-platform = "melodiespark_cli.cli:main"

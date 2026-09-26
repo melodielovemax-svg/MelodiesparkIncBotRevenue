@@ -1,0 +1,58 @@
+{
+  "name": "@melodiespark/cli",
+  "version": "0.1.0",
+  "description": "Cross-platform Melodie CLI Coding-Agent Platform and content catalog. Governed execution, model gateway, sandbox, and evidence engine.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "bin": {
+    "melodie": "./bin/melodie.mjs",
+    "melodiespark-cli": "./bin/melodie.mjs"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./contracts": "./src/contracts.ts"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "src",
+    "assets",
+    "models",
+    "agents",
+    "tasks",
+    "docs",
+    "README.md",
+    "BUILD_MANIFEST.json"
+  ],
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "@types/node": "^22.10.2"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
+    "prepack": "npm run build && node scripts/stamp-manifest.mjs",
+    "catalog": "node bin/melodie.mjs catalog --build",
+    "verify": "node bin/melodie.mjs verify",
+    "test": "node --test \"test/*.test.mjs\""
+  },
+  "keywords": [
+    "melodiespark",
+    "cli",
+    "catalog",
+    "scaffolding",
+    "web3",
+    "template"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

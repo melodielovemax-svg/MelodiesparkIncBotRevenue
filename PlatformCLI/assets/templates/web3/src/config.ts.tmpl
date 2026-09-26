@@ -1,0 +1,186 @@
+/**
+ * Chain configuration.
+ *
+ * SAFETY RULES ENFORCED HERE
+ * --------------------------
+ * 1. The default chain is a TESTNET. Mainnet is not in this table at all; add
+ *    it only as a deliberate, separately reviewed decision.
+ * 2. No RPC URL is bundled. `defaultRpcUrl` is the empty string on purpose and
+ *    {@link resolveRpcUrl} reads the URL from the environment instead. This
+ *    template ships no provider URL that could embed a key.
+ * 3. No API key, no project id, no secret, no credential of any kind is
+ *    present in this file or in `.env.example`.
+ *
+ * Supply an endpoint yourself, for example:
+ *
+ *   RPC_URL=https://your-own-sepolia-endpoint   # local .env, never committed
+ *
+ * Use a read-only endpoint whenever the provider offers one. A read-only
+ * application should never be handed a credential that can write.
+ */
+
+/** Testnets and mainnets are distinguished, and only testnets are configured. */
+export type ChainKind = 'testnet' | 'mainnet';
+
+export interface NativeCurrency {
+  readonly name: string;
+  readonly symbol: string;
+  readonly decimals: number;
+}
+
+export interface ChainConfig {
+  readonly id: number;
+  readonly name: string;
+  readonly kind: ChainKind;
+  readonly nativeCurrency: NativeCurrency;
+  /**
+   * Intentionally empty. No RPC URL ships with this template. Use
+   * {@link resolveRpcUrl} to obtain one at runtime from the environment.
+   */
+  readonly defaultRpcUrl: string;
+  /** Environment variable that supplies the RPC URL. Read only, never written. */
+  readonly rpcEnvVar: string;
+  /** Environment variable that may override the chain id. */
+  readonly chainIdEnvVar: string;
+  /** Public, key-free block explorer, for a human to look at a block by hand. */
+  readonly blockExplorerUrl: string;
+}
+
+/**
+ * Documented shape of an RPC URL. This is documentation, not an endpoint: the
+ * angle brackets are not a resolvable host and nothing will connect to it.
+ */
+export const RPC_URL_PLACEHOLDER = 'https://<your-sepolia-rpc-host>';
+
+/** Environment variable read by every chain entry by default. */
+export const DEFAULT_RPC_ENV_VAR = 'RPC_URL';
+/** Environment variable read by every chain entry by default. */
+export const DEFAULT_CHAIN_ID_ENV_VAR = 'CHAIN_ID';
+
+/**
+ * Configured chains. TESTNETS ONLY.
+ *
+ * `mainnet` is deliberately absent. If you add it, you are taking on the
+ * consequences of a real chain: you are responsible for the contract, the
+ * amounts and the consequences. This template will not do it for you.
+ */
+export const CHAINS = {
+  sepolia: {
+    id: 11155111,
+    name: 'Sepolia',
+    kind: 'testnet',
+    nativeCurrency: { name: 'Sepolia Ether', symbol: 'ETH', decimals: 18 },
+    defaultRpcUrl: '',
+    rpcEnvVar: DEFAULT_RPC_ENV_VAR,
+    chainIdEnvVar: DEFAULT_CHAIN_ID_ENV_VAR,
+    blockExplorerUrl: 'https://sepolia.etherscan.io',
+  },
+  holesky: {
+    id: 17000,
+    name: 'Holesky',
+    kind: 'testnet',
+    nativeCurrency: { name: 'Holesky Ether', symbol: 'ETH', decimals: 18 },
+    defaultRpcUrl: '',
+    rpcEnvVar: DEFAULT_RPC_ENV_VAR,
+    chainIdEnvVar: DEFAULT_CHAIN_ID_ENV_VAR,
+    blockExplorerUrl: 'https://holesky.etherscan.io',
+  },
+} as const satisfies Record<string, ChainConfig>;
+
+export type ChainKey = keyof typeof CHAINS;
+
+/** The chain used when nothing else is specified. A testnet, always. */
+export const DEFAULT_CHAIN_KEY: ChainKey = 'sepolia';
+export const DEFAULT_CHAIN: ChainConfig = CHAINS[DEFAULT_CHAIN_KEY];
+
+/** Every configured chain, in declaration order. */
+export function listChains(): ChainConfig[] {
+  return Object.values(CHAINS) as ChainConfig[];
+}
+
+/** True when the chain id is one this template is willing to talk to. */
+export function isTestnetChain(chainId: number): boolean {
+  return listChains().some((chain) => chain.id === chainId);
+}
+
+/** Look up a configured chain by its numeric id. Returns `null` if unknown. */
+export function findChain(chainId: number): ChainConfig | null {
+  return listChains().find((chain) => chain.id === chainId) ?? null;
+}
+
+/** Look up a configured chain by its key, e.g. `'sepolia'`. */
+export function findChainByKey(key: string): ChainConfig | null {
+  const candidate = (CHAINS as Record<string, ChainConfig>)[key];
+  return candidate ?? null;
+}
+
+export type EnvSource = Record<string, string | undefined>;
+
+/**
+ * Read the environment defensively, so this module stays importable in a
+ * browser bundle where `process` may not exist.
+ *
+ * Node exposes `process.env`; bundlers for browsers usually inline
+ * `process.env` as a plain `env` object. Both are checked, in that order.
+ * Never logs, never mutates, and never returns a default endpoint.
+ */
+export function readEnv(scope: unknown = globalThis): EnvSource {
+  const holder = scope as { process?: { env?: unknown }; env?: unknown } | null | undefined;
+  const fromProcess = holder?.process?.env;
+  if (typeof fromProcess === 'object' && fromProcess !== null) return fromProcess as EnvSource;
+  const inlined = holder?.env;
+  if (typeof inlined === 'object' && inlined !== null) return inlined as EnvSource;
+  return {};
+}
+
+export interface ResolvedRpc {
+  readonly url: string | null;
+  readonly source: 'env' | 'chain-default' | 'unset';
+  readonly envVar: string;
+}
+
+/**
+ * Resolve the RPC URL for a chain from the environment.
+ *
+ * Returns `url: null` when nothing is configured. Callers must treat `null` as
+ * "skip the network call" - it is a normal state, not an error.
+ */
+export function resolveRpcUrl(chain: ChainConfig = DEFAULT_CHAIN, env: EnvSource = readEnv()): ResolvedRpc {
+  const fromEnv = env[chain.rpcEnvVar];
+  if (typeof fromEnv === 'string' && fromEnv.trim() !== '') {
+    return { url: fromEnv.trim(), source: 'env', envVar: chain.rpcEnvVar };
+  }
+  if (chain.defaultRpcUrl !== '') {
+    return { url: chain.defaultRpcUrl, source: 'chain-default', envVar: chain.rpcEnvVar };
+  }
+  return { url: null, source: 'unset', envVar: chain.rpcEnvVar };
+}
+
+/**
+ * Reject an endpoint that still carries the documentation placeholder, so a
+ * half-configured deployment fails loudly instead of "connecting" to nothing.
+ */
+export function isPlaceholderRpcUrl(url: string): boolean {
+  return url.includes('<') || url.includes('RPC_URL_PLACEHOLDER');
+}
+
+/** Human-readable, non-committal description of a chain. */
+export function describeChain(chain: ChainConfig, env: EnvSource = readEnv()): string {
+  const rpc = resolveRpcUrl(chain, env);
+  const rpcState = rpc.url === null ? `no ${chain.rpcEnvVar} configured` : `${chain.rpcEnvVar} configured`;
+  return `${chain.name} (chainId ${chain.id}, ${chain.kind}, ${rpcState})`;
+}
+
+/**
+ * Run once at import time. A mainnet default is a hard stop: the whole point
+ * of this template is that you cannot accidentally point it at real funds.
+ */
+export function assertDefaultChainIsTestnet(chain: ChainConfig = DEFAULT_CHAIN): void {
+  if (chain.kind !== 'testnet') {
+    throw new Error(
+      `Refusing to start: the default chain must be a testnet, but DEFAULT_CHAIN is ${chain.name} (${chain.kind}).`
+    );
+  }
+}
+
+assertDefaultChainIsTestnet();

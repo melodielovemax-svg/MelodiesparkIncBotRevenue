@@ -1,0 +1,15 @@
+{
+  "milestones": [
+    "M0 governance",
+    "M1 bootable kernel",
+    "M2 memory/process",
+    "M3 IPC/security",
+    "M4 filesystem/devices",
+    "M5 shell",
+    "M6 packages/updates",
+    "M7 MCPGATE",
+    "M8 hardware validation",
+    "M9 compatibility tests",
+    "M10 reproducible release image"
+  ]
+}

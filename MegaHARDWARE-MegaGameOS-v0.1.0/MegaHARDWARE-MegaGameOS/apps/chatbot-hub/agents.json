@@ -1,0 +1,24 @@
+{
+  "agent_classes": [
+    "architect",
+    "coder",
+    "debugger",
+    "tester",
+    "reviewer",
+    "security",
+    "research",
+    "documentation",
+    "frontend",
+    "backend",
+    "fullstack",
+    "database",
+    "devops",
+    "game",
+    "performance",
+    "qa",
+    "deployment",
+    "forensics",
+    "automation"
+  ],
+  "execution_policy": "sandboxed_and_approval_gated"
+}

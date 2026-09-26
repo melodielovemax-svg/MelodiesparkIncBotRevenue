@@ -1,0 +1,1 @@
+Agent registry is capability-based. Agents run sandboxed, with approval gates for deployment, Web3 and revenue actions. A registry entry is not proof of autonomous production operation.

@@ -1,0 +1,39 @@
+{
+  "providers": [
+    {
+      "id": "openai",
+      "adapter": "openai-compatible",
+      "status": "UNVERIFIED"
+    },
+    {
+      "id": "anthropic",
+      "adapter": "api",
+      "status": "UNVERIFIED"
+    },
+    {
+      "id": "google",
+      "adapter": "api",
+      "status": "UNVERIFIED"
+    },
+    {
+      "id": "openrouter",
+      "adapter": "openai-compatible",
+      "status": "UNVERIFIED"
+    },
+    {
+      "id": "mistral",
+      "adapter": "api",
+      "status": "UNVERIFIED"
+    },
+    {
+      "id": "ollama",
+      "adapter": "local",
+      "status": "UNVERIFIED"
+    },
+    {
+      "id": "generic-openai-compatible",
+      "adapter": "openai-compatible",
+      "status": "UNVERIFIED"
+    }
+  ]
+}

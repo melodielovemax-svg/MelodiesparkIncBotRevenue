@@ -1,0 +1,1 @@
+Model catalogs are runtime-discovered/configured rather than hardcoded so the platform does not falsely claim a current complete model list. Provider adapters are OpenAI, Anthropic, Google, OpenRouter, Mistral, Ollama and OpenAI-compatible.

@@ -22,8 +22,7 @@ bool FPathOfMelodieRuntimeSmokeTest::RunTest(const FString& Parameters)
 		false,
 		FName(TEXT("PathOfMelodieRuntimeSmokeWorld")),
 		GetTransientPackage(),
-		true,
-		GMaxRHIFeatureLevel);
+		true);
 	if (!TestNotNull(TEXT("Transient gameplay world is created"), World))
 	{
 		return false;

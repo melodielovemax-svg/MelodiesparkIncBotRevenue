@@ -1,0 +1,16 @@
+{
+  "hardware_id": "string",
+  "vendor": "string",
+  "model": "string",
+  "source": "measured|imported_benchmark|user_declared",
+  "metrics": {
+    "fps": "number",
+    "frame_time_ms": "number",
+    "cpu_utilization_pct": "number",
+    "gpu_utilization_pct": "number",
+    "memory_gb": "number",
+    "storage_mb_s": "number"
+  },
+  "timestamp": "ISO-8601",
+  "evidence": "string"
+}

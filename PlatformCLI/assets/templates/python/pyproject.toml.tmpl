@@ -1,0 +1,45 @@
+[build-system]
+# setuptools >= 77 is required for the PEP 639 `license` string and `license-files`.
+# Build isolation fetches it automatically; offline builds need a local setuptools >= 77.
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "{{PACKAGE_NAME}}"
+version = "{{PACKAGE_VERSION}}"
+description = "{{DESCRIPTION}}"
+readme = "README.md"
+license = "{{LICENSE}}"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "{{AUTHOR}}" }]
+keywords = ["cli", "tool", "scaffold", "zero-dependency"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Build Tools",
+]
+# No runtime dependencies. Do not add one without saying so out loud.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["build", "twine"]
+
+[project.scripts]
+# Same entry point under both names: the hyphenated binary and the import name.
+"{{CLI_BIN}}" = "{{PY_MODULE}}.cli:main"
+"{{PY_MODULE}}" = "{{PY_MODULE}}.cli:main"
+
+[tool.setuptools]
+# src/ layout: keeps the import path flat and stops tests from being importable.
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,17 @@
+{
+  "title": "Game Registry",
+  "fields": {
+    "id": "string",
+    "title": "string",
+    "platform": [
+      "DOS",
+      "Windows",
+      "Other"
+    ],
+    "source": "user_owned|licensed_store|freeware|homebrew|unknown",
+    "installed": "boolean",
+    "runtime": "dos|windows|native|unknown",
+    "status": "PLANNED|SCAFFOLD|OPERATIONAL|UNVERIFIED",
+    "sha256": "optional string"
+  }
+}

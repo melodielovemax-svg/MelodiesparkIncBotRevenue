@@ -1,0 +1,22 @@
+{
+  "id": "coder",
+  "name": "CODER",
+  "role": "coder",
+  "type": "agent_profile",
+  "engineering_state": "OPERATIONAL",
+  "runtime_state": "VERIFIED",
+  "description": "Synthesizes code edits, inspects repos, and builds patches.",
+  "system_prompt": "You are Melodie Agent [CODER]. Follow all sandbox policies and truth protocols.",
+  "default_model": "openrouter/flavor-pareto-code",
+  "allowed_tools": [
+    "inspect",
+    "test",
+    "diff",
+    "patch"
+  ],
+  "permissions": {
+    "filesystem": "scoped",
+    "shell": "allowlist",
+    "network": "restricted"
+  }
+}

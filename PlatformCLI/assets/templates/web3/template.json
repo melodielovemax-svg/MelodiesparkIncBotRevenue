@@ -1,0 +1,59 @@
+{
+  "name": "web3",
+  "version": "1.0.0",
+  "description": "Read-only EIP-1193 wallet inspection and unsigned withdrawal intents. Testnet by default; no private keys; nothing signed or broadcast without explicit consent.",
+  "kind": "web3",
+  "targets": ["npm", "pnpm", "npx"],
+  "install": {
+    "npm": "npm install",
+    "pnpm": "pnpm install"
+  },
+  "run": {
+    "start": "npm start",
+    "test": "npm test",
+    "typecheck": "npm run typecheck",
+    "with .env": "node --env-file=.env src/index.ts",
+    "npx": "npx --yes @melodiespark/cli template show web3"
+  },
+  "variables": {},
+  "consent_gated_files": ["src/wallet/signing.ts.tmpl", "src/wallet/broadcast.ts.tmpl"],
+  "web3": {
+    "mode": "READ-ONLY",
+    "signing": "CONSENT_GATED",
+    "broadcasting": "DISABLED",
+    "custody": "NONE",
+    "private_keys": "NOT GENERATED",
+    "consent_flag": "--i-understand-this-signs-transactions"
+  },
+  "files": [
+    "template.json",
+    ".env.example.tmpl",
+    ".gitignore",
+    "LICENSE",
+    "README.md.tmpl",
+    "SECURITY.md.tmpl",
+    "package.json.tmpl",
+    "tsconfig.json.tmpl",
+    "src/index.ts.tmpl",
+    "src/config.ts.tmpl",
+    "src/safety.ts.tmpl",
+    "src/wallet/broadcast.ts.tmpl",
+    "src/wallet/connect.ts.tmpl",
+    "src/wallet/intent.ts.tmpl",
+    "src/wallet/reads.ts.tmpl",
+    "src/wallet/signing.ts.tmpl",
+    "test/safety.test.ts.tmpl"
+  ],
+  "notes": [
+    "A default scaffold is READ-ONLY and must compile, typecheck, test and run with src/wallet/signing.ts and src/wallet/broadcast.ts absent.",
+    "The two consent-gated files are withheld unless the operator passes --i-understand-this-signs-transactions at generation time. That flag is a statement of ownership, not a password and not an approval prompt.",
+    "src/index.ts.tmpl reaches the gated modules only through a dynamic import whose specifier is held in a variable, so TypeScript does not try to resolve a file that is not there. A static import would break the default build.",
+    "No file in this template contains a private key, a mnemonic, a keystore, a key derivation, a scheduler, a retry loop, or a mainnet configuration.",
+    "No RPC URL, API key, project id or secret is bundled. RPC_URL ships empty; config.ts refuses to guess an endpoint and skips reads instead.",
+    "The default and only configured chains are testnets (Sepolia, Holesky). assertDefaultChainIsTestnet() runs at import time and throws otherwise.",
+    "src/wallet/intent.ts.tmpl builds unsigned, expiring withdrawal intents: BigInt amounts, isAddress validation, self-send rejection, a one-hour maximum lifetime, canonical sorted-key serialisation and a keccak256 display hash. It never signs and never sends.",
+    "Status of anything generated from this template is SCAFFOLD. Its presence is not evidence that a capability is built, tested or operational, and running it does not make any Melodiespark capability operational.",
+    "The example destination 0x000000000000000000000000000000000000dEaD is the standard burn address, used only as an obviously-fake validation fixture. It appears in tests and in one labelled line of the README, and nowhere else.",
+    "template.json is never emitted. The 'variables' object is empty: every {{TOKEN}} this template uses is supplied by the CLI."
+  ]
+}

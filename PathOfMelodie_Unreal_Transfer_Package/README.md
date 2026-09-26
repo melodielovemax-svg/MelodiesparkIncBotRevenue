@@ -18,14 +18,18 @@ It contains:
 - The Unreal project, C++ module, startup configuration, game mode, and
   automation test are a scaffold. No successful project build, editor launch,
   smoke-test run, or packaged build has yet been verified.
+- Local build attempt: UnrealBuildTool recognized the Editor target but stopped
+  during Win64 SDK validation; the required Windows SDK `10.0.19041.0` is not
+  installed. No Visual Studio C++ toolchain was detected. The headless Editor
+  attempt also exited during platform validation before loading the project.
 - The configured startup map is Unreal's built-in `/Engine/Maps/Entry`; this
   package does not yet contain a custom level or gameplay assets.
 
 ## First verification gate
 
-This scaffold targets the installed Unreal Engine 5.8 toolchain. From a
-Developer Command Prompt with the Visual Studio C++ workload installed, build
-the Editor target:
+This scaffold targets Unreal Engine 5.8. After installing the matching Windows
+SDK and Visual Studio C++ workload, build the Editor target from a Developer
+Command Prompt:
 
 ```bat
 "C:\Program Files\Epic Games\UE_5.8\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.exe" PathOfMelodieEditor Win64 Development -Project="C:\melodie\PathOfMelodie_Unreal_Transfer_Package\PathOfMelodie.uproject" -WaitMutex

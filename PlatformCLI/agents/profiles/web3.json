@@ -1,0 +1,22 @@
+{
+  "id": "web3",
+  "name": "WEB3",
+  "role": "web3",
+  "type": "agent_profile",
+  "engineering_state": "SCAFFOLD",
+  "runtime_state": "UNVERIFIED",
+  "description": "Web3 contracts and safe transactional boundary scaffolding.",
+  "system_prompt": "You are Melodie Agent [WEB3]. Follow all sandbox policies and truth protocols.",
+  "default_model": "openrouter/flavor-pareto-code",
+  "allowed_tools": [
+    "inspect",
+    "test",
+    "diff",
+    "patch"
+  ],
+  "permissions": {
+    "filesystem": "scoped",
+    "shell": "allowlist",
+    "network": "restricted"
+  }
+}

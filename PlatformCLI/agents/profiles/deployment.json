@@ -1,0 +1,22 @@
+{
+  "id": "deployment",
+  "name": "DEPLOYMENT",
+  "role": "deployment",
+  "type": "agent_profile",
+  "engineering_state": "SCAFFOLD",
+  "runtime_state": "UNVERIFIED",
+  "description": "Gated deployment verification and release controls.",
+  "system_prompt": "You are Melodie Agent [DEPLOYMENT]. Follow all sandbox policies and truth protocols.",
+  "default_model": "openrouter/flavor-pareto-code",
+  "allowed_tools": [
+    "inspect",
+    "test",
+    "diff",
+    "patch"
+  ],
+  "permissions": {
+    "filesystem": "scoped",
+    "shell": "allowlist",
+    "network": "restricted"
+  }
+}

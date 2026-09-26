@@ -87,9 +87,15 @@ other matches were confirmed benign: `debug.test.ts` contains
 `AKIAIOSFODNN7EXAMPLE` and `ghp_0123...`, which are the canonical AWS and GitHub
 *documentation example* values used to test a redaction function.
 
-**Open action for the operator.** The `sk_live_` value should be treated as
-compromised and **rotated at Stripe**, independent of anything in this repo. This
-repository cannot rotate it and does not claim to have done so.
+**Open action for the operator.** The `sk_live_` value is committed in the
+`MelodieCLI` repository — present in 10 commits spanning 2026-07-21 to
+2026-09-02 and reachable from `origin/main`. Treat it as compromised.
+**Rotate it at Stripe**, then purge that repository's history and treat the
+repository as fully compromised. This repository cannot do any of that and does
+not claim to have done so. Excluding the value from artifacts, the content
+guard, and the catalog classification is hygiene against *this tool*
+redistributing it; it does nothing to a secret already committed and pushed.
+Full scope in `BUILD_REPORT.md` §8 Gate 1.
 
 **Evidence.** `melodie extract API_KEY_ROTATION_GUIDE` now denies with
 `Content scan found likely credential material [CS001_STRIPE_LIVE_SECRET(CRITICAL)@L84, ...]`

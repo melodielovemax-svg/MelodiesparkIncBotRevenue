@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Environment
+# .env holds your RPC URL. Never commit it, and never commit a filled-in copy
+# of .env.example either.
+.env
+.env.*
+!.env.example
+
+# Logs and editor noise
+*.log
+npm-debug.log*
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json

@@ -1,0 +1,1 @@
+Open the extracted folder in Antigravity IDE. Run npm install, npm test, npm run doctor, npm run verify. Configure provider keys only through environment variables. Do not copy .env or secrets.

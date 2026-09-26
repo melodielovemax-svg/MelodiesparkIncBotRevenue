@@ -167,7 +167,7 @@ leak to any scanner; do not "fix" this by weakening the pattern.
 
 ## 5. Environment changes made
 
-Reported in full, because two of these are not obvious from the diff.
+Reported in full, because several of these are not obvious from the diff.
 
 1. **Global npm package replaced.** A pre-existing global entry
    `@melodiespark/melodie-cli` was an alias (`npm:@melodiespark/cli@0.1.0`)
@@ -179,14 +179,35 @@ Reported in full, because two of these are not obvious from the diff.
 2. **Root `package-lock.json` regenerated** by an `npm install` that ran in the
    repo root. Still `lockfileVersion 3`, same name/version/workspaces, 58
    package entries. `node_modules` at the root was pruned to the declared graph.
-   `package.json` and all source files are untouched. The repo is not under
-   git, so the previous file cannot be byte-restored.
+   `package.json` and all source files are untouched.
+   *Correction to an earlier revision of this report, which stated the repo was
+   not under git and the previous file could not be restored. The repository is
+   under git, `package-lock.json` is tracked, and it currently shows as
+   unmodified — so the regeneration was reconciled rather than lost.*
 3. **pnpm global package installed** at `%LOCALAPPDATA%\pnpm`. pnpm's bin
    directory is not on `PATH`; `pnpm setup` would add it.
 4. **pipx package installed** (`melodiespark-cli`, apps on `PATH` via
    `%USERPROFILE%\.local\bin`).
 5. `typescript@^5.7.2` and `@types/node@^22.10.2` added as devDependencies of
    `@melodiespark/cli`. `twine` installed into the user Python.
+
+### 5.1 Credential containment, as git sees it
+
+Checked, because "do not commit secrets" is only meaningful if verified:
+
+| Location | State |
+|---|---|
+| `Melodiespark_Source/*` | **gitlinks** (mode 160000). The source trees are nested repos referenced by commit. Their file contents are **not** in this repository's history |
+| This repository's history | 1 commit. No tracked file matches a credential pattern |
+| `MelodieCLI` repository history | **10 commits contain the live key** — see §8 Gate 1 |
+| Build artifacts | 0 unclassified secret matches across 3 artifacts |
+
+One footgun worth knowing: the root `.gitignore` contains `data/`, which also
+matches `python/melodiespark-cli/src/melodiespark_cli/data/`. That directory is
+**generated** by `scripts/sync_data.py` and is correctly not committed — but it
+means the wheel can only be built after `sync_data.py` has run. `sync_data.py`
+is therefore load-bearing, not a convenience, and `Build-CatalogCLI.ps1` runs it
+before the test suites for exactly this reason (defect 23).
 
 ## 6. Defects found and fixed during validation
 
@@ -262,17 +283,34 @@ to `true`.
 
 ### Gate 1 — `GATE_CREDENTIAL_ROTATION` · OPEN
 
-A live `sk_live_` Stripe secret was found in
+A live `sk_live_` Stripe secret is committed at
 `Melodiespark_Source/MelodieCLI/docs/API_KEY_ROTATION_GUIDE.md` line 84, plus
 Google and OpenAI key patterns. It is treated as **exposed**.
 
-**Removing the value from the package does not reduce the exposure. Only
-rotation does.** Exclusion from artifacts, the content guard, and the catalog
-classification are hygiene; none of them revoke a credential that has already
-been written to disk and into whatever consumed it.
+**Scope, confirmed by inspecting the submodule's own history:**
 
-To close: rotated at Stripe by the credential owner, and the rotation confirmed.
-This repository cannot do it and does not claim to have.
+- present in **10 commits** spanning 2026-07-21 to 2026-09-02
+- reachable from `origin/main` and `origin/surgical/wallet-fixes-sepolia`
+- the working tree is clean, so this is **committed history**, not an uncommitted
+  local file
+- the `Melodiespark_Source/*` entries are **gitlinks** in this repository, so
+  the value is not in *this* repository's history — it lives in the submodule
+  repository, and has most likely been cloned or forked since
+
+**Excluding the value from the package does not reduce the exposure. Only
+rotation does.** Exclusion from artifacts, the content guard, and the catalog
+classification are hygiene: they stop *this tool* redistributing the value, and
+do nothing to a secret already committed and pushed to a remote.
+
+To close:
+
+1. rotated at Stripe by the credential owner, and the rotation confirmed — this
+   is the only step that actually revokes it
+2. history purged in the `MelodieCLI` repository
+3. that repository treated as fully compromised, and any clone or fork
+   considered to hold the value
+
+This repository can do none of these and does not claim to have done any.
 
 ### Gate 2 — `GATE_COMMAND_NAME_COLLISION` · OPEN
 

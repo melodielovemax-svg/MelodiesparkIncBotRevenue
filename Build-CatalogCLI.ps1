@@ -197,10 +197,15 @@ Step 'Pack the Node CLI' {
     Push-Location $NodeCli
     try {
         Get-ChildItem '*.tgz' -ErrorAction SilentlyContinue | Remove-Item -Force
-        & npm pack | Out-Null
-        Assert-True ($LASTEXITCODE -eq 0) "npm pack exited $LASTEXITCODE"
+        # Output is captured, not discarded. A bare "exited 1" from a local
+        # `npm pack` is undiagnosable; the tail of npm's own output says why.
+        $packOutput = & npm pack *>&1 | Out-String
+        $packExit = $LASTEXITCODE
+        $tail = (($packOutput -split "`r?`n") | Where-Object { $_.Trim() } | Select-Object -Last 5) -join ' | '
+        Assert-True ($packExit -eq 0) "npm pack exited ${packExit}: $tail"
         $tarball = Get-ChildItem '*.tgz' -ErrorAction SilentlyContinue
-        Assert-True ($null -ne $tarball) 'no tarball produced'
+        Assert-True ($null -ne $tarball) "no tarball produced. npm pack said: $tail"
+        Write-Host "  packed $($tarball.Name) ($([math]::Round($tarball.Length/1KB)) KB)"
     } finally { Pop-Location }
 }
 
@@ -318,7 +323,13 @@ Step 'Secret scan of the built artifacts' {
     $script:Artifacts += (Get-ChildItem (Join-Path $NodeCli '*.tgz') -ErrorAction SilentlyContinue)
     $script:Artifacts += (Get-ChildItem (Join-Path $PyPkg 'dist\*.whl') -ErrorAction SilentlyContinue)
     $script:Artifacts += (Get-ChildItem (Join-Path $PyPkg 'dist\*.tar.gz') -ErrorAction SilentlyContinue)
-    Assert-True ($script:Artifacts.Count -ge 3) "expected 3 artifacts, found $($script:Artifacts.Count)"
+    # Name what is missing. "expected 3, found 2" leaves the reader guessing
+    # which artifact an upstream step failed to produce.
+    Assert-True ($script:Artifacts.Count -ge 3) @(
+        "expected 3 artifacts (npm tarball, wheel, sdist), found $($script:Artifacts.Count)",
+        "present: $(if ($script:Artifacts) { ($script:Artifacts.Name -join ', ') } else { '(none)' })",
+        'a missing artifact means an earlier step did not produce its output; check the step list above'
+    ) -join '; '
 
     $script:SecretScan = Get-ArtifactScan -Artifacts $script:Artifacts
     $unclassified = @($script:SecretScan | Where-Object { -not $_.synthetic })
@@ -353,9 +364,10 @@ $Blocking = @(
         id          = 'GATE_CREDENTIAL_ROTATION'
         status      = 'OPEN'
         blocks      = @('npm publication', 'PyPI publication')
-        summary     = 'A live Stripe sk_live_ secret was found in the source tree and is treated as exposed.'
-        requirement = 'Rotated at Stripe by the credential owner, and the rotation confirmed in writing.'
-        note        = 'Removing the value from the package does not reduce the exposure. Only rotation does.'
+        summary     = 'A live Stripe sk_live_ secret is committed in the MelodieCLI repository and is treated as exposed.'
+        scope       = 'Present in 10 commits spanning 2026-07-21 to 2026-09-02 and reachable from origin/main. The working tree is clean, so this is committed history rather than an uncommitted local file. The Melodiespark_Source entries are gitlinks here, so the value is not in THIS repository history; it lives in the submodule repository.'
+        requirement = 'Rotated at Stripe by the credential owner, and the rotation confirmed. History purged in the MelodieCLI repository, and that repository treated as fully compromised.'
+        note        = 'Rotation is the only action that revokes a credential. Exclusion from artifacts, the content guard, and catalog classification are hygiene: they stop this tool redistributing the value and do nothing to a secret already committed and pushed. Purging history does not un-expose copies already cloned or forked.'
         owner       = 'operator'
     }
     [ordered]@{

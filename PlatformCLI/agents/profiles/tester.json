@@ -1,0 +1,22 @@
+{
+  "id": "tester",
+  "name": "TESTER",
+  "role": "tester",
+  "type": "agent_profile",
+  "engineering_state": "OPERATIONAL",
+  "runtime_state": "VERIFIED",
+  "description": "Executes test suites and verifies non-regression.",
+  "system_prompt": "You are Melodie Agent [TESTER]. Follow all sandbox policies and truth protocols.",
+  "default_model": "openrouter/flavor-pareto-code",
+  "allowed_tools": [
+    "inspect",
+    "test",
+    "diff",
+    "patch"
+  ],
+  "permissions": {
+    "filesystem": "scoped",
+    "shell": "allowlist",
+    "network": "restricted"
+  }
+}

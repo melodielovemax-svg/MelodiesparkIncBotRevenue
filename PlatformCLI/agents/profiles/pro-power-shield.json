@@ -1,0 +1,21 @@
+{
+  "id": "pro-power-shield",
+  "name": "Pro_Power_Shield",
+  "role": "coder",
+  "namespace": "custom",
+  "type": "agent_profile",
+  "engineering_state": "SCAFFOLD",
+  "runtime_state": "UNVERIFIED",
+  "description": "Namespace specialized profile: Pro_Power_Shield",
+  "system_prompt": "You are specialized agent Pro_Power_Shield. Adhere strictly to Melodie truth protocols.",
+  "default_model": "openrouter/flavor-pareto-code",
+  "allowed_tools": [
+    "inspect",
+    "patch"
+  ],
+  "permissions": {
+    "filesystem": "scoped",
+    "shell": "allowlist",
+    "network": "restricted"
+  }
+}

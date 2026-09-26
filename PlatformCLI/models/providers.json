@@ -1,0 +1,116 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-09-26T07:45:56.350Z",
+  "providers": [
+    {
+      "id": "openrouter",
+      "name": "openrouter",
+      "displayName": "OpenRouter Unified Gateway",
+      "type": "gateway",
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "envKey": "OPENROUTER_API_KEY",
+      "capabilities": [
+        "chat",
+        "streaming",
+        "tools",
+        "routing",
+        "fallbacks"
+      ],
+      "status": "UNVERIFIED",
+      "isConfigured": false,
+      "isReachable": false,
+      "supportsDynamicCatalog": true,
+      "notes": "Primary gateway for multi-model access and dynamic catalog sync."
+    },
+    {
+      "id": "openai",
+      "name": "openai",
+      "displayName": "OpenAI Direct API",
+      "type": "direct",
+      "baseUrl": "https://api.openai.com/v1",
+      "envKey": "OPENAI_API_KEY",
+      "capabilities": [
+        "chat",
+        "streaming",
+        "tools",
+        "embeddings",
+        "structured_outputs"
+      ],
+      "status": "UNVERIFIED",
+      "isConfigured": false,
+      "isReachable": false,
+      "supportsDynamicCatalog": false
+    },
+    {
+      "id": "anthropic",
+      "name": "anthropic",
+      "displayName": "Anthropic Direct API",
+      "type": "direct",
+      "baseUrl": "https://api.anthropic.com/v1",
+      "envKey": "ANTHROPIC_API_KEY",
+      "capabilities": [
+        "chat",
+        "streaming",
+        "tools",
+        "reasoning"
+      ],
+      "status": "UNVERIFIED",
+      "isConfigured": false,
+      "isReachable": false,
+      "supportsDynamicCatalog": false
+    },
+    {
+      "id": "google",
+      "name": "google",
+      "displayName": "Google Gemini Direct API",
+      "type": "direct",
+      "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+      "envKey": "GEMINI_API_KEY",
+      "capabilities": [
+        "chat",
+        "streaming",
+        "tools",
+        "vision"
+      ],
+      "status": "UNVERIFIED",
+      "isConfigured": false,
+      "isReachable": false,
+      "supportsDynamicCatalog": false
+    },
+    {
+      "id": "ollama",
+      "name": "ollama",
+      "displayName": "Ollama Local Daemon",
+      "type": "local",
+      "baseUrl": "http://127.0.0.1:11434",
+      "envKey": null,
+      "capabilities": [
+        "chat",
+        "streaming",
+        "tools",
+        "local_private"
+      ],
+      "status": "UNVERIFIED",
+      "isConfigured": true,
+      "isReachable": false,
+      "supportsDynamicCatalog": false
+    },
+    {
+      "id": "local",
+      "name": "local",
+      "displayName": "Local Mock Deterministic Engine",
+      "type": "mock",
+      "baseUrl": null,
+      "envKey": null,
+      "capabilities": [
+        "chat",
+        "tools",
+        "offline_testing"
+      ],
+      "status": "OPERATIONAL",
+      "isConfigured": true,
+      "isReachable": true,
+      "supportsDynamicCatalog": false
+    }
+  ]
+}

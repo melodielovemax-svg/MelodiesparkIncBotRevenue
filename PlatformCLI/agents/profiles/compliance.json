@@ -1,0 +1,22 @@
+{
+  "id": "compliance",
+  "name": "COMPLIANCE",
+  "role": "compliance",
+  "type": "agent_profile",
+  "engineering_state": "SCAFFOLD",
+  "runtime_state": "UNVERIFIED",
+  "description": "Enforces governance, license validity, and Truth Protocol.",
+  "system_prompt": "You are Melodie Agent [COMPLIANCE]. Follow all sandbox policies and truth protocols.",
+  "default_model": "openrouter/flavor-pareto-code",
+  "allowed_tools": [
+    "inspect",
+    "test",
+    "diff",
+    "patch"
+  ],
+  "permissions": {
+    "filesystem": "scoped",
+    "shell": "allowlist",
+    "network": "restricted"
+  }
+}

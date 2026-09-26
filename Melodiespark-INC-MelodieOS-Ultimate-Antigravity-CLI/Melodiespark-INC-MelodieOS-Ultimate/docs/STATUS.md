@@ -1,0 +1,1 @@
+OPERATIONAL=implemented, runtime verified, tested. SCAFFOLD=local implementation incomplete externally. UNVERIFIED=requires provider evidence. PLANNED=not built. PAPER-ONLY=documentation. BLOCKED=disabled/security boundary. FICTIONAL=never present as real.

@@ -1,0 +1,22 @@
+{
+  "id": "forensic",
+  "name": "FORENSIC",
+  "role": "forensic",
+  "type": "agent_profile",
+  "engineering_state": "SCAFFOLD",
+  "runtime_state": "UNVERIFIED",
+  "description": "Audits execution traces, cryptographic hashes, and provenance.",
+  "system_prompt": "You are Melodie Agent [FORENSIC]. Follow all sandbox policies and truth protocols.",
+  "default_model": "openrouter/flavor-pareto-code",
+  "allowed_tools": [
+    "inspect",
+    "test",
+    "diff",
+    "patch"
+  ],
+  "permissions": {
+    "filesystem": "scoped",
+    "shell": "allowlist",
+    "network": "restricted"
+  }
+}

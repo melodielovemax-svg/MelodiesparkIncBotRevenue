@@ -1,0 +1,1 @@
+import fs from "node:fs"; const target=process.argv[2]||"C:\\melodie\\MelodieOS";fs.mkdirSync(target,{recursive:true});console.log("Antigravity workspace target:",target);console.log("Run npm install, npm test, npm run doctor, npm run verify.");

@@ -1,0 +1,41 @@
+{
+  "name": "melodiespark-template",
+  "version": "1.0.0",
+  "description": "The assembled reference layout: CATALOG, SOURCE, DOCS, TESTS, WEB3, ARCHITECTURE, PUBLISHING.",
+  "kind": "monorepo",
+  "targets": ["npm", "pnpm", "npx", "pip", "pipx"],
+  "install": {
+    "catalog": "melodie catalog --build",
+    "python": "python -m pip install -e ./python/melodiespark-cli",
+    "node": "npm install -g ./apps/melodie-cli"
+  },
+  "run": {
+    "status": "melodie status",
+    "verify": "melodie verify",
+    "python-status": "melodiespark-cli status",
+    "list-templates": "melodie template list"
+  },
+  "variables": {
+    "DESCRIPTION": "Melodiespark reference template with a full content catalog and safe extraction defaults.",
+    "LICENSE": "UNLICENSED"
+  },
+  "consent_gated_files": [],
+  "web3": null,
+  "files": [
+    "README.md",
+    "CATALOG/README.md",
+    "SOURCE/README.md",
+    "DOCS/README.md",
+    "TESTS/README.md",
+    "WEB3/README.md",
+    "ARCHITECTURE/README.md",
+    "PUBLISHING/README.md"
+  ],
+  "notes": [
+    "Emits the reference directory layout: 8 files, each section seeded with a README stating what belongs there and how it is populated.",
+    "CATALOG ships with its README only, NOT with a catalog snapshot. Seeding a 4.5 MB snapshot would put a copy that is stale the instant the source tree changes into every generated project and into the npm tarball. Populate it deliberately: melodie catalog --build --out ./CATALOG",
+    "SOURCE is intentionally EMPTY. Content is never copied into a template by default. Populate it only with `melodie extract`, which is deny-by-default and writes an audit trail.",
+    "WEB3/README.md points at the consent-gated `web3` template. This layout does not contain wallet code.",
+    "Status of generated projects: SCAFFOLD."
+  ]
+}

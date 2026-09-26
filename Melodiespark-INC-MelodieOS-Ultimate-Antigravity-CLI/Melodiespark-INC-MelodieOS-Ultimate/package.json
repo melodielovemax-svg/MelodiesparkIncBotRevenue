@@ -1,0 +1,5 @@
+{
+  "name":"@melodiespark/melodios-cli","version":"0.1.0","private":true,"type":"module",
+  "bin":{"melodie":"./bin/melodie.mjs"},
+  "scripts":{"test":"node --test","doctor":"node bin/melodie.mjs doctor","status":"node bin/melodie.mjs status","models":"node bin/melodie.mjs models","agents":"node bin/melodie.mjs agents","verify":"node bin/melodie.mjs verify","transfer:antigravity":"node scripts/antigravity-transfer.mjs"}
+}
