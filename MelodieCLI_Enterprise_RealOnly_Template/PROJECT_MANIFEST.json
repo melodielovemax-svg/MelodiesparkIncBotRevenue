@@ -1,0 +1,23 @@
+{
+  "project": "MelodieCLI_Enterprise_RealOnly_Template",
+  "generated_at": "2026-09-25T23:26:26.7624046Z",
+  "root": "C:\\melodie\\MelodieCLI_Enterprise_RealOnly_Template",
+  "governing_principle": "Evidence determines status; sophistication does not.",
+  "real_business_statuses": [
+    "OPERATIONAL",
+    "SCAFFOLD",
+    "PLANNED",
+    "PAPER-ONLY",
+    "BLOCKED",
+    "UNVERIFIED"
+  ],
+  "fiction_status": "FICTIONAL",
+  "synthetic_business_data": false,
+  "private_keys_generated": false,
+  "wallet_created": false,
+  "blockchain_transaction_created": false,
+  "revenue_claimed": false,
+  "customer_claimed": false,
+  "task_count": 1010,
+  "evidence_required_for_business_claims": true
+}

@@ -1,0 +1,13 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/bots/route": "/api/bots",
+  "/api/cli/route": "/api/cli",
+  "/api/health/route": "/api/health",
+  "/api/karma/route": "/api/karma",
+  "/api/mining/route": "/api/mining",
+  "/api/products/route": "/api/products",
+  "/api/transactions/route": "/api/transactions",
+  "/api/wallet/route": "/api/wallet",
+  "/page": "/"
+}

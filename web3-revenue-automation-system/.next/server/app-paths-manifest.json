@@ -1,0 +1,13 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/bots/route": "app/api/bots/route.js",
+  "/api/cli/route": "app/api/cli/route.js",
+  "/api/health/route": "app/api/health/route.js",
+  "/api/karma/route": "app/api/karma/route.js",
+  "/api/mining/route": "app/api/mining/route.js",
+  "/api/products/route": "app/api/products/route.js",
+  "/api/transactions/route": "app/api/transactions/route.js",
+  "/api/wallet/route": "app/api/wallet/route.js",
+  "/page": "app/page.js"
+}

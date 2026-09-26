@@ -1,0 +1,63 @@
+"""Pure, dependency-free helpers.
+
+Everything in this module is a plain function over ``str`` values: no I/O, no
+global state, no third-party imports.
+"""
+
+from __future__ import annotations
+
+import hashlib
+import re
+import unicodedata
+
+__all__ = ["sha256", "slugify"]
+
+#: Matches every run of characters that cannot appear in a slug.
+_SLUG_SEPARATOR = re.compile(r"[^a-z0-9]+")
+
+#: Latin combining diacriticals dropped after NFKD decomposition.
+_COMBINING_MARKS = re.compile("[\u0300-\u036f]")
+
+
+def sha256(text: str) -> str:
+    """Return the SHA-256 hex digest of ``text``, encoded as UTF-8.
+
+    Hashing is byte-exact and matches ``sha256sum`` and every other standard
+    tool. It is *not* Unicode-normalizing: two strings that differ only in
+    normalization form (for example the precomposed character and the same
+    character plus a combining acute) are different byte sequences and
+    therefore hash differently. Normalize first if you need form-insensitive
+    digests.
+
+    :param text: Text to digest.
+    :returns: Lowercase 64-character hex digest.
+    :raises TypeError: If ``text`` is not a :class:`str`.
+
+    >>> sha256('abc')
+    'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'
+    """
+    if not isinstance(text, str):
+        raise TypeError(f"expected str, got {type(text).__name__}")
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def slugify(text: str) -> str:
+    """Return a lowercase, hyphen-separated slug of ``text``.
+
+    The text is NFKD-normalized, Latin combining diacriticals are dropped,
+    every other run of characters becomes a single hyphen, and leading or
+    trailing hyphens are trimmed. Returns an empty string when nothing
+    usable remains.
+
+    :param text: Text to convert.
+    :returns: Slug string, possibly empty.
+    :raises TypeError: If ``text`` is not a :class:`str`.
+
+    >>> slugify('Hello, World!')
+    'hello-world'
+    """
+    if not isinstance(text, str):
+        raise TypeError(f"expected str, got {type(text).__name__}")
+    decomposed = unicodedata.normalize("NFKD", text)
+    folded = _COMBINING_MARKS.sub("", decomposed)
+    return _SLUG_SEPARATOR.sub("-", folded.lower()).strip("-")

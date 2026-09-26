@@ -1,0 +1,137 @@
+{
+  "timestamp": "2026-09-26T02:22:59.368Z",
+  "summary": {
+    "attackVectors": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "criticalFailures": 0,
+      "score": "100.00"
+    },
+    "regression": {
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "score": "100.00"
+    }
+  },
+  "attackResults": [
+    {
+      "name": "Path Traversal - Directory Escape",
+      "severity": "CRITICAL",
+      "command": "node scripts/run-safe-cycle.mjs task-run \"../../../etc/passwd\"",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true,
+      "status": "✅ PASS - Rejected as expected",
+      "stdout": "[TASK-RUN] Executing task: ../../../etc/passwd\n",
+      "stderr": "{\"error\":\"Invalid task ID: ../../../etc/passwd. Valid tasks: health, data-integrity, integration-status, security-config, catalog-integrity\"}\n"
+    },
+    {
+      "name": "Path Traversal - Absolute Path",
+      "severity": "CRITICAL",
+      "command": "node scripts/run-safe-cycle.mjs task-run \"/etc/passwd\"",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true,
+      "status": "✅ PASS - Rejected as expected",
+      "stdout": "[TASK-RUN] Executing task: /etc/passwd\n",
+      "stderr": "spawnSync C:\\WINDOWS\\system32\\cmd.exe ETIMEDOUT"
+    },
+    {
+      "name": "Null Byte Injection",
+      "severity": "HIGH",
+      "command": "node scripts/run-safe-cycle.mjs task-run \"health\\0.js\"",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true,
+      "status": "✅ PASS - Rejected as expected",
+      "stdout": "[TASK-RUN] Executing task: health\\0.js\n",
+      "stderr": "{\"error\":\"Invalid task ID: health\\\\0.js. Valid tasks: health, data-integrity, integration-status, security-config, catalog-integrity\"}\n"
+    },
+    {
+      "name": "Parameter Overflow - Large String",
+      "severity": "HIGH",
+      "command": "node scripts/run-safe-cycle.mjs task-run \"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\"",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true,
+      "status": "✅ PASS - Rejected as expected",
+      "stdout": "[TASK-RUN] Executing task: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n",
+      "stderr": "{\"error\":\"Invalid task ID: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA. Valid tasks: health, data-integrity, integration-status, security-confi"
+    },
+    {
+      "name": "Unauthorized Task - Invalid Task ID",
+      "severity": "CRITICAL",
+      "command": "node scripts/run-safe-cycle.mjs task-run \"invalid-task\"",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true,
+      "status": "✅ PASS - Rejected as expected",
+      "stdout": "[TASK-RUN] Executing task: invalid-task\n",
+      "stderr": "{\"error\":\"Invalid task ID: invalid-task. Valid tasks: health, data-integrity, integration-status, security-config, catalog-integrity\"}\n"
+    }
+  ],
+  "regressionResults": [
+    {
+      "name": "Regression - Original Health",
+      "command": "node scripts/run-safe-cycle.mjs 1",
+      "expectedExitCode": 0,
+      "actualExitCode": 0,
+      "expectedPattern": "/status..*succeeded/i",
+      "passed": true,
+      "status": "✅ PASS - Output matches expected pattern",
+      "stdout": "{\"id\":\"6c8ae592-f7f4-4f1b-b446-7b810fb4d79e\",\"cycleId\":\"cycle_0101ea5b-d6ab-4c26-b39e-1959e98a0e6a\",\"status\":\"succeeded\",\"tasksTotal\":5,\"tasksSucceeded\":5,\"tasksFailed\":0,\"durationMs\":321,\"results\":[{"
+    },
+    {
+      "name": "Regression - Original Cycle",
+      "command": "node scripts/run-safe-cycle.mjs 1",
+      "expectedExitCode": 0,
+      "actualExitCode": 0,
+      "expectedPattern": "/tasksTotal..*5/i",
+      "passed": true,
+      "status": "✅ PASS - Output matches expected pattern",
+      "stdout": "{\"id\":\"f7d00154-879d-4db8-b665-57de06003b79\",\"cycleId\":\"cycle_f4fb3c40-ed1a-47c6-9dc5-ac27cc303c6e\",\"status\":\"succeeded\",\"tasksTotal\":5,\"tasksSucceeded\":5,\"tasksFailed\":0,\"durationMs\":78,\"results\":[{\""
+    },
+    {
+      "name": "Regression - Product ProductSync",
+      "command": "node scripts/run-safe-cycle.mjs product-sync",
+      "expectedExitCode": 0,
+      "actualExitCode": 0,
+      "expectedPattern": "/success..*draftCount/i",
+      "passed": true,
+      "status": "✅ PASS - Output matches expected pattern",
+      "stdout": "[PRODUCT-SYNC] Synchronizing product drafts...\n[PRODUCT-SYNC] Success: 8 products (8 drafts, 0 published)\n{\"status\":\"success\",\"draftCount\":8,\"publishedCount\":0,\"totalProducts\":8}\n"
+    },
+    {
+      "name": "Regression - Wallet WalletVerify",
+      "command": "node scripts/run-safe-cycle.mjs wallet-verify",
+      "expectedExitCode": 0,
+      "actualExitCode": 0,
+      "expectedPattern": "/EIP-191..*instructions/i",
+      "passed": true,
+      "status": "✅ PASS - Output matches expected pattern",
+      "stdout": "[WALLET-VERIFY] EIP-191 challenge generation instructions...\n[WALLET-VERIFY] Use the web interface at http://127.0.0.1:4173 for wallet verification.\n[WALLET-VERIFY] Or call GET /api/wallet/challenge?a"
+    },
+    {
+      "name": "Regression - Task TaskRun",
+      "command": "node scripts/run-safe-cycle.mjs task-run health",
+      "expectedExitCode": 0,
+      "actualExitCode": 0,
+      "expectedPattern": "/success..*health/i",
+      "passed": true,
+      "status": "✅ PASS - Output matches expected pattern",
+      "stdout": "[TASK-RUN] Executing task: health\n[TASK-RUN] Success: Local health validation\n{\"status\":\"success\",\"taskId\":\"health\",\"taskName\":\"Local health validation\",\"result\":{\"checks\":{\"node\":true,\"database\":true"
+    },
+    {
+      "name": "Regression - Revenue RevReport",
+      "command": "node scripts/run-safe-cycle.mjs rev-report",
+      "expectedExitCode": 0,
+      "actualExitCode": 0,
+      "expectedPattern": "/generatedAt/i",
+      "passed": true,
+      "status": "✅ PASS - Output matches expected pattern",
+      "stdout": "[REV-REPORT] Generating revenue reconciliation report...\n[REV-REPORT] Revenue Reconciliation Report:\n{\n  \"generatedAt\": \"2026-09-26T02:22:59.264Z\",\n  \"summary\": {\n    \"totalRecords\": 0,\n    \"currencie"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+IMAGE                          ID             DISK USAGE   CONTENT SIZE   EXTRA
+docker-api-server:latest       5c192875170f        331MB         78.8MB   U    
+grafana/grafana:latest         ac461fb352ab       1.92GB          476MB   U    
+melodiespark-api:latest        a84d1d1fa0f9        371MB           84MB        
+melodiespark-frontend:latest   9909bc4adf3e        968MB          236MB   U    
+melodiespark-worker:latest     273fca8c5c64        339MB         78.9MB   U    
+nginx:alpine                   1ed1b0e1d765       94.4MB         27.2MB   U    
+node:20-alpine                 fb4cd12c85ee        194MB         48.8MB   U    
+node:20-slim                   2cf067cfed83        293MB         74.1MB        
+postgres:16-alpine             721873c34ceb        420MB          117MB   U    
+postgres:17                    d74eeac9a635        646MB          167MB   U    
+prom/prometheus:latest         efd719c99d83        381MB          114MB   U    
+redis:7                        c6eabf748fc7        170MB           46MB   U    
+redis:7-alpine                 858f009f9709       57.8MB         16.7MB   U    

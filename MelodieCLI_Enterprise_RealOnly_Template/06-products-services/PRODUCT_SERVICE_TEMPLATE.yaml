@@ -1,0 +1,15 @@
+version: 1
+
+offerings: []
+
+# Each real offering requires:
+#
+# id:
+# name:
+# type:
+# status: UNVERIFIED
+# description:
+# fulfillment:
+# price:
+# currency:
+# evidence_refs: []

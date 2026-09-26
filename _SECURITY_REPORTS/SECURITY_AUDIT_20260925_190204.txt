@@ -1,0 +1,838 @@
+**********************
+Début de la transcription PowerShell
+Heure de début : 20260925190204
+Nom d’utilisateur : GITHUB\elodi
+Utilisateur RunAs : GITHUB\elodi
+Nom de la configuration : 
+Ordinateur : GITHUB (Microsoft Windows NT 10.0.26200.0)
+Application hôte : C:\Program Files\WindowsApps\Microsoft.PowerShell_7.6.6.0_x64__8wekyb3d8bbwe\pwsh.dll
+ID de processus : 7504
+PSVersion: 7.6.6
+PSEdition: Core
+GitCommitId: 7.6.6
+OS: Microsoft Windows 10.0.26200
+Platform: Win32NT
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1, 6.0, 7.0
+PSRemotingProtocolVersion: 2.4
+SerializationVersion: 1.1.0.1
+WSManStackVersion: 3.0
+**********************
+PS C:\melodie\infra\docker> Write-Host ""
+
+PS C:\melodie\infra\docker> Write-Host "============================================================"
+============================================================
+PS C:\melodie\infra\docker> Write-Host " MELODIESPARK EMERGENCY SECURITY HARDENING"
+ MELODIESPARK EMERGENCY SECURITY HARDENING
+PS C:\melodie\infra\docker> Write-Host "============================================================"
+============================================================
+PS C:\melodie\infra\docker> Write-Host ""
+
+PS C:\melodie\infra\docker> Write-Host "Project : $Project"
+Project : C:\melodie\melodiespark
+PS C:\melodie\infra\docker> Write-Host "Infra   : $Infra"
+Infra   : C:\Melodie\infra\docker
+PS C:\melodie\infra\docker> Write-Host "Backup  : $Backup"
+Backup  : C:\Melodie\_SECURITY_BACKUPS\20260925_190204
+PS C:\melodie\infra\docker> Write-Host "Report  : $Report"
+Report  : C:\Melodie\_SECURITY_REPORTS\SECURITY_AUDIT_20260925_190204.txt
+PS C:\melodie\infra\docker> Write-Host ""
+
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # HELPERS
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> function Write-Step {
+    param([string]$Message)
+
+    Write-Host ""
+    Write-Host ">>> $Message" -ForegroundColor Cyan
+}
+PS C:\melodie\infra\docker> function Backup-File {
+    param(
+        [string]$Path
+    )
+
+    if (Test-Path -LiteralPath $Path) {
+        $Name = Split-Path $Path -Leaf
+        Copy-Item -LiteralPath $Path `
+            -Destination (Join-Path $Backup $Name) `
+            -Force
+
+        Write-Host "Backed up: $Path"
+    }
+}
+PS C:\melodie\infra\docker> function New-SecureSecret {
+    param(
+        [int]$Bytes = 48
+    )
+
+    $buffer = New-Object byte[] $Bytes
+
+    $rng = [System.Security.Cryptography.RandomNumberGenerator]::Create()
+
+    try {
+        $rng.GetBytes($buffer)
+    }
+    finally {
+        $rng.Dispose()
+    }
+
+    return [Convert]::ToBase64String($buffer)
+}
+PS C:\melodie\infra\docker> function Get-Sha256 {
+    param([string]$Path)
+
+    if (-not (Test-Path $Path)) {
+        return $null
+    }
+
+    return (Get-FileHash -Algorithm SHA256 -LiteralPath $Path).Hash
+}
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # CONFIRMATION
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Host "This operation will:"
+This operation will:
+PS C:\melodie\infra\docker> Write-Host "  * stop the local Melodiespark Docker stack"
+  * stop the local Melodiespark Docker stack
+PS C:\melodie\infra\docker> Write-Host "  * rotate local staging secrets"
+  * rotate local staging secrets
+PS C:\melodie\infra\docker> Write-Host "  * modify local Docker configuration"
+  * modify local Docker configuration
+PS C:\melodie\infra\docker> Write-Host "  * enable Windows Firewall"
+  * enable Windows Firewall
+PS C:\melodie\infra\docker> Write-Host "  * run Defender scans"
+  * run Defender scans
+PS C:\melodie\infra\docker> Write-Host ""
+
+PS C:\melodie\infra\docker> Write-Host "Database volumes will NOT be deleted."
+Database volumes will NOT be deleted.
+PS C:\melodie\infra\docker> Write-Host ""
+
+PS C:\melodie\infra\docker> $confirmation = Read-Host "Type SECURE to continue"
+PS C:\melodie\infra\docker> if ($confirmation -ne "SECURE") {
+    Write-Host "Cancelled."
+    Stop-Transcript | Out-Null
+    exit 1
+}
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 1. FORENSIC SNAPSHOT
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Creating forensic snapshot"
+
+>>> Creating forensic snapshot
+PS C:\melodie\infra\docker> $ForensicDir = Join-Path $Backup "forensic"
+PS C:\melodie\infra\docker> New-Item -ItemType Directory -Force -Path $ForensicDir | Out-Null
+PS C:\melodie\infra\docker> try {
+    Get-Process |
+        Sort-Object ProcessName |
+        Out-File (Join-Path $ForensicDir "processes.txt")
+}
+catch {}
+PS C:\melodie\infra\docker> try {
+    Get-NetTCPConnection -State Listen |
+        Sort-Object LocalPort |
+        Format-Table -AutoSize |
+        Out-File (Join-Path $ForensicDir "listening_ports.txt")
+}
+catch {}
+PS C:\melodie\infra\docker> try {
+    Get-NetFirewallProfile |
+        Format-List * |
+        Out-File (Join-Path $ForensicDir "firewall_profiles.txt")
+}
+catch {}
+PS C:\melodie\infra\docker> try {
+    docker ps -a |
+        Out-File (Join-Path $ForensicDir "docker_containers.txt")
+}
+catch {}
+PS C:\melodie\infra\docker> try {
+    docker images |
+        Out-File (Join-Path $ForensicDir "docker_images.txt")
+}
+catch {}
+PS C:\melodie\infra\docker> try {
+    docker network ls |
+        Out-File (Join-Path $ForensicDir "docker_networks.txt")
+}
+catch {}
+PS C:\melodie\infra\docker> try {
+    docker volume ls |
+        Out-File (Join-Path $ForensicDir "docker_volumes.txt")
+}
+catch {}
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 2. BACKUP SECURITY-SENSITIVE FILES
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Backing up configuration before modification"
+
+>>> Backing up configuration before modification
+PS C:\melodie\infra\docker> $SensitiveFiles = @(
+    "$Infra\docker-compose.yml",
+    "$Project\package.json",
+    "$Project\package-lock.json",
+    "$Project\.env",
+    "$Project\.env.local",
+    "$Project\.env.staging",
+    "$Project\.env.production",
+    "$Project\api\.env",
+    "$Project\api\.env.staging",
+    "$Project\api\.env.production",
+    "C:\Melodie\services\botrevenue\.env",
+    "C:\Melodie\services\botrevenue\.env.staging",
+    "C:\Melodie\services\botrevenue\.env.production"
+)
+PS C:\melodie\infra\docker> foreach ($file in $SensitiveFiles) {
+    Backup-File $file
+}
+Backed up: C:\Melodie\infra\docker\docker-compose.yml
+Backed up: C:\Melodie\services\botrevenue\.env.staging
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 3. STOP DOCKER STACK
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Stopping Melodiespark Docker services"
+
+>>> Stopping Melodiespark Docker services
+PS C:\melodie\infra\docker> if (Test-Path $Infra) {
+    Push-Location $Infra
+
+    try {
+        docker compose down --remove-orphans
+    }
+    catch {
+        Write-Warning "Docker compose shutdown returned an error."
+    }
+
+    Pop-Location
+}
+
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 4. GENERATE NEW LOCAL SECRETS
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Generating cryptographically random replacement secrets"
+
+>>> Generating cryptographically random replacement secrets
+PS C:\melodie\infra\docker> $NewJwtSecret = New-SecureSecret 64
+PS C:\melodie\infra\docker> $NewDatabasePassword = New-SecureSecret 48
+PS C:\melodie\infra\docker> $NewRedisPassword = New-SecureSecret 48
+PS C:\melodie\infra\docker> # Store temporarily in memory only.
+PS C:\melodie\infra\docker> # Do NOT print these values.
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 5. SECURE BOTREVENUE STAGING ENVIRONMENT
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Rotating exposed staging credentials"
+
+>>> Rotating exposed staging credentials
+PS C:\melodie\infra\docker> $BotRevenueDir = "C:\Melodie\services\botrevenue"
+PS C:\melodie\infra\docker> if (Test-Path $BotRevenueDir) {
+
+    New-Item -ItemType Directory -Force -Path $BotRevenueDir | Out-Null
+
+    $EnvPath = Join-Path $BotRevenueDir ".env.staging"
+
+    @"
+NODE_ENV=staging
+PORT=3000
+
+# Credentials generated during emergency security rotation.
+# Do not commit this file.
+
+DATABASE_URL=postgresql://melodiespark:$NewDatabasePassword@postgres:5432/melodiespark
+REDIS_URL=redis://redis:6379
+
+JWT_SECRET=$NewJwtSecret
+
+RATE_LIMIT_WINDOW=900
+RATE_LIMIT_MAX=100
+"@ | Set-Content -LiteralPath $EnvPath -Encoding UTF8
+
+    # Restrict ACLs to the current user and SYSTEM.
+    icacls $EnvPath /inheritance:r | Out-Null
+    icacls $EnvPath /grant:r "$env:USERNAME:(R,W)" "SYSTEM:(F)" | Out-Null
+
+    Write-Host "Rotated: $EnvPath"
+}
+Rotated: C:\Melodie\services\botrevenue\.env.staging
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 6. CREATE SECURE LOCAL SECRETS FILE
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Creating local secrets file outside source control"
+
+>>> Creating local secrets file outside source control
+PS C:\melodie\infra\docker> $SecretsDir = Join-Path $Project ".secrets"
+PS C:\melodie\infra\docker> New-Item -ItemType Directory -Force -Path $SecretsDir | Out-Null
+PS C:\melodie\infra\docker> $SecretsFile = Join-Path $SecretsDir "staging.env"
+PS C:\melodie\infra\docker> @"
+# LOCAL ONLY
+# Generated: $Timestamp
+# Never commit this file.
+
+NODE_ENV=staging
+PORT=3000
+
+DATABASE_PASSWORD=$NewDatabasePassword
+JWT_SECRET=$NewJwtSecret
+
+REDIS_PASSWORD=$NewRedisPassword
+
+RATE_LIMIT_WINDOW=900
+RATE_LIMIT_MAX=100
+"@ | Set-Content -LiteralPath $SecretsFile -Encoding UTF8
+PS C:\melodie\infra\docker> icacls $SecretsFile /inheritance:r | Out-Null
+PS C:\melodie\infra\docker> icacls $SecretsFile /grant:r "$env:USERNAME:(R,W)" "SYSTEM:(F)" | Out-Null
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 7. HARDEN .GITIGNORE
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Hardening Git secret exclusions"
+
+>>> Hardening Git secret exclusions
+PS C:\melodie\infra\docker> $GitIgnore = Join-Path $Project ".gitignore"
+PS C:\melodie\infra\docker> Backup-File $GitIgnore
+PS C:\melodie\infra\docker> $IgnoreEntries = @(
+    "",
+    "# Security-sensitive local files",
+    ".env",
+    ".env.*",
+    "!.env.example",
+    ".secrets/",
+    "*.pem",
+    "*.key",
+    "*.pfx",
+    "*.p12",
+    "*.crt",
+    "*.cer",
+    "secrets/",
+    "_SECURITY_BACKUPS/",
+    "_SECURITY_REPORTS/",
+    "",
+    "# Runtime data",
+    "logs/",
+    "*.log",
+    "coverage/",
+    "node_modules/",
+    ""
+)
+PS C:\melodie\infra\docker> $IgnoreEntries | Add-Content -LiteralPath $GitIgnore -Encoding UTF8
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 8. SEARCH FOR EXPOSED SECRETS
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Scanning source tree for exposed credentials"
+
+>>> Scanning source tree for exposed credentials
+PS C:\melodie\infra\docker> $ScanOutput = Join-Path $ForensicDir "secret_scan.txt"
+PS C:\melodie\infra\docker> $SecretPatterns = @(
+    "JWT_SECRET\s*=",
+    "DATABASE_URL\s*=",
+    "POSTGRES_PASSWORD\s*:",
+    "PASSWORD\s*=",
+    "SECRET_KEY\s*=",
+    "PRIVATE_KEY\s*=",
+    "API_KEY\s*=",
+    "ACCESS_TOKEN\s*=",
+    "CLIENT_SECRET\s*=",
+    "STRIPE_SECRET",
+    "SHOPIFY.*SECRET",
+    "BEGIN PRIVATE KEY",
+    "postgresql://[^ \r\n]+:[^ \r\n]+@"
+)
+PS C:\melodie\infra\docker> Get-ChildItem -Path $Project `
+    -Recurse `
+    -File `
+    -ErrorAction SilentlyContinue |
+    Where-Object {
+        $_.FullName -notmatch "\\node_modules\\" -and
+        $_.FullName -notmatch "\\.git\\" -and
+        $_.FullName -notmatch "\\_SECURITY_BACKUPS\\"
+    } |
+    Select-String -Pattern $SecretPatterns -AllMatches -ErrorAction SilentlyContinue |
+    ForEach-Object {
+        "$($_.Path):$($_.LineNumber): $($_.Line)"
+    } |
+    Set-Content -LiteralPath $ScanOutput -Encoding UTF8
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 9. SEARCH FOR SUSPICIOUS POWERSHELL / PERSISTENCE INDICATORS
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Scanning project for suspicious execution patterns"
+
+>>> Scanning project for suspicious execution patterns
+PS C:\melodie\infra\docker> $SuspiciousOutput = Join-Path $ForensicDir "suspicious_patterns.txt"
+PS C:\melodie\infra\docker> $SuspiciousPatterns = @(
+    "Invoke-WebRequest",
+    "Invoke-RestMethod",
+    "DownloadString",
+    "DownloadFile",
+    "Start-BitsTransfer",
+    "EncodedCommand",
+    "FromBase64String",
+    "IEX\s*\(",
+    "Invoke-Expression",
+    "Start-Process",
+    "schtasks",
+    "New-ScheduledTask",
+    "Register-ScheduledTask",
+    "Set-MpPreference",
+    "Add-MpPreference",
+    "reg\s+add",
+    "RunOnce",
+    "CurrentVersion\\Run",
+    "curl\s+http",
+    "wget\s+http"
+)
+PS C:\melodie\infra\docker> Get-ChildItem -Path $Project `
+    -Recurse `
+    -File `
+    -ErrorAction SilentlyContinue |
+    Where-Object {
+        $_.FullName -notmatch "\\node_modules\\" -and
+        $_.FullName -notmatch "\\.git\\"
+    } |
+    Select-String -Pattern $SuspiciousPatterns -AllMatches -ErrorAction SilentlyContinue |
+    ForEach-Object {
+        "$($_.Path):$($_.LineNumber): $($_.Line)"
+    } |
+    Set-Content -LiteralPath $SuspiciousOutput -Encoding UTF8
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 10. WINDOWS FIREWALL
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Enabling Windows Firewall"
+
+>>> Enabling Windows Firewall
+PS C:\melodie\infra\docker> Set-NetFirewallProfile `
+    -Profile Domain,Private,Public `
+    -Enabled True
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 11. DEFENDER UPDATE + SCAN
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Updating Microsoft Defender signatures"
+
+>>> Updating Microsoft Defender signatures
+PS C:\melodie\infra\docker> try {
+    Update-MpSignature
+}
+catch {
+    Write-Warning "Defender signature update failed: $($_.Exception.Message)"
+}
+PS C:\melodie\infra\docker> Write-Step "Starting Microsoft Defender scan"
+
+>>> Starting Microsoft Defender scan
+PS C:\melodie\infra\docker> try {
+    Start-MpScan -ScanType QuickScan
+}
+catch {
+    Write-Warning "Defender QuickScan failed: $($_.Exception.Message)"
+}
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 12. DOCKER SECURITY CHECK
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Inspecting Docker security state"
+
+>>> Inspecting Docker security state
+PS C:\melodie\infra\docker> $DockerInfo = Join-Path $ForensicDir "docker_info.txt"
+PS C:\melodie\infra\docker> try {
+    docker info |
+        Out-File $DockerInfo
+
+    docker version |
+        Out-File (Join-Path $ForensicDir "docker_version.txt")
+}
+catch {
+    Write-Warning "Docker inspection failed."
+}
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 13. REBUILD FROM LOCAL SOURCE
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Rebuilding Melodiespark API from local source"
+
+>>> Rebuilding Melodiespark API from local source
+PS C:\melodie\infra\docker> if (Test-Path $Infra) {
+
+    Push-Location $Infra
+
+    try {
+
+        docker compose build --no-cache api-server
+
+        docker compose up -d --force-recreate
+
+    }
+    catch {
+
+        Write-Warning "Docker rebuild/start failed."
+        Write-Warning $_.Exception.Message
+
+    }
+    finally {
+
+        Pop-Location
+
+    }
+}
+
+
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 14. CONTAINER VERIFICATION
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Verifying Docker containers"
+
+>>> Verifying Docker containers
+PS C:\melodie\infra\docker> try {
+
+    docker compose -f "$Infra\docker-compose.yml" ps |
+        Tee-Object -FilePath (Join-Path $ForensicDir "docker_ps_after.txt")
+
+}
+catch {
+
+    Write-Warning "Unable to obtain final Docker status."
+
+}
+NAME                IMAGE          COMMAND                  SERVICE    CREATED          STATUS                   PORTS
+docker-nginx-1      nginx:alpine   "/docker-entrypoint.ÔÇª"   nginx      9 seconds ago    Up 1 second              0.0.0.0:80->80/tcp, [::]:80->80/tcp
+docker-postgres-1   postgres:17    "docker-entrypoint.sÔÇª"   postgres   10 seconds ago   Up 8 seconds (healthy)   5432/tcp
+docker-redis-1      redis:7        "docker-entrypoint.sÔÇª"   redis      10 seconds ago   Up 7 seconds (healthy)   6379/tcp
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 15. CHECK LISTENING PORTS
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Checking exposed local ports"
+
+>>> Checking exposed local ports
+PS C:\melodie\infra\docker> try {
+
+    Get-NetTCPConnection -State Listen |
+        Sort-Object LocalPort |
+        Format-Table -AutoSize |
+        Tee-Object -FilePath (Join-Path $ForensicDir "listening_ports_after.txt")
+
+}
+catch {}
+
+LocalAddress LocalPort RemoteAddress RemotePort State  AppliedSetting OwningProcess
+------------ --------- ------------- ---------- -----  -------------- -------------
+::           80        ::            0          Listen                14340
+::1          80        ::            0          Listen                17072
+0.0.0.0      135       0.0.0.0       0          Listen                1152
+::           135       ::            0          Listen                1152
+192.168.2.10 139       0.0.0.0       0          Listen                4
+172.31.144.1 139       0.0.0.0       0          Listen                4
+172.17.144.1 139       0.0.0.0       0          Listen                4
+::           445       ::            0          Listen                4
+::           2179      ::            0          Listen                2156
+0.0.0.0      2179      0.0.0.0       0          Listen                2156
+::           2869      ::            0          Listen                4
+::1          3002      ::            0          Listen                17072
+::           3002      ::            0          Listen                14340
+0.0.0.0      5040      0.0.0.0       0          Listen                7028
+::1          5432      ::            0          Listen                17072
+::           5432      ::            0          Listen                14340
+127.0.0.1    6327      0.0.0.0       0          Listen                1240
+127.0.0.1    6328      0.0.0.0       0          Listen                1240
+127.0.0.1    6329      0.0.0.0       0          Listen                3364
+::1          6379      ::            0          Listen                17072
+::           6379      ::            0          Listen                14340
+::           7680      ::            0          Listen                13904
+::1          9090      ::            0          Listen                17072
+::           9090      ::            0          Listen                14340
+127.0.0.1    11434     0.0.0.0       0          Listen                6256
+127.0.0.1    24563     0.0.0.0       0          Listen                8440
+::1          35783     ::            0          Listen                17168
+127.0.0.1    35783     0.0.0.0       0          Listen                17168
+127.0.0.1    49626     0.0.0.0       0          Listen                7516
+::           49664     ::            0          Listen                624
+0.0.0.0      49664     0.0.0.0       0          Listen                624
+::           49665     ::            0          Listen                868
+0.0.0.0      49665     0.0.0.0       0          Listen                868
+0.0.0.0      49666     0.0.0.0       0          Listen                1652
+::           49666     ::            0          Listen                1652
+0.0.0.0      49667     0.0.0.0       0          Listen                2512
+::           49667     ::            0          Listen                2512
+0.0.0.0      49668     0.0.0.0       0          Listen                3496
+::           49668     ::            0          Listen                3496
+::1          49669     ::            0          Listen                4024
+::           49670     ::            0          Listen                992
+0.0.0.0      49670     0.0.0.0       0          Listen                992
+127.0.0.1    54722     0.0.0.0       0          Listen                11052
+127.0.0.1    56202     0.0.0.0       0          Listen                8520
+127.0.0.1    65367     0.0.0.0       0          Listen                3364
+127.0.0.1    65374     0.0.0.0       0          Listen                4048
+127.0.0.1    65378     0.0.0.0       0          Listen                4952
+
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 16. CHECK WINDOWS PERSISTENCE
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Checking common Windows persistence locations"
+
+>>> Checking common Windows persistence locations
+PS C:\melodie\infra\docker> $PersistenceOutput = Join-Path $ForensicDir "windows_persistence.txt"
+PS C:\melodie\infra\docker> try {
+
+    Get-CimInstance Win32_StartupCommand |
+        Select-Object Name, Command, Location, User |
+        Format-List |
+        Out-File $PersistenceOutput
+
+}
+catch {}
+PS C:\melodie\infra\docker> try {
+
+    Get-ScheduledTask |
+        Where-Object {
+            $_.TaskPath -notlike "\Microsoft\*"
+        } |
+        Select-Object TaskName, TaskPath, State |
+        Format-Table -AutoSize |
+        Out-File -Append $PersistenceOutput
+
+}
+catch {}
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 17. CHECK LOCAL ADMINS
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Recording local administrator membership"
+
+>>> Recording local administrator membership
+PS C:\melodie\infra\docker> try {
+
+    Get-LocalGroupMember -Group "Administrators" |
+        Format-Table -AutoSize |
+        Out-File (Join-Path $ForensicDir "local_administrators.txt")
+
+}
+catch {}
+PS C:\melodie\infra\docker> TerminatingError(Get-LocalGroupMember): "La commande en cours d’exécution s’est arrêtée, car la variable de préférence « ErrorActionPreference » ou le paramètre commun est défini sur Stop : Le groupe Administrators n’a pas été trouvé."
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 18. CHECK GIT STATUS
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Checking repository status"
+
+>>> Checking repository status
+PS C:\melodie\infra\docker> if (Test-Path (Join-Path $Project ".git")) {
+
+    Push-Location $Project
+
+    try {
+
+        git status --short |
+            Out-File (Join-Path $ForensicDir "git_status.txt")
+
+        git remote -v |
+            Out-File (Join-Path $ForensicDir "git_remotes.txt")
+
+    }
+    catch {}
+
+    Pop-Location
+}
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 19. HASH IMPORTANT CONFIGURATION
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Hashing important configuration files"
+
+>>> Hashing important configuration files
+PS C:\melodie\infra\docker> $HashOutput = Join-Path $ForensicDir "configuration_hashes.txt"
+PS C:\melodie\infra\docker> $HashFiles = @(
+    "$Infra\docker-compose.yml",
+    "$Project\package.json",
+    "$Project\package-lock.json",
+    "$Project\api\Dockerfile",
+    "$Project\api\src\index.js",
+    "$Project\.gitignore"
+)
+PS C:\melodie\infra\docker> foreach ($file in $HashFiles) {
+
+    if (Test-Path $file) {
+
+        $hash = Get-Sha256 $file
+
+        "$hash  $file" |
+            Add-Content -LiteralPath $HashOutput
+
+    }
+}
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> # 20. FINAL SECURITY SUMMARY
+PS C:\melodie\infra\docker> # ---------------------------------------------------------------------------
+PS C:\melodie\infra\docker> Write-Step "Generating final security summary"
+
+>>> Generating final security summary
+PS C:\melodie\infra\docker> $Summary = @"
+
+============================================================
+MELODIESPARK SECURITY ROTATION COMPLETE
+============================================================
+
+Timestamp:
+$Timestamp
+
+Project:
+$Project
+
+Backup:
+$Backup
+
+Report:
+$Report
+
+ACTIONS PERFORMED
+-----------------
+[+] Forensic snapshot created
+[+] Sensitive configuration backed up
+[+] Docker stack stopped/rebuilt
+[+] Local staging JWT secret rotated
+[+] Local database password rotated
+[+] Local Redis secret generated
+[+] Local secrets moved into protected .secrets directory
+[+] .gitignore hardened
+[+] Source tree secret scan completed
+[+] Suspicious-pattern scan completed
+[+] Windows Firewall enabled
+[+] Microsoft Defender signature update attempted
+[+] Microsoft Defender QuickScan attempted
+[+] Docker state recorded
+[+] Windows listening ports recorded
+[+] Windows persistence locations recorded
+[+] Local administrator membership recorded
+[+] Git status/remotes recorded
+[+] Configuration hashes generated
+
+IMPORTANT
+---------
+The presence of a suspicious pattern is NOT proof of malware.
+The absence of a suspicious pattern is NOT proof that the machine
+is clean.
+
+External credentials still require provider-side rotation:
+
+- ChatGPT/OpenAI account credentials
+- GitHub credentials/tokens
+- Stripe secrets
+- Shopify credentials
+- cloud provider credentials
+- SSH keys
+- TLS/private keys
+- database credentials outside this local staging environment
+- any API keys stored outside this project
+
+DO NOT reuse the old credentials found in the original transcript.
+
+NEXT SECURITY REVIEW
+--------------------
+Review:
+
+$ForensicDir
+
+especially:
+
+secret_scan.txt
+suspicious_patterns.txt
+windows_persistence.txt
+listening_ports_after.txt
+docker_ps_after.txt
+git_status.txt
+git_remotes.txt
+
+============================================================
+"@
+PS C:\melodie\infra\docker> $Summary | Tee-Object -FilePath (Join-Path $ReportRoot "SUMMARY_$Timestamp.txt")
+
+============================================================
+MELODIESPARK SECURITY ROTATION COMPLETE
+============================================================
+
+Timestamp:
+20260925_190204
+
+Project:
+C:\melodie\melodiespark
+
+Backup:
+C:\Melodie\_SECURITY_BACKUPS\20260925_190204
+
+Report:
+C:\Melodie\_SECURITY_REPORTS\SECURITY_AUDIT_20260925_190204.txt
+
+ACTIONS PERFORMED
+-----------------
+[+] Forensic snapshot created
+[+] Sensitive configuration backed up
+[+] Docker stack stopped/rebuilt
+[+] Local staging JWT secret rotated
+[+] Local database password rotated
+[+] Local Redis secret generated
+[+] Local secrets moved into protected .secrets directory
+[+] .gitignore hardened
+[+] Source tree secret scan completed
+[+] Suspicious-pattern scan completed
+[+] Windows Firewall enabled
+[+] Microsoft Defender signature update attempted
+[+] Microsoft Defender QuickScan attempted
+[+] Docker state recorded
+[+] Windows listening ports recorded
+[+] Windows persistence locations recorded
+[+] Local administrator membership recorded
+[+] Git status/remotes recorded
+[+] Configuration hashes generated
+
+IMPORTANT
+---------
+The presence of a suspicious pattern is NOT proof of malware.
+The absence of a suspicious pattern is NOT proof that the machine
+is clean.
+
+External credentials still require provider-side rotation:
+
+- ChatGPT/OpenAI account credentials
+- GitHub credentials/tokens
+- Stripe secrets
+- Shopify credentials
+- cloud provider credentials
+- SSH keys
+- TLS/private keys
+- database credentials outside this local staging environment
+- any API keys stored outside this project
+
+DO NOT reuse the old credentials found in the original transcript.
+
+NEXT SECURITY REVIEW
+--------------------
+Review:
+
+C:\Melodie\_SECURITY_BACKUPS\20260925_190204\forensic
+
+especially:
+
+secret_scan.txt
+suspicious_patterns.txt
+windows_persistence.txt
+listening_ports_after.txt
+docker_ps_after.txt
+git_status.txt
+git_remotes.txt
+
+============================================================
+PS C:\melodie\infra\docker> Write-Host ""
+
+PS C:\melodie\infra\docker> Write-Host "============================================================"
+============================================================
+PS C:\melodie\infra\docker> Write-Host " SECURITY HARDENING FINISHED"
+ SECURITY HARDENING FINISHED
+PS C:\melodie\infra\docker> Write-Host "============================================================"
+============================================================
+PS C:\melodie\infra\docker> Write-Host ""
+
+PS C:\melodie\infra\docker> Write-Host "Backup : $Backup"
+Backup : C:\Melodie\_SECURITY_BACKUPS\20260925_190204
+PS C:\melodie\infra\docker> Write-Host "Report : $Report"
+Report : C:\Melodie\_SECURITY_REPORTS\SECURITY_AUDIT_20260925_190204.txt
+PS C:\melodie\infra\docker> Write-Host ""
+
+PS C:\melodie\infra\docker> Write-Host "Review the forensic directory:"
+Review the forensic directory:
+PS C:\melodie\infra\docker> Write-Host "$ForensicDir"
+C:\Melodie\_SECURITY_BACKUPS\20260925_190204\forensic
+PS C:\melodie\infra\docker> Write-Host ""
+
+PS C:\melodie\infra\docker> Stop-Transcript | Out-Null
+**********************
+Fin de la transcription PowerShell
+Heure de fin : 20260925190444
+**********************

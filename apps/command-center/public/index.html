@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Security-first commerce, revenue, wallet authorization, workflow, and governance command center.">
+  <meta name="theme-color" content="#070b16">
+  <title>Melodiespark Command Center</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Primary navigation">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span></span></div>
+        <div>
+          <strong>Melodiespark</strong>
+          <small>Command Center</small>
+        </div>
+      </div>
+
+      <nav class="nav-list">
+        <a href="#overview" data-section="overview"><span aria-hidden="true">⌁</span> Overview</a>
+        <a href="#revenue" data-section="revenue"><span aria-hidden="true">↗</span> Revenue</a>
+        <a href="#wallet" data-section="wallet"><span aria-hidden="true">◇</span> Wallet</a>
+        <a href="#guardians" data-section="guardians"><span aria-hidden="true">⬡</span> Guardians</a>
+        <a href="#workflows" data-section="workflows"><span aria-hidden="true">⟳</span> Workflows</a>
+        <a href="#store" data-section="store"><span aria-hidden="true">◫</span> Store</a>
+        <a href="#karma" data-section="karma"><span aria-hidden="true">✦</span> Karma</a>
+        <a href="#integrations" data-section="integrations"><span aria-hidden="true">⇄</span> Integrations</a>
+        <a href="#security" data-section="security"><span aria-hidden="true">◈</span> Security</a>
+        <a href="#architecture" data-section="architecture"><span aria-hidden="true">△</span> Architecture</a>
+        <a href="#legal" data-section="legal"><span aria-hidden="true">§</span> Legal & Safety</a>
+      </nav>
+
+      <div class="sidebar-foot">
+        <span class="status-dot" id="sidebar-health-dot"></span>
+        <div><strong id="sidebar-health">Checking local service</strong><small>Financial automation disabled</small></div>
+      </div>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <button class="icon-button menu-button" id="menu-button" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+        <div>
+          <p class="eyebrow" id="section-eyebrow">Operational truth</p>
+          <h1 id="section-title">Overview</h1>
+        </div>
+        <div class="topbar-actions">
+          <button class="button secondary compact" id="refresh-button" type="button">Refresh</button>
+          <button class="icon-button" id="theme-button" type="button" aria-label="Toggle color theme">◐</button>
+          <button class="button secondary compact" id="wallet-button" type="button">Connect wallet</button>
+          <button class="button primary compact" id="login-button" type="button">Administrator</button>
+        </div>
+      </header>
+
+      <main id="main-content" tabindex="-1">
+        <section class="view" id="view-overview" data-view="overview">
+          <div class="hero panel">
+            <div class="hero-copy">
+              <span class="chip" id="mode-chip">Demo mode</span>
+              <h2>One control plane.<br><em>Verified data only.</em></h2>
+              <p>Commerce reconciliation, bounded workflows, wallet authorization, and security posture—without fabricated revenue, custodial keys, or automatic fund movement.</p>
+              <div class="button-row">
+                <button class="button primary" type="button" data-action="sync">Sync configured sources</button>
+                <button class="button secondary" type="button" data-action="run-cycle">Run safe cycle</button>
+                <button class="button ghost" type="button" data-action="connect-wallet">Connect MetaMask</button>
+              </div>
+            </div>
+            <div class="matrix-visual" aria-label="Operational workflow diagram">
+              <div class="orbit orbit-a"><span>ALPHA</span></div>
+              <div class="orbit orbit-b"><span>OMEGA</span></div>
+              <div class="matrix-core"><strong>MS</strong><small>0.1.0</small></div>
+            </div>
+          </div>
+
+          <div class="metric-grid" id="metric-grid" aria-live="polite"></div>
+          <div class="content-grid">
+            <article class="panel">
+              <div class="panel-heading"><div><p class="eyebrow">Source of truth</p><h3>Revenue by currency</h3></div><span class="chip subtle">No mixed-currency total</span></div>
+              <div id="currency-summary" class="currency-grid"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-heading"><div><p class="eyebrow">Integration posture</p><h3>Connection readiness</h3></div></div>
+              <div id="integration-summary" class="status-list"></div>
+            </article>
+          </div>
+          <article class="panel">
+            <div class="panel-heading"><div><p class="eyebrow">Recent evidence</p><h3>Workflow activity</h3></div><button class="text-button" type="button" data-nav="workflows">View all</button></div>
+            <div id="recent-workflows" class="timeline"></div>
+          </article>
+        </section>
+
+        <section class="view" id="view-revenue" data-view="revenue" hidden>
+          <div class="section-intro"><div><p class="eyebrow">Reconciliation ledger</p><h2>Revenue evidence</h2><p>Amounts remain separated by currency. Demo events are explicitly flagged.</p></div><button class="button secondary" type="button" data-action="export-revenue">Export CSV</button></div>
+          <div class="metric-grid" id="revenue-metrics"></div>
+          <article class="panel table-panel"><div class="panel-heading"><div><p class="eyebrow">Immutable intake</p><h3>Transactions</h3></div><button class="button secondary compact" type="button" data-action="sync">Sync</button></div><div class="table-scroll"><table><thead><tr><th>Source</th><th>External ID</th><th>Amount</th><th>Status</th><th>Occurred</th><th>Evidence</th></tr></thead><tbody id="revenue-table"></tbody></table></div></article>
+        </section>
+
+        <section class="view" id="view-wallet" data-view="wallet" hidden>
+          <div class="section-intro"><div><p class="eyebrow">Non-custodial boundary</p><h2>Wallet authorization</h2><p>Connect a browser wallet, prove control, and optionally sign a time-limited withdrawal intent. Signing this message never moves funds.</p></div><button class="button primary" type="button" data-action="connect-wallet">Connect MetaMask</button></div>
+          <div class="notice critical"><strong>No automatic payouts.</strong><span>This MVP records authorization intent only. A regulated payout provider, funding source, reconciliation, and human approval would be required before any transfer.</span></div>
+          <div class="content-grid">
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Browser session</p><h3>Connected account</h3></div></div><div id="wallet-state" class="wallet-state"></div></article>
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Read only</p><h3>Native ETH balance</h3></div></div><div id="wallet-balance" class="empty-state"><span>◇</span><p>Connect a verified wallet, then request a read-only RPC balance.</p></div></article>
+          </div>
+          <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Controlled intent</p><h3>Withdrawal authorization</h3></div><span class="chip warning">ETH only in v0.1</span></div><p class="muted">The destination must match a verified wallet. The app creates a canonical message, the wallet signs it, and the backend verifies the signature before placing it in a review queue.</p><div class="button-row"><button class="button primary" type="button" data-action="new-withdrawal">Create signed intent</button><button class="button secondary" type="button" data-nav="security">Review controls</button></div><div id="withdrawal-list" class="record-list"></div></article>
+        </section>
+
+        <section class="view" id="view-guardians" data-view="guardians" hidden>
+          <div class="section-intro"><div><p class="eyebrow">Measured orchestration</p><h2>Guardian matrix</h2><p>600 deterministic profiles are configured. Only modules with real successful runs appear on the performance leaderboard.</p></div><button class="button secondary" type="button" data-action="run-cycle">Execute safe tasks</button></div>
+          <div class="metric-grid" id="guardian-metrics"></div>
+          <div class="content-grid wide-left">
+            <article class="panel table-panel"><div class="panel-heading"><div><p class="eyebrow">Configuration registry</p><h3>Profiles</h3></div><input class="search" id="guardian-search" type="search" placeholder="Filter name, domain, role" aria-label="Filter guardians"></div><div class="table-scroll tall"><table><thead><tr><th>ID</th><th>Name</th><th>Tier</th><th>Domain</th><th>Status</th></tr></thead><tbody id="guardian-table"></tbody></table></div></article>
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">No invented scores</p><h3>Performance leaderboard</h3></div></div><div id="leaderboard" class="leaderboard"></div></article>
+          </div>
+        </section>
+
+        <section class="view" id="view-workflows" data-view="workflows" hidden>
+          <div class="section-intro"><div><p class="eyebrow">Bounded execution</p><h2>Workflow engine</h2><p>Runs health, ledger, integration, security, and catalog checks. No task places a trade, publishes content, signs a transaction, or moves money.</p></div><button class="button primary" type="button" data-action="run-cycle">Run one cycle</button></div>
+          <div class="metric-grid" id="workflow-metrics"></div>
+          <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Audit trail</p><h3>Cycle history</h3></div></div><div id="workflow-list" class="record-list"></div></article>
+        </section>
+
+        <section class="view" id="view-store" data-view="store" hidden>
+          <div class="section-intro"><div><p class="eyebrow">Human-reviewed commerce</p><h2>Digital product drafts</h2><p>Drafts are useful; automatic publishing is not. Every product requires scope, legal, tax, fulfillment, and quality review.</p></div></div>
+          <div class="content-grid wide-left">
+            <article class="panel table-panel"><div class="panel-heading"><div><p class="eyebrow">Catalog</p><h3>Product drafts</h3></div></div><div class="table-scroll"><table><thead><tr><th>SKU</th><th>Product</th><th>Type</th><th>Price</th><th>Status</th></tr></thead><tbody id="product-table"></tbody></table></div></article>
+            <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Create locally</p><h3>New draft</h3></div></div><form id="product-form" class="form-stack"><label>Title<input name="title" required minlength="3" maxlength="140"></label><label>SKU<input name="sku" required pattern="[A-Za-z0-9][A-Za-z0-9-]{2,39}" placeholder="SVC-NEW-OFFER"></label><label>Type<select name="type"><option value="digital">Digital</option><option value="service">Service</option><option value="template">Template</option></select></label><label>Price (CAD)<input name="priceCad" type="number" min="0" max="1000000" step="0.01" required></label><label>Description<textarea name="description" maxlength="4000" rows="5"></textarea></label><button class="button primary" type="submit">Create draft</button></form></article>
+          </div>
+        </section>
+
+        <section class="view" id="view-karma" data-view="karma" hidden>
+          <div class="section-intro"><div><p class="eyebrow">Engagement, not investment</p><h2>Karma ledger</h2><p>Internal points recognize verified platform behavior. They are not crypto, securities, cash, or guaranteed rewards.</p></div></div>
+          <div class="notice"><strong>Conversion boundary.</strong><span>No Karma-to-token conversion is enabled. A future program would require separate economics, anti-abuse controls, legal review, custody/settlement design, and jurisdiction gating.</span></div>
+          <div class="metric-grid" id="karma-metrics"></div>
+          <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Ledger</p><h3>Verified entries</h3></div></div><div id="karma-ledger" class="empty-state"><span>✦</span><p>No points have been issued in this local MVP.</p></div></article>
+        </section>
+
+        <section class="view" id="view-integrations" data-view="integrations" hidden>
+          <div class="section-intro"><div><p class="eyebrow">Server-side adapters</p><h2>Integration readiness</h2><p>Secrets are read from server environment variables. They are never displayed, stored in browser local storage, or accepted in the dashboard.</p></div><button class="button primary" type="button" data-action="sync">Test configured sync</button></div>
+          <div class="notice warning"><strong>Credential rotation required.</strong><span>Any secret previously pasted into chat, source code, logs, or screenshots must be revoked and replaced. Use restricted keys and a secrets manager in production.</span></div>
+          <div id="integration-grid" class="integration-grid"></div>
+          <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Exchange rates</p><h3>Reference token prices</h3></div><button class="button secondary compact" type="button" data-action="load-prices">Fetch public prices</button></div><div id="price-output" class="empty-state"><span>↗</span><p>Public USD reference prices are fetched on demand and cached for five minutes. They are not executable quotes.</p></div></article>
+        </section>
+
+        <section class="view" id="view-security" data-view="security" hidden>
+          <div class="section-intro"><div><p class="eyebrow">Blue Light Fortress</p><h2>Security posture</h2><p>Local checks cover secrets configuration, authentication readiness, HTTPS boundaries, ledger integrity, and safe workflow controls.</p></div><button class="button primary" type="button" data-action="security-scan">Run local scan</button></div>
+          <div id="security-summary" class="metric-grid"></div>
+          <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Latest evidence</p><h3>Findings</h3></div></div><div id="security-findings" class="record-list"></div></article>
+          <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Audit log</p><h3>Administrative events</h3></div><button class="button secondary compact" type="button" data-action="load-audit">Refresh audit</button></div><div id="audit-list" class="record-list"></div></article>
+        </section>
+
+        <section class="view" id="view-architecture" data-view="architecture" hidden>
+          <div class="section-intro"><div><p class="eyebrow">Protocol boundaries</p><h2>System architecture</h2><p>The command center is a control plane. It does not pretend to be a bank, exchange, wallet custodian, regulator, or autonomous legal decision-maker.</p></div></div>
+          <div id="architecture-list" class="architecture-list"></div>
+          <article class="panel"><div class="panel-heading"><div><p class="eyebrow">Data lifecycle</p><h3>Evidence flow</h3></div></div><div class="flow"><span>Source event</span><b>→</b><span>Signature / webhook validation</span><b>→</b><span>Idempotent ledger</span><b>→</b><span>Dashboard</span><b>→</b><span>Human decision</span></div></article>
+        </section>
+
+        <section class="view" id="view-legal" data-view="legal" hidden>
+          <div class="section-intro"><div><p class="eyebrow">Operational honesty</p><h2>Legal & safety boundary</h2><p>These are engineering notices, not legal advice or evidence of a license.</p></div></div>
+          <div class="legal-grid">
+            <article class="panel"><h3>No license claim</h3><p>Software cannot create a corporation, license, MSB registration, securities approval, or bank authorization. Verify registrations and obtain qualified Canadian counsel before operating regulated activities.</p></article>
+            <article class="panel"><h3>No guaranteed revenue</h3><p>Dashboards show recorded events only. Demo data is labeled. No trading strategy, engagement score, or marketing automation guarantees income.</p></article>
+            <article class="panel"><h3>Wallet consent</h3><p>Private keys are never requested. A wallet signature proves control or authorizes a defined message; it does not bypass KYC, AML, sanctions screening, tax, or provider controls.</p></article>
+            <article class="panel"><h3>Privacy</h3><p>Do not place residential addresses, bank account numbers, identity documents, live keys, or passwords in this repository. Use a secrets manager and a proper identity system.</p></article>
+            <article class="panel"><h3>Data handling</h3><p>Implement retention, consent, access, deletion, and breach procedures for PIPEDA/GDPR where applicable. This local MVP is not a compliance certification.</p></article>
+            <article class="panel"><h3>Token rewards</h3><p>Do not publish an airdrop, faucet, or Karma conversion program until legal classification, funding, sanctions controls, tax treatment, smart-contract audit, and regional availability are complete.</p></article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <dialog id="login-dialog" class="modal">
+    <form method="dialog" id="login-form" class="modal-card">
+      <button class="icon-button modal-close" value="cancel" aria-label="Close">×</button>
+      <p class="eyebrow">Administrator access</p>
+      <h2>Sign in securely</h2>
+      <p id="login-setup-note" class="muted">Uses the password configured by the local operator. No shared withdrawal password exists.</p>
+      <label>Email<input name="email" type="email" autocomplete="username" required></label>
+      <label>Password<input name="password" type="password" autocomplete="current-password" minlength="12" required></label>
+      <div id="login-error" class="form-error" role="alert" hidden></div>
+      <button class="button primary full" type="submit" value="default">Sign in</button>
+    </form>
+  </dialog>
+
+  <dialog id="withdrawal-dialog" class="modal">
+    <form method="dialog" id="withdrawal-form" class="modal-card">
+      <button class="icon-button modal-close" value="cancel" aria-label="Close">×</button>
+      <p class="eyebrow">Authorization intent</p>
+      <h2>Sign withdrawal request</h2>
+      <p class="muted">This records a canonical authorization message. It does not submit an on-chain transaction or move funds.</p>
+      <label>Network<select name="chainId"><option value="1">Ethereum Mainnet</option><option value="11155111">Sepolia testnet</option></select></label>
+      <label>Amount (ETH)<input name="amountEth" type="number" min="0.000001" max="1000" step="0.000001" required></label>
+      <label>Destination<input name="destination" readonly required></label>
+      <div id="withdrawal-error" class="form-error" role="alert" hidden></div>
+      <button class="button primary full" type="submit" value="default">Create and sign intent</button>
+    </form>
+  </dialog>
+
+  <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <noscript><p class="noscript">JavaScript is required for dashboard interactions. Server APIs remain available.</p></noscript>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

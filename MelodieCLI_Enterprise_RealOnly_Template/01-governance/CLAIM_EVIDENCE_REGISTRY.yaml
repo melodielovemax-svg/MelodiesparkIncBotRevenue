@@ -1,0 +1,16 @@
+version: 1
+
+claims: []
+
+# Every business claim must reference independently verifiable evidence.
+#
+# Example:
+#
+# - claim_id: CLAIM-001
+#   domain: REAL_BUSINESS
+#   capability: Revenue Processing
+#   status: UNVERIFIED
+#   evidence_refs: []
+#   verified_at: null
+#   verifier: null
+#   notes:

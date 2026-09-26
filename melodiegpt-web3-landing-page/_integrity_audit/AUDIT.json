@@ -1,0 +1,237 @@
+{
+  "generated_at": "2026-09-25T21:05:59.1767182-04:00",
+  "project": {
+    "root": "C:\\melodie\\melodiegpt-web3-landing-page",
+    "package": "nextjs-postgresql-template",
+    "git_branch": null,
+    "initial_commit": null,
+    "final_commit": null
+  },
+  "discovery": {
+    "source_files": 16,
+    "categories": [],
+    "sections": [
+      {
+        "File": "src\\app\\page.tsx",
+        "Pattern": "section",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\ChatDemo.tsx",
+        "Pattern": "<section",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\ChatDemo.tsx",
+        "Pattern": "section",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Features.tsx",
+        "Pattern": "<section",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Features.tsx",
+        "Pattern": "section",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Hero.tsx",
+        "Pattern": "<section",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Hero.tsx",
+        "Pattern": "section",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\ModelShowcase.tsx",
+        "Pattern": "<section",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\ModelShowcase.tsx",
+        "Pattern": "section",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Web3Section.tsx",
+        "Pattern": "<section",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Web3Section.tsx",
+        "Pattern": "section",
+        "Status": "UNVERIFIED"
+      }
+    ],
+    "buttons": [
+      {
+        "File": "src\\components\\ChatDemo.tsx",
+        "Label": "",
+        "HasOnClick": false,
+        "HasType": true,
+        "Disabled": false,
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Header.tsx",
+        "Label": "Connect Wallet",
+        "HasOnClick": false,
+        "HasType": false,
+        "Disabled": false,
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Header.tsx",
+        "Label": "Launch App",
+        "HasOnClick": false,
+        "HasType": false,
+        "Disabled": false,
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Header.tsx",
+        "Label": "setMobileOpen((prev) => !prev)} aria-label=\"Toggle menu\" > {mobileOpen ? ( ) : ( )}",
+        "HasOnClick": true,
+        "HasType": false,
+        "Disabled": false,
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Header.tsx",
+        "Label": "Connect Wallet",
+        "HasOnClick": false,
+        "HasType": false,
+        "Disabled": false,
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Header.tsx",
+        "Label": "Launch App",
+        "HasOnClick": false,
+        "HasType": false,
+        "Disabled": false,
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Hero.tsx",
+        "Label": "Start Chatting",
+        "HasOnClick": false,
+        "HasType": false,
+        "Disabled": false,
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Hero.tsx",
+        "Label": "Explore Models",
+        "HasOnClick": false,
+        "HasType": false,
+        "Disabled": false,
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\ModelShowcase.tsx",
+        "Label": "setActiveFilter(filter)} className={`rounded-full px-3 py-1.5 text-xs font-medium transition-all ${ activeFilter === filter ? \"bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-600/20\" : \"border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10\" }`} > {filter}",
+        "HasOnClick": true,
+        "HasType": false,
+        "Disabled": false,
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Web3Section.tsx",
+        "Label": "Connect Wallet",
+        "HasOnClick": false,
+        "HasType": false,
+        "Disabled": false,
+        "Status": "UNVERIFIED"
+      }
+    ],
+    "ledger": [
+      {
+        "File": "src\\app\\api\\health\\route.ts",
+        "Capability": "ledger",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Features.tsx",
+        "Capability": "wallet",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Footer.tsx",
+        "Capability": "ledger",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Footer.tsx",
+        "Capability": "revenue",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Header.tsx",
+        "Capability": "wallet",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Web3Section.tsx",
+        "Capability": "balance",
+        "Status": "UNVERIFIED"
+      },
+      {
+        "File": "src\\components\\Web3Section.tsx",
+        "Capability": "wallet",
+        "Status": "UNVERIFIED"
+      }
+    ],
+    "ledger_api": [],
+    "dead_links": [
+      {
+        "File": "src\\components\\Footer.tsx",
+        "Target": "#",
+        "Status": "BLOCKED"
+      }
+    ]
+  },
+  "validation": [
+    {
+      "Name": "lint",
+      "Command": "npm run lint",
+      "ExitCode": 0,
+      "Passed": true,
+      "Output": "> lint\r\n> eslint ."
+    },
+    {
+      "Name": "typecheck",
+      "Command": "npm run typecheck",
+      "ExitCode": 0,
+      "Passed": true,
+      "Output": "> typecheck\r\n> tsc --noEmit"
+    },
+    {
+      "Name": "build",
+      "Command": "npm run build",
+      "ExitCode": 0,
+      "Passed": true,
+      "Output": "> build\r\n> next build\r\n\r\nÔû▓ Next.js 16.3.6 (Turbopack)\r\n- Environments: .env\r\nÔ£ô Running next.config.ts took 1919ms\r\n\r\n  Creating an optimized production build ...\r\nÔ£ô Compiled successfully in 24.7s\r\n  Running TypeScript ...\r\n  Finished TypeScript in 5.1s ...\r\n  Collecting page data using 3 workers ...\r\n  Generating static pages using 3 workers (0/2) ...\r\nÔ£ô Generating static pages using 3 workers (2/2) in 235ms\r\n  Finalizing page optimization ...\r\n\r\nRoute (app)\r\nÔöî ãÆ /\r\nÔö£ Ôùï /_not-found\r\nÔöö ãÆ /api/health\r\n\r\n\r\nÔùï  (Static)   prerendered as static content\r\nãÆ  (Dynamic)  server-rendered on demand"
+    }
+  ],
+  "classification": "UNVERIFIED",
+  "integrity": {
+    "fabricated_business_data": false,
+    "fabricated_customers": false,
+    "fabricated_revenue": false,
+    "fabricated_balances": false,
+    "fabricated_transactions": false,
+    "generated_private_keys": false,
+    "created_wallets": false,
+    "created_blockchain_transactions": false
+  },
+  "policy": {
+    "synthetic_business_data": "DISABLED",
+    "automatic_fabrication": "DISABLED",
+    "source_presence_establishes_operational_status": false
+  }
+}

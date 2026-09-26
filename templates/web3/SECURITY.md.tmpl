@@ -1,0 +1,69 @@
+# Security
+
+Short version: this project has no secrets, holds no value, and cannot move
+funds on its own.
+
+## No private keys, ever
+
+This project does not generate, create, request, import, derive, read, store or
+transmit a private key, a seed phrase, or a keystore. Not in the default
+scaffold, not in the consent-gated modules, not in any code path at all. There
+is no key file to configure, and adding one would be a design error.
+
+If any code in this project ever asks you for a private key or a recovery
+phrase, it is not this project.
+
+## You sign in your own wallet
+
+A withdrawal intent is unsigned data: a description, plus a hash of that
+description, plus an expiry. It is not a transaction, not an authorisation and
+not a transfer.
+
+Producing anything of effect from an intent happens in your own wallet
+software, outside this application, on your own hardware, at a moment you chose.
+This application can show you the intent; it cannot sign it for you and it
+cannot send it for you.
+
+## Nothing is automatic
+
+There is no scheduler, no timer, no retry loop, no queue worker, no batch job and
+no reconnect-and-resend behaviour anywhere in this project. Every chain call in
+the default scaffold is a read.
+
+The two consent-gated modules (`src/wallet/signing.ts` and
+`src/wallet/broadcast.ts`) are not written to disk by a normal
+`melodie init --template {{TEMPLATE}}` run. They exist only if an operator
+explicitly asked for them at generation time, and even then every entry point
+requires an operator-supplied consent token, and every send additionally
+requires a human confirmation callback that must return exactly `true`.
+
+## Chain scope
+
+Only testnets are configured. Mainnet is not in the configuration table at all.
+The default chain is Sepolia, and the application refuses to start if the
+default chain is ever changed to a mainnet.
+
+## Do not paste keys into issues
+
+If you open a security issue:
+
+- **do not** paste a private key, a seed phrase, a `.env` file with a populated
+  `RPC_URL`, an API key, or a JWT;
+- redact anything that looks like a credential before you paste it;
+- prefer describing the behaviour over pasting a payload.
+
+A report containing a live credential is a report containing somebody's money.
+Scrub it first, and say in the report that you did.
+
+## Reporting a problem
+
+Report security issues privately to the maintainer of this repository. Until a
+real address exists, use the repository's private security-advisory channel
+rather than opening a public issue, and put `SECURITY CONTACT: TODO` in the
+first line so the maintainer knows to rotate the contact.
+
+## What this is not
+
+This is a scaffold. It is not a wallet, not a custodian, not a payments
+processor, and not an audited system. No audit has been performed, and no claim
+of one should be made on the basis of this file existing.

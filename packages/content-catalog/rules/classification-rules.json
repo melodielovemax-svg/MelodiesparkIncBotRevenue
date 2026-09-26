@@ -1,0 +1,271 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "contract_version": "1.0.0",
+  "description": "Shared classification contract for the Melodiespark content catalog. This file is the single source of truth for both the TypeScript CLI (apps/melodie-cli) and the Python CLI (python/melodiespark-cli). Both frontends MUST load this file rather than re-implementing extraction policy.",
+  "principle": "The catalog records that a file exists. It does not expose its contents.",
+  "policy": {
+    "catalog_all_files": true,
+    "copy_by_default": false,
+    "redistribute_vcs_metadata": false,
+    "secrets_never_packaged": true
+  },
+  "categories": {
+    "SECRET": "Contains or is likely to contain a real credential. Never copied. Never packaged.",
+    "SENSITIVE": "Operational or private material. Not packaged. Extraction requires explicit authorization.",
+    "VCS": "Version control internals (.git). Catalogued for provenance, not redistributed by default.",
+    "ARCHIVE": "Archive container (.zip, .pack, .tar). Not extracted; contents are catalogued individually where already unpacked.",
+    "BINARY": "Compiled or non-text artifact. Not packaged.",
+    "GENERATED": "Machine-generated inventory or dump. Regenerable from source; not packaged.",
+    "SOURCE": "Authored program code.",
+    "TEST": "Automated test code and fixtures.",
+    "DOCUMENTATION": "Authored prose and documentation.",
+    "CONFIG": "Build, packaging, and runtime configuration.",
+    "DATA": "Structured data assets and datasets.",
+    "ASSET": "Media and static assets.",
+    "OTHER": "Does not match a known category."
+  },
+  "extraction_policy": {
+    "default": "DENY",
+    "copy_requires_flag": true,
+    "flag": "--i-have-authorization",
+    "absolutely_denied_categories": ["SECRET"],
+    "absolutely_denied_paths": [
+      "MelodieCLI/.env.enc",
+      "MelodieCLI/.env.login",
+      "MelodieCLI/.env.quickstart",
+      "MelodieCLI/.env.txt",
+      "MelodieCLI/CREDENTIALS_QUICK_REFERENCE.txt",
+      "MelodieCLI/config/APIKeys.json",
+      "MelodieCLI/config/EncryptedAPIKey.txt",
+      "MelodieCLI/BotRevenue-Ultimate/.env.production",
+      "MelodieCLI/BotRevenue-Ultimate/config/APIKeys.json",
+      "MelodieCLI/BotRevenue-Ultimate-Migrated/.env.production",
+      "MelodieCLI/BotRevenue-Ultimate-Migrated/config/APIKeys.json"
+    ],
+    "absolutely_denied_basename_patterns": [
+      "(?i)^apikeys?\\.json$",
+      "(?i)^encryptedapikeys?\\.txt$",
+      "(?i)^credentials?[._-].*\\.(txt|md|json|ya?ml|csv)$",
+      "(?i)^.*credentials?[._-]quick[._-]reference.*$",
+      "(?i)^\\.env\\.(?!example|sample|template)",
+      "(?i)^\\.env$",
+      "(?i)^(id_rsa|id_dsa|id_ecdsa|id_ed25519)$",
+      "(?i)^.*\\.(pem|p12|pfx|key|keystore|jks)$"
+    ],
+    "absolutely_denied_policy_note": "Path patterns are the primary hard deny. absolutely_denied_paths is a supplementary, audit-confirmed list. A new copy of a known secret in a new directory is denied by pattern, not by enumeration.",
+    "content_sensitive_patterns": {
+      "note": "Applied at extraction time to file CONTENT, because a real credential is often committed inside an ordinary .md, .ts, or .py file. A match downgrades the entry to denied-by-default and requires the authorization flag. This is not a permanent deny: a documentation file that legitimately shows an example key can be authorized, but it is never copied silently.",
+      "max_scan_bytes": 2097152,
+      "patterns": [
+        { "id": "CS001_STRIPE_LIVE_SECRET", "pattern": "sk_live_[0-9A-Za-z]{16,}", "severity": "CRITICAL" },
+        { "id": "CS002_AWS_ACCESS_KEY_ID", "pattern": "AKIA[0-9A-Z]{16}", "severity": "HIGH" },
+        { "id": "CS003_GITHUB_TOKEN", "pattern": "gh[pousr]_[A-Za-z0-9]{36}", "severity": "CRITICAL" },
+        { "id": "CS004_SLACK_TOKEN", "pattern": "xox[baprs]-[0-9A-Za-z-]{10,}", "severity": "HIGH" },
+        { "id": "CS005_PRIVATE_KEY_BLOCK", "pattern": "-----BEGIN [A-Z ]*PRIVATE KEY-----", "severity": "CRITICAL" },
+        { "id": "CS006_ETH_PRIVATE_KEY", "pattern": "(?i)priv(ate)?_?key\\s*[:=]\\s*[\"']0x[0-9a-fA-F]{64}", "severity": "CRITICAL" },
+        { "id": "CS007_MNEMONIC_SEED", "pattern": "(?i)(mnemonic|seed_phrase)\\s*[:=]\\s*[\"'][a-z ]{40,}", "severity": "CRITICAL" },
+        { "id": "CS008_SIGNED_JWT", "pattern": "eyJ[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}\\.[A-Za-z0-9_-]{10,}", "severity": "MEDIUM" },
+        { "id": "CS009_GOOGLE_API_KEY", "pattern": "AIza[0-9A-Za-z_-]{35}", "severity": "HIGH" },
+        { "id": "CS010_NPM_TOKEN", "pattern": "npm_[0-9A-Za-z]{36}", "severity": "CRITICAL" },
+        { "id": "CS011_OPENAI_KEY", "pattern": "sk-(proj-)?[A-Za-z0-9_-]{32,}", "severity": "HIGH" }
+      ]
+    },
+    "copyable_categories": [
+      "SOURCE",
+      "TEST",
+      "DOCUMENTATION",
+      "CONFIG",
+      "DATA",
+      "ASSET",
+      "OTHER"
+    ],
+    "authorization_required_categories": ["SENSITIVE"]
+  },
+  "rules": [
+    {
+      "id": "R001_ABSOLUTE_SECRET_PATHS",
+      "priority": 10,
+      "category": "SECRET",
+      "flags": ["sensitive", "excluded"],
+      "match": { "kind": "relative_path_equals", "values": [
+        "MelodieCLI/.env.enc",
+        "MelodieCLI/.env.login",
+        "MelodieCLI/.env.quickstart",
+        "MelodieCLI/.env.txt",
+        "MelodieCLI/CREDENTIALS_QUICK_REFERENCE.txt",
+        "MelodieCLI/config/APIKeys.json",
+        "MelodieCLI/config/EncryptedAPIKey.txt",
+        "MelodieCLI/BotRevenue-Ultimate/.env.production",
+        "MelodieCLI/BotRevenue-Ultimate/config/APIKeys.json",
+        "MelodieCLI/BotRevenue-Ultimate-Migrated/.env.production",
+        "MelodieCLI/BotRevenue-Ultimate-Migrated/config/APIKeys.json"
+      ]},
+      "reason": "Confirmed credential-bearing file enumerated during source audit."
+    },
+    {
+      "id": "R002_VCS_METADATA",
+      "priority": 20,
+      "category": "VCS",
+      "flags": ["excluded", "provenance_only"],
+      "match": { "kind": "relative_path_matches", "pattern": "(^|/)\\.git(/|$)" },
+      "reason": "Git internals are catalogued for provenance (remote, branch, commit) but are not redistributed."
+    },
+    {
+      "id": "R003_SECRET_FILENAME_PATTERNS",
+      "priority": 30,
+      "category": "SECRET",
+      "flags": ["sensitive", "excluded"],
+      "match": { "kind": "basename_matches_any", "patterns": [
+        "(?i)^apikeys?\\.json$",
+        "(?i)^encryptedapikeys?\\.txt$",
+        "(?i)^\\.env\\.(?!example|sample|template)",
+        "(?i)^\\.env$",
+        "(?i)^credentials?\\.(txt|md|json|ya?ml|csv)$",
+        "(?i)^credentials?[._-].*\\.(txt|md|json|ya?ml|csv)$",
+        "(?i)^.*credentials?[._-]quick[._-]reference.*$",
+        "(?i)^(id_rsa|id_dsa|id_ecdsa|id_ed25519)$",
+        "(?i)^.*\\.(pem|p12|pfx|key|keystore|jks)$",
+        "(?i)^secrets?\\.(json|ya?ml|txt)$"
+      ]},
+      "reason": "Filename pattern indicates a real credential rather than an example or sample. Pattern-based so that copies in new directories are also caught."
+    },
+    {
+      "id": "R004_ARCHIVE_CONTAINERS",
+      "priority": 40,
+      "category": "ARCHIVE",
+      "flags": ["binary", "excluded"],
+      "match": { "kind": "extension_in", "values": [".zip", ".tar", ".gz", ".tgz", ".7z", ".rar", ".pack", ".bz2", ".xz"] },
+      "reason": "Archive container. Not extracted or packaged; sizes are recorded for provenance only."
+    },
+    {
+      "id": "R005_BINARY_ARTIFACTS",
+      "priority": 50,
+      "category": "BINARY",
+      "flags": ["binary", "excluded"],
+      "match": { "kind": "extension_in", "values": [
+        ".exe", ".dll", ".so", ".dylib", ".node", ".o", ".a", ".obj", ".lib",
+        ".class", ".jar", ".pyc", ".pyo", ".wasm", ".bin", ".pdb", ".db", ".sqlite", ".sqlite3"
+      ]},
+      "reason": "Compiled or opaque binary artifact."
+    },
+    {
+      "id": "R006_GENERATED_DUMPS",
+      "priority": 60,
+      "category": "GENERATED",
+      "flags": ["generated", "excluded"],
+      "match": { "kind": "basename_matches_any", "patterns": [
+        "(?i)[_-]files\\.csv$",
+        "(?i)[_-]structure\\.txt$",
+        "(?i)[_-]tree\\.txt$",
+        "(?i)[_-]file[_-]inventory\\.txt$",
+        "(?i)[_-]packages\\.txt$",
+        "(?i)[_-]project[_-]files\\.txt$",
+        "(?i)[_-]project[_-]tree\\.txt$",
+        "(?i)[_-]package[_-]audit\\.txt$",
+        "(?i)[_-]pnpm[_-]services\\.txt$",
+        "(?i)[_-]workspace\\.txt$",
+        "(?i)[_-]complete[_-]integration\\.txt$",
+        "(?i)^code-map\\.txt$",
+        "(?i)^architecture-directories\\.txt$",
+        "(?i)\\.bak$",
+        "(?i)^_tmp_"
+      ]},
+      "reason": "Machine-generated inventory dump. Regenerable with `melodie catalog`; excluded from packages. Separator class is [_-] because the dumps use both MelodieCLI_FILES.csv and MELODIECLI-TREE.txt conventions."
+    },
+    {
+      "id": "R007_TEST_CODE",
+      "priority": 70,
+      "category": "TEST",
+      "flags": ["test"],
+      "match": { "kind": "path_matches_any", "patterns": [
+        "(^|/)(tests?|__tests__|spec|specs|e2e)(/|$)",
+        "(?i)(^|/)(test_[^/]+|[^/]*\\.(test|spec)\\.[a-z]+)$"
+      ]},
+      "reason": "Automated test code or fixture."
+    },
+    {
+      "id": "R008_DOCUMENTATION",
+      "priority": 80,
+      "category": "DOCUMENTATION",
+      "flags": [],
+      "match": { "kind": "extension_in", "values": [".md", ".mdx", ".rst", ".adoc", ".txt", ".org"] },
+      "reason": "Authored prose."
+    },
+    {
+      "id": "R009_SOURCE_CODE",
+      "priority": 90,
+      "category": "SOURCE",
+      "flags": [],
+      "match": { "kind": "extension_in", "values": [
+        ".ts", ".tsx", ".js", ".jsx", ".mjs", ".cjs", ".py", ".go", ".rs", ".cs",
+        ".java", ".kt", ".swift", ".rb", ".php", ".c", ".h", ".cpp", ".hpp", ".cc",
+        ".gd", ".lua", ".sh", ".bash", ".zsh", ".ps1", ".psm1", ".bat", ".cmd",
+        ".vue", ".svelte", ".sql", ".html", ".css", ".scss"
+      ]},
+      "reason": "Authored program code."
+    },
+    {
+      "id": "R010_CONFIGURATION",
+      "priority": 100,
+      "category": "CONFIG",
+      "flags": [],
+      "match": { "kind": "basename_matches_any_or_extension_in",
+        "patterns": [
+          "(?i)^package(-lock)?\\.json$",
+          "(?i)^pnpm-lock\\.yaml$",
+          "(?i)^pnpm-workspace\\.yaml$",
+          "(?i)^package-login\\.json$",
+          "(?i)^pyproject\\.toml$",
+          "(?i)^setup\\.(py|cfg)$",
+          "(?i)^requirements.*\\.txt$",
+          "(?i)^(Dockerfile.*|docker-compose.*\\.ya?ml|compose\\.ya?ml)$",
+          "(?i)^Makefile$",
+          "(?i)^go\\.(mod|sum)$",
+          "(?i)^Cargo\\.(toml|lock)$",
+          "(?i)^(tsconfig.*\\.json|turbo\\.json|jest\\.config\\..*|vitest\\.config\\..*)$",
+          "(?i)^\\.(gitignore|gitattributes|dockerignore|npmignore|editorconfig|prettierrc|pre-commit-config\\.ya?ml|env\\.example|eslintrc.*)$",
+          "(?i)^(alembic\\.ini|go\\.mod|manifest\\.json)$",
+          "(?i)^.*\\.example$",
+          "(?i)^.*\\.sample$",
+          "(?i)^.*\\.ya?ml$",
+          "(?i)^.*\\.toml$",
+          "(?i)^.*\\.ini$",
+          "(?i)^.*\\.cfg$",
+          "(?i)^\\.env\\.example.*$"
+        ],
+        "values": [".toml", ".ini", ".cfg"]
+      },
+      "reason": "Build, packaging, or runtime configuration."
+    },
+    {
+      "id": "R011_DATA",
+      "priority": 110,
+      "category": "DATA",
+      "flags": [],
+      "match": { "kind": "extension_in", "values": [".json", ".jsonl", ".csv", ".tsv", ".ndjson", ".avro", ".parquet"] },
+      "reason": "Structured data asset or dataset."
+    },
+    {
+      "id": "R012_ASSETS",
+      "priority": 120,
+      "category": "ASSET",
+      "flags": ["binary"],
+      "match": { "kind": "extension_in", "values": [
+        ".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".ico", ".bmp", ".tiff",
+        ".mp3", ".wav", ".ogg", ".flac", ".mp4", ".webm", ".mov", ".avi",
+        ".ttf", ".otf", ".woff", ".woff2", ".eot", ".glb", ".gltf", ".fbx", ".blend", ".obj3"
+      ]},
+      "reason": "Media or static asset."
+    }
+  ],
+  "fallback": {
+    "id": "R999_FALLBACK",
+    "category": "OTHER",
+    "flags": [],
+    "reason": "No rule matched."
+  },
+  "repositories": {
+    "source": "SOURCE_INVENTORY.json",
+    "fields": ["Name", "Remote", "Branch", "Commit", "CommitDate", "FileCount", "WorkingTree", "Classification"]
+  }
+}

@@ -1,0 +1,65 @@
+
+Name     : OneDriveSetup
+Command  : C:\Windows\System32\OneDriveSetup.exe /thfirstsetup
+Location : HKU\S-1-5-19\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+User     : NT AUTHORITY\LOCAL SERVICE
+
+Name     : OneDriveSetup
+Command  : C:\Windows\System32\OneDriveSetup.exe /thfirstsetup
+Location : HKU\S-1-5-20\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+User     : NT AUTHORITY\NETWORK SERVICE
+
+Name     : Ollama
+Command  : Ollama.lnk
+Location : Startup
+User     : GITHUB\elodi
+
+Name     : BraveSoftware Update
+Command  : "C:\Users\elodi\AppData\Local\BraveSoftware\Update\1.3.361.151\BraveUpdateCore.exe"
+Location : HKU\S-1-5-21-3908910359-438158897-1172123317-1001\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+User     : GITHUB\elodi
+
+Name     : Docker Desktop
+Command  : C:\Program Files\Docker\Docker\Docker Desktop.exe
+Location : HKU\S-1-5-21-3908910359-438158897-1172123317-1001\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+User     : GITHUB\elodi
+
+Name     : Discord
+Command  : "C:\Users\elodi\AppData\Local\Discord\Update.exe" --processStart Discord.exe --process-start-args "--start-inactive"
+Location : HKU\S-1-5-21-3908910359-438158897-1172123317-1001\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+User     : GITHUB\elodi
+
+Name     : EpicGamesLauncher
+Command  : "C:\Program Files\Epic Games\Launcher\Portal\Binaries\Win64\EpicGamesLauncher.exe" -silent -launchcontext=boot
+Location : HKU\S-1-5-21-3908910359-438158897-1172123317-1001\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+User     : GITHUB\elodi
+
+Name     : MicrosoftEdgeAutoLaunch_CACF4BF4AF597F5C06335E6B985D079A
+Command  : "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --no-startup-window --win-session-start
+Location : HKU\S-1-5-21-3908910359-438158897-1172123317-1001\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+User     : GITHUB\elodi
+
+Name     : SecurityHealth
+Command  : %windir%\system32\SecurityHealthSystray.exe
+Location : HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+User     : Public
+
+Name     : SteelSeriesGG
+Command  : "C:\Program Files\SteelSeries\GG\SteelSeriesGGEZ.exe" -dataPath="C:\ProgramData\SteelSeries\GG" -dbEnv=production -auto=true
+Location : HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run
+User     : Public
+
+
+TaskName                                                                                                           TaskP
+                                                                                                                   ath
+--------                                                                                                           -----
+BraveSoftwareUpdateTaskUserS-1-5-21-3908910359-438158897-1172123317-1001Core{5F0A37BE-8F35-4EB9-8079-E0900555F69B} \    
+BraveSoftwareUpdateTaskUserS-1-5-21-3908910359-438158897-1172123317-1001UA{BBC04174-33A2-4CF2-A607-3737AECA3CD0}   \    
+MicrosoftEdgeUpdateTaskMachineCore{FB00E6B8-346F-4515-86B0-6700E79D8B73}                                           \    
+MicrosoftEdgeUpdateTaskMachineUA{0B3A983F-BE98-4500-92BD-12314FF45430}                                             \    
+NVIDIA App SelfUpdate_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}                                                       \    
+SoftLandingCreativeManagementTask                                                                                  \Sof…
+SoftLandingDeferralTask-{f96b5ef1-12a5-4923-bbaa-6521767170a5}                                                     \Sof…
+SoftLandingTriggerTask-128000000001615609-render-{86ab0cc8-3b73-41da-b024-3b102931076c}                            \Sof…
+SoftLandingCreativeManagementTask                                                                                  \Sof…
+

@@ -1,0 +1,582 @@
+MELODIESPARK — ULTIMATE WINDOWS PERFORMANCE / QUALITY / VISUALS / LOW-LATENCY POWERSHELL GENERATOR
+TARGET: ACTUAL LOCAL HARDWARE PROFILE
+OUTPUT REQUIRED: ONE PRODUCTION-QUALITY POWERSHELL 7 SCRIPT
+
+You are a senior Windows performance engineer, PowerShell architect, PC gaming latency specialist, NVIDIA optimization engineer, storage/network tuning engineer, and rollback/safety engineer.
+
+Your mission is to generate ONE complete PowerShell 7.6+ script that intelligently optimizes THIS SPECIFIC PC for the best practical combination of:
+- system responsiveness
+- gaming performance
+- minimum stutter
+- minimum input latency
+- strong 1% / 0.1% low consistency
+- desktop responsiveness
+- visual quality
+- GPU utilization
+- CPU scheduling
+- RAM/pagefile stability
+- storage responsiveness
+- Ethernet stability
+- background-process efficiency
+- fast application launching
+- sensible temperatures and hardware longevity
+
+======================================================================
+ACTUAL HARDWARE / OS TARGET
+======================================================================
+
+Computer class:
+- Dell OptiPlex 7040
+
+Operating system:
+- Windows 11 Pro
+- 64-bit
+- PowerShell 7.6.5 available
+
+CPU:
+- Intel Core i5-6500
+- 4 cores / 4 threads
+- Skylake generation
+- Do NOT assume modern Thread Director / hybrid P+E cores
+
+GPU:
+- NVIDIA GeForce GTX 1050
+- 2 GB VRAM
+- Optimize carefully for constrained VRAM
+- Prioritize stable frametimes over unrealistic texture/VRAM pressure
+
+RAM:
+- System has historically operated around 8–16 GB depending on installed configuration
+- The optimization script MUST detect actual currently installed RAM dynamically
+- Existing manual pagefile history: approximately 15000–20000 MB
+- Do NOT blindly disable paging
+- Detect physical RAM and current commit/pagefile configuration first
+
+Storage:
+- Multiple SSDs are present
+- Approximate installed capacities have included:
+  - 1 TB SSD
+  - 512 GB SSD
+  - 256 GB SSD
+- Detect actual current disks, media type, free space, filesystem, health, TRIM state, and active Windows volume dynamically
+
+Network:
+- Intel Ethernet Connection (2) I219-LM
+- Negotiated physical link: 1 Gbps
+- Hyper-V virtual Ethernet adapter may also exist
+- Do NOT confuse the Hyper-V 10 Gbps virtual adapter with the physical NIC
+- TCP defaults previously restored to:
+  - RSS enabled
+  - autotuning normal
+
+Primary workloads:
+- coding / CLI platforms
+- PowerShell
+- Node.js
+- Python
+- Docker / Hyper-V possible
+- Unreal Engine development/builds
+- gaming
+- Path of Exile / latency-sensitive games
+- local AI / Ollama workloads
+
+======================================================================
+NON-NEGOTIABLE ENGINEERING RULES
+======================================================================
+
+1. DO NOT use fake "ultimate tweak" folklore.
+2. DO NOT disable critical Windows security features merely for benchmark points.
+3. DO NOT disable Windows Update permanently.
+4. DO NOT disable Defender permanently.
+5. DO NOT disable the pagefile.
+6. DO NOT apply dangerous BCD timer tweaks such as blindly forcing:
+   - useplatformclock
+   - disabledynamictick
+   - tscsyncpolicy
+   unless evidence specifically justifies a setting.
+7. DO NOT modify HPET blindly.
+8. DO NOT alter CPU/GPU voltage or clocks.
+9. DO NOT perform BIOS flashing.
+10. DO NOT disable thermal protection.
+11. DO NOT disable core Windows networking components.
+12. DO NOT turn off services blindly.
+13. DO NOT use registry tweaks with no defensible Windows behavior behind them.
+14. DO NOT destroy restore points.
+15. DO NOT remove recovery functionality.
+16. DO NOT delete user files.
+17. DO NOT modify .env files or credentials.
+18. DO NOT modify source-code repositories except for generated reports.
+19. DO NOT promise impossible FPS or "NASA computer" performance.
+20. Every modification must be:
+    - detected first
+    - justified
+    - logged
+    - reversible where technically possible
+
+======================================================================
+SCRIPT FORMAT
+======================================================================
+
+Generate ONE standalone script named:
+
+MELODIESPARK-ULTIMATE-HARDWARE-BOOST.ps1
+
+It must work from an elevated PowerShell 7 terminal.
+
+The script must support:
+
+-Mode Audit
+-Mode Optimize
+-Mode Gaming
+-Mode Workstation
+-Mode VisualQuality
+-Mode Ollama
+-Mode Restore
+-Mode Benchmark
+-Mode Full
+
+Optional parameters:
+-CreateRestorePoint
+-SkipRestorePoint
+-EnableGameMode
+-DisableUnneededStartupApps
+-OptimizeNvidia
+-OptimizeNetwork
+-OptimizeStorage
+-OptimizeMemory
+-OptimizePower
+-OptimizeVisuals
+-OptimizeServices
+-OptimizeOllama
+-GenerateReport
+-WhatIf
+
+Full mode must execute a safe balanced profile, not every aggressive tweak indiscriminately.
+
+======================================================================
+PHASE 1 — HARDWARE DISCOVERY
+======================================================================
+
+Before changing anything, detect and report:
+
+- computer manufacturer/model
+- BIOS version/date
+- Windows edition/build
+- current PowerShell version
+- CPU model
+- physical cores
+- logical processors
+- CPU max clock
+- current power scheme
+- total physical RAM
+- available RAM
+- memory speed if exposed
+- DIMM count
+- pagefile configuration
+- committed memory state
+- GPU model(s)
+- NVIDIA driver version
+- VRAM if detectable
+- active display resolution
+- refresh rate
+- disk inventory
+- SSD/HDD media type
+- disk health where Windows exposes it
+- TRIM state
+- free space
+- physical network adapters
+- link speed
+- RSS state
+- TCP autotuning
+- running Hyper-V / Docker indicators
+- startup applications
+- top CPU processes
+- top memory processes
+- Windows Game Mode status
+- hardware-accelerated GPU scheduling status if supported
+- virtualization state
+- thermal data only if Windows exposes reliable values
+
+Never fabricate unsupported sensor information.
+
+======================================================================
+PHASE 2 — RESTORE / BACKUP
+======================================================================
+
+Before optimization:
+
+- create a timestamped directory:
+  C:\MelodieCLI\reports\performance\<timestamp>\
+
+If C:\MelodieCLI does not exist, fallback to:
+  $env:USERPROFILE\MelodiePerformanceReports\<timestamp>\
+
+Export:
+- selected registry keys before edits
+- power configuration
+- TCP global state
+- active NIC advanced properties
+- service startup modes for any service modified
+- pagefile settings
+- startup configuration relevant to edits
+- NVIDIA-related Windows settings changed by the script
+- JSON hardware baseline
+- human-readable TXT/MD report
+
+If System Restore is enabled and requested, create a restore point.
+If unavailable, continue with configuration backups and clearly state that fact.
+
+======================================================================
+PHASE 3 — CPU / POWER
+======================================================================
+
+Tune power management intelligently for an i5-6500 desktop.
+
+Requirements:
+- Detect whether Ultimate Performance is supported.
+- Prefer High Performance or a cloned custom Melodiespark plan where appropriate.
+- Never assume laptop/battery hardware.
+- Set processor minimum/maximum state sensibly for desktop performance.
+- Preserve thermal safeguards.
+- Avoid unsupported hidden power settings unless detected.
+- Favor consistent clocks under interactive/game workloads without reckless permanent maximum-load settings.
+- Include a Balanced restoration path.
+
+Create:
+- Balanced Performance profile
+- Gaming profile
+- Workstation profile
+
+======================================================================
+PHASE 4 — MEMORY / PAGEFILE
+======================================================================
+
+The machine may have limited RAM, so memory stability is critical.
+
+The script must:
+- detect installed RAM dynamically
+- inspect existing automatic/manual pagefile
+- inspect free space on candidate SSDs
+- never disable pagefile
+- make a conservative recommendation
+- only apply pagefile changes if clearly beneficial
+
+Suggested logic:
+- <= 8 GB RAM:
+  strong pagefile support; prioritize stability
+- >8 GB and <=16 GB:
+  retain substantial pagefile
+- >16 GB:
+  still keep pagefile for crash dumps/commit safety
+
+Do NOT hardcode 15000–20000 MB merely because it existed before.
+Instead calculate a sane value using RAM, workload, dump requirements, and disk space.
+
+Memory optimization may include:
+- enabling memory compression if supported
+- detecting whether it is already enabled
+- avoiding destructive cache-clearing loops
+- reporting memory pressure before/after
+
+======================================================================
+PHASE 5 — NVIDIA GTX 1050 / VISUAL QUALITY
+======================================================================
+
+Optimize for GTX 1050 2 GB.
+
+Priorities:
+- stable frametime
+- sensible low-latency configuration
+- avoid exceeding VRAM
+- preserve good image quality
+- do not force unsupported GPU features
+
+The PowerShell script should:
+- detect NVIDIA driver
+- detect relevant Windows graphics settings
+- expose recommendations for NVIDIA Control Panel settings that cannot be reliably configured through supported Windows interfaces
+- clearly separate automatic changes from manual recommendations
+
+Consider:
+- Game Mode
+- hardware-accelerated GPU scheduling ONLY if supported
+- variable refresh related detection if available
+- fullscreen optimization compatibility only when justified
+- shader cache considerations
+- per-game recommendations
+- sensible texture quality for 2 GB VRAM
+- reducing background overlays when user chooses Gaming mode
+
+Do NOT inject random NVIDIA registry hacks.
+
+======================================================================
+PHASE 6 — WINDOWS VISUALS
+======================================================================
+
+Provide selectable profiles:
+
+1. MaximumPerformance
+2. BalancedBeauty
+3. MaximumVisualQuality
+
+BalancedBeauty should be the default.
+
+Optimize:
+- animation responsiveness
+- transparency
+- thumbnails
+- font smoothing
+- desktop composition
+- menu delay
+- Explorer responsiveness
+
+Do not make Windows look ugly by default.
+
+======================================================================
+PHASE 7 — STORAGE
+======================================================================
+
+For SSDs:
+- verify TRIM
+- enable TRIM if Windows has it disabled and SSD support is appropriate
+- do NOT run legacy defrag behavior blindly
+- use Windows storage optimization appropriately
+- report low free-space risks
+- detect write-cache settings without forcing unsafe values
+- clean only safe temporary files
+- do not purge Downloads
+- do not purge project/build caches unless explicitly requested
+- preserve development caches by default because rebuilding them can hurt productivity
+
+May safely clean:
+- ordinary temp files that are not locked
+- stale Windows temp content where appropriate
+- Recycle Bin only with explicit opt-in
+
+======================================================================
+PHASE 8 — NETWORK / GAMING LATENCY
+======================================================================
+
+Target physical adapter:
+Intel(R) Ethernet Connection (2) I219-LM
+Expected physical link: 1 Gbps
+
+Requirements:
+- detect physical adapter by hardware status, not simply highest LinkSpeed
+- ignore Hyper-V virtual 10 Gbps adapter for physical-NIC optimization
+- retain RSS enabled
+- retain TCP autotuning Normal unless evidence says otherwise
+- inspect RSC, ECN, timestamps, chimney/offload status as relevant
+- inspect NIC advanced properties before editing
+- do not disable checksum/large-send/RSS features blindly
+- latency tuning must remain evidence-based
+
+For optional Gaming mode:
+- offer conservative NIC power-saving adjustments
+- disable Energy Efficient Ethernet only if the adapter exposes it AND user selected Gaming
+- avoid arbitrary MTU changes
+- avoid hardcoded DNS unless user requests it
+- do not change router configuration
+
+Include ping/latency/jitter diagnostics using safe public targets and local gateway where available.
+
+======================================================================
+PHASE 9 — WINDOWS BACKGROUND LOAD
+======================================================================
+
+Audit startup apps and services.
+
+The script may offer safe optimization for:
+- vendor updaters
+- unnecessary launch-at-login helpers
+- Xbox overlays in gaming mode if user does not use them
+- unnecessary consumer background apps
+
+But:
+- do not disable services only because their names look unnecessary
+- never disable networking, audio, cryptographic, installer, event log, Defender, Update, WMI, RPC, Task Scheduler, Plug and Play, storage, GPU, or authentication infrastructure
+- preserve Docker/Hyper-V components when detected and in use
+
+Use categorized recommendations:
+SAFE
+OPTIONAL
+DO NOT TOUCH
+
+======================================================================
+PHASE 10 — OLLAMA / LOCAL AI
+======================================================================
+
+Create an Ollama optimization mode specifically for this hardware.
+
+Because GTX 1050 has only 2 GB VRAM:
+- detect whether Ollama is using GPU
+- avoid assuming full model offload
+- prioritize smaller quantized models where appropriate
+- report GPU/CPU/RAM constraints
+- optimize process priority conservatively
+- avoid exhausting physical RAM
+- avoid giant context windows by default
+- recommend practical model sizes based on detected RAM and VRAM
+- identify when CPU inference is expected
+- do not fake CUDA compatibility results
+
+Generate an "OLLAMA-HARDWARE-RECOMMENDATIONS.txt" report.
+
+======================================================================
+PHASE 11 — GAMING PROFILE
+======================================================================
+
+Gaming mode should:
+- enable Windows Game Mode
+- set suitable power profile
+- reduce selected background startup/runtime load safely
+- prioritize foreground responsiveness
+- optimize the physical Ethernet adapter conservatively
+- preserve audio/network stability
+- detect NVIDIA/Windows graphics capabilities
+- optionally suspend explicitly safe user-selected background apps
+- never kill development work without confirmation
+- report what was changed
+
+Special attention:
+- Path of Exile / ARPG-style CPU frametime spikes
+- 4C/4T CPU contention
+- 2 GB VRAM pressure
+- RAM/pagefile stalls
+- shader/cache-related stutter
+- background browser / Docker / build-process competition
+
+======================================================================
+PHASE 12 — WORKSTATION / DEVELOPMENT PROFILE
+======================================================================
+
+Workstation mode should optimize for:
+- PowerShell
+- Python
+- Node.js
+- pnpm/npm
+- Git
+- Docker
+- Unreal Engine compilation
+- VS Code / coding agents
+- local AI
+
+Do NOT aggressively kill background services needed by development tools.
+
+For Unreal builds:
+- identify CPU/RAM bottleneck
+- detect free disk space
+- keep pagefile stable
+- give recommendations rather than pretending an i5-6500 is a high-core workstation
+
+======================================================================
+PHASE 13 — BENCHMARK / EVIDENCE
+======================================================================
+
+Before and after optimization, collect lightweight evidence:
+
+- boot uptime
+- CPU utilization snapshot
+- available RAM
+- commit usage
+- pagefile usage
+- disk latency/queue counters where supported
+- network adapter statistics
+- active power scheme
+- top background processes
+- GPU counters if Windows exposes useful ones
+- ping latency/jitter sample
+- optional WinSAT components where supported
+
+Do NOT produce fabricated percentage gains.
+
+Report:
+- baseline
+- settings changed
+- post-state
+- measurable differences
+- unmeasured/recommendation-only items
+
+======================================================================
+PHASE 14 — LOGGING
+======================================================================
+
+Use:
+- Write-Host with readable status colors
+- structured objects
+- JSON output
+- transcript logging
+- error handling
+- try/catch
+- clear PASS / WARN / SKIP / FAIL statuses
+
+The script must never claim PASS when a command failed.
+
+======================================================================
+PHASE 15 — RESTORE MODE
+======================================================================
+
+Restore mode must restore all changes made by the script when backups exist.
+
+Restore:
+- power plan
+- pagefile settings
+- registry settings
+- services changed by the script
+- NIC properties changed by the script
+- visual settings
+- Game Mode / graphics settings modified by script
+
+Generate a restoration report.
+
+======================================================================
+CODE QUALITY REQUIREMENTS
+======================================================================
+
+The generated PowerShell must:
+- use Set-StrictMode -Version Latest
+- use $ErrorActionPreference = 'Stop' where appropriate with localized exception handling
+- detect administrator privileges
+- support -WhatIf semantics for destructive/system-changing operations
+- avoid deprecated commands where good alternatives exist
+- test command/cmdlet availability
+- dynamically discover hardware
+- avoid assuming device indexes
+- avoid WMI-only logic when CIM is available
+- avoid blindly changing unsupported settings
+- create helper functions
+- have clear region blocks
+- be readable and maintainable
+- contain extensive inline comments for non-obvious tuning decisions
+- produce no syntax errors
+- work in PowerShell 7.6+ on Windows 11
+
+======================================================================
+REQUIRED FINAL OUTPUT FROM YOU
+======================================================================
+
+Return:
+
+1. The COMPLETE content of:
+   MELODIESPARK-ULTIMATE-HARDWARE-BOOST.ps1
+
+2. A short exact usage section showing:
+   .\MELODIESPARK-ULTIMATE-HARDWARE-BOOST.ps1 -Mode Audit
+   .\MELODIESPARK-ULTIMATE-HARDWARE-BOOST.ps1 -Mode Full
+   .\MELODIESPARK-ULTIMATE-HARDWARE-BOOST.ps1 -Mode Gaming
+   .\MELODIESPARK-ULTIMATE-HARDWARE-BOOST.ps1 -Mode Workstation
+   .\MELODIESPARK-ULTIMATE-HARDWARE-BOOST.ps1 -Mode Ollama
+   .\MELODIESPARK-ULTIMATE-HARDWARE-BOOST.ps1 -Mode Restore
+
+3. No placeholders such as:
+   TODO
+   implement here
+   omitted for brevity
+   pseudo-code
+
+4. No fabricated benchmark claims.
+
+5. If a requested optimization is unsafe, unsupported, or cannot be reliably automated, keep it as a clearly labeled recommendation instead of forcing the change.
+
+OBJECTIVE:
+Create the most capable, technically defensible, reversible optimization engine possible for THIS ACTUAL PC—not a generic tweak pack.

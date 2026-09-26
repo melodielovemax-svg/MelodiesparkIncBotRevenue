@@ -1,0 +1,17 @@
+# Note: the "files" array in package.json is authoritative. npm includes those
+# paths first, and this file can only trim what is already inside them, so a
+# pattern here will not stop a file that "files" already asked for. Edit
+# "files" if you need to change the published payload for real.
+#
+# Second line of defence, in case "files" is ever dropped: keep sources and
+# tooling out of the tarball.
+src/
+test/
+tests/
+.github/
+node_modules/
+tsconfig.json
+*.ts
+*.tgz
+.env
+.env.*

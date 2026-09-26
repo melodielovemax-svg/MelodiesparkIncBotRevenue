@@ -1,0 +1,170 @@
+{
+  "timestamp": "2026-09-26T03:47:06.748Z",
+  "summary": {
+    "applicationTests": {
+      "passed": 1,
+      "total": 1,
+      "results": [
+        {
+          "name": "Application Test Suite",
+          "passed": true,
+          "output": "\n> melodiespark@0.1.0 test\n> node --test --test-reporter=spec\n\n✔ health, configuration, and demo dashboard are operational (399.3718ms)\n✔ admin authentication, CSRF, safe workflow, and draft creation work end to end (217.2477ms)\n✔ state-changing endpoints reject missing CSRF tokens (112.2094ms)\n✔ game telemetry ingestion and karma rewards function properly (198.6467ms)\n✔ execution is durable, idempotent, and awards Karma through the ledger API (269.843ms)\n✔ rejects expired authorization and supports cancellation before execution (89.2554ms)\n✔ propagates runner failure and timeout without leaking runner errors (1190.1108ms)\n{\"level\":\"info\",\"component\":\"execution\",\"execution_id\":\"0c6a8735-51d1-4dc3-9ee3-8d3bb5c7a5a5\",\"user_id\":\"a8b13510-e527-41c0-86fb-4d264256d2a6\",\"from_status\":\"running\",\"status\":\"succeeded\",\"duration_ms\":9,\"failure_class\":null}\n✔ execution API enforces session, CSRF, ownership, and pagination (659.5598ms)\n✔ concurrent submissions and runner claims execute one intent once (130.1663ms)\n✔ recovery fails interrupted running executions and resumes queued work deterministically (96.2661ms)\n✔ cancellation racing with the runner prevents terminal success (125.8372ms)\n✔ production configuration fails closed and readiness exposes only operational state (112.3454ms)\n✔ database state survives close, backup, restore, and migration initialization (96.4996ms)\n✔ shutdown closes execution admission before draining active work (81.6073ms)\n✔ password hashes verify without storing plaintext (109.7938ms)\n✔ withdrawal intent canonicalization is deterministic and amount-bound (0.9724ms)\n✔ atomic ETH conversion rejects invalid or imprecise values (0.8203ms)\n✔ constant-time text comparison handles unequal lengths (0.3068ms)\nℹ tests 18\nℹ suites 0\nℹ pass 18\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 8574.7517\n",
+          "passingTests": 18,
+          "required": 18
+        }
+      ]
+    },
+    "cliSmokeTests": {
+      "passed": 6,
+      "total": 6,
+      "results": [
+        {
+          "name": "Legacy one-cycle workflow",
+          "passed": true,
+          "exitCode": 0,
+          "expectedExitCode": 0,
+          "outputMatches": true,
+          "requiredOutput": [
+            "succeeded"
+          ]
+        },
+        {
+          "name": "Explicit one-cycle workflow",
+          "passed": true,
+          "exitCode": 0,
+          "expectedExitCode": 0,
+          "outputMatches": true,
+          "requiredOutput": [
+            "succeeded"
+          ]
+        },
+        {
+          "name": "ProductSync",
+          "passed": true,
+          "exitCode": 0,
+          "expectedExitCode": 0,
+          "outputMatches": true,
+          "requiredOutput": [
+            "success",
+            "draftCount"
+          ]
+        },
+        {
+          "name": "WalletVerify instructions",
+          "passed": true,
+          "exitCode": 0,
+          "expectedExitCode": 0,
+          "outputMatches": true,
+          "requiredOutput": [
+            "EIP-191",
+            "instructions"
+          ]
+        },
+        {
+          "name": "TaskRun health",
+          "passed": true,
+          "exitCode": 0,
+          "expectedExitCode": 0,
+          "outputMatches": true,
+          "requiredOutput": [
+            "taskId",
+            "health"
+          ]
+        },
+        {
+          "name": "RevReport",
+          "passed": true,
+          "exitCode": 0,
+          "expectedExitCode": 0,
+          "outputMatches": true,
+          "requiredOutput": [
+            "generatedAt",
+            "summary"
+          ]
+        }
+      ]
+    },
+    "overall": {
+      "passed": 7,
+      "total": 7,
+      "passRate": "100.00%"
+    }
+  },
+  "results": {
+    "application": [
+      {
+        "name": "Application Test Suite",
+        "passed": true,
+        "output": "\n> melodiespark@0.1.0 test\n> node --test --test-reporter=spec\n\n✔ health, configuration, and demo dashboard are operational (399.3718ms)\n✔ admin authentication, CSRF, safe workflow, and draft creation work end to end (217.2477ms)\n✔ state-changing endpoints reject missing CSRF tokens (112.2094ms)\n✔ game telemetry ingestion and karma rewards function properly (198.6467ms)\n✔ execution is durable, idempotent, and awards Karma through the ledger API (269.843ms)\n✔ rejects expired authorization and supports cancellation before execution (89.2554ms)\n✔ propagates runner failure and timeout without leaking runner errors (1190.1108ms)\n{\"level\":\"info\",\"component\":\"execution\",\"execution_id\":\"0c6a8735-51d1-4dc3-9ee3-8d3bb5c7a5a5\",\"user_id\":\"a8b13510-e527-41c0-86fb-4d264256d2a6\",\"from_status\":\"running\",\"status\":\"succeeded\",\"duration_ms\":9,\"failure_class\":null}\n✔ execution API enforces session, CSRF, ownership, and pagination (659.5598ms)\n✔ concurrent submissions and runner claims execute one intent once (130.1663ms)\n✔ recovery fails interrupted running executions and resumes queued work deterministically (96.2661ms)\n✔ cancellation racing with the runner prevents terminal success (125.8372ms)\n✔ production configuration fails closed and readiness exposes only operational state (112.3454ms)\n✔ database state survives close, backup, restore, and migration initialization (96.4996ms)\n✔ shutdown closes execution admission before draining active work (81.6073ms)\n✔ password hashes verify without storing plaintext (109.7938ms)\n✔ withdrawal intent canonicalization is deterministic and amount-bound (0.9724ms)\n✔ atomic ETH conversion rejects invalid or imprecise values (0.8203ms)\n✔ constant-time text comparison handles unequal lengths (0.3068ms)\nℹ tests 18\nℹ suites 0\nℹ pass 18\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 8574.7517\n",
+        "passingTests": 18,
+        "required": 18
+      }
+    ],
+    "cli": [
+      {
+        "name": "Legacy one-cycle workflow",
+        "passed": true,
+        "exitCode": 0,
+        "expectedExitCode": 0,
+        "outputMatches": true,
+        "requiredOutput": [
+          "succeeded"
+        ]
+      },
+      {
+        "name": "Explicit one-cycle workflow",
+        "passed": true,
+        "exitCode": 0,
+        "expectedExitCode": 0,
+        "outputMatches": true,
+        "requiredOutput": [
+          "succeeded"
+        ]
+      },
+      {
+        "name": "ProductSync",
+        "passed": true,
+        "exitCode": 0,
+        "expectedExitCode": 0,
+        "outputMatches": true,
+        "requiredOutput": [
+          "success",
+          "draftCount"
+        ]
+      },
+      {
+        "name": "WalletVerify instructions",
+        "passed": true,
+        "exitCode": 0,
+        "expectedExitCode": 0,
+        "outputMatches": true,
+        "requiredOutput": [
+          "EIP-191",
+          "instructions"
+        ]
+      },
+      {
+        "name": "TaskRun health",
+        "passed": true,
+        "exitCode": 0,
+        "expectedExitCode": 0,
+        "outputMatches": true,
+        "requiredOutput": [
+          "taskId",
+          "health"
+        ]
+      },
+      {
+        "name": "RevReport",
+        "passed": true,
+        "exitCode": 0,
+        "expectedExitCode": 0,
+        "outputMatches": true,
+        "requiredOutput": [
+          "generatedAt",
+          "summary"
+        ]
+      }
+    ]
+  }
+}

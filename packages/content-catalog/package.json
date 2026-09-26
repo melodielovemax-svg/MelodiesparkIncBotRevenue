@@ -1,0 +1,17 @@
+{
+  "name": "@melodiespark/content-catalog",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared content-catalog contract: classification rules and generated catalog consumed by the TypeScript and Python Melodiespark CLIs.",
+  "exports": {
+    "./rules": "./rules/classification-rules.json",
+    "./catalog": "./catalog/content-catalog.json"
+  },
+  "files": [
+    "rules",
+    "catalog",
+    "README.md"
+  ],
+  "license": "SEE LICENSE IN ../../LICENSE"
+}

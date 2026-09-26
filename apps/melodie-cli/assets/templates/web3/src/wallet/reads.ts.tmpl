@@ -1,0 +1,199 @@
+/**
+ * Read-only chain access.
+ *
+ * ===========================================================================
+ * THIS FILE CONTAINS NO WRITE PATH.
+ * ===========================================================================
+ * There is deliberately no `writeContract`, no `sendTransaction`, no
+ * `prepareTransactionRequest`, no `sendRawTransaction` and no `estimateFees*
+ * for a state-changing call anywhere below. Every exported function here is
+ * either a pure formatter, a client factory, or an `eth_call` / `eth_get*`
+ * style read. If you need to add a write, that is a different application
+ * with a different safety review - do not add it here.
+ *
+ * Configuration:
+ *   - No RPC URL is bundled. `RPC_URL` (or the chain's `rpcEnvVar`) must be set.
+ *   - If it is not set, {@link createReadOnlyClient} throws
+ *     {@link RpcNotConfiguredError}. Reads are skipped; nothing is guessed.
+ *   - We never fall back to the RPC URL built into the `viem` chain constants:
+ *     a read should only ever go to an endpoint the operator chose.
+ */
+
+import { createPublicClient, formatUnits, http, type PublicClient } from 'viem';
+import { holesky, sepolia, type Chain } from 'viem/chains';
+import { DEFAULT_CHAIN, isPlaceholderRpcUrl, resolveRpcUrl, type ChainConfig, type ChainKey, type EnvSource, readEnv } from '../config.ts';
+import type { HexAddress } from './connect.ts';
+
+/**
+ * `viem` chain objects for the testnets configured in `config.ts`. The chain
+ * constants carry a library default RPC URL, which this module never uses: the
+ * transport is always constructed from an operator-supplied environment value.
+ */
+const VIEM_CHAINS: Record<ChainKey, Chain> = { sepolia, holesky };
+
+/** Thrown when no RPC endpoint is configured. Callers should skip the read. */
+export class RpcNotConfiguredError extends Error {
+  readonly envVar: string;
+  constructor(envVar: string) {
+    super(`No RPC endpoint configured. Set ${envVar} in the environment; no endpoint is bundled with this template.`);
+    this.name = 'RpcNotConfiguredError';
+    this.envVar = envVar;
+  }
+}
+
+function requireChainConfig(chain: ChainConfig): Chain {
+  const viemChain = VIEM_CHAINS[chainKeyOf(chain)];
+  if (!viemChain) {
+    throw new Error(`No viem chain constant is registered for ${chain.name} (id ${chain.id}).`);
+  }
+  if (viemChain.id !== chain.id) {
+    throw new Error(
+      `Chain id mismatch: config.ts says ${chain.name} is ${chain.id}, viem says ${viemChain.id}. Refusing to guess.`
+    );
+  }
+  return viemChain;
+}
+
+function chainKeyOf(chain: ChainConfig): ChainKey {
+  for (const [key, value] of Object.entries(VIEM_CHAINS)) {
+    if (value.id === chain.id) return key as ChainKey;
+  }
+  throw new Error(`Chain id ${chain.id} is not a chain this template is configured for.`);
+}
+
+export interface ReadClientOptions {
+  readonly env?: EnvSource;
+  /** Request timeout in milliseconds. Bounded; there is no unbounded call here. */
+  readonly timeoutMs?: number;
+}
+
+/**
+ * Build a read-only public client from the operator's environment.
+ *
+ * @throws {RpcNotConfiguredError} when `RPC_URL` is unset or still the placeholder.
+ */
+export function createReadOnlyClient(
+  chain: ChainConfig = DEFAULT_CHAIN,
+  options: ReadClientOptions = {}
+): PublicClient {
+  const env = options.env ?? readEnv();
+  const resolved = resolveRpcUrl(chain, env);
+  if (resolved.url === null) throw new RpcNotConfiguredError(resolved.envVar);
+  if (isPlaceholderRpcUrl(resolved.url)) throw new RpcNotConfiguredError(resolved.envVar);
+
+  return createPublicClient({
+    chain: requireChainConfig(chain),
+    transport: http(resolved.url, { timeout: options.timeoutMs ?? 10_000, retryCount: 0 }),
+  }) as PublicClient;
+}
+
+/** Native balance of an address, in wei, as a `bigint`. READ-ONLY. */
+export async function getNativeBalance(client: PublicClient, address: HexAddress): Promise<bigint> {
+  return client.getBalance({ address });
+}
+
+/** Chain id reported by the endpoint. READ-ONLY. */
+export async function getConnectedChainId(client: PublicClient): Promise<number> {
+  return client.getChainId();
+}
+
+/** Latest block number reported by the endpoint. READ-ONLY. */
+export async function getHeadBlockNumber(client: PublicClient): Promise<bigint> {
+  return client.getBlockNumber();
+}
+
+/**
+ * A read (`view` / `pure`) contract call.
+ *
+ * The ABI and arguments are passed through untyped on purpose: this template
+ * ships no contract, and inventing one would be a fabricated claim. Callers
+ * supply their own ABI. Only `view` / `pure` functions are meaningful here; a
+ * state-changing function called through a public client is not broadcast by
+ * `readContract`, but it is also not something you want in a read-only app.
+ */
+export interface ReadContractRequest {
+  readonly address: HexAddress;
+  readonly abi: readonly unknown[];
+  readonly functionName: string;
+  readonly args?: readonly unknown[];
+}
+
+export async function readContractValue(client: PublicClient, request: ReadContractRequest): Promise<unknown> {
+  const call = {
+    address: request.address,
+    abi: request.abi,
+    functionName: request.functionName,
+    args: request.args ?? [],
+  };
+  return (client.readContract as (call: unknown) => Promise<unknown>)(call);
+}
+
+export interface ChainReadSummary {
+  readonly chain: string;
+  readonly endpointChainId: number | null;
+  readonly headBlockNumber: string | null;
+  readonly balanceWei: string | null;
+  readonly balanceFormatted: string | null;
+  readonly failures: readonly string[];
+}
+
+export interface SummarizeReadsOptions {
+  readonly chain?: ChainConfig;
+  readonly env?: EnvSource;
+  readonly address?: HexAddress | null;
+}
+
+/**
+ * Run the four reads and report what came back. Never throws: a read that fails
+ * is recorded as a failure line, because a scaffold should stay runnable on a
+ * machine with no network and no credentials.
+ */
+export async function summarizeChainReads(options: SummarizeReadsOptions = {}): Promise<ChainReadSummary> {
+  const chain = options.chain ?? DEFAULT_CHAIN;
+  const failures: string[] = [];
+
+  let client: PublicClient;
+  try {
+    client = createReadOnlyClient(chain, { env: options.env });
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    return {
+      chain: chain.name,
+      endpointChainId: null,
+      headBlockNumber: null,
+      balanceWei: null,
+      balanceFormatted: null,
+      failures: [reason],
+    };
+  }
+
+  const endpointChainId = await guard(() => getConnectedChainId(client), 'eth_chainId', failures);
+  const headBlockNumber = await guard(() => getHeadBlockNumber(client), 'eth_getBlockNumber', failures);
+  const balanceWei = options.address ? await guard(() => getNativeBalance(client, options.address!), 'eth_getBalance', failures) : null;
+  const balanceFormatted =
+    balanceWei === null ? null : `${formatUnits(balanceWei, chain.nativeCurrency.decimals)} ${chain.nativeCurrency.symbol}`;
+
+  return {
+    chain: chain.name,
+    endpointChainId,
+    headBlockNumber: headBlockNumber === null ? null : headBlockNumber.toString(),
+    balanceWei: balanceWei === null ? null : balanceWei.toString(),
+    balanceFormatted,
+    failures,
+  };
+}
+
+async function guard<T>(operation: () => Promise<T>, label: string, failures: string[]): Promise<T | null> {
+  try {
+    return await operation();
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    failures.push(`${label} failed: ${reason}`);
+    return null;
+  }
+}
+
+/** Format a wei amount for human display. Pure; no network. */
+export function formatWeiForDisplay(wei: bigint, decimals: number, symbol: string): string {
+  return `${formatUnits(wei, decimals)} ${symbol}`;
+}

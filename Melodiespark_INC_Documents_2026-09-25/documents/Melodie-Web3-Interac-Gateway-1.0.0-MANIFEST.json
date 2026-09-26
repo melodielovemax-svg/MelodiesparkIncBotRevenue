@@ -1,0 +1,23 @@
+{
+  "product": "Melodie Web3 to Interac Evidence Gateway",
+  "version": "1.0.0",
+  "generatedAtUtc": "2026-08-31T09:38:00Z",
+  "targetPlatformRoot": "C:\\MelodieCLI\\Platforms-Melodie-APP-WEB3\\unified-web3-mega-platform",
+  "truthState": "IMPLEMENTED_TESTED_READ_ONLY_INTEGRATION_VALIDATED_NOT_FINANCIALLY_ACTIVATED",
+  "automaticTransfers": false,
+  "interacDirectApi": false,
+  "externalSignerRequired": true,
+  "tests": {
+    "powerShellParser": "passed",
+    "ledgerRestart": "passed",
+    "tamperDetection": "passed",
+    "evidenceExport": "passed",
+    "localPortalSmoke": "passed",
+    "liveEthereumTwoRpcReceipt": "passed"
+  },
+  "artifact": {
+    "file": "Melodie-Web3-Interac-Gateway-1.0.0.zip",
+    "bytes": 23713,
+    "sha256": "7b52dc27eeffba77adb3793004481c492a04bd232cc19c149d2fdc1b4b7070d4"
+  }
+}

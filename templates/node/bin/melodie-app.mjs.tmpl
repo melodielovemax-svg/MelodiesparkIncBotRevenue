@@ -1,0 +1,129 @@
+#!/usr/bin/env node
+/**
+ * Dependency-free CLI entry point.
+ *
+ * This file is plain ESM JavaScript, so it runs from a fresh checkout with no
+ * install and no build step.
+ */
+
+import { createHash } from 'node:crypto';
+import { existsSync } from 'node:fs';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+import { dirname, resolve } from 'node:path';
+
+const NAME = 'melodie-app';
+const VERSION = '0.1.0';
+const EXIT_USAGE = 2;
+
+// Single source of truth for the library logic: dist/index.js once the package
+// has been built, otherwise src/index.ts, which modern Node strips types from
+// natively. Preferring the source means a fresh clone runs with no build step
+// at all, while `dist` still serves older runtimes and the published tarball.
+// Duplicating the helpers in this file instead would let the bin and the
+// library drift apart.
+const HERE = dirname(fileURLToPath(import.meta.url));
+const compiled = resolve(HERE, '..', 'dist', 'index.js');
+const sources = resolve(HERE, '..', 'src', 'index.ts');
+
+if (!existsSync(compiled) && !existsSync(sources)) {
+  process.stderr.write(
+    `${NAME}: neither dist/index.js nor src/index.ts was found.\n` +
+      'Reinstall the package, or run `npm run build`.\n'
+  );
+  process.exit(1);
+}
+
+const { slugify } = await import(
+  pathToFileURL(existsSync(compiled) ? compiled : sources).href
+);
+
+const HELP = `${NAME} v${VERSION}
+
+Usage:
+  ${NAME} hash <text>     Print the SHA-256 hex digest of <text>.
+  ${NAME} slug <text>     Print a slug form of <text>.
+  ${NAME} selftest        Run built-in checks. Exits 0 when they pass.
+  ${NAME} --help          Show this help.
+  ${NAME} --version       Print the version.
+
+Options:
+  -h, --help              Show this help.
+  -v, --version           Print the version.
+
+Exit codes:
+  0  success
+  1  a command failed
+  2  bad usage (unknown command, or a missing argument)
+`;
+
+function sha256(text) {
+  return createHash('sha256').update(text, 'utf-8').digest('hex');
+}
+
+function slug(text) {
+  return slugify(text);
+}
+
+function selftest() {
+  const vectors = [
+    ['', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855'],
+    ['abc', 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'],
+  ];
+  for (const [input, expected] of vectors) {
+    const actual = sha256(input);
+    if (actual !== expected) {
+      process.stderr.write(`selftest FAILED for ${JSON.stringify(input)}\n`);
+      return 1;
+    }
+  }
+  if (slugify('Hello, World!') !== 'hello-world') {
+    process.stderr.write('selftest FAILED for slugify\n');
+    return 1;
+  }
+  process.stdout.write('selftest ok\n');
+  return 0;
+}
+
+function usageError(message) {
+  process.stderr.write(`${NAME}: ${message}\n`);
+  process.stderr.write(`Run "${NAME} --help" for usage.\n`);
+  return EXIT_USAGE;
+}
+
+function main(argv) {
+  const args = argv.slice(2);
+
+  if (args.length === 0) {
+    process.stdout.write(HELP);
+    return 0;
+  }
+
+  const first = args[0];
+  if (first === '--help' || first === '-h' || first === 'help') {
+    process.stdout.write(HELP);
+    return 0;
+  }
+  if (first === '--version' || first === '-v') {
+    process.stdout.write(`${VERSION}\n`);
+    return 0;
+  }
+
+  const rest = args.slice(1).join(' ');
+
+  switch (first) {
+    case 'hash':
+      if (rest.length === 0) return usageError('hash requires a text argument');
+      process.stdout.write(`${sha256(rest)}\n`);
+      return 0;
+    case 'slug':
+      if (rest.length === 0) return usageError('slug requires a text argument');
+      process.stdout.write(`${slug(rest)}\n`);
+      return 0;
+    case 'selftest':
+      return selftest();
+    default:
+      return usageError(`unknown command: ${first}`);
+  }
+}
+
+process.exitCode = main(process.argv);

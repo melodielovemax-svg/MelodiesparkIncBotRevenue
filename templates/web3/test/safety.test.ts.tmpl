@@ -1,0 +1,344 @@
+/**
+ * Safety tests. Run with `npm test`.
+ *
+ * These cover the two things this template must never get wrong:
+ *   1. the posture banner text, in both the default and the consent-gated case;
+ *   2. withdrawal-intent validation, including expiry.
+ *
+ * They also assert a structural invariant that is easy to break by accident:
+ * no non-gated file in `src/` may statically import a consent-gated module,
+ * because a default scaffold does not contain those files and would fail to
+ * build.
+ */
+
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import test from 'node:test';
+import { fileURLToPath } from 'node:url';
+
+import {
+  CONSENT_GATED_PRESENT,
+  CONSENT_GATED_WARNINGS,
+  DEFAULT_BANNER_LINES,
+  describePosture,
+  isConsentGatedModule,
+  POSTURE,
+} from '../src/safety.ts';
+import {
+  buildWithdrawalIntent,
+  INTENT_MAX_TTL_SECONDS,
+  INTENT_VERSION,
+  intentCanonicalForm,
+  intentDigest,
+  isIntentValid,
+  parseAmountWei,
+  VALIDATION_FIXTURE_ADDRESS,
+  type IntentValidationError,
+  type WithdrawalIntentPayload,
+} from '../src/wallet/intent.ts';
+import { DEFAULT_CHAIN, CHAINS, assertDefaultChainIsTestnet, isTestnetChain, readEnv, resolveRpcUrl } from '../src/config.ts';
+
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const SRC_DIR = path.join(HERE, '..', 'src');
+const GATED_RELATIVE_PATHS = ['wallet/signing.ts', 'wallet/broadcast.ts'] as const;
+
+const NOW = 1_700_000_000_000;
+const CHAIN_ID = DEFAULT_CHAIN.id;
+
+function build(overrides: Partial<Parameters<typeof buildWithdrawalIntent>[0]> = {}): WithdrawalIntentPayload {
+  return buildWithdrawalIntent({
+    amountWei: '1000000000000000',
+    destination: VALIDATION_FIXTURE_ADDRESS,
+    chainId: CHAIN_ID,
+    nonce: '1',
+    memo: 'test fixture',
+    ttlSeconds: 600,
+    now: NOW,
+    ...overrides,
+  });
+}
+
+function expectRejection(action: () => unknown, code: string): IntentValidationError {
+  try {
+    action();
+  } catch (error) {
+    const validation = error as Partial<IntentValidationError>;
+    assert.equal(validation.name, 'IntentValidationError');
+    assert.equal(validation.code, code);
+    return error as IntentValidationError;
+  }
+  throw new assert.AssertionError({ message: `expected a rejection with code ${code}, but nothing was thrown` });
+}
+
+// --- Posture ----------------------------------------------------------------
+
+test('default scaffold prints the exact required banner', () => {
+  const posture = describePosture(false);
+  assert.deepEqual([...posture.lines], [
+    'Web3 mode: READ-ONLY',
+    'Signing: DISABLED',
+    'Broadcasting: DISABLED',
+    'Custody: NONE',
+    'Private keys: NOT GENERATED',
+  ]);
+  assert.deepEqual([...posture.lines], [...DEFAULT_BANNER_LINES]);
+  assert.equal(posture.warnings.length, 0);
+});
+
+test('posture constants are the documented non-custodial values', () => {
+  assert.equal(POSTURE.mode, 'READ-ONLY');
+  assert.equal(POSTURE.signing, 'DISABLED');
+  assert.equal(POSTURE.broadcasting, 'DISABLED');
+  assert.equal(POSTURE.custody, 'NONE');
+  assert.equal(POSTURE.privateKeys, 'NOT GENERATED');
+});
+
+test('consent-gated modules change only the signing and broadcasting lines', () => {
+  const posture = describePosture(true, true);
+  assert.deepEqual([...posture.lines], [
+    'Web3 mode: READ-ONLY',
+    'Signing: CONSENT-GATED MODULE PRESENT',
+    'Broadcasting: CONSENT-GATED MODULE PRESENT',
+    'Custody: NONE',
+    'Private keys: NOT GENERATED',
+  ]);
+  assert.equal(posture.signing, CONSENT_GATED_PRESENT);
+  assert.equal(posture.broadcasting, CONSENT_GATED_PRESENT);
+});
+
+test('consent-gated banner still warns that broadcasting is never automatic', () => {
+  const posture = describePosture(true, true);
+  assert.equal(posture.warnings.length, CONSENT_GATED_WARNINGS.length);
+  const text = posture.warnings.join('\n');
+  assert.match(text, /broadcasting is still NEVER called automatically/i);
+  assert.match(text, /human confirmation callback that must return exactly true/i);
+  assert.match(text, /No private key is generated, stored, imported or read/i);
+});
+
+test('a lone signing module leaves broadcasting disabled', () => {
+  const posture = describePosture(true, false);
+  assert.equal(posture.signing, CONSENT_GATED_PRESENT);
+  assert.equal(posture.broadcasting, POSTURE.broadcasting);
+});
+
+test('consent-gated module detection rejects impostors', () => {
+  assert.equal(isConsentGatedModule(null), false);
+  assert.equal(isConsentGatedModule({}), false);
+  assert.equal(isConsentGatedModule({ moduleId: 'melodiespark.consent-gated.signing' }), false);
+  assert.equal(
+    isConsentGatedModule({ moduleId: 'melodiespark.consent-gated.signing', requiresOperatorConsent: true }),
+    true
+  );
+  assert.equal(
+    isConsentGatedModule({ moduleId: 'melodiespark.consent-gated.broadcasting', requiresOperatorConsent: true }),
+    true
+  );
+});
+
+// --- Chain configuration ----------------------------------------------------
+
+test('the default chain is a testnet and no mainnet is configured', () => {
+  assertDefaultChainIsTestnet();
+  assert.equal(DEFAULT_CHAIN.kind, 'testnet');
+  assert.ok(isTestnetChain(DEFAULT_CHAIN.id));
+  for (const chain of Object.values(CHAINS)) {
+    assert.equal(chain.kind, 'testnet', `${chain.name} must be a testnet`);
+    assert.equal(chain.defaultRpcUrl, '', 'no RPC URL may be bundled');
+  }
+});
+
+test('an unset RPC_URL resolves to null instead of guessing an endpoint', () => {
+  const resolved = resolveRpcUrl(DEFAULT_CHAIN, {});
+  assert.equal(resolved.url, null);
+  assert.equal(resolved.source, 'unset');
+});
+
+test('readEnv finds process.env in Node and an inlined env in a browser bundle', () => {
+  // Node exposes process.env; a browser bundle usually inlines a plain `env`.
+  assert.equal(readEnv({ process: { env: { RPC_URL: 'http://127.0.0.1:1' } } }).RPC_URL, 'http://127.0.0.1:1');
+  assert.equal(readEnv({ env: { RPC_URL: 'http://127.0.0.1:2' } }).RPC_URL, 'http://127.0.0.1:2');
+  // A scope with neither must degrade to an empty object, not throw.
+  assert.deepEqual(readEnv({}), {});
+  assert.deepEqual(readEnv(null), {});
+  assert.deepEqual(readEnv({ process: null, env: null }), {});
+  // An omitted scope means the real global environment.
+  assert.equal(typeof readEnv(undefined), 'object');
+  const live = resolveRpcUrl(DEFAULT_CHAIN);
+  assert.ok(live.url === null || typeof live.url === 'string');
+});
+
+// --- Intent validation ------------------------------------------------------
+
+test('a valid intent is built, frozen and still valid', () => {
+  const intent = build();
+  assert.equal(intent.version, INTENT_VERSION);
+  assert.equal(intent.amountWei, '1000000000000000');
+  assert.equal(intent.chainId, CHAIN_ID);
+  assert.equal(intent.destination, VALIDATION_FIXTURE_ADDRESS);
+  assert.equal(intent.issuedAt, NOW);
+  assert.equal(intent.expiresAt, NOW + 600_000);
+  assert.ok(Object.isFrozen(intent));
+  assert.equal(isIntentValid(intent, NOW), true);
+  assert.equal(isIntentValid(intent, intent.expiresAt - 1), true);
+});
+
+test('a zero amount is rejected', () => {
+  expectRejection(() => build({ amountWei: '0' }), 'AMOUNT_ZERO');
+  expectRejection(() => build({ amountWei: 0 }), 'AMOUNT_ZERO');
+  expectRejection(() => build({ amountWei: 0n }), 'AMOUNT_ZERO');
+});
+
+test('a self-send intent is rejected', () => {
+  expectRejection(() => build({ connectedAddress: VALIDATION_FIXTURE_ADDRESS }), 'DESTINATION_IS_SELF');
+  expectRejection(
+    () => build({ connectedAddress: VALIDATION_FIXTURE_ADDRESS.toLowerCase() }),
+    'DESTINATION_IS_SELF'
+  );
+});
+
+test('a malformed destination is rejected', () => {
+  expectRejection(() => build({ destination: 'not-an-address' }), 'ADDRESS_INVALID');
+  expectRejection(() => build({ destination: '0x1234' }), 'ADDRESS_INVALID');
+  expectRejection(() => build({ destination: '' }), 'ADDRESS_INVALID');
+  expectRejection(() => build({ destination: '0x000000000000000000000000000000000000dEaD0' }), 'ADDRESS_INVALID');
+  // Mixed case with a wrong checksum must be rejected, not silently accepted.
+  expectRejection(() => build({ destination: '0x000000000000000000000000000000000000dEAd' }), 'ADDRESS_INVALID');
+});
+
+test('an all-lowercase destination is accepted and checksummed on the way in', () => {
+  const intent = build({ destination: '0x000000000000000000000000000000000000dead' });
+  assert.equal(intent.destination, VALIDATION_FIXTURE_ADDRESS);
+});
+
+test('a malformed connected address fails closed rather than disabling the self-send guard', () => {
+  const rejection = expectRejection(() => build({ connectedAddress: 'not-an-address' }), 'ADDRESS_INVALID');
+  assert.equal(rejection.field, 'connectedAddress');
+  // An absent connected address is fine: there is simply no self-send to reject.
+  assert.equal(build({ connectedAddress: null }).destination, VALIDATION_FIXTURE_ADDRESS);
+  assert.equal(build({ connectedAddress: undefined }).destination, VALIDATION_FIXTURE_ADDRESS);
+  assert.equal(build({ connectedAddress: '' }).destination, VALIDATION_FIXTURE_ADDRESS);
+});
+
+test('non-integer, negative and NaN amounts are rejected', () => {
+  expectRejection(() => build({ amountWei: 1.5 }), 'AMOUNT_NOT_INTEGER');
+  expectRejection(() => build({ amountWei: '1.5' }), 'AMOUNT_NOT_INTEGER');
+  expectRejection(() => build({ amountWei: '1e18' }), 'AMOUNT_NOT_INTEGER');
+  expectRejection(() => build({ amountWei: '-1' }), 'AMOUNT_NEGATIVE');
+  expectRejection(() => build({ amountWei: -1 }), 'AMOUNT_NEGATIVE');
+  expectRejection(() => build({ amountWei: -1n }), 'AMOUNT_NEGATIVE');
+  expectRejection(() => build({ amountWei: Number.NaN }), 'AMOUNT_NOT_FINITE');
+  expectRejection(() => build({ amountWei: Number.POSITIVE_INFINITY }), 'AMOUNT_NOT_FINITE');
+  expectRejection(() => build({ amountWei: Number.MAX_SAFE_INTEGER + 2 }), 'AMOUNT_NOT_SAFE');
+  expectRejection(() => build({ amountWei: {} as unknown as string }), 'AMOUNT_NOT_A_NUMBER');
+});
+
+test('amounts are handled as bigint, without floating point', () => {
+  const huge = '123456789012345678901234567890';
+  const intent = build({ amountWei: huge });
+  assert.equal(intent.amountWei, huge);
+  assert.equal(parseAmountWei(huge), 123456789012345678901234567890n);
+  assert.equal(BigInt(intent.amountWei) * 2n, 246913578024691357802469135780n);
+});
+
+test('an expiry window beyond the maximum is rejected', () => {
+  expectRejection(() => build({ ttlSeconds: INTENT_MAX_TTL_SECONDS + 1 }), 'EXPIRY_WINDOW_TOO_LONG');
+  expectRejection(
+    () => build({ issuedAt: NOW, expiresAt: NOW + (INTENT_MAX_TTL_SECONDS + 1) * 1000 }),
+    'EXPIRY_WINDOW_TOO_LONG'
+  );
+  expectRejection(() => build({ issuedAt: NOW, expiresAt: NOW }), 'EXPIRY_NOT_IN_FUTURE');
+  expectRejection(() => build({ issuedAt: NOW, expiresAt: NOW - 1_000, ttlSeconds: undefined }), 'EXPIRY_IN_PAST');
+});
+
+test('expiry is enforced and isIntentValid reports it', () => {
+  const intent = build();
+  assert.equal(isIntentValid(intent, intent.expiresAt - 1), true);
+  assert.equal(isIntentValid(intent, intent.expiresAt), false);
+  assert.equal(isIntentValid(intent, intent.expiresAt + 1_000), false);
+  expectRejection(() => build({ expiresAt: NOW - 1 }), 'EXPIRY_IN_PAST');
+});
+
+test('canonical serialisation is stable and key order independent', () => {
+  const intent = build();
+  const canonical = intentCanonicalForm(intent);
+  assert.equal(intentCanonicalForm(intent), canonical);
+
+  // The same field values must serialise identically regardless of the order
+  // the keys happen to be in, or the display hash would be meaningless.
+  const shuffled = { memo: intent.memo, amountWei: intent.amountWei, version: intent.version } as Record<string, unknown>;
+  const full = {
+    ...shuffled,
+    chainId: intent.chainId,
+    destination: intent.destination,
+    nonce: intent.nonce,
+    issuedAt: intent.issuedAt,
+    expiresAt: intent.expiresAt,
+  };
+  assert.equal(intentCanonicalForm(full as unknown as WithdrawalIntentPayload), canonical);
+  assert.match(canonical, /^\{"amountWei":/);
+  assert.match(canonical, /"version":1\}$/);
+  assert.equal(intentDigest(intent), intentDigest(build()));
+  assert.match(intentDigest(intent), /^0x[0-9a-f]{64}$/);
+});
+
+test('different intents produce different digests', () => {
+  const a = build({ amountWei: '1' });
+  const b = build({ amountWei: '2' });
+  assert.notEqual(intentDigest(a), intentDigest(b));
+});
+
+test('a chain id must be a positive integer', () => {
+  expectRejection(() => build({ chainId: 0 }), 'CHAIN_ID_INVALID');
+  expectRejection(() => build({ chainId: -1 }), 'CHAIN_ID_INVALID');
+  expectRejection(() => build({ chainId: 1.5 }), 'CHAIN_ID_INVALID');
+});
+
+test('a memo longer than the limit is rejected', () => {
+  expectRejection(() => build({ memo: 'x'.repeat(281) }), 'MEMO_TOO_LONG');
+  assert.equal(build({ memo: '' }).memo, '');
+});
+
+// --- Structural invariant ---------------------------------------------------
+
+function sourceFiles(dir: string): string[] {
+  const out: string[] = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const abs = path.join(dir, entry.name);
+    if (entry.isDirectory()) out.push(...sourceFiles(abs));
+    else if (entry.name.endsWith('.ts')) out.push(abs);
+  }
+  return out;
+}
+
+test('no non-gated source file statically imports a consent-gated module', () => {
+  const gatedAbs = GATED_RELATIVE_PATHS.map((rel) => path.join(SRC_DIR, rel));
+  const offenders: string[] = [];
+
+  for (const file of sourceFiles(SRC_DIR)) {
+    if (gatedAbs.includes(file)) continue;
+    const text = fs.readFileSync(file, 'utf-8');
+    for (const rel of GATED_RELATIVE_PATHS) {
+      const specifier = `./${rel}`;
+      const escaped = specifier.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      // A static import is a line that begins with `import` or `export ... from`
+      // and names the module as a string literal. A dynamic import whose
+      // specifier is held in a variable is deliberately not matched here: that
+      // is exactly the pattern index.ts is supposed to use.
+      const staticImport = new RegExp(`(?:^|\\n)\\s*(?:import|export)[^\\n]*?from\\s*['"]${escaped}['"]`);
+      if (staticImport.test(text)) offenders.push(`${path.relative(SRC_DIR, file)} -> ${specifier}`);
+    }
+  }
+
+  assert.deepEqual(offenders, [], 'consent-gated modules must only be reached through a dynamic import');
+});
+
+test('the entry point feature-detects both optional modules dynamically', () => {
+  const indexPath = path.join(SRC_DIR, 'index.ts');
+  const text = fs.readFileSync(indexPath, 'utf-8');
+  for (const rel of GATED_RELATIVE_PATHS) {
+    assert.ok(text.includes(`'./${rel}'`), `${rel} specifier must be present in index.ts`);
+  }
+  assert.ok(/await import\(/.test(text), 'index.ts must use a dynamic import');
+  assert.ok(/try\s*\{/.test(text), 'index.ts must guard the dynamic import with try/catch');
+});

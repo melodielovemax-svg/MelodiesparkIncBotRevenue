@@ -1,0 +1,423 @@
+MELODIESPARK INC — ULTIMATE 79-PRODUCT STRIPE + 4K COMMERCE TRANSFER
+Version: 2026.08.30-U79
+Target: Base44 or an equivalent full-stack application generator
+Currency: CAD
+Stripe account target: acct_1T8VgiDw7QhJ1vWD
+Canonical public-link source: C:\MelodieCLI\stripe-payment-links.json
+
+======================================================================
+MASTER EXECUTION DIRECTIVE
+======================================================================
+
+Generate a complete, responsive, production-quality Melodiespark INC commerce
+application with exactly 79 catalog offers, Stripe-hosted secure payment,
+validated Payment Links, complete product/service documentation, related-offer
+recommendations, premium 4K visual assets, ethical traffic acquisition, funnel
+analytics, fulfilment tracking, and an evidence-first administration console.
+
+Do not invent Stripe IDs, prices, payment URLs, sales, visitors, customers,
+orders, testimonials, balances, or revenue. A product can show a Buy button only
+when its exact SKU has one active verified Stripe Price and one active verified
+Payment Link from the supplied export or a server-side Stripe API response.
+Unmapped items must show “Contact us” or “Payment setup pending.”
+
+Never expose STRIPE_SECRET_KEY or STRIPE_WEBHOOK_SECRET in browser code. Never
+store raw card data. Never automate payouts, transfers, withdrawals, crypto
+transactions, paid-ad spending, unsolicited messaging, or fake traffic.
+
+======================================================================
+INPUTS AND ENVIRONMENT
+======================================================================
+
+Required input files:
+1. C:\MelodieCLI\stripe-payment-links.json — public Payment Link export.
+2. This transfer file — authoritative catalog and implementation requirements.
+
+Server-only environment variables:
+STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
+STRIPE_ACCOUNT_ID=acct_1T8VgiDw7QhJ1vWD
+APP_BASE_URL=
+ADMIN_EMAIL=
+
+Client-safe environment variables:
+PUBLIC_STRIPE_PUBLISHABLE_KEY=
+PUBLIC_ANALYTICS_ID=
+
+Secret rules:
+- Never commit real secrets.
+- Never place secret keys in NEXT_PUBLIC_, VITE_, PUBLIC_, browser storage,
+  HTML, URLs, analytics, logs, screenshots, or support messages.
+- Validate that live mode uses sk_live_ and test mode uses sk_test_.
+- Separate live and test records at every layer.
+
+======================================================================
+CATALOG DATA CONTRACT — REQUIRED FOR ALL 79 ITEMS
+======================================================================
+
+For every item create these fields:
+catalog_version, sku, slug, catalog_key, name, tagline, short_description,
+full_description, category, offer_type, buyer, problems_solved, outcomes,
+deliverables[], exclusions[], requirements[], process_steps[], billing_type,
+currency, display_amount, amount_minor, interval, stripe_product_id,
+stripe_price_id, stripe_payment_link_id, payment_url, payment_link_active,
+stripe_livemode, stripe_verified_at, checkout_status, fulfilment_type,
+delivery_estimate, support_level, featured, popular, sort_order, tags[],
+related_skus[], hero_image_4k, card_image, image_alt, image_prompt,
+seo_title, seo_description, faq[], terms_version, tax_code_review_status,
+legal_review_status, active, created_at, updated_at.
+
+Billing values: ONE_TIME, MONTHLY, ANNUAL, or ENGAGEMENT.
+All amounts are commercial drafts until matched to Stripe evidence.
+For ENGAGEMENT items, render “Starting at” and require written scope confirmation.
+
+======================================================================
+AUTHORITATIVE 79-PRODUCT AND SERVICE CATALOG
+======================================================================
+
+FORMAT: NUMBER | SKU | SLUG | NAME | CATEGORY | BILLING | CAD | IMAGE THEME
+
+001 | MS-CLI-001 | melodiecli-starter | MelodieCLI Starter | Developer Tools | ONE_TIME | 49 | luminous terminal command portal
+002 | MS-CLI-002 | melodiecli-pro | MelodieCLI Pro | Developer Tools | ONE_TIME | 149 | premium AI command center
+003 | MS-CLI-003 | melodiecli-enterprise | MelodieCLI Enterprise | Enterprise | ANNUAL | 12000 | enterprise orchestration headquarters
+004 | MS-LLM-001 | phoenixllm-developer | PhoenixLLM Developer | AI Platform | MONTHLY | 99 | intelligent model routing core
+005 | MS-LLM-002 | phoenixllm-business | PhoenixLLM Business | AI Platform | MONTHLY | 299 | business AI gateway network
+006 | MS-LLM-003 | phoenixllm-enterprise | PhoenixLLM Enterprise | Enterprise | ANNUAL | 15000 | secure global AI infrastructure
+007 | MS-LITE-001 | melodielitellm-team | Melodie LiteLLM Team | AI Gateway | MONTHLY | 149 | connected model constellation
+008 | MS-LITE-002 | melodielitellm-scale | Melodie LiteLLM Scale | AI Gateway | MONTHLY | 499 | scalable inference control plane
+009 | MS-REV-001 | botrevenue-growth | BotRevenue Growth | Growth | MONTHLY | 199 | ethical revenue funnel engine
+010 | MS-REV-002 | botrevenue-enterprise | BotRevenue Enterprise | Enterprise | MONTHLY | 999 | enterprise commercial operations grid
+011 | MS-STU-001 | phoenix-studio-creator | Phoenix Studio Creator | Creator OS | MONTHLY | 79 | futuristic creator production studio
+012 | MS-BLD-001 | phoenix-builder-pro | Phoenix Builder Pro | Application Builder | MONTHLY | 149 | luminous modular app construction
+013 | MS-WAL-001 | metamello-wallet-suite | MetaMello Wallet Suite | Web3 | ONE_TIME | 249 | secure violet digital wallet interface
+014 | MS-NEX-001 | identity-legal-nexus | Identity and Legal Nexus | Governance | ANNUAL | 4999 | identity governance vault
+015 | MS-MERA-001 | mera-evidence-suite | MERA Evidence Suite | Evidence | ANNUAL | 7999 | immutable evidence constellation
+016 | MS-CNS-001 | architecture-assessment | Architecture Assessment | Consulting | ENGAGEMENT | 499 | architectural blueprint hologram
+017 | MS-IMP-001 | implementation-sprint | Implementation Sprint | Implementation | ENGAGEMENT | 2499 | focused engineering sprint chamber
+018 | MS-ENT-001 | enterprise-deployment | Enterprise Deployment | Enterprise | ENGAGEMENT | 14999 | global platform launch visualization
+019 | MS-SUP-001 | priority-support | Priority Support | Support | MONTHLY | 399 | responsive technical support beacon
+020 | MS-OPS-001 | managed-platform-ops | Managed Platform Operations | Operations | MONTHLY | 1499 | always-on operations command center
+021 | MS-COS-001 | creator-os-starter | Creator OS Starter | Creator OS | ONE_TIME | 49 | creator workflow cockpit
+022 | MS-COS-002 | creator-os-pro | Creator OS Pro | Creator OS | ONE_TIME | 149 | advanced creator operations galaxy
+023 | MS-COS-003 | creator-os-team | Creator OS Team | Creator OS | ONE_TIME | 399 | collaborative content production hub
+024 | MS-INT-001 | media-intelligence | Media Intelligence | Intelligence | MONTHLY | 49 | real-time media signal radar
+025 | MS-GRO-001 | growth-analytics-pro | Growth Analytics Pro | Analytics | MONTHLY | 99 | crystalline growth analytics dashboard
+026 | MS-CON-001 | content-engine | Content Engine | Content | MONTHLY | 79 | flowing multi-channel content engine
+027 | MS-LAU-001 | launch-blueprint | Digital Product Launch Blueprint | Launch | ONE_TIME | 99 | rocket-like digital product launch map
+028 | MS-BRA-001 | brand-system-kit | Brand System Kit | Brand | ONE_TIME | 129 | premium brand identity prism
+029 | MS-AUT-001 | automation-blueprint-pack | Automation Blueprint Pack | Automation | ONE_TIME | 179 | interconnected workflow automation nodes
+030 | MS-WEB3-001 | web3-application-starter | Web3 Application Starter | Web3 | ONE_TIME | 249 | decentralized application gateway
+031 | MS-FIN-001 | treasury-evidence-toolkit | Treasury Evidence Toolkit | Fintech | ONE_TIME | 199 | read-only digital treasury observatory
+032 | MS-DEV-001 | developer-kit | Melodiespark Developer Kit | Developer Tools | ONE_TIME | 149 | developer tools floating workspace
+033 | MS-CNS-002 | platform-architecture-review | Platform Architecture Review | Consulting | ENGAGEMENT | 499 | multilayer platform architecture map
+034 | MS-CNS-003 | repository-evidence-audit | Repository Evidence Audit | Consulting | ENGAGEMENT | 349 | verified code evidence scanner
+035 | MS-IMP-002 | stripe-catalog-setup | Stripe Catalog Setup | Implementation | ENGAGEMENT | 299 | elegant payment catalog integration
+036 | MS-IMP-003 | conversion-landing-page | Conversion Landing Page Build | Implementation | ENGAGEMENT | 799 | high-conversion premium storefront
+037 | MS-IMP-004 | production-mvp-build | Production MVP Build | Implementation | ENGAGEMENT | 2499 | polished production application launch
+038 | MS-IMP-005 | business-automation | Business Automation Implementation | Implementation | ENGAGEMENT | 1499 | controlled business workflow network
+039 | MS-SUP-002 | platform-support-basic | Platform Support Basic | Support | MONTHLY | 149 | calm reliable support console
+040 | MS-SUP-003 | platform-support-pro | Platform Support Pro | Support | MONTHLY | 399 | priority support control room
+041 | MS-ADV-001 | fractional-cto | Fractional CTO Advisory | Advisory | MONTHLY | 2499 | executive technology strategy room
+042 | MS-ENT-002 | enterprise-platform-license | Enterprise Platform License | Enterprise | ANNUAL | 12000 | premium enterprise software ecosystem
+043 | MS-TRN-001 | strategy-workshop | Strategy Workshop Half Day | Training | ENGAGEMENT | 1499 | collaborative strategy studio
+044 | MS-TRN-002 | team-enablement-training | Team Enablement Training | Training | ENGAGEMENT | 2999 | immersive team learning environment
+045 | MS-COS-004 | creator-command-center | Creator Command Center Templates | Creator OS | ONE_TIME | 89 | creator mission control panels
+046 | MS-COS-005 | production-calendar | Production Calendar System | Creator OS | ONE_TIME | 59 | dynamic editorial timeline
+047 | MS-COS-006 | sponsorship-operations | Sponsorship Operations Kit | Creator OS | ONE_TIME | 119 | premium partnership workflow board
+048 | MS-COS-007 | creator-revenue-dashboard | Creator Revenue Dashboard | Creator OS | ONE_TIME | 149 | evidence-based creator commerce display
+049 | MS-COS-008 | multichannel-publishing | Multi-Channel Publishing System | Creator OS | ONE_TIME | 179 | connected publishing channels orbit
+050 | MS-GRO-002 | audience-growth-playbook | Audience Growth Playbook | Growth | ONE_TIME | 79 | expanding audience network visualization
+051 | MS-GRO-003 | conversion-funnel-blueprint | Conversion Funnel Blueprint | Growth | ONE_TIME | 129 | illuminated buyer journey funnel
+052 | MS-GRO-004 | seo-content-cluster | SEO Content Cluster Kit | Growth | ONE_TIME | 99 | interconnected search topic universe
+053 | MS-GRO-005 | launch-campaign-calendar | Launch Campaign Calendar | Growth | ONE_TIME | 69 | vibrant campaign timeline
+054 | MS-GRO-006 | affiliate-program-blueprint | Affiliate Program Blueprint | Growth | ONE_TIME | 149 | ethical referral partner network
+055 | MS-GRO-007 | lifecycle-email-blueprint | Lifecycle Email Blueprint | Growth | ONE_TIME | 119 | consent-based customer journey stream
+056 | MS-GRO-008 | growth-experiment-library | Growth Experiment Library | Growth | ONE_TIME | 89 | scientific conversion experiment lab
+057 | MS-GRO-009 | traffic-intelligence-dashboard | Traffic Intelligence Dashboard | Growth | MONTHLY | 129 | live acquisition radar and funnel
+058 | MS-GRO-010 | conversion-optimization-review | Conversion Optimization Review | Growth | ENGAGEMENT | 399 | precision conversion analysis lens
+059 | MS-AI-001 | ai-workflow-starter | AI Workflow Starter Pack | AI | ONE_TIME | 149 | intelligent workflow constellation
+060 | MS-AI-002 | agent-orchestration-blueprint | Agent Orchestration Blueprint | AI | ONE_TIME | 299 | multi-agent coordination matrix
+061 | MS-AI-003 | secure-llm-gateway | Secure LLM Gateway Blueprint | AI | ONE_TIME | 249 | protected AI gateway shield
+062 | MS-AI-004 | prompt-operations-library | Prompt Operations Library | AI | ONE_TIME | 99 | organized prompt intelligence archive
+063 | MS-AI-005 | ai-evaluation-evidence | AI Evaluation and Evidence Kit | AI | ONE_TIME | 199 | measurable AI quality laboratory
+064 | MS-AI-006 | model-routing-review | Model Routing Architecture Review | AI | ENGAGEMENT | 599 | adaptive model routing pathways
+065 | MS-AI-007 | ai-automation-care | AI Automation Care Plan | AI | MONTHLY | 299 | monitored AI operations core
+066 | MS-DEV-002 | saas-starter-architecture | SaaS Starter Architecture | Developer Tools | ONE_TIME | 249 | scalable SaaS platform foundation
+067 | MS-DEV-003 | api-governance-toolkit | API Governance Toolkit | Developer Tools | ONE_TIME | 179 | secure API policy gateway
+068 | MS-DEV-004 | monorepo-foundation-kit | Monorepo Foundation Kit | Developer Tools | ONE_TIME | 199 | unified code repository architecture
+069 | MS-DEV-005 | observability-starter-kit | Observability Starter Kit | Developer Tools | ONE_TIME | 149 | luminous telemetry command panel
+070 | MS-DEV-006 | release-gate-toolkit | Release Gate Toolkit | Developer Tools | ONE_TIME | 129 | verified software release checkpoint
+071 | MS-DEV-007 | security-baseline-toolkit | Security Baseline Toolkit | Developer Tools | ONE_TIME | 199 | layered cyber security shield
+072 | MS-DEV-008 | database-migration-pack | Database Migration Pack | Developer Tools | ONE_TIME | 149 | structured data migration bridge
+073 | MS-WEB3-002 | wallet-connection-ui | Wallet Connection UI Kit | Web3 | ONE_TIME | 179 | elegant wallet connection portal
+074 | MS-WEB3-003 | readonly-blockchain-ledger | Read-Only Blockchain Ledger | Web3 | ONE_TIME | 249 | transparent blockchain evidence ledger
+075 | MS-WEB3-004 | smart-contract-evidence-review | Smart Contract Evidence Review | Web3 | ENGAGEMENT | 499 | audited smart contract inspection
+076 | MS-WEB3-005 | testnet-deployment-workshop | Testnet Deployment Workshop | Web3 | ENGAGEMENT | 799 | safe testnet launch environment
+077 | MS-IMP-006 | stripe-checkout-integration | Stripe Checkout Integration | Implementation | ENGAGEMENT | 699 | secure frictionless checkout portal
+078 | MS-IMP-007 | stripe-webhook-integration | Stripe Webhook Integration | Implementation | ENGAGEMENT | 799 | verified payment event pipeline
+079 | MS-IMP-008 | analytics-consent-setup | Analytics and Consent Setup | Implementation | ENGAGEMENT | 599 | privacy-first analytics ecosystem
+
+VALIDATION: reject the import unless the catalog contains exactly 79 rows,
+79 unique SKUs, 79 unique slugs, positive integer minor-unit prices, recognized
+billing types, and no blank names/categories.
+
+======================================================================
+PRODUCT DOCUMENTATION GENERATOR
+======================================================================
+
+For each catalog row generate original, buyer-useful documentation:
+
+1. Tagline: 6–12 words, concrete and benefit-oriented.
+2. Short description: 25–45 words.
+3. Full description: 140–260 words explaining who it serves, what it includes,
+   how delivery works, and what it does not guarantee.
+4. Ideal buyer: 3–5 precise buyer profiles.
+5. Problems solved: 3–7 concrete operational problems.
+6. Outcomes: 3–7 capability outcomes without income/traffic guarantees.
+7. Deliverables: 4–12 tangible artifacts, sessions, access rights, or workflows.
+8. Exclusions: payment processing fees, third-party subscriptions, custom work,
+   legal/tax advice, guaranteed results, and anything not explicitly included.
+9. Process: purchase or consultation, confirmation, onboarding, delivery,
+   acceptance, support.
+10. Requirements: buyer inputs, access, approvals, technical prerequisites.
+11. Delivery estimate and support terms.
+12. Five truthful FAQs with precise answers.
+13. SEO title under 60 characters and meta description under 160 characters.
+14. Three related products selected by adjacent buyer intent, never randomly.
+15. CTA: Buy securely, Start subscription, Request scope, or Contact sales.
+
+Use “starting at” for engagement pricing. Do not present consulting or custom
+implementation as instantly fulfilled digital goods.
+
+======================================================================
+STRIPE PRODUCT, PRICE, AND PAYMENT LINK SYNCHRONIZATION
+======================================================================
+
+Create a server-side synchronization process with PREVIEW and APPLY modes.
+PREVIEW is the default. APPLY requires explicit owner confirmation.
+
+For each SKU:
+1. Search the supplied stripe-payment-links.json by SKU/catalog_key/price_key.
+2. If exactly one active mapping exists, capture product ID, price ID, Payment
+   Link ID, public URL, livemode, active state, currency, unit amount, interval,
+   and verification timestamp.
+3. If zero exist, mark UNMAPPED and disable checkout.
+4. If multiple conflict, mark CONFLICT and disable checkout.
+5. Compare file price/currency/billing against the authoritative catalog.
+6. Never silently update prices; Stripe Prices are immutable. Price changes
+   require a new Price, mapping review, and controlled archival of the old link.
+7. Create missing Payment Links only through authenticated server-side Stripe
+   API/CLI execution, with deterministic idempotency keys.
+8. Export a safe public mapping containing no secret keys.
+
+Public mapping format:
+{
+  "catalogVersion": "2026.08.30-U79",
+  "generatedAtUtc": "ISO-8601",
+  "accountId": "acct_1T8VgiDw7QhJ1vWD",
+  "items": [{
+    "sku": "MS-CLI-001",
+    "productId": "prod_...",
+    "priceId": "price_...",
+    "paymentLinkId": "plink_...",
+    "paymentUrl": "https://buy.stripe.com/...",
+    "currency": "cad",
+    "unitAmount": 4900,
+    "billingType": "ONE_TIME",
+    "active": true,
+    "livemode": true,
+    "verifiedAtUtc": "ISO-8601"
+  }]
+}
+
+Never call a URL valid merely because it looks like a Stripe URL. Validate it
+against the authenticated Stripe account and active object state.
+
+======================================================================
+CHECKOUT AND WEBHOOK PROCESSOR
+======================================================================
+
+Use Stripe-hosted Payment Links for direct catalog buttons when verified.
+Use server-created Checkout Sessions when cart, promotion, adjustable quantity,
+or richer order metadata is required. Client sends only SKU and quantity;
+server resolves trusted Price IDs.
+
+Required events:
+checkout.session.completed
+checkout.session.async_payment_succeeded
+checkout.session.async_payment_failed
+payment_intent.succeeded
+payment_intent.payment_failed
+invoice.paid
+invoice.payment_failed
+customer.subscription.created
+customer.subscription.updated
+customer.subscription.deleted
+charge.refunded
+charge.dispute.created
+
+Rules:
+- Verify Stripe signatures against the raw request body.
+- Deduplicate by Stripe event ID.
+- A success-page redirect never proves payment.
+- Order states: DRAFT, CHECKOUT_CREATED, PAYMENT_PENDING, PAID,
+  FULFILMENT_PENDING, FULFILLED, FAILED, CANCELLED, REFUNDED, DISPUTED.
+- Count commercial revenue only from verified live succeeded payments.
+- Keep gross, tax, discount, refund, dispute, fee, and net fields separate.
+- Never label Stripe balance as bank balance.
+
+======================================================================
+4K IMAGE FACTORY — 79 UNIQUE RELATED PRODUCT VISUALS
+======================================================================
+
+Generate one unique hero image for every catalog SKU plus optimized derivatives.
+Master: 3840x2160, 16:9, lossless master or quality 92+, sRGB.
+Card: 1600x1200, 4:3. Social: 1200x630. Thumbnail: 800x600.
+Deliver WebP/AVIF plus PNG master. Keep subject inside safe center crop.
+
+Global art direction:
+premium cinematic technology product visualization, near-black navy background,
+violet-magenta-cyan energy lighting, subtle gold highlights, deep spatial layers,
+crystalline glass and precise metallic materials, elegant futuristic interfaces,
+volumetric light, extremely clean composition, commercial advertising quality,
+high contrast focal object, sophisticated Melodiespark identity, no clutter,
+no visible brands other than approved Melodiespark marks, no people unless the
+offer clearly benefits from them, no misleading dashboards or invented results.
+
+Per-product image prompt formula:
+“Create a 3840x2160 premium cinematic product hero for [NAME]. Depict [IMAGE
+THEME] with visual cues for [CATEGORY] and [TOP THREE DELIVERABLES]. Use the
+Melodiespark violet-cyan-gold dark technology art direction. Leave clean negative
+space for a headline on the left. No embedded text, prices, logos, watermarks,
+payment cards, currency piles, profit claims, charts claiming results, copyrighted
+characters, or third-party trademarks. Photorealistic materials, sharp focal
+detail, atmospheric depth, accessible contrast, production advertising finish.”
+
+Negative prompt:
+blurry, low resolution, pixelated, watermark, gibberish letters, fake UI text,
+duplicated objects, distorted anatomy, clutter, gambling, cash rain, guaranteed
+profit, crypto hype, Stripe logo, Visa logo, Mastercard logo, competitor marks.
+
+Image QA:
+- Unique perceptual hash; no duplicate or near-duplicate catalog images.
+- No unreadable generated text. Add real text only in HTML/CSS overlays.
+- Accurate alt text under 140 characters.
+- Lazy-load below-fold images; never lazy-load the LCP hero.
+- Responsive srcset, explicit dimensions, and compressed delivery.
+- Record model/tool, prompt version, generation date, reviewer, rights status,
+  file hash, dimensions, format, and approval status.
+
+======================================================================
+LANDING PAGE AND CATALOG EXPERIENCE
+======================================================================
+
+Routes:
+/, /products, /products/[slug], /services, /solutions/creators,
+/solutions/business, /solutions/enterprise, /pricing, /resources, /contact,
+/book, /checkout/success, /checkout/cancel, /legal/terms, /legal/privacy,
+/legal/refunds, /admin/catalog, /admin/orders, /admin/growth, /admin/evidence.
+
+Homepage sequence:
+announcement, cinematic 4K hero, value proposition, category navigator,
+featured offers, outcomes, how it works, platform pillars, popular products,
+services, comparison, visual portfolio, lead magnet, FAQ, final CTA, footer.
+
+Catalog features:
+full-text search, categories, one-time/subscription/services filters, price bands,
+sort, featured/popular badges, accessible cards, quick view, related products,
+sticky mobile CTA, verified price/link state, empty/error/loading states.
+
+Product page:
+4K hero, breadcrumb, name, category, buyer fit, verified CAD price, billing term,
+Stripe checkout CTA, documentation, deliverables, process, requirements,
+exclusions, delivery, support, FAQ, related offers, legal/refund links.
+
+Design:
+mobile-first, near-black navy, violet-cyan gradients, premium glass surfaces,
+bright accessible typography, restrained motion, reduced-motion support,
+keyboard navigation, WCAG 2.2 AA. Target LCP <2.5s, CLS <0.1, INP <200ms.
+
+======================================================================
+ETHICAL GROWTH AND TRAFFIC ENGINE
+======================================================================
+
+Build genuine acquisition, never bot traffic or spam:
+- SEO topic clusters, useful category hubs, schema markup, sitemap, canonicals.
+- Content calendar, briefs, repurposing, lead magnets, update reminders.
+- Consent-based email welcome, nurture, launch, and re-engagement sequences.
+- UTM builder and campaign registry for social and partnerships.
+- Affiliate/referral applications, codes, attribution, terms, human approval.
+- Paid campaign planning with budgets locked behind owner approval.
+- A/B test registry for headlines, CTAs, page layout, and offers.
+- Form rate limits, abuse protection, unsubscribe and suppression lists.
+
+Funnel:
+VISITOR > ENGAGED > LEAD > QUALIFIED > CHECKOUT_STARTED > PAID > FULFILLED >
+REPEAT_CUSTOMER > ADVOCATE.
+
+Dashboard metrics must include date range, environment, definition, source, and
+freshness: sessions, engagement, source mix, landing conversion, leads, checkout
+starts, completion, paid conversion, AOV, recurring revenue, refunds, repeat
+purchase, funnel drop-off, products, content, campaigns. Never fabricate metrics.
+
+======================================================================
+FULFILMENT, SECURITY, PRIVACY, AND LEGAL
+======================================================================
+
+After verified payment create an evidence-linked order. Digital goods receive a
+time-limited authenticated delivery link. Services create onboarding and scope
+tasks. Subscriptions receive entitlement only while status permits. Log every
+fulfilment action and failure.
+
+Security requirements: HTTPS, CSP, secure cookies, CSRF protection where needed,
+strict validation, output encoding, trusted redirect allowlist, rate limits,
+least-privilege admin roles, secret/dependency scanning, encrypted storage,
+retention/deletion workflows, audit events, redaction of payment/personal data.
+
+Terms, Privacy, Refund, tax treatment, incorporation claims, service scopes, and
+subscription cancellation wording require owner and qualified Québec/Canada
+professional review before live release.
+
+======================================================================
+ACCEPTANCE TESTS AND RELEASE GATES
+======================================================================
+
+CATALOG: exactly 79 unique SKUs/slugs; complete documentation; related products.
+IMAGES: 79 approved unique 4K masters and responsive derivatives; no generated text.
+STRIPE: 79 mapping results; active verified Price/Link for every enabled Buy CTA.
+CHECKOUT: test one-time, monthly, annual, and engagement paths.
+WEBHOOKS: valid, invalid-signature, duplicate, delayed, refund, dispute, subscription.
+SECURITY: zero client-exposed secrets; admin authorization; redaction; rate limits.
+FULFILMENT: test digital, service, and subscription delivery workflows.
+ANALYTICS: consent-aware event taxonomy and verified funnel math.
+SEO: metadata, schema, sitemap, robots, canonicals, social previews.
+ACCESSIBILITY: automated and manual WCAG 2.2 AA review.
+PERFORMANCE: production measurement meets stated budgets.
+LEGAL: owner-approved policies and tax configuration.
+EVIDENCE: customer + product + Stripe payment + order + fulfilment trace.
+
+Allowed status vocabulary:
+DEFINED, IMPLEMENTED, TESTED, VERIFIED, AUDITED, RELEASED, BLOCKED.
+Do not upgrade status based on this specification alone.
+
+======================================================================
+REQUIRED FINAL GENERATOR OUTPUT
+======================================================================
+
+1. Working responsive commerce application.
+2. Exactly 79 seeded catalog records.
+3. Complete documentation for all 79 offers.
+4. 79 unique approved 4K product hero images and derivatives.
+5. Safe Stripe mapping export with real IDs/URLs only.
+6. Mapping report: VERIFIED, UNMAPPED, CONFLICT, PRICE_MISMATCH, INACTIVE.
+7. Stripe Checkout/Payment Link implementation.
+8. Verified webhook processor and order state machine.
+9. Product, service, pricing, solution, resource, legal, and admin routes.
+10. Ethical traffic/growth engine and analytics dashboard.
+11. Fulfilment and entitlement workflows.
+12. Security, privacy, legal, SEO, accessibility, and performance reports.
+13. Release gate matrix with evidence links and blockers.
+14. Controlled next action toward one real customer, one real product,
+    one verified live payment, and one fulfilled order.
+
+END OF MELODIESPARK ULTIMATE 79-PRODUCT TRANSFER

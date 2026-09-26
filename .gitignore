@@ -1,0 +1,36 @@
+# Environment files
+.env
+.env.*
+*.env
+
+# Node modules
+node_modules/
+
+# Database files
+db/
+*.db
+*.sqlite
+*.sqlite3
+
+# Generated files
+data/
+reports/
+coverage/
+.cache/
+.tmp/
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Build artifacts
+dist/
+build/
+*.log

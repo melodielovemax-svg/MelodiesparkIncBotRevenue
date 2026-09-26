@@ -1,0 +1,281 @@
+{
+  "schema": "melodiespark-build-evidence/1.0.0",
+  "generated_at": "2026-09-26T06:01:13.7289848Z",
+  "scope": "Local build and validation of apps/melodie-cli and python/melodiespark-cli. No registry was contacted. No credential was used or required.",
+  "establishes": "That the named paths behaved as described on this host at this time.",
+  "does_not_establish": [
+    "That the Melodiespark product is operational.",
+    "That any external integration, service, or on-chain capability works.",
+    "That untested code paths behave as tested paths do.",
+    "That any business capability exists (revenue, customers, trading, wagering, token conversion)."
+  ],
+  "host": {
+    "os": "Microsoft Windows NT 10.0.26200.0",
+    "arch": "AMD64",
+    "node": "v24.19.0",
+    "python": "Python 3.12.10"
+  },
+  "catalog": {
+    "file_count": 6799,
+    "total_bytes": 689348002,
+    "excluded_count": 415,
+    "secret_count": 28,
+    "sensitive_bytes": 60309,
+    "by_category": {
+      "DATA": {
+        "count": 180,
+        "bytes": 14677151
+      },
+      "DOCUMENTATION": {
+        "count": 604,
+        "bytes": 6482188
+      },
+      "CONFIG": {
+        "count": 1322,
+        "bytes": 7457758
+      },
+      "TEST": {
+        "count": 228,
+        "bytes": 1385265
+      },
+      "SOURCE": {
+        "count": 3895,
+        "bytes": 24057383
+      },
+      "VCS": {
+        "count": 168,
+        "bytes": 129964252
+      },
+      "OTHER": {
+        "count": 140,
+        "bytes": 6216902
+      },
+      "SECRET": {
+        "count": 28,
+        "bytes": 60309
+      },
+      "GENERATED": {
+        "count": 141,
+        "bytes": 291883644
+      },
+      "ARCHIVE": {
+        "count": 71,
+        "bytes": 167643096
+      },
+      "BINARY": {
+        "count": 7,
+        "bytes": 35559964
+      },
+      "ASSET": {
+        "count": 15,
+        "bytes": 3960090
+      }
+    },
+    "by_repository": {
+      "(root)": {
+        "count": 2,
+        "bytes": 4373
+      },
+      "MelodiesparkIncBotRevenue": {
+        "count": 63,
+        "bytes": 88174
+      },
+      "MelodiesparkEnterpriseAppBuilder": {
+        "count": 121,
+        "bytes": 606805
+      },
+      "melodiespark-platform": {
+        "count": 91,
+        "bytes": 118400
+      },
+      "melodielovemax-svg": {
+        "count": 29,
+        "bytes": 30844
+      },
+      "MelodieCLI": {
+        "count": 6420,
+        "bytes": 687742570
+      },
+      "KIMINI-CLI-Agents_CODING-Unlimited_Crypto_Karma_Earning": {
+        "count": 73,
+        "bytes": 756836
+      }
+    }
+  },
+  "steps": [
+    {
+      "Step": "Build catalog (hashes every source file)",
+      "Result": "PASS",
+      "Seconds": 182.2
+    },
+    {
+      "Step": "Install Node dependencies",
+      "Result": "PASS",
+      "Seconds": 9.8
+    },
+    {
+      "Step": "Typecheck TypeScript CLI",
+      "Result": "PASS",
+      "Seconds": 8.2
+    },
+    {
+      "Step": "Sync shared assets into the Python package",
+      "Result": "PASS",
+      "Seconds": 1.0
+    },
+    {
+      "Step": "Node tests: policy + Node/Python parity",
+      "Result": "PASS",
+      "Seconds": 75.2
+    },
+    {
+      "Step": "Python policy tests",
+      "Result": "PASS",
+      "Seconds": 2.2
+    },
+    {
+      "Step": "Build Python wheel and sdist",
+      "Result": "PASS",
+      "Seconds": 65.8
+    },
+    {
+      "Step": "twine check",
+      "Result": "PASS",
+      "Seconds": 3.4
+    },
+    {
+      "Step": "Verify catalog integrity and secret scan",
+      "Result": "PASS",
+      "Seconds": 2.0
+    },
+    {
+      "Step": "Pack the Node CLI",
+      "Result": "PASS",
+      "Seconds": 18.9
+    },
+    {
+      "Step": "Safety: credential files are permanently denied",
+      "Result": "PASS",
+      "Seconds": 0.6
+    },
+    {
+      "Step": "Safety: extracting credentials writes nothing",
+      "Result": "PASS",
+      "Seconds": 0.5
+    },
+    {
+      "Step": "Safety: content guard blocks a live key in an ordinary doc",
+      "Result": "PASS",
+      "Seconds": 0.5
+    },
+    {
+      "Step": "Safety: the default web3 scaffold withholds signing code",
+      "Result": "PASS",
+      "Seconds": 0.3
+    },
+    {
+      "Step": "Secret scan of the built artifacts",
+      "Result": "PASS",
+      "Seconds": 14.1
+    }
+  ],
+  "test_suites": [
+    {
+      "step": "Node tests: policy + Node/Python parity",
+      "tests": 19,
+      "pass": 19,
+      "fail": 0,
+      "result": "PASS"
+    },
+    {
+      "step": "Python policy tests",
+      "tests": 18,
+      "pass": 18,
+      "fail": 0,
+      "result": "PASS"
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "melodiespark-cli-0.1.0.tgz",
+      "bytes": 848433,
+      "sha256": "2c51c55da9c7a8c98882fe213209875ac78dde9ebefc47a5021981ee9a728e50"
+    },
+    {
+      "name": "melodiespark_cli-0.1.0-py3-none-any.whl",
+      "bytes": 893668,
+      "sha256": "0ba347d6e86ccddc199bfc54d1d7d03551ac3ffe8c11c5ed54f9f69120fefdad"
+    },
+    {
+      "name": "melodiespark_cli-0.1.0.tar.gz",
+      "bytes": 852021,
+      "sha256": "75ab0f123178cd60f5eeb80725599db25c69bc72916a968d7dbbdc914126f47f"
+    }
+  ],
+  "secret_scan": {
+    "patterns": [
+      "CS001_STRIPE_LIVE_SECRET",
+      "CS002_AWS_ACCESS_KEY_ID",
+      "CS003_GITHUB_TOKEN",
+      "CS004_SLACK_TOKEN",
+      "CS005_PRIVATE_KEY_BLOCK",
+      "CS009_GOOGLE_API_KEY",
+      "CS010_NPM_TOKEN"
+    ],
+    "artifacts_scanned": 3,
+    "unclassified_hits": [],
+    "synthetic_fixtures": [
+      {
+        "artifact": "melodiespark_cli-0.1.0.tar.gz",
+        "file": "\\melodiespark_cli-0.1.0\\tests\\test_policy.py",
+        "line": 115,
+        "pattern": "CS001_STRIPE_LIVE_SECRET",
+        "synthetic": true,
+        "value": "SYNTHETIC_LIVE_KEY = \"sk_live_SYNTHETICfixture0000000000000000000000\""
+      }
+    ],
+    "verdict": "CLEAN"
+  },
+  "publication": {
+    "authorized": false,
+    "registry_contacted": false,
+    "credential_used": false,
+    "blocking": [
+      {
+        "id": "GATE_CREDENTIAL_ROTATION",
+        "status": "OPEN",
+        "blocks": [
+          "npm publication",
+          "PyPI publication"
+        ],
+        "summary": "A live Stripe sk_live_ secret was found in the source tree and is treated as exposed.",
+        "requirement": "Rotated at Stripe by the credential owner, and the rotation confirmed in writing.",
+        "note": "Removing the value from the package does not reduce the exposure. Only rotation does.",
+        "owner": "operator"
+      },
+      {
+        "id": "GATE_COMMAND_NAME_COLLISION",
+        "status": "OPEN",
+        "blocks": [
+          "PyPI publication"
+        ],
+        "summary": "melodiespark-py and melodiespark-cli both install a `melodiespark` console script.",
+        "requirement": "A decision on which package owns the name, recorded in DECISIONS.md.",
+        "note": "Must not be resolved by renaming one package just to make a build pass.",
+        "owner": "operator"
+      },
+      {
+        "id": "GATE_RELEASE_AUTHORISATION",
+        "status": "OPEN",
+        "blocks": [
+          "npm publication",
+          "PyPI publication"
+        ],
+        "summary": "No publication decision has been taken.",
+        "requirement": "An explicit authorisation, after the two gates above are closed and artifacts are rebuilt and rescanned.",
+        "owner": "operator"
+      }
+    ]
+  },
+  "disclaimer": "A passing test count establishes the tested implementation paths on this host. It does not establish that the Melodiespark product, or any external integration, is operational."
+}

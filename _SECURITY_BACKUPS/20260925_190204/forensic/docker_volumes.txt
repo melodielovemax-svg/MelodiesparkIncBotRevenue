@@ -1,0 +1,18 @@
+DRIVER    VOLUME NAME
+local     1a04791799bc11dde9bc72c2c9eafdce8cea86c7574b7effa7aae5007ed86386
+local     1cf70449dd04d86cb286c20e4b507829fef9172e408bae1ffef12a665e63beb5
+local     04cbb8afce748b72ff23769124598f343df7d3c51b75975719208509df1a8f7c
+local     5e06910d1224ed9f865c75ae1781897f363917742633b6796a16d39c790e736b
+local     9fd402901fd549968ee99efc43dbe22e8f5118e55ae11de254421efbd4b62d6b
+local     88a6ffc893eca5279abb20fb7d1eaa541af4c350db1337f1315c837fd85b457e
+local     323eb1f8346b291891f03fdf394d3dbb7d3b542da95d1c67a0c42eb0ab2f9f63
+local     693217edfd0239eb7e48667a91317f8a09cd84bf7f7fcc8ee14e8c37dd6e5a4a
+local     9375715522e8e2f1353fd08d40d13a258a88c45e535ccd949d5651cd28a2a678
+local     baeb1aa512fdabf32d5c63b69cdbf47105edfbb8957ed5e76bb1f6c4dfafa571
+local     be64f23ce3e86957714d889ed35417815ab987157b27289925a4e1302fbf2e0a
+local     c4f4bd2ed8ee35df00644a97c5d2d47334672c4a95357e20ba30c695e18d6fd1
+local     dc80d47c7259496f9f8e3f37121b3bad71f5d5021eb1c89f69a1a08b5da9e159
+local     melodiespark_grafana_data
+local     melodiespark_postgres_data
+local     melodiespark_prometheus_data
+local     melodiespark_redis_data

@@ -1,0 +1,607 @@
+{
+  "package": "@melodiespark/cli",
+  "version": "0.1.0",
+  "built_at": "2026-09-26T06:00:55.008Z",
+  "node": "24.19.0",
+  "platform": "win32-x64",
+  "catalog": {
+    "contract_version": "1.0.0",
+    "generated_at": "2026-09-26T05:57:46.092Z",
+    "file_count": 6799,
+    "total_bytes": 689348002,
+    "excluded_count": 415,
+    "secret_count": 28
+  },
+  "templates": [
+    {
+      "name": "melodiespark-template",
+      "version": "1.0.0",
+      "kind": "monorepo",
+      "targets": [
+        "npm",
+        "pnpm",
+        "npx",
+        "pip",
+        "pipx"
+      ],
+      "web3": null,
+      "consent_gated_files": []
+    },
+    {
+      "name": "node",
+      "version": "1.0.0",
+      "kind": "node",
+      "targets": [
+        "npm",
+        "pnpm",
+        "npx"
+      ],
+      "web3": null,
+      "consent_gated_files": []
+    },
+    {
+      "name": "python",
+      "version": "1.0.0",
+      "kind": "python",
+      "targets": [
+        "pip",
+        "pipx"
+      ],
+      "web3": null,
+      "consent_gated_files": []
+    },
+    {
+      "name": "unreal",
+      "version": "1.0.0",
+      "kind": "unreal",
+      "targets": [
+        "unreal-engine-5"
+      ],
+      "web3": null,
+      "consent_gated_files": []
+    },
+    {
+      "name": "web3",
+      "version": "1.0.0",
+      "kind": "web3",
+      "targets": [
+        "npm",
+        "pnpm",
+        "npx"
+      ],
+      "web3": {
+        "mode": "READ-ONLY",
+        "signing": "CONSENT_GATED",
+        "broadcasting": "DISABLED",
+        "custody": "NONE",
+        "private_keys": "NOT GENERATED",
+        "consent_flag": "--i-understand-this-signs-transactions"
+      },
+      "consent_gated_files": [
+        "src/wallet/signing.ts.tmpl",
+        "src/wallet/broadcast.ts.tmpl"
+      ]
+    }
+  ],
+  "file_count": 102,
+  "total_bytes": 6390861,
+  "files": [
+    {
+      "path": "assets/catalog/content-catalog.json",
+      "bytes": 4992124,
+      "sha256": "c09e0f647db0aaa4fcb00a1da7634e393408da575152a1308031b4873b42022e"
+    },
+    {
+      "path": "assets/catalog/exclusions.json",
+      "bytes": 217289,
+      "sha256": "f9fe115b0df84c6651048acc61771ef8b01e042d2018f068f088d17f5b140080"
+    },
+    {
+      "path": "assets/catalog/files.sha256",
+      "bytes": 874699,
+      "sha256": "fe4a0a72d4dde47288968926026ca78b6f872fc802e85dc87219d0ced1100f48"
+    },
+    {
+      "path": "assets/catalog/repositories.json",
+      "bytes": 2595,
+      "sha256": "dbfdaaa5f0787cfabe14982f06f8289ea7fd68a7265313d01e2dd22763e6c6bc"
+    },
+    {
+      "path": "assets/rules/classification-rules.json",
+      "bytes": 12243,
+      "sha256": "a90e44cabd9ef633e847fca64d0b0fe9ea81d2adf28b5ae10ae5c9d28f1ab0ac"
+    },
+    {
+      "path": "assets/templates/README.md",
+      "bytes": 4226,
+      "sha256": "c34db81e62e2f3f07cda3c5f199a185883d112c85f9fc1cd7a622fb96ad1d094"
+    },
+    {
+      "path": "assets/templates/melodiespark-template/ARCHITECTURE/README.md",
+      "bytes": 1750,
+      "sha256": "68bc9f2aeaade7c178cf8919cd01fe2e7a9279414b836b4e8902109e2ecfad5e"
+    },
+    {
+      "path": "assets/templates/melodiespark-template/CATALOG/README.md",
+      "bytes": 2809,
+      "sha256": "b4fbc91499bd9967828f1f33ddd2b191fce193536f69bbf93b1407560266afa1"
+    },
+    {
+      "path": "assets/templates/melodiespark-template/DOCS/README.md",
+      "bytes": 1179,
+      "sha256": "32bedc3466ff202cf71cddc05c681bcfaef3689e71a40ff1c21fd7ae36374a59"
+    },
+    {
+      "path": "assets/templates/melodiespark-template/PUBLISHING/README.md",
+      "bytes": 2784,
+      "sha256": "9596246da83a73f8946a17ac1bfad3764a96e240b9d113c5bdc47405d68b0fab"
+    },
+    {
+      "path": "assets/templates/melodiespark-template/README.md.tmpl",
+      "bytes": 2497,
+      "sha256": "ac33ee481b6a639438947056b73c1d7b47190e8666f68ed90432e09b9b387634"
+    },
+    {
+      "path": "assets/templates/melodiespark-template/SOURCE/README.md",
+      "bytes": 1572,
+      "sha256": "cabec2bf909c6cb805363b7302ddf1d84bb29277835419bb27fc763ec773b056"
+    },
+    {
+      "path": "assets/templates/melodiespark-template/TESTS/README.md",
+      "bytes": 1258,
+      "sha256": "3dc83496ae8cc29665a584f97020c6c50510620951d4f4230285b2925721460a"
+    },
+    {
+      "path": "assets/templates/melodiespark-template/WEB3/README.md",
+      "bytes": 2099,
+      "sha256": "587200102e13d77ec3734e20b3427252ac7682580ea11ee05e9280d9b665b19a"
+    },
+    {
+      "path": "assets/templates/melodiespark-template/template.json",
+      "bytes": 1797,
+      "sha256": "f472289994c166a93c9073caaf4086d1144295f530a1903fdc424c4437fdfa75"
+    },
+    {
+      "path": "assets/templates/node/.github/workflows/ci.yml.tmpl",
+      "bytes": 1067,
+      "sha256": "4c86e21287f1f5d04860161af17851e77cc066d48b8360a35a157706d3cea337"
+    },
+    {
+      "path": "assets/templates/node/.gitignore",
+      "bytes": 68,
+      "sha256": "a7421e7e51ce0d0c97ed897f6d44cef4757f894ce7a16fa263e426bb47fb0510"
+    },
+    {
+      "path": "assets/templates/node/.npmignore",
+      "bytes": 479,
+      "sha256": "86c0a94db2e46320b40ecda7a6f776ea263a1ac662a9c0fa062647a76dd5c175"
+    },
+    {
+      "path": "assets/templates/node/LICENSE.tmpl",
+      "bytes": 1071,
+      "sha256": "3f175e7d641946a0614c969262f2a5a16d5243179bfdb30c44f408c497c32932"
+    },
+    {
+      "path": "assets/templates/node/README.md.tmpl",
+      "bytes": 4721,
+      "sha256": "f86240796cce3eeb75b5ec1221582931377adfea02426fc812530fd2b0443e60"
+    },
+    {
+      "path": "assets/templates/node/bin/melodie-app.mjs.tmpl",
+      "bytes": 3717,
+      "sha256": "2aace6d83847d8a38ba346fcf0608fd6cfdda54450fd251565de3b1e900b9684"
+    },
+    {
+      "path": "assets/templates/node/package.json.tmpl",
+      "bytes": 1144,
+      "sha256": "d082c64a770a15692170679a2b9b6683422ac30f9c78e3625d4707674582ebdb"
+    },
+    {
+      "path": "assets/templates/node/src/index.test.ts",
+      "bytes": 2778,
+      "sha256": "829dbaafd710531a93cf6f33148de32a51858f20fee9aca71fc3a8fd56c8ca5a"
+    },
+    {
+      "path": "assets/templates/node/src/index.ts",
+      "bytes": 1394,
+      "sha256": "4193bbf84b60c92e5e870b02250e003e20db6fa184c705332cd49d7c2e0504a2"
+    },
+    {
+      "path": "assets/templates/node/template.json",
+      "bytes": 3891,
+      "sha256": "4e769f4eacfe62b7e979a92bba35a8846a6eab918e817217a23de8cf1efcd9e3"
+    },
+    {
+      "path": "assets/templates/node/tsconfig.json",
+      "bytes": 684,
+      "sha256": "a2b640e8a90694587ea7c7be3402dc4589972e2f9a67208d6e77e8424600bf6a"
+    },
+    {
+      "path": "assets/templates/python/.gitignore",
+      "bytes": 327,
+      "sha256": "88653cf3e1bdd7c6baa62202eca07a1d1f2963a3fde1bede2c0324dfb92eec44"
+    },
+    {
+      "path": "assets/templates/python/LICENSE.tmpl",
+      "bytes": 1071,
+      "sha256": "3f175e7d641946a0614c969262f2a5a16d5243179bfdb30c44f408c497c32932"
+    },
+    {
+      "path": "assets/templates/python/MANIFEST.in",
+      "bytes": 90,
+      "sha256": "496b091ae4370e216c5f3e52a78a515a7039899e097fff257be33df5e2b25ab9"
+    },
+    {
+      "path": "assets/templates/python/README.md.tmpl",
+      "bytes": 3528,
+      "sha256": "c99ff3430fb9f503fd3d824532394adea87d3ac2cc879b3c3eb19b9913a1b8db"
+    },
+    {
+      "path": "assets/templates/python/pyproject.toml.tmpl",
+      "bytes": 1489,
+      "sha256": "65d254d1df776ca54e42e7c32564fa9358fc27626dc3be0f1a78d72f2f385e41"
+    },
+    {
+      "path": "assets/templates/python/src/{{PY_MODULE}}/__init__.py.tmpl",
+      "bytes": 142,
+      "sha256": "b2a5fc4e2ade83520fec9b636e46e9f1ad4ff19fe1fea4ed74e34b08a7807bb4"
+    },
+    {
+      "path": "assets/templates/python/src/{{PY_MODULE}}/__main__.py.tmpl",
+      "bytes": 167,
+      "sha256": "caa349ce62d7b529b6de7c0cba8c547e86c97398b0bce30705e29051d4d32ce4"
+    },
+    {
+      "path": "assets/templates/python/src/{{PY_MODULE}}/cli.py.tmpl",
+      "bytes": 3114,
+      "sha256": "608e9b2f8a74e5f0386418ec183bb69af3b0e91daff7ff555434de5e94962985"
+    },
+    {
+      "path": "assets/templates/python/src/{{PY_MODULE}}/core.py.tmpl",
+      "bytes": 2189,
+      "sha256": "53d51dd62e3afd0be2884dc7673fffc646763451348796119cf0d437a72e535b"
+    },
+    {
+      "path": "assets/templates/python/template.json",
+      "bytes": 2789,
+      "sha256": "99360aba0e85b629283838a720911be43b6d37667b3d307348f16b800966e18f"
+    },
+    {
+      "path": "assets/templates/python/tests/test_core.py.tmpl",
+      "bytes": 3322,
+      "sha256": "73dacfa38075b4243c1d077814b3bb957ddeeae2f4b0eff5c0650a3a805e42d1"
+    },
+    {
+      "path": "assets/templates/unreal/.gitignore",
+      "bytes": 251,
+      "sha256": "7e978781eccbbfa8ca8e360a2f4c6be9053bcc5b1a3d31c1cac64cde49a6c78f"
+    },
+    {
+      "path": "assets/templates/unreal/Config/DefaultMelodiesparkScaffold.ini.tmpl",
+      "bytes": 383,
+      "sha256": "d65c9ac978986b385fd9089385bffb2f5d0bfc6fda0c503f76b9d56a8b8d951d"
+    },
+    {
+      "path": "assets/templates/unreal/LICENSE.tmpl",
+      "bytes": 1071,
+      "sha256": "3f175e7d641946a0614c969262f2a5a16d5243179bfdb30c44f408c497c32932"
+    },
+    {
+      "path": "assets/templates/unreal/MelodiesparkScaffold.uplugin.tmpl",
+      "bytes": 547,
+      "sha256": "7c68501da77b78d3d470462046e889dbf148b7a5c6df377a002ddb85ea836d1c"
+    },
+    {
+      "path": "assets/templates/unreal/README.md.tmpl",
+      "bytes": 2244,
+      "sha256": "d8407b66ec9c8719a69232e93c46f8773f44747901b1e980a4722eb5500a0ad1"
+    },
+    {
+      "path": "assets/templates/unreal/Source/MelodiesparkScaffold/MelodiesparkScaffold.Build.cs",
+      "bytes": 609,
+      "sha256": "6d279008599e01e75f4f51535d64caa294773d69f874c3da6eb06da8a89486af"
+    },
+    {
+      "path": "assets/templates/unreal/Source/MelodiesparkScaffold/Private/MelodiesparkScaffoldModule.cpp",
+      "bytes": 785,
+      "sha256": "d36f5ce6fa3a17f0141edf55cbae25b7fcd1117fd792a79586ac1ba7e7b0b991"
+    },
+    {
+      "path": "assets/templates/unreal/Source/MelodiesparkScaffold/Public/MelodiesparkScaffoldModule.h",
+      "bytes": 780,
+      "sha256": "563e5854a9bda4acc1db3e2af9c7de6a279227e2562c26c07ceb1c2e5a2c277a"
+    },
+    {
+      "path": "assets/templates/unreal/template.json",
+      "bytes": 1760,
+      "sha256": "4bb6e1f2affd7e16f67945d5821fffd7261cd5f6ae53e6f94223739f0ea8a5d5"
+    },
+    {
+      "path": "assets/templates/web3/.env.example.tmpl",
+      "bytes": 1232,
+      "sha256": "e807f9b60ca595b9cbc995037733ce536cb471048262d438a55999a665167888"
+    },
+    {
+      "path": "assets/templates/web3/.gitignore",
+      "bytes": 308,
+      "sha256": "e4b846d6172fe849424cfe22f9636002a9061418de084158ee0883531b6d5375"
+    },
+    {
+      "path": "assets/templates/web3/LICENSE",
+      "bytes": 480,
+      "sha256": "4ac65d55c0de18400634fc80e36d87b36a609731106cb8ac89586626cbbb5e76"
+    },
+    {
+      "path": "assets/templates/web3/README.md.tmpl",
+      "bytes": 8762,
+      "sha256": "4bd21e22e2ca3e0f0dd427215759af035bd3a4733f5240a7325111b2c64b56d7"
+    },
+    {
+      "path": "assets/templates/web3/SECURITY.md.tmpl",
+      "bytes": 2835,
+      "sha256": "fa1dfb8a90bd08acbf0009f5d5fc447ad7e53c62647147734d2d94a3120da5a0"
+    },
+    {
+      "path": "assets/templates/web3/package.json.tmpl",
+      "bytes": 1126,
+      "sha256": "1b8b725e21b465881069899ec2045f43dd5431ebb142916b2535a82cb533566d"
+    },
+    {
+      "path": "assets/templates/web3/src/config.ts.tmpl",
+      "bytes": 7052,
+      "sha256": "720eeec4e956e40df35cd5a488c4efce6c6d83295c5c4b7e1a9c1d671fdeac4f"
+    },
+    {
+      "path": "assets/templates/web3/src/index.ts.tmpl",
+      "bytes": 10643,
+      "sha256": "214392863988b6b103ea701becf4c0eb0630a05ece1cab5868a26e03344a9b66"
+    },
+    {
+      "path": "assets/templates/web3/src/safety.ts.tmpl",
+      "bytes": 5826,
+      "sha256": "42cbfa97fb39b90692eb730bd7b2405583e06e501098524428b0427d20838f2c"
+    },
+    {
+      "path": "assets/templates/web3/src/wallet/broadcast.ts.tmpl",
+      "bytes": 11331,
+      "sha256": "0aed67ba9d1c7bfdf027d2f7a0556ba7357c4421dcc0dadb09402f5f61c38d8c"
+    },
+    {
+      "path": "assets/templates/web3/src/wallet/connect.ts.tmpl",
+      "bytes": 8362,
+      "sha256": "2262319cadeaac5a3e9b97dd36c0dc8e47e75582796a5b4024c8002af8c827da"
+    },
+    {
+      "path": "assets/templates/web3/src/wallet/intent.ts.tmpl",
+      "bytes": 23104,
+      "sha256": "bb1475eea538c7dd9f80eb181014695f90b676e3a6b873f22fe4065c4e6c96bc"
+    },
+    {
+      "path": "assets/templates/web3/src/wallet/reads.ts.tmpl",
+      "bytes": 7706,
+      "sha256": "565d986957a0ddbc42b839d0291f8bc91dcbe254414fb693e2bbb066736730b1"
+    },
+    {
+      "path": "assets/templates/web3/src/wallet/signing.ts.tmpl",
+      "bytes": 8241,
+      "sha256": "ac4dabaccecc31523b08abeb9c2c562f70a61e5c15bbcf24f49c43685d406be5"
+    },
+    {
+      "path": "assets/templates/web3/template.json",
+      "bytes": 3280,
+      "sha256": "60ae336e7a7a25261f568058174f6abc3966f85c321e2eae7de626215552d94e"
+    },
+    {
+      "path": "assets/templates/web3/test/safety.test.ts.tmpl",
+      "bytes": 14798,
+      "sha256": "fc065c317c35009231ab86bc1a4b9f71eb22aab972b74df64021d060eca81162"
+    },
+    {
+      "path": "assets/templates/web3/tsconfig.json.tmpl",
+      "bytes": 710,
+      "sha256": "c517d7dfb48810000e4e8d96a698c043717465f367faa83c94bef83f01fa121e"
+    },
+    {
+      "path": "bin/melodie.mjs",
+      "bytes": 974,
+      "sha256": "8e6b62ecd84fde1a863dde47ffe96b1788cb0e9649514c9fa1d6200d43736362"
+    },
+    {
+      "path": "dist/args.d.ts",
+      "bytes": 896,
+      "sha256": "b54ddb917fcb8ec6569ffb3f01134e56ea5bd14173542ea0823e5133f6f7cfab"
+    },
+    {
+      "path": "dist/args.js",
+      "bytes": 1820,
+      "sha256": "2e2900e4eb52f1892d84469f1d564ab6309e2b892fa8d0d06a66e20cccddda13"
+    },
+    {
+      "path": "dist/audit.d.ts",
+      "bytes": 849,
+      "sha256": "28c03901b5d875d1b4d3652c8828e9a506dca131162da224233dd6011debb291"
+    },
+    {
+      "path": "dist/audit.js",
+      "bytes": 1187,
+      "sha256": "2a9e0ec31d4b23e3e95ad483b3e03bf5a2aed76d046e7f584782fd74d6990e51"
+    },
+    {
+      "path": "dist/catalog.d.ts",
+      "bytes": 682,
+      "sha256": "83b21e145c6a2e09a8c240221d422bda7cb4b3ad0e10ce8af38eeb2e89cbc0f8"
+    },
+    {
+      "path": "dist/catalog.js",
+      "bytes": 7681,
+      "sha256": "cb3bbeae5b878e2dfd52725b3f1d908411a2fe03c4b57d9c431ac4c9e0addc0b"
+    },
+    {
+      "path": "dist/classifier.d.ts",
+      "bytes": 1172,
+      "sha256": "59faa9db4c266e1242bf2b013ba905cb2c3426bfa61774719fcdd1e3d420b092"
+    },
+    {
+      "path": "dist/classifier.js",
+      "bytes": 6864,
+      "sha256": "6ae1f9753f7a7ccaa24ae7bf35c68560fa6475beeb109650ef7f72d32095bed7"
+    },
+    {
+      "path": "dist/commands/catalog.d.ts",
+      "bytes": 273,
+      "sha256": "5b32762db33b79aedc94bb7ac7f9388df60e72bbcb89a1fd7b53d7c3f5399de4"
+    },
+    {
+      "path": "dist/commands/catalog.js",
+      "bytes": 5084,
+      "sha256": "edbd721485bb9cee96518f50ead2546a6df6661dfa02aa2b8256d3d9604dc61d"
+    },
+    {
+      "path": "dist/commands/extract.d.ts",
+      "bytes": 501,
+      "sha256": "2fb9784a26767e6a367e4537fb7a3e0bf4458b9d186cdad57afd48fa34f8c269"
+    },
+    {
+      "path": "dist/commands/extract.js",
+      "bytes": 7483,
+      "sha256": "b7c55835a8bb6427e7793c40849e691a6c7234e148a940ef385b815511aa6bdc"
+    },
+    {
+      "path": "dist/commands/init.d.ts",
+      "bytes": 432,
+      "sha256": "33356038cd46edf1e02b800e2c6089044e8031ff3752041695fec2fcd952c785"
+    },
+    {
+      "path": "dist/commands/init.js",
+      "bytes": 8139,
+      "sha256": "01b084727b75a13a7217fbe9ddf5ad7e58e4d1aa3ea771579245c3cd5b3d5135"
+    },
+    {
+      "path": "dist/commands/inspect.d.ts",
+      "bytes": 185,
+      "sha256": "d740548da4dcd71443f5c490f96ca7493a0760292124836e387a6a7108c6e5a9"
+    },
+    {
+      "path": "dist/commands/inspect.js",
+      "bytes": 3762,
+      "sha256": "a6f65f5135eb35c91599c3c0a3f819932b2ab6036be5990dd35bce1fa8127dff"
+    },
+    {
+      "path": "dist/commands/status.d.ts",
+      "bytes": 314,
+      "sha256": "8e860cabdc62255cae3340f088ff3d88baede74a64a19004f09e93a91385287f"
+    },
+    {
+      "path": "dist/commands/status.js",
+      "bytes": 6892,
+      "sha256": "dbfdb800ffbddd0a5b83777716900dae22d2457c8df701833a07055da9f11f65"
+    },
+    {
+      "path": "dist/commands/template.d.ts",
+      "bytes": 176,
+      "sha256": "2e775f1a0212b7ae5c084c75356d77ede388a36b5dc22d239e426afa5001af65"
+    },
+    {
+      "path": "dist/commands/template.js",
+      "bytes": 3691,
+      "sha256": "f26842332a24354c6a982d727df1c0951956034cbe9c0eef599cc1805fde36ed"
+    },
+    {
+      "path": "dist/commands/verify.d.ts",
+      "bytes": 695,
+      "sha256": "a3f8e2c030aa8f4b4adddaa84817a8cac4db1a44dbccc7e762207dc03592cb99"
+    },
+    {
+      "path": "dist/commands/verify.js",
+      "bytes": 9416,
+      "sha256": "033aca7f78aa11031b1fd8f6f3778b046acd59edbee40c12aa74d07e7df63e37"
+    },
+    {
+      "path": "dist/content-guard.d.ts",
+      "bytes": 979,
+      "sha256": "e321d2fcfe28a9cade7228082107b51ffcd8c1ce57d9813f2320800d6c94c8b2"
+    },
+    {
+      "path": "dist/content-guard.js",
+      "bytes": 1972,
+      "sha256": "03f3cbf837de8a4bd1da95a17680391ee2310cc0a4235cd1ff9a400677b3aa3e"
+    },
+    {
+      "path": "dist/contracts.d.ts",
+      "bytes": 3895,
+      "sha256": "03e493062ddaf7ecc33e3ea324f033aaf711ef39d6146414075ec0b254edae52"
+    },
+    {
+      "path": "dist/contracts.js",
+      "bytes": 225,
+      "sha256": "919da4096b0e4fdaebe28dd3cfb7bf6f3597a6a151e8bb74f2e0d825651ba73d"
+    },
+    {
+      "path": "dist/emit.d.ts",
+      "bytes": 1027,
+      "sha256": "0300c64e9e087aa9e46f9c06a8717a2e9313b35626df89e69391b0ed5c68dccb"
+    },
+    {
+      "path": "dist/emit.js",
+      "bytes": 7786,
+      "sha256": "2cb0df3e68fc1cf2a39d79b32076e0f1afecc7307ead4bcbc3828433beaaf70c"
+    },
+    {
+      "path": "dist/index.d.ts",
+      "bytes": 814,
+      "sha256": "22f2c8f029da920b4036cab29fcfe846249c6a2791a4f0c4f4ba66a49eba4156"
+    },
+    {
+      "path": "dist/index.js",
+      "bytes": 5715,
+      "sha256": "803841a6e0f43ca00b8c6304c3331ab842d70ccc7bf24c59b0bb3049bda6e1ea"
+    },
+    {
+      "path": "dist/output.d.ts",
+      "bytes": 805,
+      "sha256": "55047c5a52aa9cc253a943c95467739e8241eb18415ea6239103f035623816c0"
+    },
+    {
+      "path": "dist/output.js",
+      "bytes": 2497,
+      "sha256": "887bd2f025522b9ab0206708c4b82ba612647b8051a579daa40411a52e1faf81"
+    },
+    {
+      "path": "dist/paths.d.ts",
+      "bytes": 1823,
+      "sha256": "038b05257837eaa49d72c2d70b912c2a92d4299ab015cb5c3f20201e23c72149"
+    },
+    {
+      "path": "dist/paths.js",
+      "bytes": 4075,
+      "sha256": "2ea8fbe1314d24fb648e02060e39b7fc9e2a39a0190bab9eb3105f141d56b47b"
+    },
+    {
+      "path": "dist/store.d.ts",
+      "bytes": 681,
+      "sha256": "8e88b066d7b43dbbc50005f047feb316730ee90081bcc9d08f4b8a9bac662acb"
+    },
+    {
+      "path": "dist/store.js",
+      "bytes": 1756,
+      "sha256": "1b35f2df79faea5cfcfbf9fe7dd858911c59ec47fdcf8f3187c0df7230c5c566"
+    },
+    {
+      "path": "dist/template.d.ts",
+      "bytes": 1023,
+      "sha256": "fec620b27e0f882c06fa94467daebcfaf4ba8ba674c1b8320e2bb23bc16d62a3"
+    },
+    {
+      "path": "dist/template.js",
+      "bytes": 2231,
+      "sha256": "164775d3ffd1c7160d68caf6f3d7b2bb151a8490927cd105793cd99986d9b0d7"
+    }
+  ],
+  "guarantees": {
+    "secrets_included": false,
+    "source_tree_included": false,
+    "extraction_is_deny_by_default": true,
+    "web3_signing_disabled_by_default": true,
+    "note": "This manifest describes packaging only. It is not evidence that any described capability is operational."
+  }
+}

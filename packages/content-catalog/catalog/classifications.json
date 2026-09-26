@@ -1,0 +1,154 @@
+{
+  "contract_version": "1.0.0",
+  "generated_at": "2026-09-26T06:02:35.062Z",
+  "by_category": {
+    "DATA": {
+      "count": 180,
+      "bytes": 14677151
+    },
+    "DOCUMENTATION": {
+      "count": 604,
+      "bytes": 6482188
+    },
+    "CONFIG": {
+      "count": 1322,
+      "bytes": 7457758
+    },
+    "TEST": {
+      "count": 228,
+      "bytes": 1385265
+    },
+    "SOURCE": {
+      "count": 3895,
+      "bytes": 24057383
+    },
+    "VCS": {
+      "count": 168,
+      "bytes": 129964252
+    },
+    "OTHER": {
+      "count": 140,
+      "bytes": 6216902
+    },
+    "SECRET": {
+      "count": 28,
+      "bytes": 60309
+    },
+    "GENERATED": {
+      "count": 141,
+      "bytes": 291883644
+    },
+    "ARCHIVE": {
+      "count": 71,
+      "bytes": 167643096
+    },
+    "BINARY": {
+      "count": 7,
+      "bytes": 35559964
+    },
+    "ASSET": {
+      "count": 15,
+      "bytes": 3960090
+    }
+  },
+  "by_rule": [
+    {
+      "rule_id": "R000_HARD_DENY_PATTERN",
+      "category": "SECRET",
+      "count": 11,
+      "bytes": 9053,
+      "reason": "Filename matches an absolutely-denied pattern; treated as SECRET regardless of the rule that matched (R003_SECRET_FILENAME_PATTERNS)."
+    },
+    {
+      "rule_id": "R001_ABSOLUTE_SECRET_PATHS",
+      "category": "SECRET",
+      "count": 11,
+      "bytes": 48117,
+      "reason": "Filename matches an absolutely-denied pattern; treated as SECRET regardless of the rule that matched (R001_ABSOLUTE_SECRET_PATHS)."
+    },
+    {
+      "rule_id": "R002_VCS_METADATA",
+      "category": "VCS",
+      "count": 168,
+      "bytes": 129964252,
+      "reason": "Git internals are catalogued for provenance (remote, branch, commit) but are not redistributed."
+    },
+    {
+      "rule_id": "R003_SECRET_FILENAME_PATTERNS",
+      "category": "SECRET",
+      "count": 6,
+      "bytes": 3139,
+      "reason": "Filename pattern indicates a real credential rather than an example or sample. Pattern-based so that copies in new directories are also caught."
+    },
+    {
+      "rule_id": "R004_ARCHIVE_CONTAINERS",
+      "category": "ARCHIVE",
+      "count": 71,
+      "bytes": 167643096,
+      "reason": "Archive container. Not extracted or packaged; sizes are recorded for provenance only."
+    },
+    {
+      "rule_id": "R005_BINARY_ARTIFACTS",
+      "category": "BINARY",
+      "count": 7,
+      "bytes": 35559964,
+      "reason": "Compiled or opaque binary artifact."
+    },
+    {
+      "rule_id": "R006_GENERATED_DUMPS",
+      "category": "GENERATED",
+      "count": 141,
+      "bytes": 291883644,
+      "reason": "Machine-generated inventory dump. Regenerable with `melodie catalog`; excluded from packages. Separator class is [_-] because the dumps use both MelodieCLI_FILES.csv and MELODIECLI-TREE.txt conventions."
+    },
+    {
+      "rule_id": "R007_TEST_CODE",
+      "category": "TEST",
+      "count": 228,
+      "bytes": 1385265,
+      "reason": "Automated test code or fixture."
+    },
+    {
+      "rule_id": "R008_DOCUMENTATION",
+      "category": "DOCUMENTATION",
+      "count": 604,
+      "bytes": 6482188,
+      "reason": "Authored prose."
+    },
+    {
+      "rule_id": "R009_SOURCE_CODE",
+      "category": "SOURCE",
+      "count": 3895,
+      "bytes": 24057383,
+      "reason": "Authored program code."
+    },
+    {
+      "rule_id": "R010_CONFIGURATION",
+      "category": "CONFIG",
+      "count": 1322,
+      "bytes": 7457758,
+      "reason": "Build, packaging, or runtime configuration."
+    },
+    {
+      "rule_id": "R011_DATA",
+      "category": "DATA",
+      "count": 180,
+      "bytes": 14677151,
+      "reason": "Structured data asset or dataset."
+    },
+    {
+      "rule_id": "R012_ASSETS",
+      "category": "ASSET",
+      "count": 15,
+      "bytes": 3960090,
+      "reason": "Media or static asset."
+    },
+    {
+      "rule_id": "R999_FALLBACK",
+      "category": "OTHER",
+      "count": 140,
+      "bytes": 6216902,
+      "reason": "No rule matched."
+    }
+  ]
+}

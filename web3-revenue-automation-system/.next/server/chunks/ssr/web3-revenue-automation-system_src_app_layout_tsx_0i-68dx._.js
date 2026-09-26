@@ -1,0 +1,3 @@
+module.exports=[13604,a=>{"use strict";var b=a.i(53637);a.s(["default",0,function({children:a}){return(0,b.jsx)("html",{lang:"en",children:(0,b.jsx)("body",{className:"gradient-aurora hex-bg min-h-screen text-slate-200 antialiased",children:a})})},"metadata",0,{title:"MelodieSpark Phoenix | Bot Revenue Automation — Web3 Karma Ecosystem",description:"Enterprise Web3 Bot Revenue Automation System — MA Token Mining, Karma Power Points, Sacred Geometry Quantum CLI, MetaMello Wallet, and Digital Civilization Products & Services Ecosystem.",keywords:"MA Token, Karma Points, Web3, Blockchain, Bot Revenue, MelodieSpark, MetaMello, Crypto Mining"}])},3326,a=>{a.n(a.i(13604))}];
+
+//# sourceMappingURL=web3-revenue-automation-system_src_app_layout_tsx_0i-68dx._.js.map

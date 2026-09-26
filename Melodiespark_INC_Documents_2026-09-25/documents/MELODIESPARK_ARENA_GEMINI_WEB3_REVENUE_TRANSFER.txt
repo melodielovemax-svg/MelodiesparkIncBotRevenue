@@ -1,0 +1,1521 @@
+MELODIESPARK INC — ARENA.AI / GEMINI CODING-AGENT TRANSFER SPEC
+Version: 1.0
+Purpose: Unified app-builder handoff for an enterprise Web3 wallet + verified revenue automation platform
+Target coding agent: Arena.ai app-building coder / Gemini coding model
+Project identity: Melodiespark Inc
+Primary ecosystem: MelodieCLI + MelodiePhoenix + MetaMello Wallet + Revenue Intelligence + Command Center
+
+======================================================================
+0. NON-NEGOTIABLE GLOBAL RULES
+======================================================================
+
+1. NEVER fabricate:
+   - customers
+   - revenue
+   - payments
+   - wallet balances
+   - transaction hashes
+   - bank connections
+   - blockchain confirmations
+   - contracts
+   - deployments
+   - approvals
+   - compliance status
+
+2. Evidence rule:
+   REAL CUSTOMER
+   + REAL PRODUCT
+   + REAL PAYMENT
+   + VERIFIED EVIDENCE
+   + AUDIT RECORD
+   = VERIFIED REVENUE
+
+3. Any missing or inconclusive evidence MUST remain:
+   UNVERIFIED / PENDING / UNKNOWN / BLOCKED
+
+4. Financial agents are READ-ONLY by default.
+   Do not give autonomous agents authority to sign, broadcast, transfer, swap,
+   withdraw, bridge, or move funds.
+
+5. All consequential Web3 or treasury actions require:
+   - explicit human approval
+   - external wallet/signer
+   - clear transaction preview
+   - network + chain ID verification
+   - destination verification
+   - amount verification
+   - fee preview
+   - final user signature
+
+6. Never store or request private keys or seed phrases.
+   External wallet signing only.
+
+7. Bank integration must remain DISABLED until a supported provider is connected
+   through a legitimate, authorized integration.
+
+8. Crypto off-ramp or fiat withdrawal workflows must be tracked and reconciled,
+   not silently or automatically initiated.
+
+9. Preserve user credentials and .env files.
+   Never overwrite existing secrets.
+
+10. Every automated workflow must be idempotent, logged, auditable, and fail-closed.
+
+======================================================================
+1. BUILD GOAL
+======================================================================
+
+Build a production-grade unified application called:
+
+MELODIESPARK COMMAND CENTER + METAMELLO WALLET
+
+It combines:
+
+- Web3 wallet dashboard
+- Multi-chain read-only portfolio
+- Wallet connection
+- Transaction inspection
+- Token balances
+- Revenue intelligence
+- Customer/payment evidence
+- Product catalog
+- Orders
+- Fulfillment
+- Licensing
+- CRM
+- Subscription tracking
+- Treasury reconciliation
+- Blockchain evidence
+- Immutable audit chain
+- Human approvals
+- AI agent orchestration
+- Developer CLI integration
+- Business analytics
+- Security center
+- System health
+
+The application must function as a REAL business system, not a simulation.
+
+======================================================================
+2. CORE PRODUCT FAMILIES
+======================================================================
+
+A. MELODIECLI
+Developer CLI and orchestration layer.
+
+Commands:
+
+melodie doctor
+melodie create
+melodie generate
+melodie build
+melodie test
+melodie deploy
+melodie verify
+melodie audit
+melodie revenue
+melodie wallet
+melodie treasury
+melodie marketplace
+melodie crm
+melodie agents
+melodie release
+
+B. MELODIEPHOENIX AI
+Multi-agent orchestration.
+
+Engines:
+
+ALPHA   = creation / architecture
+BETA    = validation / QA / compliance
+GAMMA   = intelligence / analytics
+DELTA   = execution / build / deployment
+THETA   = optimization
+BRAVO   = business / sales / CRM / marketplace
+OMEGA   = governance / evidence / audit / treasury
+APEX    = final aggregation and release gate
+
+C. METAMELLO WALLET
+External-signer Web3 wallet control center.
+
+D. REVENUE INTELLIGENCE
+Verified revenue evidence and analytics.
+
+E. MARKETPLACE
+Digital products, SaaS, services, licenses, agents, templates.
+
+F. COMMAND CENTER
+Unified enterprise observability and governance dashboard.
+
+======================================================================
+3. TECHNOLOGY STACK
+======================================================================
+
+Recommended monorepo:
+
+- Node.js 24+
+- TypeScript
+- pnpm
+- Turborepo
+- Next.js 16
+- React 19
+- Tailwind CSS 4
+- Fastify or NestJS
+- PostgreSQL
+- Drizzle ORM or Prisma
+- Redis
+- pgvector
+- NATS
+- Temporal
+- Docker
+- Docker Compose
+- GitHub Actions
+- Terraform
+- OpenTelemetry
+- Playwright
+- Vitest
+- Zod
+
+Web3:
+
+- viem
+- wagmi
+- WalletConnect
+- EIP-1193
+- MetaMask / external signer
+- ethers only if required by a dependency
+
+AI gateway:
+
+- LiteLLM-compatible gateway
+- OpenAI-compatible abstraction
+- Gemini provider adapter
+- Anthropic provider adapter
+- model routing
+- retries
+- cost accounting
+- fallback strategy
+
+======================================================================
+4. MONOREPO STRUCTURE
+======================================================================
+
+melodiespark/
+  apps/
+    command-center/
+    marketplace/
+    wallet/
+    revenue/
+    crm/
+    governance/
+    treasury/
+    analytics/
+    mobile/
+    api/
+    worker/
+
+  packages/
+    ui/
+    config/
+    database/
+    auth/
+    security/
+    audit/
+    evidence/
+    web3/
+    wallet-core/
+    treasury-core/
+    revenue-core/
+    marketplace-core/
+    crm-core/
+    analytics-core/
+    agent-core/
+    model-gateway/
+    workflow-core/
+    notifications/
+    licensing/
+    payments/
+    observability/
+
+  engines/
+    alpha/
+    beta/
+    gamma/
+    delta/
+    theta/
+    bravo/
+    omega/
+    apex/
+
+  agents/
+    architect/
+    builder/
+    reviewer/
+    tester/
+    deployer/
+    researcher/
+    revenue/
+    crm/
+    marketplace/
+    wallet-monitor/
+    reconciliation/
+    governance/
+    auditor/
+
+  database/
+    migrations/
+    seeds/
+    schema/
+
+  infra/
+    docker/
+    terraform/
+    kubernetes/
+    github-actions/
+
+  docs/
+    architecture/
+    api/
+    security/
+    governance/
+    runbooks/
+    product/
+    legal/
+    compliance/
+
+  scripts/
+    bootstrap/
+    doctor/
+    build/
+    verify/
+    release/
+
+  tests/
+    unit/
+    integration/
+    e2e/
+    security/
+    reconciliation/
+    evidence/
+
+======================================================================
+5. WALLET REQUIREMENTS
+======================================================================
+
+Dashboard states:
+
+RPC: CONNECTED / DISCONNECTED
+WALLET: VERIFIED / UNVERIFIED
+TREASURY: VERIFIED / RECONCILIATION_PENDING / BLOCKED
+BANK: CONNECTED / NOT_CONNECTED
+AUDIT: ENFORCED
+NETWORK: chain name + chain ID
+SIGNER: EXTERNAL_ONLY
+
+Wallet Center:
+
+- Connect wallet
+- Disconnect wallet
+- Show address
+- ENS if available
+- Native balance
+- ERC-20 balances
+- NFT inventory optional
+- Transaction history
+- Token metadata
+- Chain selector
+- RPC health
+- Gas estimate
+- explorer links
+- watch-only addresses
+- address book
+
+Supported initial networks:
+
+Ethereum Mainnet
+Sepolia
+Base
+Base Sepolia
+Arbitrum One
+Arbitrum Sepolia
+Optimism
+Optimism Sepolia
+Polygon PoS
+Polygon Amoy
+
+======================================================================
+6. TREASURY POLICY
+======================================================================
+
+Default policy:
+
+ENABLED=true
+READ_ONLY=true
+REQUIRE_APPROVAL=true
+REQUIRE_EXTERNAL_SIGNER=true
+ALLOW_BROADCAST=false
+ALLOW_TRANSFERS=false
+MAX_TRANSACTION_VALUE=0
+
+Optional user-approved transaction mode can exist ONLY after explicit policy change.
+
+Every proposed transaction must produce:
+
+- proposal ID
+- initiator
+- wallet
+- chain ID
+- recipient
+- token
+- amount
+- estimated gas
+- fiat estimate
+- risk classification
+- approval status
+- signer status
+- tx hash after broadcast
+- block number
+- confirmation count
+- final status
+- audit hash
+
+Never consider a transaction completed from UI state alone.
+
+======================================================================
+7. ON-CHAIN RECONCILIATION
+======================================================================
+
+Implement an independent reconciliation engine.
+
+Inputs:
+
+- internal ledger entry
+- provider/RPC A
+- provider/RPC B where practical
+- block number
+- tx hash
+- sender
+- recipient
+- token contract
+- amount
+- chain ID
+
+VERIFIED only if independent blockchain evidence matches the internal ledger.
+
+Mismatch => BLOCKED or RECONCILIATION_REQUIRED.
+
+Required states:
+
+PENDING
+CONFIRMED
+FAILED
+REORG_RISK
+MISMATCH
+RECONCILIATION_REQUIRED
+VERIFIED
+
+Never mark VERIFIED because a local database row says so.
+
+======================================================================
+8. REVENUE AUTOMATION — LEGITIMATE FLOW
+======================================================================
+
+Automation is allowed for:
+
+- product publishing
+- lead capture
+- checkout preparation
+- payment-provider webhook handling
+- entitlement provisioning
+- license generation
+- digital delivery
+- invoice/receipt tracking
+- subscription status
+- CRM updates
+- support ticket creation
+- analytics
+- revenue reconciliation
+- evidence gathering
+- audit logging
+- follow-up reminders
+- reporting
+
+Automation must NOT:
+
+- invent purchases
+- fake invoices
+- fabricate customers
+- fabricate payment confirmations
+- fabricate blockchain transactions
+- move treasury funds without user approval
+- auto-off-ramp crypto to a bank account
+- bypass payment-provider rules
+- bypass KYC/AML requirements
+
+======================================================================
+9. VERIFIED REVENUE STATE MACHINE
+======================================================================
+
+Candidate Revenue
+      |
+      v
+PRODUCT_EXISTS?
+      | no -> BLOCKED
+      v yes
+CUSTOMER_EXISTS?
+      | no -> BLOCKED
+      v yes
+PAYMENT_PROVIDER_EVIDENCE?
+      | no -> PENDING
+      v yes
+PAYMENT_STATUS_SUCCEEDED?
+      | no -> PENDING / FAILED
+      v yes
+AMOUNT_CURRENCY_MATCH?
+      | no -> RECONCILIATION_REQUIRED
+      v yes
+AUDIT_RECORD_PRESENT?
+      | no -> BLOCKED
+      v yes
+VERIFIED_REVENUE
+
+Revenue fields:
+
+- revenue_id
+- customer_id
+- product_id
+- order_id
+- payment_provider
+- provider_payment_id
+- gross_amount
+- currency
+- taxes
+- fees
+- net_amount
+- occurred_at
+- evidence_status
+- audit_status
+- reconciliation_status
+- verified_at
+
+======================================================================
+10. PRODUCT / MARKETPLACE SYSTEM
+======================================================================
+
+Product types:
+
+- SaaS
+- downloadable software
+- CLI tools
+- APIs
+- AI agents
+- templates
+- courses
+- consulting
+- implementation
+- managed services
+- enterprise licenses
+- subscriptions
+
+Product fields:
+
+- id
+- slug
+- name
+- description
+- category
+- version
+- status
+- price
+- currency
+- billing_model
+- tax_code
+- license_type
+- fulfillment_type
+- entitlement_policy
+- support_tier
+- created_at
+- updated_at
+
+Statuses:
+
+DRAFT
+REVIEW
+READY
+PUBLISHED
+PAUSED
+RETIRED
+
+======================================================================
+11. CUSTOMER + CRM
+======================================================================
+
+Customer entity:
+
+- customer_id
+- type: individual | business
+- display_name
+- billing_email
+- country
+- locale
+- consent
+- acquisition_source
+- lifecycle_stage
+- risk_state
+- created_at
+
+CRM:
+
+- leads
+- opportunities
+- customers
+- accounts
+- contacts
+- deals
+- activities
+- notes
+- support tickets
+- customer success
+- renewals
+
+Never fabricate CRM records.
+
+======================================================================
+12. PAYMENT ARCHITECTURE
+======================================================================
+
+Use an adapter interface.
+
+PaymentProvider:
+
+createCheckout()
+getPayment()
+listPayments()
+verifyWebhook()
+refund()
+getSubscription()
+cancelSubscription()
+
+Store provider IDs, never substitute fake IDs.
+
+Webhook flow:
+
+provider
+  -> signature verification
+  -> idempotency check
+  -> raw event storage
+  -> event normalization
+  -> order update
+  -> entitlement
+  -> evidence record
+  -> audit append
+  -> revenue reconciliation
+
+Failed webhook verification => reject.
+
+======================================================================
+13. CRYPTO PAYMENT SUPPORT
+======================================================================
+
+Support crypto payments as a separate adapter from wallet treasury.
+
+Required:
+
+- unique payment intent
+- receiving address or provider invoice
+- chain ID
+- token
+- expected amount
+- minimum confirmations
+- expiration
+- independent reconciliation
+- overpayment/underpayment handling
+- reorg handling
+- audit record
+
+Never treat wallet balance changes as revenue automatically.
+
+Payment provenance must be tied to:
+
+customer -> order -> payment intent -> on-chain transaction -> reconciliation
+
+======================================================================
+14. THREE-ECONOMY SEPARATION
+======================================================================
+
+COMMERCIAL ECONOMY
+- CAD/USD/etc.
+- sales
+- invoices
+- subscriptions
+- revenue
+
+KARMA ECONOMY
+- points
+- achievements
+- reputation
+- non-cash rewards
+
+BLOCKCHAIN ECONOMY
+- ETH
+- BTC
+- stablecoins
+- MA token
+- on-chain assets
+
+Do not merge these ledgers.
+
+Any conversion between them requires explicit policy, valuation, accounting,
+legal review, and auditable user-approved workflow.
+
+======================================================================
+15. MA TOKEN / KARMA
+======================================================================
+
+Treat as UNVERIFIED until:
+
+- contract exists
+- chain ID known
+- contract address verified
+- token metadata verified
+- deployment tx verified
+- legal/compliance review complete
+- issuance policy approved
+
+Do not claim monetary value unless supported by real market evidence.
+
+======================================================================
+16. AI AGENT GOVERNANCE
+======================================================================
+
+Agent permissions:
+
+READ
+ANALYZE
+SUGGEST
+DRAFT
+TEST
+BUILD
+DEPLOY_WITH_APPROVAL
+
+Financial agents:
+
+READ
+ANALYZE
+RECONCILE
+PROPOSE
+
+Financial agents MUST NOT:
+
+SIGN
+BROADCAST
+TRANSFER
+WITHDRAW
+BRIDGE
+SWAP
+APPROVE_THEIR_OWN_ACTION
+
+Use least privilege.
+
+======================================================================
+17. APPROVAL CENTER
+======================================================================
+
+Risk levels:
+
+LOW
+MEDIUM
+HIGH
+CRITICAL
+
+Examples:
+
+LOW:
+- publish documentation draft
+
+MEDIUM:
+- deploy staging build
+
+HIGH:
+- production deployment
+- issue refund
+
+CRITICAL:
+- treasury transaction
+- signer policy change
+- key/security configuration
+- contract upgrade
+
+Approval record:
+
+- approval_id
+- action_type
+- payload_hash
+- risk_level
+- requester
+- approver
+- created_at
+- expires_at
+- approved_at
+- status
+- audit_hash
+
+======================================================================
+18. SECURITY
+======================================================================
+
+Implement:
+
+- passkeys / WebAuthn
+- MFA where needed
+- RBAC
+- permission scopes
+- session security
+- CSRF protection
+- secure cookies
+- rate limiting
+- API keys
+- audit events
+- secrets management
+- CSP
+- dependency scanning
+- SAST
+- lockfile integrity
+- signed releases
+- environment separation
+- production/staging isolation
+
+Never log:
+
+- private keys
+- seed phrases
+- passwords
+- raw secrets
+- full payment credentials
+
+======================================================================
+19. AUDIT LEDGER
+======================================================================
+
+Append-only event format:
+
+{
+  "event_id": "...",
+  "timestamp": "...",
+  "actor": "...",
+  "action": "...",
+  "entity_type": "...",
+  "entity_id": "...",
+  "status": "...",
+  "evidence_refs": [],
+  "previous_hash": "...",
+  "hash": "..."
+}
+
+Hash-chain every record.
+
+Provide:
+
+melodie audit verify
+
+Result:
+
+VALID
+INVALID
+INCOMPLETE
+
+======================================================================
+20. EVIDENCE STORE
+======================================================================
+
+Evidence types:
+
+CUSTOMER
+PRODUCT
+ORDER
+PAYMENT
+BANK
+BLOCKCHAIN
+DEPLOYMENT
+CONTRACT
+LICENSE
+APPROVAL
+AUDIT
+
+Evidence object:
+
+- evidence_id
+- type
+- source
+- external_reference
+- observed_at
+- retrieved_at
+- raw_hash
+- parser_version
+- status
+- metadata
+
+Status:
+
+UNVERIFIED
+PENDING
+VERIFIED
+REJECTED
+EXPIRED
+
+======================================================================
+21. COMMAND CENTER UI
+======================================================================
+
+Main navigation:
+
+Dashboard
+RPC Center
+Wallet Center
+Assets
+Transactions
+Revenue
+Marketplace
+Orders
+Customers
+CRM
+Subscriptions
+Treasury
+Reconciliation
+Bank Connections
+MA Token
+Karma
+Agents
+Approvals
+Governance
+Security
+Audit Chain
+Evidence
+System Health
+Settings
+
+Top evidence bar:
+
+RPC: ...
+WALLET: ...
+TREASURY: ...
+BANK: ...
+REVENUE: ...
+AUDIT: ...
+
+======================================================================
+22. DASHBOARD KPIs
+======================================================================
+
+Only display VERIFIED monetary KPIs as revenue.
+
+KPIs:
+
+- verified gross revenue
+- verified net revenue
+- verified orders
+- active subscriptions
+- refunds
+- fees
+- MRR
+- ARR
+- customer count
+- conversion rate
+- reconciliation exceptions
+
+Separate:
+
+Verified Revenue
+Pending Revenue
+Rejected Revenue
+
+Never combine them.
+
+======================================================================
+23. SYSTEM HEALTH
+======================================================================
+
+Monitor:
+
+- database
+- Redis
+- NATS
+- Temporal
+- RPC providers
+- payment provider
+- model gateway
+- background workers
+- audit integrity
+- webhook lag
+- reconciliation lag
+
+Health statuses:
+
+HEALTHY
+DEGRADED
+DOWN
+UNKNOWN
+
+======================================================================
+24. OBSERVABILITY
+======================================================================
+
+Use:
+
+- structured logs
+- trace IDs
+- request IDs
+- OpenTelemetry
+- metrics
+- health checks
+- error tracking
+
+Correlation IDs must cross:
+
+frontend -> API -> worker -> provider -> evidence -> audit
+
+======================================================================
+25. AUTOMATION ENGINE
+======================================================================
+
+Implement workflows:
+
+PRODUCT_RELEASE
+CUSTOMER_ONBOARDING
+CHECKOUT
+PAYMENT_VERIFICATION
+FULFILLMENT
+LICENSE_ISSUANCE
+SUBSCRIPTION_RENEWAL
+REFUND_RECONCILIATION
+REVENUE_RECONCILIATION
+BLOCKCHAIN_RECONCILIATION
+SUPPORT_ESCALATION
+SECURITY_ALERT
+RELEASE_GATE
+
+Every workflow:
+
+- durable
+- retry-safe
+- idempotent
+- observable
+- auditable
+
+======================================================================
+26. RELEASE GATE
+======================================================================
+
+A production release may proceed only if:
+
+- build passes
+- lint passes
+- typecheck passes
+- unit tests pass
+- integration tests pass
+- E2E tests pass
+- security checks pass
+- migrations valid
+- secrets validation passes
+- audit checks pass
+- deployment manifest generated
+
+Financial verification is separate from technical release validation.
+
+======================================================================
+27. TESTING
+======================================================================
+
+Required:
+
+- unit tests
+- API tests
+- integration tests
+- Playwright E2E
+- permission tests
+- auth tests
+- webhook-signature tests
+- idempotency tests
+- ledger hash-chain tests
+- Web3 reconciliation tests
+- reorg tests
+- RPC failure tests
+- rate-limit tests
+- secrets tests
+- database migration tests
+
+======================================================================
+28. DATABASE DOMAINS
+======================================================================
+
+Identity:
+users
+roles
+permissions
+sessions
+api_keys
+
+Commercial:
+products
+prices
+customers
+orders
+order_items
+subscriptions
+
+Payments:
+payment_intents
+payments
+refunds
+provider_events
+
+Revenue:
+revenue_entries
+reconciliations
+
+Web3:
+wallets
+chains
+tokens
+transactions
+onchain_evidence
+
+Treasury:
+treasury_accounts
+proposals
+approvals
+
+Governance:
+policies
+policy_versions
+
+Evidence:
+evidence_records
+
+Audit:
+audit_events
+
+Operations:
+jobs
+workflow_runs
+alerts
+
+======================================================================
+29. BANK / OFF-RAMP
+======================================================================
+
+Bank Center should exist, but remain:
+
+BANK: NOT_CONNECTED
+
+until a real, user-authorized provider is integrated.
+
+Features:
+
+- connection metadata
+- settlement tracking
+- payout tracking
+- statement reconciliation
+- provider status
+- evidence imports
+
+Never invent a bank connection.
+
+No autonomous crypto-to-bank transfer.
+
+======================================================================
+30. MOBILE PWA
+======================================================================
+
+Build a secure mobile control surface.
+
+Features:
+
+- passkey login
+- system health
+- approvals
+- wallet watch mode
+- revenue overview
+- treasury status
+- alerts
+- audit events
+
+The phone is a CONTROL SURFACE, not a secret extraction target.
+
+======================================================================
+31. MODEL GATEWAY
+======================================================================
+
+ModelGateway interface:
+
+generate()
+stream()
+embed()
+estimateCost()
+health()
+listModels()
+
+Provider adapters:
+
+- OpenAI-compatible
+- Gemini
+- Anthropic
+- LiteLLM
+- optional local model
+
+Do not hardcode a particular frontier model name.
+Make model IDs configurable through environment/settings.
+
+======================================================================
+32. ENVIRONMENT VARIABLES
+======================================================================
+
+Never overwrite an existing .env.
+
+Use .env.example.
+
+Examples:
+
+DATABASE_URL=
+REDIS_URL=
+NATS_URL=
+TEMPORAL_ADDRESS=
+
+PUBLIC_APP_URL=
+
+RPC_ETHEREUM_URL=
+RPC_BASE_URL=
+RPC_ARBITRUM_URL=
+RPC_OPTIMISM_URL=
+RPC_POLYGON_URL=
+
+PAYMENT_PROVIDER=
+PAYMENT_WEBHOOK_SECRET=
+
+MODEL_GATEWAY_URL=
+MODEL_API_KEY=
+
+AUDIT_HASH_ALGORITHM=sha256
+
+======================================================================
+33. CLI DOCTOR
+======================================================================
+
+melodie doctor must check:
+
+- Node
+- pnpm
+- Git
+- Docker
+- Docker daemon
+- database
+- Redis
+- NATS
+- Temporal
+- RPC endpoints
+- model gateway
+- payment provider config
+- migrations
+- environment variables
+- audit chain
+
+Never print secret values.
+
+======================================================================
+34. BOOTSTRAP
+======================================================================
+
+Provide ONE primary setup command:
+
+pnpm melodiespark:bootstrap
+
+or:
+
+melodie bootstrap
+
+It must:
+
+- check prerequisites
+- install dependencies
+- preserve .env
+- create missing directories
+- run migrations
+- validate services
+- run tests
+- launch local dev stack
+- print status summary
+
+======================================================================
+35. BUSINESS LAUNCH FLOW
+======================================================================
+
+The real commercial golden path is:
+
+PRODUCT
+  ->
+PUBLIC PRODUCT PAGE
+  ->
+CHECKOUT
+  ->
+REAL CUSTOMER
+  ->
+REAL PAYMENT
+  ->
+PAYMENT EVIDENCE
+  ->
+FULFILLMENT
+  ->
+LICENSE / ENTITLEMENT
+  ->
+AUDIT RECORD
+  ->
+VERIFIED REVENUE
+
+Build this before attempting scale automation.
+
+======================================================================
+36. FIRST PRODUCT TARGET
+======================================================================
+
+Recommended first product:
+
+MELODIECLI PRO
+
+Customer:
+developers / small software teams
+
+Value:
+AI-assisted application building, project diagnostics, scaffolding,
+testing, deployment, and governance from one CLI.
+
+Suggested commercial tiers:
+
+Community
+Pro
+Team
+Enterprise
+
+Prices must remain configurable.
+Do not present suggested prices as approved production pricing.
+
+======================================================================
+37. ADMINISTRATION
+======================================================================
+
+Admin modules:
+
+- products
+- prices
+- customers
+- orders
+- payments
+- refunds
+- subscriptions
+- fulfillment
+- licenses
+- wallet registry
+- treasury
+- evidence
+- audit
+- agents
+- workflows
+- permissions
+- system status
+
+======================================================================
+38. DATA INTEGRITY RULES
+======================================================================
+
+Use database constraints.
+
+Use decimal/numeric fields for money.
+Never use binary floating point for financial amounts.
+
+Store:
+
+amount_minor_units + currency
+
+or exact Decimal types.
+
+Use UTC timestamps internally.
+
+Use immutable provider IDs.
+
+======================================================================
+39. IDEMPOTENCY
+======================================================================
+
+Require idempotency keys for:
+
+- payment webhooks
+- order creation
+- fulfillment
+- license issuance
+- refunds
+- reconciliation
+- blockchain event imports
+
+Duplicate provider events must not duplicate revenue.
+
+======================================================================
+40. FAILURE MODES
+======================================================================
+
+If provider unavailable:
+UNKNOWN / PENDING
+
+If RPC unavailable:
+RECONCILIATION_PENDING
+
+If evidence mismatch:
+BLOCKED
+
+If audit chain invalid:
+BLOCKED
+
+If signer unavailable:
+NO_ACTION
+
+If required approval missing:
+BLOCKED
+
+Never guess.
+
+======================================================================
+41. ARENA.AI / CODING AGENT EXECUTION INSTRUCTIONS
+======================================================================
+
+Implement incrementally.
+
+PHASE 1
+- monorepo
+- database
+- auth
+- UI shell
+- command center
+- audit/evidence foundations
+
+PHASE 2
+- marketplace
+- product catalog
+- CRM
+- orders
+
+PHASE 3
+- payment adapter
+- webhook verification
+- fulfillment
+- licensing
+- verified revenue
+
+PHASE 4
+- wallet connect
+- multi-chain read
+- transaction history
+- Web3 evidence
+
+PHASE 5
+- reconciliation
+- treasury approvals
+- audit chain
+
+PHASE 6
+- agent orchestration
+- model gateway
+- automation workflows
+
+PHASE 7
+- deployment
+- observability
+- release gate
+- security hardening
+
+Do not skip to flashy UI before the evidence and data models are correct.
+
+======================================================================
+42. ACCEPTANCE CRITERIA
+======================================================================
+
+The build is acceptable when:
+
+[ ] one-command bootstrap works
+[ ] app opens locally
+[ ] auth works
+[ ] database migrations work
+[ ] product can be created
+[ ] checkout can be initiated with a real provider adapter
+[ ] verified webhook creates payment evidence
+[ ] fulfillment is idempotent
+[ ] verified payment can become verified revenue
+[ ] wallet can connect via external signer
+[ ] on-chain balances are independently read
+[ ] transaction evidence can be reconciled
+[ ] financial agents remain non-custodial
+[ ] no private keys stored
+[ ] audit chain validates
+[ ] all tests pass
+[ ] production release gate exists
+
+======================================================================
+43. REQUIRED OUTPUT FROM CODING AGENT
+======================================================================
+
+Return:
+
+1. Architecture summary
+2. Monorepo tree
+3. Complete generated files
+4. Database schema
+5. API routes
+6. UI routes
+7. agent registry
+8. workflow registry
+9. Docker setup
+10. .env.example
+11. migrations
+12. seed data containing ONLY clearly labeled development/demo records
+13. tests
+14. CI/CD
+15. security checklist
+16. deployment guide
+17. operations runbook
+18. evidence verification logic
+19. audit verification logic
+20. final gap report
+
+Any development/demo data MUST be labeled:
+
+DEMO_ONLY
+NOT_REAL_CUSTOMER
+NOT_REAL_REVENUE
+NOT_REAL_PAYMENT
+
+======================================================================
+44. FINAL BUILD PRINCIPLE
+======================================================================
+
+MELODIESPARK is not a collection of disconnected scripts.
+
+Treat the project as one:
+
+UNIFIED ENTERPRISE BUILD SYSTEM
+
+AI
++ SOFTWARE DELIVERY
++ MARKETPLACE
++ CRM
++ PAYMENTS
++ VERIFIED REVENUE
++ WEB3
++ TREASURY
++ GOVERNANCE
++ SECURITY
++ AUDIT
++ EVIDENCE
++ ANALYTICS
+
+The system may automate legitimate business processes,
+but it must never pretend that money, customers, payments, assets,
+bank connections, or blockchain activity exist when they do not.
+
+END OF TRANSFER SPEC

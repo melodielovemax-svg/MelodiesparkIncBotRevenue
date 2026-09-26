@@ -1,0 +1,43 @@
+{
+  "name": "{{PACKAGE_NAME}}",
+  "version": "{{PACKAGE_VERSION}}",
+  "private": true,
+  "description": "{{DESCRIPTION}}",
+  "type": "module",
+  "license": "{{LICENSE}}",
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "author": "{{AUTHOR}}",
+  "scripts": {
+    "start": "node src/index.ts",
+    "test": "node --test test/safety.test.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "read-only",
+    "testnet",
+    "web3",
+    "no-private-keys"
+  ],
+  "melodiespark": {
+    "status": "SCAFFOLD",
+    "template": "{{TEMPLATE}}",
+    "template_version": "{{TEMPLATE_VERSION}}",
+    "template_kind": "{{TEMPLATE_KIND}}",
+    "generated_at": "{{GENERATED_AT}}",
+    "consent_gated_files": [
+      "src/wallet/signing.ts",
+      "src/wallet/broadcast.ts"
+    ],
+    "consent_flag": "--{{CONSENT_FLAG}}",
+    "disclaimer": "Generated scaffold. It is read-only by default. Its presence is not evidence that any described capability is built, tested or operational."
+  }
+}

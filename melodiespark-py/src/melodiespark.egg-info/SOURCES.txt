@@ -1,0 +1,15 @@
+README.md
+pyproject.toml
+src/melodiespark/__init__.py
+src/melodiespark/cli.py
+src/melodiespark/client.py
+src/melodiespark/crypto.py
+src/melodiespark/models.py
+src/melodiespark.egg-info/PKG-INFO
+src/melodiespark.egg-info/SOURCES.txt
+src/melodiespark.egg-info/dependency_links.txt
+src/melodiespark.egg-info/entry_points.txt
+src/melodiespark.egg-info/requires.txt
+src/melodiespark.egg-info/top_level.txt
+tests/test_sdk.py
+tests/test_sdk_unittest.py

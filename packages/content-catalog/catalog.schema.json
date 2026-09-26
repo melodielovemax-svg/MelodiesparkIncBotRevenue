@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://melodiespark.local/schemas/content-catalog-1.0.0.json",
+  "title": "Melodiespark Content Catalog",
+  "description": "Complete metadata inventory of C:/melodie/Melodiespark_Source. Records that a file exists; does not embed its contents.",
+  "type": "object",
+  "required": [
+    "contract_version",
+    "generator",
+    "source_root",
+    "summary",
+    "repositories",
+    "files"
+  ],
+  "properties": {
+    "contract_version": { "type": "string" },
+    "generated_at": { "type": "string" },
+    "generator": {
+      "type": "object",
+      "required": ["name", "version", "node"],
+      "properties": {
+        "name": { "type": "string" },
+        "version": { "type": "string" },
+        "node": { "type": "string" },
+        "platform": { "type": "string" },
+        "elapsed_ms": { "type": "number" }
+      }
+    },
+    "source_root": { "type": "string" },
+    "source_root_exists": { "type": "boolean" },
+    "summary": {
+      "type": "object",
+      "required": ["file_count", "total_bytes", "by_category", "by_repository", "excluded_count"],
+      "properties": {
+        "file_count": { "type": "integer" },
+        "total_bytes": { "type": "integer" },
+        "excluded_count": { "type": "integer" },
+        "secret_count": { "type": "integer" },
+        "sensitive_bytes": { "type": "integer" },
+        "by_category": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["count", "bytes"],
+            "properties": {
+              "count": { "type": "integer" },
+              "bytes": { "type": "integer" }
+            }
+          }
+        },
+        "by_repository": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["count", "bytes"],
+            "properties": {
+              "count": { "type": "integer" },
+              "bytes": { "type": "integer" }
+            }
+          }
+        }
+      }
+    },
+    "repositories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "file_count", "catalogued_count"],
+        "properties": {
+          "name": { "type": "string" },
+          "remote": { "type": ["string", "null"] },
+          "branch": { "type": ["string", "null"] },
+          "commit": { "type": ["string", "null"] },
+          "commit_date": { "type": ["string", "null"] },
+          "declared_file_count": { "type": ["integer", "null"] },
+          "catalogued_count": { "type": "integer" },
+          "bytes": { "type": "integer" }
+        }
+      }
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "bytes", "sha256", "category", "extractable", "rule_id"],
+        "properties": {
+          "path": { "type": "string", "description": "POSIX-style path relative to source_root" },
+          "bytes": { "type": "integer" },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "extension": { "type": "string" },
+          "repository": { "type": "string" },
+          "module": { "type": ["string", "null"] },
+          "category": { "type": "string" },
+          "rule_id": { "type": "string" },
+          "reason": { "type": "string" },
+          "flags": { "type": "array", "items": { "type": "string" } },
+          "sensitive": { "type": "boolean" },
+          "generated": { "type": "boolean" },
+          "binary": { "type": "boolean" },
+          "archive": { "type": "boolean" },
+          "vcs_metadata": { "type": "boolean" },
+          "permanently_denied": {
+            "type": "boolean",
+            "description": "true means no flag can unlock this entry. Applies to the SECRET category."
+          },
+          "extractable": {
+            "type": "boolean",
+            "description": "false means content is denied by default. Extraction additionally requires --i-have-authorization for SENSITIVE and is permanently denied for SECRET."
+          },
+          "authorization_required": { "type": "boolean" },
+          "modified_utc": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@melodiespark/commerce",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.js",
+  "dependencies": {
+    "@melodiespark/shared": "file:../../packages/shared",
+    "@melodiespark/schemas": "file:../../packages/schemas"
+  }
+}

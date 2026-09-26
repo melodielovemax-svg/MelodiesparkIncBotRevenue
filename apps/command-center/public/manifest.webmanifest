@@ -1,0 +1,10 @@
+{
+  "name": "Melodiespark Command Center",
+  "short_name": "Melodiespark",
+  "description": "Security-first commerce, workflow, wallet authorization, and governance dashboard.",
+  "start_url": "/#overview",
+  "display": "standalone",
+  "background_color": "#060912",
+  "theme_color": "#060912",
+  "icons": []
+}

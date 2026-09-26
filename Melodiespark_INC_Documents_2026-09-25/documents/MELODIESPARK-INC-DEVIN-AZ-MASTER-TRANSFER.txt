@@ -1,0 +1,2087 @@
+MELODIESPARK INC
+ULTIMATE A-Z MASTER PROJECT DATA + DEVIN ENGINEERING TRANSFER
+Version: 2026-08-24
+Purpose: Canonical engineering handoff for repository discovery, consolidation, implementation, verification, deployment and release.
+
+======================================================================
+0. MISSION
+======================================================================
+
+You are Devin acting as a senior principal software engineer, platform architect, security engineer, DevOps/SRE engineer, product engineer, data engineer, QA lead and release engineer for Melodiespark Inc.
+
+Your task is NOT to merely generate an architecture document. Your task is to inspect the real repositories and artifacts you are given, reconcile them against this specification, preserve working code, remove accidental duplication safely, implement missing production components, test them, produce evidence, and advance the platform through explicit lifecycle gates.
+
+Canonical lifecycle:
+DEFINED -> IMPLEMENTED -> TESTED -> VERIFIED -> AUDITED -> RELEASED
+
+Never mark a stage complete unless evidence exists.
+
+Primary objective:
+Build Melodiespark Inc into a coherent AI-native developer, automation, commerce, governance, evidence, Web3 and product-delivery ecosystem centered on MelodieCLI and Phoenix.
+
+Commercial proof target:
+ONE REAL CUSTOMER
++ ONE REAL PRODUCT
++ ONE REAL PAYMENT
++ VERIFIED PROVIDER EVIDENCE
++ AUDIT RECORD
+= REAL REVENUE
+
+If any element is missing:
+STATUS = UNVERIFIED
+REVENUE = 0
+ACTION = BLOCKED
+
+======================================================================
+1. NON-NEGOTIABLE ENGINEERING LAWS
+======================================================================
+
+1. Inspect before modifying.
+2. Preserve existing working implementation.
+3. Never fabricate customers, users, traffic, demand, revenue, balances, transactions, hashes, deployments, test results, audits, certifications or verification.
+4. Synthetic/test/demo/forecast data must be explicitly classified.
+5. Never overwrite .env or credentials.
+6. Never print or commit secrets.
+7. Never request, persist or expose seed phrases/private keys.
+8. Web3 financial agents are read-only by default.
+9. Mainnet transaction signing requires an external signer and explicit human approval.
+10. No autonomous auto-funding or silent fund transfer.
+11. Destructive migration requires backup, dry-run, reconciliation and rollback.
+12. Every consequential action emits an audit event.
+13. Every release claim must be evidence-derived.
+14. Prefer one canonical implementation over duplicate projects.
+15. Do not replace real integrations with mocks and then call them production-ready.
+16. Keep commercial, Karma and blockchain economies logically and financially separated.
+17. Karma is reputation/contribution data, not automatically money.
+18. Token/reward features remain gated by legal, compliance, treasury and technical approval.
+19. Fail closed on ambiguous financial state.
+20. Report PASS / FAIL / BLOCKED / NOT-RUN truthfully.
+
+======================================================================
+2. PLATFORM VISION
+======================================================================
+
+Melodiespark Inc is a unified AI-native software and business platform combining:
+
+- MelodieCLI developer operating interface
+- Phoenix AI/agent runtime and orchestration
+- Multi-model LLM gateway
+- MCP/tool gateway
+- Project and repository intelligence
+- Application/product factory
+- Workflow automation
+- BotRevenue / revenue operations
+- CRM and customer lifecycle
+- Product catalog and marketplace
+- Payments, subscriptions and invoicing
+- Analytics and observability
+- Identity and enterprise governance
+- MERA evidence and audit
+- MetaMello non-custodial wallet
+- Web3 portfolio/treasury readers
+- Karma Power Points contribution/reputation
+- Optional legally reviewed token utility
+- APIs and SDKs
+- Admin, developer, customer and mobile control surfaces
+- Security, deployment, infrastructure and recovery systems
+
+The platform should make it possible to:
+DISCOVER -> DESIGN -> BUILD -> TEST -> VERIFY -> PACKAGE -> DEPLOY -> SELL -> FULFILL -> SUPPORT -> MEASURE -> AUDIT -> IMPROVE
+
+======================================================================
+3. CANONICAL PLATFORM LAYERS
+======================================================================
+
+Layer 01 — Experience
+- Main website
+- Customer portal
+- Developer dashboard
+- Admin command center
+- Analytics dashboard
+- Revenue dashboard
+- Wallet/treasury dashboard
+- Karma leaderboard
+- Mobile/PWA approvals surface
+- CLI/TUI
+
+Layer 02 — MelodieCLI
+- Project Center
+- Agent Center
+- Product Center
+- Workflow Center
+- Revenue Center
+- Treasury Center
+- Governance Center
+- Marketplace Center
+- Deployment Center
+- Analytics Center
+- Audit Center
+- Security Center
+- Doctor/diagnostics
+- Plugin/extension system
+- SDK integration
+
+Layer 03 — Phoenix Intelligence
+- Phoenix Brain Router
+- Planner
+- Worker
+- Validator
+- Strategy Agent
+- Market Agent
+- Product Agent
+- Sales Agent
+- Marketing Agent
+- Support Agent
+- Finance read-only Agent
+- Security Agent
+- Governance Agent
+- Documentation Agent
+- Diagnostic Agent
+- Builder Agent
+
+Layer 04 — AI Gateway
+- Provider-neutral model registry
+- LiteLLM-compatible routing
+- local/remote models
+- token/cost governance
+- retries/fallbacks
+- workload routing
+- rate limiting
+- audit telemetry
+- RAG/knowledge services
+
+Layer 05 — Agent Runtime
+- agent registry
+- capability manifests
+- tool permissions
+- task lifecycle
+- sandboxing
+- queues
+- memory
+- human approval
+- execution evidence
+
+Layer 06 — Commerce
+- customers
+- leads
+- CRM
+- product catalog
+- offers
+- checkout
+- orders
+- subscriptions
+- invoices
+- payments
+- refunds
+- entitlements
+- fulfillment
+- support
+- revenue analytics
+
+Layer 07 — Marketplace
+- digital products
+- AI templates
+- automation templates
+- dashboard templates
+- website templates
+- CLI extensions
+- agent modules
+- workflow packs
+- enterprise toolkits
+- knowledge bases
+- documentation packages
+- creator/vendor controls
+
+Layer 08 — Karma
+- contribution events
+- evidence
+- verification
+- Karma Power Points (KPP)
+- reputation levels
+- achievements
+- leaderboards
+- reward eligibility
+- anti-fraud
+- governance requests
+
+Layer 09 — Web3
+- MetaMello wallet
+- EIP-1193 provider integration
+- receive/send/swap UI
+- QR/address
+- chain registry
+- RPC readers
+- balance reader
+- transaction reader
+- transaction evidence
+- portfolio
+- treasury read model
+- reconciliation
+- external signer approval
+- optional reward settlement after authorization
+
+Layer 10 — Governance / MERA
+- identity
+- organizations
+- RBAC
+- policies
+- approval queue
+- data classification
+- audit events
+- hash chain
+- evidence vault
+- lifecycle gates
+- compliance mappings
+- authority boundaries
+
+Layer 11 — Data
+- PostgreSQL
+- Redis
+- NATS/event bus
+- pgvector where justified
+- analytics/event store
+- migrations
+- reconciliation
+- backup/recovery
+
+Layer 12 — Infrastructure
+- Docker
+- Compose
+- Kubernetes where justified
+- Terraform
+- CI/CD
+- secrets management
+- monitoring
+- logging
+- metrics
+- traces
+- backups
+- disaster recovery
+
+======================================================================
+4. MELODIECLI — CANONICAL PRODUCT
+======================================================================
+
+MelodieCLI is the primary developer and operator entry point.
+
+Required top-level experience:
+melodie <domain> <command> [options]
+
+Baseline commands already represented in project material:
+melodie init
+melodie analyze
+melodie build
+melodie test
+melodie deploy
+melodie audit
+melodie agent create
+melodie product generate
+melodie workflow deploy
+melodie revenue analyze
+melodie dashboard start
+melodie security scan
+melodie token report
+melodie karma leaderboard
+
+Expand into the following canonical command families:
+
+melodie auth
+melodie org
+melodie project
+melodie repo
+melodie agent
+melodie model
+melodie gateway
+melodie mcp
+melodie workflow
+melodie product
+melodie catalog
+melodie customer
+melodie lead
+melodie campaign
+melodie sales
+melodie checkout
+melodie payment
+melodie subscription
+melodie invoice
+melodie revenue
+melodie wallet
+melodie web3
+melodie treasury
+melodie karma
+melodie marketplace
+melodie analytics
+melodie evidence
+melodie audit
+melodie governance
+melodie approval
+melodie security
+melodie deploy
+melodie infra
+melodie doctor
+melodie status
+melodie version
+melodie update
+
+CLI quality requirements:
+- Windows first-class
+- Linux/container compatible
+- structured JSON mode
+- human-readable mode
+- stable exit codes
+- --dry-run
+- --verbose
+- --quiet
+- --yes only for explicitly safe operations
+- approval prompts for consequential operations
+- config schema validation
+- telemetry opt-in/controlled
+- shell completion
+- command help/examples
+- deterministic CI behavior
+- integration tests
+- package signing/release evidence
+
+======================================================================
+5. CORE PRODUCTS
+======================================================================
+
+A. MelodieCLI
+Developer/operations command platform.
+
+B. MelodiePhoenix Agent OS / Phoenix Runtime
+Agent lifecycle, planning, execution, validation, governance and evidence.
+
+C. Phoenix AI Gateway / PhoenixLLM
+Provider-neutral AI gateway and routing layer.
+
+D. MelodieLiteLLM
+Multi-provider model access, workload routing, budgets and fallback.
+
+E. MCP Hub / Tool Gateway
+Governed access to external and internal tools.
+
+F. MetaMello Wallet
+Non-custodial Web3 wallet/control surface with Receive, Send, Swap, portfolio and transaction evidence.
+
+G. Revenue Center / BotRevenue
+Legitimate sales/revenue workflow automation based on real customers and provider-confirmed payments.
+
+H. Treasury Ledger
+Read-first treasury/portfolio/reconciliation layer.
+
+I. Karma Engine / Karma Power Points
+Verified contribution and reputation system.
+
+J. Governance Engine / MERA
+Identity, policies, approvals, evidence, audit and release gates.
+
+K. Marketplace Platform
+Products, services, templates, extensions, workflows and creator/vendor packages.
+
+L. CRM Platform
+Leads, customers, opportunities, lifecycle and support context.
+
+M. Audit Platform
+Append-only evidence and audit event infrastructure.
+
+N. Analytics Platform
+Product, customer, revenue, operational, agent and system analytics.
+
+O. Workflow Automation Engine
+Event-driven workflows, approvals, retries, idempotency and audit trail.
+
+P. Enterprise API Gateway
+Authenticated/rate-limited public and internal APIs.
+
+Q. Phoenix Quantum/Fractal Matrix
+Treat as an engineering orchestration/visualization framework. Symbolic geometry or extreme percentages are branding/metaphor unless a measurable algorithm and benchmark exists.
+
+R. Phoenix Builder / Studio
+Product/application generation workspace with templates, previews, testing and release workflow.
+
+S. Identity Nexus
+Users, organizations, teams, roles, permissions, sessions, API keys.
+
+T. Legal/Governance Nexus
+Policy records, approvals, contracts/templates, compliance evidence and human authority.
+
+U. PowerShield Security
+Threat modeling, secret scanning, dependency scanning, policy controls, incident workflows and evidence.
+
+======================================================================
+6. PROFESSIONAL SERVICES
+======================================================================
+
+Productize these as governed, scoped service offerings:
+
+- Custom AI Development
+- AI Agent Development
+- SaaS Development
+- Enterprise Application Development
+- Dashboard Development
+- Workflow Automation Development
+- CLI Development
+- API Development
+- Marketplace Development
+- Wallet Development
+- Blockchain Integration
+- Data/Analytics Engineering
+- AI Strategy
+- Automation Strategy
+- Digital Transformation
+- Revenue Operations Automation
+- Product Architecture
+- Platform Architecture
+- Infrastructure Consulting
+- DevOps Consulting
+- Cloud Migration
+- Security Consulting
+- Governance Consulting
+- Readiness Assessments
+- Migration Accelerators
+- Audit & Assurance Packs
+- API & Integration Packs
+- Analytics Dashboard Packages
+- Automation Engine Packages
+- Compliance Editions
+- White-Label Editions
+- Training Academies
+- Advisory Programs
+- Optimization Labs
+- Security-Hardened Editions
+- Mobile Companions
+- Command Centers
+- Marketplace Packs
+- Quality Gate Services
+- Continuity & Recovery Packs
+- Partner Enablement Kits
+- Industry Blueprints
+- Outcome-as-a-Service packages
+
+Each service must define:
+target customer
+problem
+outcome
+scope
+deliverables
+acceptance criteria
+timeline
+dependencies
+price model
+risk class
+automation boundary
+human responsibilities
+support
+evidence
+release/readiness state
+
+======================================================================
+7. DIGITAL PRODUCT MARKETPLACE
+======================================================================
+
+Support:
+- AI templates
+- prompt/workflow packages
+- automation templates
+- dashboards
+- website/app templates
+- CLI extensions
+- plugins
+- MCP integrations
+- agent modules
+- workflow packs
+- API kits
+- SDK packages
+- enterprise toolkits
+- knowledge bases
+- documentation packages
+- training content
+- reference architectures
+- security packs
+- governance packs
+- analytics packs
+- deployment packs
+
+Marketplace lifecycle:
+DRAFT -> REVIEW -> TEST -> APPROVED -> PUBLISHED -> PURCHASED -> FULFILLED -> SUPPORTED -> UPDATED/RETIRED
+
+Do not allow PUBLISHED unless required quality/security gates pass.
+
+======================================================================
+8. BOTREVENUE / COMMERCIAL ENGINE
+======================================================================
+
+BotRevenue is not a money-generation machine.
+
+Its valid purpose is to automate legitimate business workflows:
+market research
+lead intake
+CRM
+campaign planning
+landing pages
+content workflows
+offer creation
+proposal generation
+follow-up
+checkout
+subscription
+invoice
+payment reconciliation
+fulfillment
+support
+analytics
+retention
+renewal
+
+Canonical commercial flow:
+Visitor
+-> Lead
+-> Qualified Opportunity
+-> Offer
+-> Customer
+-> Order
+-> Provider Checkout
+-> Payment Provider Event
+-> Verified Payment
+-> Entitlement
+-> Fulfillment
+-> Revenue Ledger
+-> Reconciliation
+-> Analytics
+-> Audit
+
+Financial truth:
+No provider-backed evidence = no real revenue claim.
+
+======================================================================
+9. PHOENIX AGENT ARCHITECTURE
+======================================================================
+
+Phoenix Brain Router coordinates specialized agents.
+
+Lifecycle:
+CREATED
+-> VALIDATING
+-> PLANNED
+-> QUEUED
+-> RUNNING
+-> COMPLETED / FAILED
+-> AUDITED
+-> RETRY / ESCALATED when applicable
+
+Each agent record:
+agent_id
+name
+version
+owner
+purpose
+permissions
+tools_allowed
+tools_denied
+filesystem_scope
+network_scope
+data_access_level
+risk_level
+approval_requirements
+model_policy
+budget
+timeout
+audit_status
+
+Agents:
+- Planner
+- Worker
+- Validator
+- Strategy
+- Market
+- Product
+- Sales
+- Marketing
+- Support
+- Finance-Read-Only
+- Security
+- Governance
+- Builder
+- Documentation
+- Diagnostic
+- Release
+
+No agent gets unrestricted financial authority.
+
+======================================================================
+10. DATA MODEL
+======================================================================
+
+At minimum model:
+
+Identity:
+Users
+Organizations
+Teams
+Memberships
+Roles
+Permissions
+Sessions
+APIKeys
+
+Projects:
+Projects
+Repositories
+Environments
+Deployments
+Builds
+Releases
+Artifacts
+
+AI:
+Models
+Providers
+ModelRoutes
+Agents
+AgentRuns
+AgentMemory
+Tasks
+Tools
+ToolInvocations
+Prompts
+UsageEvents
+
+Automation:
+Workflows
+WorkflowVersions
+WorkflowRuns
+Triggers
+Actions
+Approvals
+
+Commerce:
+Customers
+Leads
+Opportunities
+Campaigns
+Products
+ProductVersions
+Offers
+Prices
+Orders
+OrderItems
+Subscriptions
+Invoices
+Payments
+Refunds
+Entitlements
+Fulfillments
+
+Finance:
+RevenueEvents
+LedgerEntries
+Reconciliations
+Expenses
+Payouts
+ProviderEvents
+
+Web3:
+WalletConnections
+Chains
+Tokens
+Balances
+BlockchainTransactions
+TransactionReceipts
+TreasuryAccounts
+TreasurySnapshots
+RewardRequests
+RewardSettlements
+
+Karma:
+KarmaEvents
+Contributions
+ContributionEvidence
+KarmaScores
+Achievements
+ReputationLevels
+RewardEligibility
+
+Governance:
+Policies
+PolicyVersions
+ApprovalRequests
+ApprovalDecisions
+AuditLogs
+EvidenceObjects
+EvidenceHashes
+RiskEvents
+DataClassifications
+ComplianceMappings
+
+Operations:
+Metrics
+Events
+Notifications
+Incidents
+HealthChecks
+Backups
+
+Use UUIDs or another deliberate globally unique strategy.
+Use timestamps consistently.
+Use money types safely.
+Never use floating point for financial amounts.
+Implement idempotency for payment/provider/webhook flows.
+
+======================================================================
+11. EVENT INFRASTRUCTURE
+======================================================================
+
+Use an event-driven architecture where it creates clear value.
+
+Candidate infrastructure:
+- NATS JetStream for durable platform events
+- Redis for cache/short-lived coordination
+- PostgreSQL for durable system of record
+
+Event envelope:
+event_id
+event_type
+schema_version
+occurred_at
+actor
+organization_id
+correlation_id
+causation_id
+source
+classification
+payload
+evidence_ref
+
+Important event domains:
+identity.*
+agent.*
+workflow.*
+product.*
+customer.*
+order.*
+payment.*
+subscription.*
+revenue.*
+wallet.*
+blockchain.*
+karma.*
+governance.*
+audit.*
+deployment.*
+security.*
+
+======================================================================
+12. GOVERNANCE KERNEL
+======================================================================
+
+Mandatory request path:
+User/Agent Request
+-> Authentication
+-> Authorization
+-> Data Classification
+-> Risk Evaluation
+-> Policy Evaluation
+-> Approval if required
+-> Execution
+-> Verification
+-> Audit
+
+Data classifications:
+REAL
+SYNTHETIC
+TEST
+FORECAST
+PLANNING
+UNVERIFIED
+
+Audit event minimum:
+EVENT_ID
+ACTOR
+TIMESTAMP
+ACTION
+RESOURCE
+DATA_SOURCE
+AUTHORIZATION
+RESULT
+CORRELATION_ID
+EVIDENCE_HASH
+
+Create tamper-evident chaining where appropriate.
+
+======================================================================
+13. MERA EVIDENCE MODEL
+======================================================================
+
+MERA uses dual-track evidence.
+
+Track A:
+Code
+Tests
+Deploy
+Runtime
+Audit
+
+Track B:
+Scope
+Customer
+Transaction
+Asset/Revenue
+Blockchain when applicable
+Audit
+
+FULL AUTHORITY only when the required tracks and evidence are satisfied.
+
+Current retained evidence must NOT be overstated:
+- A narrow migration/governance script has limited verified code evidence.
+- Tests/deploy/runtime/audit are not globally verified.
+- Customer/payment/revenue/blockchain proof is not established.
+- Market proof remains unverified until external evidence exists.
+
+Devin must regenerate status from current repository reality, not inherit optimistic text.
+
+Evidence folder proposal:
+artifacts/mera/
+  workspace-census.json
+  dependency-graph.json
+  gate-results.json
+  release-status.json
+  audit/
+  tests/
+  builds/
+  deployments/
+  runtime/
+  commercial/
+  blockchain/
+  SHA256SUMS.txt
+
+======================================================================
+14. METAMELLO WALLET + WEB3
+======================================================================
+
+Non-custodial architecture.
+
+Required wallet capabilities:
+- connect external wallet
+- disconnect
+- detect network
+- switch/add supported network with approval
+- display verified address
+- QR receive
+- balances from RPC/provider
+- Send transaction builder
+- gas/fee estimate
+- Swap adapter architecture
+- transaction status
+- explorer link
+- portfolio
+- activity feed
+- transaction evidence
+
+Never:
+- store seed phrase
+- store raw private key
+- fake transaction hashes
+- decrement UI balance as proof of a blockchain transaction
+- mark transaction confirmed without receipt/confirmations
+- let agents broadcast without policy and human signing
+
+Separate:
+INTENT
+SIGNED
+BROADCAST
+PENDING
+CONFIRMED
+FAILED
+REPLACED/DROPPED
+
+Treasury defaults:
+READ_ONLY = true
+REQUIRE_APPROVAL = true
+REQUIRE_EXTERNAL_SIGNER = true
+ALLOW_BROADCAST = false unless deliberately enabled by authorized configuration
+ALLOW_AUTONOMOUS_TRANSFERS = false
+
+======================================================================
+15. KARMA POWER POINTS
+======================================================================
+
+KPP is a contribution/reputation layer.
+
+Eligible categories may include:
+- community assistance
+- documentation
+- education
+- open-source contribution
+- verified bug reports
+- useful tooling
+- project delivery
+- accessibility improvements
+- approved community/good-deed programs
+
+Flow:
+Contribution
+-> Evidence
+-> Verification
+-> Policy
+-> Karma Event
+-> Score
+-> Level/Achievement
+
+Anti-abuse:
+duplicate detection
+self-award prevention
+collusion review
+rate limits
+evidence provenance
+manual escalation
+reversal support
+
+Keep Karma ledger separate from commercial revenue and blockchain assets.
+
+If crypto rewards are introduced:
+Karma -> eligibility only
+Eligibility -> reward policy
+Reward policy -> funded pool
+Funded pool -> approval
+Approval -> external signer
+External signer -> blockchain transaction
+Transaction -> receipt/reconciliation/audit
+
+No guaranteed earnings.
+
+======================================================================
+16. MA TOKEN / TOKEN UTILITY
+======================================================================
+
+Treat MA Token as a planning/utility concept until legal and technical gates are satisfied.
+
+Potential utility only after review:
+- platform access credits
+- marketplace utility
+- governance participation where lawful
+- creator/contributor rewards
+- service discounts
+- contribution recognition
+
+Do not deploy a mainnet token simply because a specification mentions it.
+Require:
+legal review
+jurisdiction/compliance analysis
+token contract threat model
+tests
+audit
+treasury policy
+distribution policy
+risk disclosure
+deployment approval
+verified contract address
+
+======================================================================
+17. PRODUCT CATALOG SYSTEM
+======================================================================
+
+A large master catalog exists conceptually and includes hundreds of offers. Treat catalog demand scores, indicative prices and readiness as planning metadata unless independently validated.
+
+Canonical fields:
+offer_id
+name
+family
+type
+tier
+target_customer
+customer_outcome
+deliverable_package
+revenue_model
+indicative_price
+currency
+demand_score
+delivery_days
+automation_percentage
+risk_class
+readiness
+owner
+automation_boundary
+evidence_status
+release_status
+gate_score
+release_decision
+
+Families should support:
+AI & Automation
+Developer Tools
+Cybersecurity & Governance
+Web3 Infrastructure
+Data & Analytics
+Cloud & DevOps
+Commerce & Marketplaces
+Customer Experience
+Fintech Enablement
+Workforce & Collaboration
+Enterprise Platform
+Education/Training
+Professional Services
+and additional families discovered in the actual catalog.
+
+Do not bulk-mark the catalog released.
+Each offer needs its own evidence.
+
+======================================================================
+18. CUSTOMER + CRM
+======================================================================
+
+Implement:
+lead capture
+lead source
+consent
+qualification
+opportunity
+customer profile
+organization
+contacts
+notes
+tasks
+pipeline stage
+activity
+proposal
+contract reference
+order
+support
+retention
+
+Protect customer PII.
+Use tenant isolation.
+Audit access.
+
+======================================================================
+19. PAYMENTS + SUBSCRIPTIONS
+======================================================================
+
+Provider-backed design.
+
+Implement:
+checkout session creation
+server-side price lookup
+idempotency
+webhook signature verification
+provider event persistence
+order/payment linking
+subscription lifecycle
+invoice lifecycle
+refund lifecycle
+entitlement activation/revocation
+reconciliation
+
+Never trust browser-submitted price or paid status.
+
+======================================================================
+20. REVENUE LEDGER
+======================================================================
+
+Revenue must be derived from verified payment/provider state.
+
+Recommended states:
+PENDING
+AUTHORIZED
+PAID
+SETTLED
+REFUNDED
+DISPUTED
+FAILED
+
+Keep:
+gross
+discount
+tax
+fee
+refund
+net
+currency
+provider
+provider_object_id
+customer_id
+order_id
+invoice_id
+evidence_ref
+
+Do not label forecasts as actual revenue.
+
+======================================================================
+21. ANALYTICS
+======================================================================
+
+Dashboards:
+- acquisition
+- leads
+- conversion
+- sales
+- subscriptions
+- MRR/ARR where applicable
+- churn
+- product usage
+- fulfillment
+- support
+- agent performance
+- workflow reliability
+- infrastructure health
+- Web3 portfolio/read model
+- Karma/contribution
+- audit/compliance
+
+Every metric must have:
+definition
+source
+time window
+data classification
+freshness
+query lineage where practical
+
+======================================================================
+22. SECURITY
+======================================================================
+
+Implement:
+RBAC
+MFA-ready architecture
+secure sessions
+secret scanning
+dependency scanning
+SAST
+input validation
+rate limiting
+CSRF protections where applicable
+CSP/security headers
+SSRF defenses
+webhook verification
+least privilege
+tenant isolation
+audit logging
+encryption in transit
+encryption at rest where appropriate
+backup encryption
+incident response
+vulnerability management
+key rotation strategy
+threat modeling
+
+Threat model:
+prompt injection
+agent tool abuse
+command injection
+SQL injection
+XSS
+CSRF
+SSRF
+supply chain compromise
+dependency compromise
+secret leakage
+wallet phishing
+RPC manipulation
+replay
+webhook spoofing
+privilege escalation
+cross-tenant leakage
+
+======================================================================
+23. OBSERVABILITY
+======================================================================
+
+Provide:
+structured logs
+metrics
+distributed tracing where useful
+health/readiness endpoints
+correlation IDs
+SLOs
+alerts
+incident timelines
+
+Candidate stack:
+Prometheus
+Grafana
+OpenTelemetry
+central log storage
+
+Never show fabricated dashboard data as production.
+
+======================================================================
+24. DEVELOPER PLATFORM
+======================================================================
+
+Support:
+TypeScript/JavaScript
+Python
+Go
+Rust where useful
+PowerShell for Windows automation
+
+IDE ecosystem:
+VS Code
+Visual Studio
+JetBrains
+Cursor/Windsurf/OpenCode-compatible workflows where appropriate
+
+Developer capabilities:
+repository analysis
+code generation
+refactoring
+test generation
+security scan
+architecture visualization
+project templates
+SDK generation
+API documentation
+local environment doctor
+
+======================================================================
+25. SDKs + APIs
+======================================================================
+
+Create stable API contracts and SDKs where justified:
+TypeScript
+Python
+Go
+Rust
+
+Domains:
+identity
+projects
+agents
+workflows
+products
+customers
+commerce
+analytics
+governance
+evidence
+wallet read APIs
+karma
+
+Use OpenAPI and/or Protobuf deliberately.
+Version APIs.
+Contract-test clients.
+
+======================================================================
+26. FRONTENDS
+======================================================================
+
+Main web:
+- company/product site
+- catalog
+- pricing
+- docs
+- customer acquisition
+
+Developer dashboard:
+- projects
+- agents
+- models
+- workflows
+- API keys
+- usage
+- deployments
+
+Command center:
+- system health
+- queues
+- approvals
+- evidence
+- security
+- incidents
+
+Revenue:
+- customers
+- orders
+- payments
+- subscriptions
+- invoices
+- revenue
+- reconciliation
+
+Web3:
+- wallet connection
+- portfolio
+- transactions
+- treasury read view
+- approvals
+
+Karma:
+- contributions
+- verification
+- score
+- levels
+- achievements
+- leaderboard
+
+Admin:
+- organizations
+- roles
+- policies
+- catalog
+- providers
+- integrations
+- audit
+
+======================================================================
+27. MOBILE / PWA
+======================================================================
+
+Build a secure companion PWA:
+passkey/MFA-ready authentication
+dashboard
+approvals queue
+agent/workflow status
+alerts
+revenue read view
+wallet read view
+Karma
+incident notifications
+
+Mobile is a control surface, not an unsafe autonomous treasury signer.
+
+======================================================================
+28. INFRASTRUCTURE
+======================================================================
+
+Local:
+Windows development
+Node.js
+pnpm
+PowerShell
+Docker
+PostgreSQL
+Redis
+NATS
+optional Ollama/local model provider
+
+Cloud:
+Choose providers based on actual repository configuration.
+Do not pretend AWS/Azure/GCP/Vercel are deployed unless provider evidence exists.
+
+Containerize core services.
+Create health checks.
+Use IaC for reproducibility.
+Separate dev/test/staging/prod.
+Use managed secrets.
+
+======================================================================
+29. MONOREPO TARGET
+======================================================================
+
+Prefer a canonical monorepo similar to:
+
+apps/
+  web/
+  dashboard/
+  admin/
+  mobile/
+  docs/
+
+packages/
+  shared/
+  ui/
+  sdk/
+  config/
+  database/
+  events/
+  governance/
+  evidence/
+  auth/
+  analytics/
+
+services/
+  api/
+  identity/
+  phoenix/
+  agent-runtime/
+  ai-gateway/
+  mcp-gateway/
+  workflow/
+  catalog/
+  crm/
+  commerce/
+  payments/
+  revenue/
+  karma/
+  wallet/
+  treasury/
+  reconciliation/
+  notifications/
+
+contracts/
+database/
+infra/
+scripts/
+tests/
+docs/
+artifacts/
+evidence/
+
+Do not mechanically move working repositories until dependency/census analysis is complete.
+
+======================================================================
+30. REPOSITORY DISCOVERY — DEVIN MUST DO FIRST
+======================================================================
+
+Before implementation:
+
+1. Determine actual repository root.
+2. git status.
+3. git remote -v.
+4. identify current branch.
+5. enumerate manifests.
+6. enumerate apps/services/packages.
+7. detect duplicate package names.
+8. detect lockfiles.
+9. detect build systems.
+10. detect database schemas/migrations.
+11. detect Docker/Compose/Kubernetes/Terraform.
+12. detect CI.
+13. detect tests.
+14. detect .env names WITHOUT printing values.
+15. secret scan.
+16. map internal dependency graph.
+17. find abandoned/generated duplicates.
+18. find running vs conceptual components.
+19. create workspace census.
+20. commit no changes until baseline understood.
+
+Output:
+artifacts/mera/WORKSPACE-CENSUS.json
+artifacts/mera/DEPENDENCY-GRAPH.json
+artifacts/mera/BASELINE-STATUS.md
+
+======================================================================
+31. MIGRATION / CONSOLIDATION
+======================================================================
+
+If multiple Melodiespark repositories are present:
+
+Classify each:
+CANONICAL
+ACTIVE
+LEGACY
+EXPERIMENT
+GENERATED
+DUPLICATE
+ARCHIVE-CANDIDATE
+UNKNOWN
+
+Never delete automatically.
+
+Consolidation:
+inventory
+-> dependency graph
+-> conflict map
+-> target ownership
+-> copy/move plan
+-> dry run
+-> secret scan
+-> build
+-> tests
+-> reconciliation
+-> approval
+-> final migration
+
+======================================================================
+32. DATABASE MIGRATIONS
+======================================================================
+
+Use ordered reversible migrations.
+
+Required validation:
+fresh DB
+apply
+verify schema
+seed minimal test data
+test constraints
+rollback
+verify clean rollback
+reapply
+schema fingerprint
+broken migration safety
+concurrency/idempotency where relevant
+
+Never run destructive production migrations without explicit approval and backup.
+
+======================================================================
+33. QUALITY GATES
+======================================================================
+
+For each package/service:
+INSTALL
+BUILD
+TYPECHECK
+LINT
+UNIT TEST
+INTEGRATION TEST
+E2E where applicable
+SECURITY SCAN
+SECRET SCAN
+PACKAGE
+SMOKE TEST
+
+Statuses:
+PASS
+FAIL
+BLOCKED
+NOT-RUN
+
+NOT-RUN is never PASS.
+
+======================================================================
+34. RELEASE GATE
+======================================================================
+
+A release requires:
+canonical commit SHA
+clean/known git state
+dependency lock
+green required tests
+security results
+SBOM
+artifact hashes
+migration status
+deployment manifest
+runtime health
+known issues
+rollback plan
+release notes
+
+Create:
+artifacts/release/<version>/
+  MANIFEST.json
+  TEST-RESULTS.json
+  SECURITY-RESULTS.json
+  SBOM.*
+  SHA256SUMS.txt
+  RELEASE-NOTES.md
+  KNOWN-ISSUES.md
+  ROLLBACK.md
+
+======================================================================
+35. GOLDEN PATH
+======================================================================
+
+The highest-priority commercial proof path is:
+
+Customer discovers product
+-> selects product
+-> checkout
+-> provider payment
+-> verified webhook
+-> customer/order created or linked
+-> entitlement granted
+-> product delivered/deployed
+-> FIRSTRUNCOMPLETED or equivalent success event
+-> support available
+-> revenue ledger updated from provider evidence
+-> audit packet created
+
+Victory:
+1 customer -> 1 deployed/delivered product -> 1 legitimate payment -> complete evidence.
+
+======================================================================
+36. FIRST SELLABLE PRODUCT
+======================================================================
+
+Prioritize a narrow product that demonstrates MelodieCLI/Phoenix value without requiring token economics.
+
+Candidate:
+Melodie AI Developer Assistant / MelodieCLI Professional
+
+Possible scope:
+repo doctor
+architecture analysis
+AI gateway
+governed agent task
+build/test orchestration
+security scan
+evidence report
+developer dashboard
+
+Possible tiers:
+Free
+Professional
+Enterprise
+
+Pricing is not final until validated.
+
+======================================================================
+37. MARKETING + SALES SYSTEM
+======================================================================
+
+Build legitimate automation for:
+positioning
+landing pages
+SEO
+content
+campaigns
+lead capture
+CRM
+qualification
+proposals
+follow-ups
+checkout
+analytics
+
+No spam.
+No fake reviews.
+No fake testimonials.
+No fake scarcity.
+No fabricated traffic.
+
+Create attribution where consent and data permit.
+
+======================================================================
+38. PRODUCT FACTORY
+======================================================================
+
+Workflow:
+Idea
+-> market evidence
+-> PRD
+-> architecture
+-> implementation
+-> tests
+-> security
+-> documentation
+-> package
+-> catalog
+-> launch
+-> customer feedback
+-> iteration
+
+AI may accelerate work but cannot bypass release gates.
+
+======================================================================
+39. SERVICE FULFILLMENT
+======================================================================
+
+Verified purchase
+-> customer workspace
+-> scope
+-> tasks
+-> assigned human/agent roles
+-> delivery
+-> acceptance
+-> evidence
+-> support
+-> feedback
+
+Track SLA and exceptions.
+
+======================================================================
+40. DOCUMENTATION
+======================================================================
+
+Produce:
+Architecture
+Developer Setup
+CLI User Guide
+Admin Guide
+API Reference
+Agent Author Guide
+MCP/Plugin Guide
+Security Guide
+Governance Guide
+Evidence/MERA Guide
+Commerce Guide
+Payments Guide
+Web3 Guide
+Karma Guide
+Deployment Guide
+Runbooks
+Troubleshooting
+Release Guide
+
+Documentation must match actual implementation.
+
+======================================================================
+41. DEVIN-SPECIFIC OPERATING METHOD
+======================================================================
+
+Use repository indexing and code search first.
+
+For a huge project:
+- start in planning/Ask mode if available
+- scope implementation into bounded Agent sessions
+- reference exact repositories/files
+- use persistent project knowledge for recurring rules
+- create playbooks for repeated release/test workflows
+- do not attempt an unbounded rewrite in one blind session
+
+This master transfer should be committed into the repository, suggested path:
+docs/MELODIESPARK-DEVIN-MASTER-TRANSFER.md
+or
+.devin/MELODIESPARK-MASTER-CONTEXT.md
+
+Also create focused knowledge files rather than forcing every session to reread the entire master specification.
+
+Suggested:
+.devin/
+  wiki.json
+  knowledge/
+    governance.md
+    architecture.md
+    build-test.md
+    web3-policy.md
+    revenue-truth.md
+  playbooks/
+    release.md
+    migration.md
+    quality-gate.md
+
+======================================================================
+42. DEVIN EXECUTION PHASES A-Z
+======================================================================
+
+A — AUDIT
+Inventory the real codebase and current evidence.
+
+B — BASELINE
+Create reproducible baseline and git safety.
+
+C — CONSOLIDATE
+Resolve package/workspace duplication safely.
+
+D — DATABASE
+Make PostgreSQL migrations reproducible and verified.
+
+E — EVENTS
+Implement typed event contracts and infrastructure.
+
+F — FOUNDATION
+Shared types, errors, validation, configuration.
+
+G — GOVERNANCE
+Identity, RBAC, policy, approval, audit.
+
+H — HEALTH
+Doctor, health checks, observability.
+
+I — INTELLIGENCE
+AI gateway, model registry, Phoenix routing.
+
+J — JOBS
+Agent runtime, task queues, workflows.
+
+K — KNOWLEDGE
+RAG, documentation, project knowledge.
+
+L — LEADS
+CRM, customer acquisition and pipeline.
+
+M — MARKETPLACE
+Catalog, products, offers and digital fulfillment.
+
+N — NETWORK
+API gateway, MCP, integrations, webhooks.
+
+O — ORDERS
+Checkout, orders, entitlements.
+
+P — PAYMENTS
+Provider integration, subscriptions, invoices, reconciliation.
+
+Q — QUALITY
+Tests, typecheck, lint, security, evidence.
+
+R — REVENUE
+Provider-backed ledger and analytics.
+
+S — SECURITY
+Threat model, secrets, hardening, incidents.
+
+T — TREASURY
+Read-first Web3/treasury with external signing.
+
+U — USER EXPERIENCE
+Web, dashboard, admin, mobile/PWA.
+
+V — VERIFICATION
+MERA dual-track evidence.
+
+W — WORKFLOWS
+Automation, approvals, retries, idempotency.
+
+X — EXPERIENCE/EXTENSIONS
+CLI plugins, SDKs, developer ecosystem.
+
+Y — YIELD/OUTCOMES
+Measure customer outcomes; never invent investment yield.
+
+Z — ZERO-FABRICATION RELEASE
+Ship only what has passed its required gates.
+
+======================================================================
+43. PRIORITY ORDER
+======================================================================
+
+P0:
+repository truth
+workspace stability
+secret safety
+database
+identity
+governance
+audit
+shared contracts
+CI
+
+P1:
+MelodieCLI
+AI gateway
+Phoenix runtime
+product catalog
+customer/CRM
+payments
+revenue ledger
+first sellable product
+golden path
+
+P2:
+dashboard
+marketplace
+workflow automation
+analytics
+support
+mobile approvals
+
+P3:
+MetaMello read/connect/send with external signer
+treasury reconciliation
+Karma
+
+P4:
+token/reward/mainnet expansion only after legal/security/treasury gates.
+
+======================================================================
+44. ACCEPTANCE CRITERIA
+======================================================================
+
+The project is NOT complete because directories exist.
+
+Completion requires:
+- reproducible setup
+- canonical repository
+- clean dependency graph
+- database migration verification
+- real authentication/authorization
+- audited agent execution
+- real product catalog
+- real checkout/payment provider test
+- verified webhook
+- entitlement/fulfillment
+- tested CLI
+- tested APIs
+- security controls
+- observability
+- deployment evidence
+- rollback
+- documentation
+- evidence bundle
+
+Commercial success remains separate from technical success.
+
+======================================================================
+45. OUTPUTS REQUIRED FROM DEVIN
+======================================================================
+
+At the end of every session produce:
+
+1. Scope attempted
+2. Files changed
+3. Commands run
+4. Tests run
+5. PASS/FAIL/BLOCKED/NOT-RUN matrix
+6. Security impact
+7. Migration impact
+8. Evidence paths
+9. Git diff summary
+10. Remaining blockers
+11. Next highest-value task
+
+Never say "complete" without the matrix.
+
+======================================================================
+46. FIRST DEVIN SESSION — COPY THIS TASK
+======================================================================
+
+MISSION:
+Perform Phase A/B only: repository audit + baseline. Do not begin a broad rewrite.
+
+TASK:
+1. Inspect the selected Melodiespark repository and all workspace manifests.
+2. Read this master transfer completely.
+3. Determine actual architecture from code.
+4. Generate a workspace census.
+5. Generate dependency graph.
+6. Identify duplicate package names and overlapping implementations.
+7. Identify build/test/typecheck/lint commands per package.
+8. Identify database and migration state.
+9. Identify AI/Phoenix/MelodieCLI/BotRevenue/Web3/Karma/governance components that actually exist.
+10. Secret-scan filenames and tracked/staged content without exposing secret values.
+11. Identify unsafe financial code, especially any private-key custody, autonomous broadcast, fake balance mutation or fabricated transaction hashes.
+12. Run only safe non-destructive baseline checks.
+13. Do not delete, migrate or restructure yet.
+14. Create:
+    artifacts/mera/WORKSPACE-CENSUS.json
+    artifacts/mera/DEPENDENCY-GRAPH.json
+    artifacts/mera/GLOBAL-GATE-RESULTS.json
+    artifacts/mera/MERA-STATUS.json
+    artifacts/mera/BASELINE-REPORT.md
+15. Hash the evidence files.
+16. Report exactly what is real, implemented, failing, missing or unverified.
+17. Propose Phase C as a bounded consolidation plan.
+
+SUCCESS CONDITION:
+We know exactly what exists, what works, what conflicts, what is unverified, and the safest next sequence.
+
+======================================================================
+47. SECOND DEVIN SESSION
+======================================================================
+
+After Phase A/B evidence is reviewed:
+
+- repair workspace/lockfile/package naming
+- preserve canonical packages
+- establish shared config
+- make install reproducible
+- make core build/typecheck gates pass
+- do not touch finance/mainnet behavior except to make it safer
+- update evidence
+
+======================================================================
+48. THIRD DEVIN SESSION
+======================================================================
+
+Build/verify the core vertical foundation:
+
+Identity
+-> Governance
+-> Audit
+-> PostgreSQL
+-> Events
+-> MelodieCLI
+-> Phoenix Gateway
+-> one governed Agent
+-> dashboard health
+
+All must have tests.
+
+======================================================================
+49. FOURTH DEVIN SESSION
+======================================================================
+
+Build the first commercial vertical slice:
+
+Product
+-> Customer
+-> Order
+-> Provider Checkout
+-> Verified Webhook
+-> Payment
+-> Entitlement
+-> Fulfillment
+-> Revenue Ledger
+-> Audit
+
+Use test/sandbox provider mode until production credentials and approvals exist.
+
+======================================================================
+50. FIFTH DEVIN SESSION
+======================================================================
+
+Build production-ready MetaMello/Web3 foundation:
+
+external wallet connection
+-> address/network
+-> balances
+-> transaction builder
+-> explicit signer popup
+-> transaction hash from provider
+-> receipt polling
+-> confirmations
+-> evidence
+-> reconciliation
+
+No private-key custody.
+
+======================================================================
+51. SIXTH DEVIN SESSION
+======================================================================
+
+Build Karma:
+
+contribution
+-> evidence
+-> verification
+-> KPP
+-> reputation
+-> achievements
+-> leaderboard
+-> anti-fraud
+-> audit
+
+Keep financial rewards disabled until a funded and approved reward policy exists.
+
+======================================================================
+52. RELEASE STRATEGY
+======================================================================
+
+Release incrementally.
+
+Release 0.1:
+MelodieCLI + governance + doctor + AI gateway + one agent.
+
+Release 0.5:
+dashboard + product/customer/workflow + evidence.
+
+Release 1.0:
+first complete sellable commercial vertical with verified payment integration.
+
+Web3/Karma/token features receive independent release gates.
+
+======================================================================
+53. FINAL AUTHORITY RULE
+======================================================================
+
+Architecture documents express intent.
+Code proves implementation.
+Tests prove expected behavior.
+Provider evidence proves external events.
+Blockchain receipts prove on-chain events.
+Audit evidence proves traceability.
+Customers and payments prove commercial reality.
+
+Never substitute one category for another.
+
+======================================================================
+54. FINAL DEVIN DIRECTIVE
+======================================================================
+
+Act as a disciplined engineering organization, not a text generator.
+
+Do not create thousands of placeholder files to simulate progress.
+Do not inflate completion percentages.
+Do not manufacture dashboards.
+Do not call test data real.
+Do not deploy financial functionality prematurely.
+
+Prefer:
+one canonical repository
+one reliable database
+one governed identity system
+one working CLI
+one working AI gateway
+one governed agent
+one sellable product
+one real customer
+one verified payment
+one auditable fulfillment
+one evidence-backed release
+
+Then scale systematically.
+
+END OF MASTER TRANSFER

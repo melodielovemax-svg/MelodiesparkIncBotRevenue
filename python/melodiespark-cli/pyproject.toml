@@ -1,0 +1,66 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "melodiespark-cli"
+version = "0.1.0"
+description = "Python frontend for the Melodiespark content catalog and template CLI. Deny-by-default extraction, Web3-safe scaffolding, pip/pipx distribution."
+readme = "README.md"
+requires-python = ">=3.10"
+# `LicenseRef-Proprietary` is the correct PEP 639 SPDX expression for
+# proprietary software. "UNLICENSED" is a PyPI classifier, not an SPDX
+# identifier, and setuptools rejects it as a licence expression.
+license = "LicenseRef-Proprietary"
+license-files = ["LICENSE"]
+authors = [{ name = "Melodiespark" }]
+keywords = ["melodiespark", "cli", "catalog", "scaffolding", "web3", "template"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Build Tools",
+  "Topic :: Utilities",
+]
+# No runtime dependencies. The CLI must install and run anywhere Python does.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["build>=1.0", "twine>=4.0", "pytest>=7.4"]
+
+[project.urls]
+Homepage = "https://github.com/melodielovemax-svg"
+Source = "https://github.com/melodielovemax-svg"
+
+[project.scripts]
+melodiespark-cli = "melodiespark_cli.cli:main"
+melodiespark = "melodiespark_cli.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# The catalog, the classification rules, and the templates are synced into
+# src/melodiespark_cli/data/ by scripts/sync_data.py before a build, so that a
+# wheel installed by pip or pipx is self-contained and does not need the
+# monorepo present.
+[tool.setuptools.package-data]
+melodiespark_cli = [
+  "data/rules/*.json",
+  "data/catalog/*.json",
+  "data/catalog/*.sha256",
+  "data/templates/**/*",
+  "data/templates/*",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

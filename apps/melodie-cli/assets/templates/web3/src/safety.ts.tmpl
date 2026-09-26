@@ -1,0 +1,135 @@
+/**
+ * Safety posture - the single source of truth for what this application is
+ * allowed to do.
+ *
+ * Nothing in this file performs a network call, reads a key, or mutates state.
+ * It exists so the startup banner, the tests and any operator documentation
+ * all quote the exact same strings. If a capability is not listed here, it
+ * does not exist in this template.
+ *
+ * Invariants enforced by this template as a whole:
+ *   - no private key is generated, requested, imported, derived or stored;
+ *   - nothing is signed automatically;
+ *   - nothing is broadcast automatically, on a schedule, or unattended;
+ *   - the default chain is a testnet;
+ *   - the default `melodie init <dir> --template web3` output is read-only.
+ */
+
+/** Posture of a default scaffold (no operator consent flag was passed). */
+export const POSTURE = {
+  /** This template only ever reads. */
+  mode: 'READ-ONLY',
+  /** Signing code is not even present in a default scaffold. */
+  signing: 'DISABLED',
+  /** No transaction is ever put on a wire by this application. */
+  broadcasting: 'DISABLED',
+  /** Funds stay in the user's own wallet. This application never holds them. */
+  custody: 'NONE',
+  /** There is no keystore, no seed phrase, no key material of any kind. */
+  privateKeys: 'NOT GENERATED',
+} as const;
+
+/**
+ * Shown for the two capabilities that only exist when the operator explicitly
+ * passed `--{{CONSENT_FLAG}}` to `melodie init`.
+ */
+export const CONSENT_GATED_PRESENT = 'CONSENT-GATED MODULE PRESENT';
+
+/** The exact banner a default (non-consent) scaffold must print at startup. */
+export const DEFAULT_BANNER_LINES: readonly string[] = [
+  `Web3 mode: ${POSTURE.mode}`,
+  `Signing: ${POSTURE.signing}`,
+  `Broadcasting: ${POSTURE.broadcasting}`,
+  `Custody: ${POSTURE.custody}`,
+  `Private keys: ${POSTURE.privateKeys}`,
+];
+
+/**
+ * The banner variant used when the consent-gated modules are present. The
+ * first, second, fourth and fifth lines are unchanged from the default banner;
+ * only signing and broadcasting are reported differently.
+ */
+export const CONSENT_GATED_BANNER_LINES: readonly string[] = [
+  `Web3 mode: ${POSTURE.mode}`,
+  `Signing: ${CONSENT_GATED_PRESENT}`,
+  `Broadcasting: ${CONSENT_GATED_PRESENT}`,
+  `Custody: ${POSTURE.custody}`,
+  `Private keys: ${POSTURE.privateKeys}`,
+];
+
+/**
+ * Warnings printed under the banner when consent-gated modules are present.
+ * The point of these lines is to make it impossible to read the banner as
+ * "this application can now move funds on its own".
+ */
+export const CONSENT_GATED_WARNINGS: readonly string[] = [
+  'Consent-gated signing module is present in this scaffold. It is inert until you call it explicitly, with an explicit consent token.',
+  'Consent-gated broadcasting module is present in this scaffold. Broadcasting is still NEVER called automatically: every send requires a human confirmation callback that must return exactly true.',
+  'No private key is generated, stored, imported or read by this application. Signing happens in your own wallet.',
+];
+
+/** Identifiers a module must export to be recognised as a consent-gated module. */
+export type ConsentGatedModuleId = 'melodiespark.consent-gated.signing' | 'melodiespark.consent-gated.broadcasting';
+
+/**
+ * Structural contract for the two optional modules
+ * (`src/wallet/signing.ts`, `src/wallet/broadcast.ts`). They are only written
+ * to disk when the operator passed the consent flag, so the default scaffold
+ * feature-detects them with a dynamic import inside a try/catch.
+ */
+export interface ConsentGatedModule {
+  readonly moduleId: ConsentGatedModuleId;
+  readonly requiresOperatorConsent: true;
+}
+
+/** Runtime check for {@link ConsentGatedModule}. Never throws. */
+export function isConsentGatedModule(value: unknown): value is ConsentGatedModule {
+  if (typeof value !== 'object' || value === null) return false;
+  const candidate = value as Partial<ConsentGatedModule>;
+  return (
+    (candidate.moduleId === 'melodiespark.consent-gated.signing' ||
+      candidate.moduleId === 'melodiespark.consent-gated.broadcasting') &&
+    candidate.requiresOperatorConsent === true
+  );
+}
+
+export interface PostureDescription {
+  readonly mode: string;
+  readonly signing: string;
+  readonly broadcasting: string;
+  readonly custody: string;
+  readonly privateKeys: string;
+  /** Ready-to-print banner, one entry per line, in display order. */
+  readonly lines: readonly string[];
+  /** Warnings to print under the banner. Empty for a default scaffold. */
+  readonly warnings: readonly string[];
+}
+
+/**
+ * Describe the safety posture of the running application.
+ *
+ * @param hasSigningModule     `true` when `src/wallet/signing.ts` is present.
+ * @param hasBroadcastModule   `true` when `src/wallet/broadcast.ts` is present.
+ *                              Defaults to `hasSigningModule`, because the two
+ *                              files are always emitted together.
+ */
+export function describePosture(
+  hasSigningModule: boolean,
+  hasBroadcastModule: boolean = hasSigningModule
+): PostureDescription {
+  const consentGated = hasSigningModule || hasBroadcastModule;
+  return {
+    mode: POSTURE.mode,
+    signing: hasSigningModule ? CONSENT_GATED_PRESENT : POSTURE.signing,
+    broadcasting: hasBroadcastModule ? CONSENT_GATED_PRESENT : POSTURE.broadcasting,
+    custody: POSTURE.custody,
+    privateKeys: POSTURE.privateKeys,
+    lines: consentGated ? CONSENT_GATED_BANNER_LINES : DEFAULT_BANNER_LINES,
+    warnings: consentGated ? CONSENT_GATED_WARNINGS : [],
+  };
+}
+
+/** One-line human summary, useful in logs and operator reports. */
+export function summarizePosture(posture: PostureDescription): string {
+  return `${posture.mode} / signing ${posture.signing} / broadcasting ${posture.broadcasting} / custody ${posture.custody} / private keys ${posture.privateKeys}`;
+}

@@ -1,0 +1,12 @@
+capabilities:
+  filesystem:
+    read: true
+    write: true
+    recursive: false
+  shell:
+    enabled: true
+    allowed_commands: ["npm", "pnpm", "git", "ls", "cat"]
+    require_approval: true
+  git:
+    commit: false
+    push: false

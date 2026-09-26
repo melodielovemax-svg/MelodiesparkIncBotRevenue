@@ -1,0 +1,22 @@
+
+# Security-sensitive local files
+.env
+.env.*
+!.env.example
+.secrets/
+*.pem
+*.key
+*.pfx
+*.p12
+*.crt
+*.cer
+secrets/
+_SECURITY_BACKUPS/
+_SECURITY_REPORTS/
+
+# Runtime data
+logs/
+*.log
+coverage/
+node_modules/
+

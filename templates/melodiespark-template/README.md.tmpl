@@ -1,0 +1,78 @@
+# {{PACKAGE_NAME}}
+
+{{DESCRIPTION}}
+
+Generated from the `melodiespark-template` reference layout v{{TEMPLATE_VERSION}}
+by `@melodiespark/cli` on {{GENERATED_AT}}.
+
+## Status: SCAFFOLD
+
+This directory was **generated**. Nothing in it has been built, tested, audited
+or deployed. Its existence is not evidence that any capability described in it
+exists, is correct, or is operational.
+
+## The one rule
+
+> **The catalog says a file exists. It does not expose its contents.**
+
+Every file in the source tree is recorded in `CATALOG/` with full metadata. No
+file content is copied into this layout unless an operator explicitly asks for
+it, and the CLI refuses by default.
+
+## Layout
+
+| Directory | Holds | Populated by |
+|---|---|---|
+| `CATALOG/` | Complete metadata inventory of the source tree | `melodie catalog --build` |
+| `SOURCE/` | Explicitly extracted file content | `melodie extract` (deny-by-default, audited) |
+| `DOCS/` | Approved documentation | Operator decision |
+| `TESTS/` | Test suites that pass in *this* environment | Operator decision |
+| `WEB3/` | Sanitized Web3 implementation | `melodie init --template web3` |
+| `ARCHITECTURE/` | Architecture specifications | Operator decision |
+| `PUBLISHING/` | Packaging and release configuration | Operator decision |
+
+`SOURCE/` ships **empty** on purpose. An empty directory is the correct state
+for a template, not a missing feature.
+
+## Verify this layout is intact
+
+```bash
+melodie verify            # catalog integrity + secret-leak scan
+melodie verify --deep     # also re-hash every source file and compare
+melodie status            # capability status with evidence
+```
+
+## Extract content (deny by default)
+
+```bash
+# see what exists, without reading any content
+melodie inspect --category SOURCE
+melodie inspect "wallet"
+
+# decide first, write nothing
+melodie extract "some/file.ts" --dry-run
+
+# actually copy
+melodie extract "some/file.ts" --out ./SOURCE
+```
+
+Credential material is **permanently** denied. No flag unlocks it. Other
+excluded categories require `--i-have-authorization`, and every decision is
+written to `SOURCE/extract-audit.jsonl`.
+
+## Web3
+
+`WEB3/` is a pointer, not an implementation. To generate a read-only wallet
+application:
+
+```bash
+melodie init ./WEB3/app --template web3
+```
+
+That produces a read-only application. It will not generate a private key, hold
+custody, sign, or broadcast anything unless you explicitly ask for the
+signing code and accept responsibility for it.
+
+## Licence
+
+{{LICENSE}}

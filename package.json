@@ -1,0 +1,7 @@
+{
+  "name": "@melodiespark/monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [ "apps/*", "services/*", "packages/*" ],
+  "engines": { "node": ">=10.0.0" }
+}

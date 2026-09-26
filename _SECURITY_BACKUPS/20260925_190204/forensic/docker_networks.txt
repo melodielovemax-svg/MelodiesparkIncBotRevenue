@@ -1,0 +1,6 @@
+NETWORK ID     NAME               DRIVER    SCOPE
+fa3bd432782f   bridge             bridge    local
+54124f888c5e   docker_default     bridge    local
+4bf4e5b45ad9   host               host      local
+0fcab3c39f68   melodiespark-net   bridge    local
+1fbb42ff983b   none               null      local

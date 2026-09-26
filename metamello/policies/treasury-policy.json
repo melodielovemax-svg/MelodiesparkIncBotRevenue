@@ -1,0 +1,10 @@
+{
+    "max_transaction_value":  0,
+    "read_only":  true,
+    "version":  "1.0",
+    "allow_transfers":  false,
+    "require_human_approval":  true,
+    "enabled":  true,
+    "allow_broadcast":  false,
+    "evidence_required":  true
+}

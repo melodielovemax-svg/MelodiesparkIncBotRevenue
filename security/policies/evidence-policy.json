@@ -1,0 +1,15 @@
+{
+    "schema_version":  "1.0",
+    "simulated_revenue_forbidden":  true,
+    "fabricated_evidence_forbidden":  true,
+    "allowed_statuses":  [
+                             "VERIFIED",
+                             "UNVERIFIED",
+                             "BLOCKED",
+                             "DISABLED",
+                             "DRAFT",
+                             "PENDING_APPROVAL",
+                             "FAILED",
+                             "COMPLETED"
+                         ]
+}

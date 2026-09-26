@@ -1,0 +1,52 @@
+{
+  "name": "node",
+  "version": "1.0.0",
+  "description": "Zero-dependency TypeScript Node.js CLI + library package, for npm, pnpm and npx.",
+  "kind": "node",
+  "targets": ["npm", "pnpm", "npx"],
+  "install": {
+    "npm": "npm install",
+    "pnpm": "pnpm add -g .",
+    "npx": "npx ."
+  },
+  "run": {
+    "local": "node bin/{{CLI_BIN}}.mjs",
+    "help": "{{PACKAGE_NAME}} --help",
+    "selftest": "node bin/{{CLI_BIN}}.mjs selftest",
+    "tests": "npm test"
+  },
+  "variables": {
+    "DESCRIPTION": "Zero-dependency TypeScript Node.js CLI + library package.",
+    "AUTHOR": "Melodiespark",
+    "LICENSE": "MIT"
+  },
+  "consent_gated_files": [],
+  "web3": null,
+  "files": [
+    "package.json",
+    "tsconfig.json",
+    ".gitignore",
+    ".npmignore",
+    "README.md",
+    "LICENSE",
+    "bin/melodie-app.mjs",
+    "src/index.ts",
+    "src/index.test.ts",
+    ".github/workflows/ci.yml"
+  ],
+  "notes": [
+    "Emits 10 files. The generator additionally writes MELODIESPARK_SCAFFOLD.json and extract-audit.jsonl at the destination root; those come from the CLI, not from this template.",
+    "Zero RUNTIME dependencies: `dependencies` is empty. Two dev-only tools are declared (typescript, @types/node) because `npm run typecheck` and `npm test` must actually work on a fresh `npm install`; without @types/node the tsconfig cannot resolve node:crypto.",
+    "Consumers of the published package never install the dev toolchain. `npm install --omit=dev` yields a runnable CLI with no node_modules at all.",
+    "There is no linter dependency. `npm run lint` runs typecheck plus `node --check` on the bin entry: a real, dependency-free gate that deliberately does not check style. Do not describe it as a linter in CI badges or docs.",
+    "The bin entry is a dependency-free ESM script on purpose: it works from a fresh checkout with no install and no build step. It loads dist/index.js when built and falls back to src/index.ts otherwise, which Node >= 22.18 strips types from natively, so hash, slug and selftest all work before `npm run build`.",
+    "The TypeScript library is consumed through the published `exports` map (dist/index.js + dist/index.d.ts), so `npm run build` must run before `npm pack` or `npm publish`.",
+    "The published payload is whatever `files` lists. Because it lists the whole dist/ directory, the compiled index.test.js ships in the tarball too; .npmignore cannot remove it, since `files` wins. Listing dist/ entries individually is the way to drop it.",
+    "`npm test` runs the COMPILED tests through the glob dist/**/*.test.js. Do not simplify it to `node --test dist/`: on Node 24 a bare directory argument reports success while running zero tests, which is a false pass. A bare `node --test` in the project root is also wrong, because it picks up src/index.test.ts and that file's ./index.js import cannot resolve before a build.",
+    "The bin path contains no token on purpose: the CLI renders {{TOKEN}} in path segments, but keeping this file at a fixed bin/melodie-app.mjs makes the published path predictable. The package.json `bin` KEY is {{CLI_BIN}}, so if you override the bin name with --bin you must rename the file to match or the installed command will not resolve.",
+    "repository is intentionally omitted from package.json: the CLI does not know the origin URL and will not invent one. Add it yourself before publishing.",
+    "The install/run strings in this manifest are printed verbatim by `melodie init` and `melodie template show`; the CLI does not substitute {{TOKEN}} in them, so the {{CLI_BIN}} and {{PACKAGE_NAME}} placeholders show up literally in that panel. The README of the generated project is rendered correctly.",
+    "Non-web3 template: no wallet, signing, broadcasting, custody or token handling of any kind.",
+    "Status of generated projects: SCAFFOLD. Nothing here has been built, tested, audited or deployed."
+  ]
+}

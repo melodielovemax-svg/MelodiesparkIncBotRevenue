@@ -1,0 +1,77 @@
+Metadata-Version: 2.4
+Name: melodiespark
+Version: 0.1.0
+Summary: Melodiespark Python SDK & CLI: Command Center client, EIP-191 wallet verification, and Path of Melodie ARPG telemetry bridge.
+Author: Melodiespark Architecture Team
+License: MIT
+Keywords: melodiespark,command-center,path-of-melodie,web3,arpg,telemetry
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: requests>=2.28.0
+Requires-Dist: click>=8.0.0
+Requires-Dist: eth-account>=0.8.0; extra == "crypto"
+Provides-Extra: crypto
+Requires-Dist: eth-account>=0.8.0; extra == "crypto"
+Provides-Extra: test
+Requires-Dist: pytest>=7.0.0; extra == "test"
+
+# Melodiespark Python SDK & CLI
+
+Official Python SDK and command line client for the Melodiespark Command Center & Path of Melodie ARPG runtime.
+
+## Installation
+
+### Via pip:
+```bash
+pip install melodiespark
+```
+
+### Via pipx (isolated CLI):
+```bash
+pipx install melodiespark
+```
+
+## CLI Usage
+
+```bash
+# Check Command Center status
+melodiespark status
+
+# View Guardian matrix profiles
+melodiespark guardians --tier arc_angel
+
+# Trigger safe workflow cycle
+melodiespark cycle --count 1
+
+# Check Karma balance & rules
+melodiespark karma
+
+# Post ARPG game telemetry event
+melodiespark telemetry --event boss_slain --boss "The Cinder Warden" --damage 12000
+```
+
+## Python API Usage
+
+```python
+from melodiespark import MelodieClient
+
+client = MelodieClient(base_url="http://127.0.0.1:4173")
+
+# Health & Dashboard
+health = client.get_health()
+dash = client.get_dashboard()
+
+# Telemetry Emitter
+client.emit_telemetry(
+    event_type="boss_slain",
+    boss_defeated="The Cinder Warden",
+    act_number=1,
+    damage_dealt=14500,
+    shatters=12,
+    karma_earned=50
+)
+
+# Non-custodial wallet challenge
+challenge = client.get_wallet_challenge("0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045")
+print("Nonce:", challenge["nonce"])
+```

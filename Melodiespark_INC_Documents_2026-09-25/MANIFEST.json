@@ -1,0 +1,612 @@
+{
+  "created_utc": "2026-09-25T21:42:55.953592+00:00",
+  "scope": "Accessible Melodiespark-related standalone documents and data files from ChatGPT Library inventory; no Windows local disk, existing ZIP archives, artwork, executable, or pasted unnamed files.",
+  "file_count": 120,
+  "files": [
+    {
+      "path": "00-ARENA-AI-ULTIMATE-FULL-GAME-TRANSFER.md",
+      "bytes": 25004,
+      "sha256": "24bdc73be68e9866f10885e2f58fc9a4d8370c03ea4ea9af4c6829eea4e29889"
+    },
+    {
+      "path": "00-GAME-BUILDER-AZ-MASTER.md",
+      "bytes": 20107,
+      "sha256": "140dc61eb211f50ef2d10151a5bc449c9e58cd427755e49485a3377d1f3ae79c"
+    },
+    {
+      "path": "01-GAME-BUILDER-IMPLEMENTATION(1).docx",
+      "bytes": 2722845,
+      "sha256": "b5c010b55ffb82f9775683329688889fb1764821ffec9403266a3462c6ee3655"
+    },
+    {
+      "path": "01-GAME-BUILDER-IMPLEMENTATION.docx",
+      "bytes": 2722845,
+      "sha256": "b5c010b55ffb82f9775683329688889fb1764821ffec9403266a3462c6ee3655"
+    },
+    {
+      "path": "06-POM-MAAKARA-TOTAL-AZ-GAME-BUILDER-TRANSFER.docx",
+      "bytes": 2725358,
+      "sha256": "40ff67fc87505a6196c8b9306798a7dd2aea7ada538f5c5cdaacf1fef481d786"
+    },
+    {
+      "path": "ARPG_Gemini_Flash_3_8_Implementation_Transfer.md",
+      "bytes": 12693,
+      "sha256": "e4159e9b7966654f0db1219b19b9c4586e9e0099326a004b968e8284e7f73c58"
+    },
+    {
+      "path": "Base44-Melodiespark-Storefront-Content-Build-Prompt.md",
+      "bytes": 7819,
+      "sha256": "0451ef464667aa76375cf65df7896faa771329a137caf304b2ea14fc6b60a1ce"
+    },
+    {
+      "path": "BotRevenue-Facebook-Reels-Complete-466.csv",
+      "bytes": 32507,
+      "sha256": "1d409c42d12f6684520f95751956673d9dd96b5c56b0a96cfb68040b5ccc25c6"
+    },
+    {
+      "path": "BotRevenue-Facebook-Reels-Complete-466.txt",
+      "bytes": 22121,
+      "sha256": "202ed3608f35a88119c8f0cf55001962a56f12cbc53f27de5bb2f415785bb174"
+    },
+    {
+      "path": "BotRevenue-Web3-App-Builder-Handoff.md",
+      "bytes": 16647,
+      "sha256": "cd6acaced420eeb17f2f7088a0f96371a7cef01a1ab1b1d77eeccb4ec444d468"
+    },
+    {
+      "path": "DEVIN-TRANSFER-PATH-OF-MELODIE-MAAKARAS-PROTOCOLS.md",
+      "bytes": 14519,
+      "sha256": "99e97e44a7e3cabd035a2918b25c6c7e42544542e288503b8f87dde18c693478"
+    },
+    {
+      "path": "DEVIN_HANDOFF_MAAKARAS_ISOMETRIC_ARPG.md",
+      "bytes": 9593,
+      "sha256": "f154f27fe476249278c57e5ce124b9646f3d9e429d8d1abfaadd2f3d22890cc1"
+    },
+    {
+      "path": "GEMINI-CLI-MELODIESPARK-MASTER-TRANSFER.md",
+      "bytes": 8906,
+      "sha256": "ff7fabfd9afdf741c9cd8947867c21828a70bbfe2daa76e9256123af54ec43be"
+    },
+    {
+      "path": "KIMINI-MELODIE-MAXPRO-ULTRA-CLI-ULTIMATE-RELEASE.md",
+      "bytes": 9906,
+      "sha256": "903b8538128376c001fc5063dcc4b0d3080a1c7c9c44a4726350fa6e35d0ff4a"
+    },
+    {
+      "path": "MAXAUTOREVENUE_ENGINE_MANIFEST.json",
+      "bytes": 242,
+      "sha256": "380bbd01e427f06668a599250b24e54538f5bc69db017268f8138c65df3dd7c9"
+    },
+    {
+      "path": "MELODIESPARK-200-REVENUE-WEB3-AUTOMATION-TEXTS.md",
+      "bytes": 20992,
+      "sha256": "16d012c6cf8479570277182d05cd19ec0547cb8e4642662ed9d3acc04e42ad87"
+    },
+    {
+      "path": "MELODIESPARK-3000-AZ-BUILDABLE-PROJECTS.txt",
+      "bytes": 1793627,
+      "sha256": "0cbba23de24d95e254d6c858d37f85feee50aa0c4804c5bfc197cc549863f53d"
+    },
+    {
+      "path": "MELODIESPARK-APP-BUILDER-TRANSFER-STRIPE-LIVE.md",
+      "bytes": 127521,
+      "sha256": "bc0cdc39be424a61ccb728db8be21a79f277cb0d4969c3dc6afd3998af4a1637"
+    },
+    {
+      "path": "MELODIESPARK-BASE44-MASTER-TRANSFER.md",
+      "bytes": 24496,
+      "sha256": "82ca67a821df28815889ee8c3ffaff195ff0b272e60daea14ea3257367236d5b"
+    },
+    {
+      "path": "MELODIESPARK-BOTREVENUE-AUTOMATION-ENTERPRISE-BLUEPRINT.docx",
+      "bytes": 40580,
+      "sha256": "ddcaa6a1b6f6f92b44cc9af5bbea99c24b86bd9fde6eabc3737bcd117c78b529"
+    },
+    {
+      "path": "MELODIESPARK-BOTREVENUE-WEB3-MASTER-BUILD.md",
+      "bytes": 14876,
+      "sha256": "8e5b365d2b205e9a7ba39977a6ae78b0c44a9f75e32bdf5015fcfa657a0b6aa7"
+    },
+    {
+      "path": "MELODIESPARK-CATALOG-RECONCILIATION-DOCUMENTATION.md",
+      "bytes": 2362,
+      "sha256": "50b40da7ab037888c2d934ab4602f1dde6abbffc288cabe2cd2b02093e10aa1d"
+    },
+    {
+      "path": "MELODIESPARK-CATALOG-RECONCILIATION-SUMMARY.json",
+      "bytes": 422,
+      "sha256": "cb70d422b5348bb7faf84e1319974730b2980d5cbc390f0a3ee349e979ccf3e3"
+    },
+    {
+      "path": "MELODIESPARK-CATALOG-SEO-ANALYTICS-283.csv",
+      "bytes": 269790,
+      "sha256": "dbd88ea8b6135f6b28a66f4dde2f80eb7219de69177e28725aebd4afd95d1c0f"
+    },
+    {
+      "path": "MELODIESPARK-DEVIN-ENTERPRISE-BLUEPRINT.docx",
+      "bytes": 55218,
+      "sha256": "86aba8feab16598ffa1f68915e82b7db32881a1a78c5864c1be280b43d3a4ce2"
+    },
+    {
+      "path": "MELODIESPARK-FULL-HISTORICAL-CATALOG-283.csv",
+      "bytes": 146241,
+      "sha256": "f7f1c6d05301e0c050dd6428a11f73799702d597230dfbfc95d565b60ab197e7"
+    },
+    {
+      "path": "MELODIESPARK-GAMES-AGY-TOTAL-TRANSFER.md",
+      "bytes": 23457,
+      "sha256": "33a7f277a33887d10904c0b9b1375a96f9c1794c2b0cd0440ec4106d0e658289"
+    },
+    {
+      "path": "MELODIESPARK-GEMINI-FLASH-3.6-100-BOTREVENUE-PROMPTS.md",
+      "bytes": 17701,
+      "sha256": "94f7d66fdc31df0ef6d5a969fc427078c4f1e5f4a171a00a6263f36a01f8d2f6"
+    },
+    {
+      "path": "MELODIESPARK-GEMINI-MASTER-TRANSFER.md",
+      "bytes": 26873,
+      "sha256": "300ac8c61349056cad5a89ee507c7aefbb2c08537ba6292fb8ea0ba2558361b7"
+    },
+    {
+      "path": "MELODIESPARK-INC-500-AZ-SSSS-BOTREVENUE-KARMA-MA-BITCOIN-WEB3.txt",
+      "bytes": 1088595,
+      "sha256": "1b85e78b63d912e1321520656caa8f9cdd236f74cf24def8125cba4165c549af"
+    },
+    {
+      "path": "MELODIESPARK-INC-500-PRODUCTS-SERVICES-MASTER-CATALOG.xlsx",
+      "bytes": 85449,
+      "sha256": "5e232dfc150b5faf4504350059c092cb91682173550fa6a7ae4b3322fc8b696e"
+    },
+    {
+      "path": "MELODIESPARK-INC-COMMERCIAL-SEO-ANALYTICS-BOTREVENUE-MASTER.docx",
+      "bytes": 43959,
+      "sha256": "2406f90f1b3eb3a84f81019feecc6d72f0d06207876be889da79b1db4af1d50d"
+    },
+    {
+      "path": "MELODIESPARK-INC-COMPLETE-PLUS-GENERATION-MATRIX.md",
+      "bytes": 33237,
+      "sha256": "b455e1a2b75b28b2ff7bb23749d22c852e9c903c3da9260a51ec43ff3dce2772"
+    },
+    {
+      "path": "MELODIESPARK-INC-DEVIN-AZ-MASTER-TRANSFER.txt",
+      "bytes": 45684,
+      "sha256": "ba6ee62257e2f2fc9bca0aa892cea62859ae17dc8d0a68dc06825ef63add58e2"
+    },
+    {
+      "path": "MELODIESPARK-INC-LANDING-PAGE-MASTER-PROMPT.md",
+      "bytes": 14290,
+      "sha256": "b11bed96b4cb032472b7d3514303e28afe4406097c0e377d7e9c4b57c46e7d17"
+    },
+    {
+      "path": "MELODIESPARK-INC-ULTIMATE-UNIFIED-AGY-MASTER-TRANSFER.md",
+      "bytes": 43851,
+      "sha256": "2cf73c1d7e6838713020456d9ccd742d7c051dfd1c14f498f818d145565d4c16"
+    },
+    {
+      "path": "MELODIESPARK-INC-UNIFIED-MASTER-TRANSFER.md",
+      "bytes": 9415,
+      "sha256": "341dd03f64e70355b5caadc4f625649eef6fb496d07347d7b7c207160be9f3b4"
+    },
+    {
+      "path": "MELODIESPARK-MASSIVE-APP-BUILDER-TRANSFER.md",
+      "bytes": 41203,
+      "sha256": "c8558be2747101a6eee07271241366b7b9e447d007a454ab4d0ba94637cf466f"
+    },
+    {
+      "path": "MELODIESPARK-METAMASK-REAL-TRANSFER-SPEC.txt",
+      "bytes": 13579,
+      "sha256": "591bffd02f8731b3dab71751f6af55587beadfd17a8462d4a64542de9db66da6"
+    },
+    {
+      "path": "MELODIESPARK-OLLAMA-ULTIMATE-PC-BOOST-PROMPT.txt",
+      "bytes": 18706,
+      "sha256": "9c75e35b1e96ed159d0622e1dda811942e3bfd1baed0c3ce70ecc50528e4cb70"
+    },
+    {
+      "path": "MELODIESPARK-OMEGA-BLUEPRINT-300.md",
+      "bytes": 61587,
+      "sha256": "c7f797e5b1543f38637c95fc5bc7e1f428ad9e8801926be7ec9de0ad272db593"
+    },
+    {
+      "path": "MELODIESPARK-OPENCODE-AZ-MASTER-TRANSFER.md",
+      "bytes": 29773,
+      "sha256": "c30900d890e83ed703116244916df3502a86c134c8321bb59ba3445b81cd8095"
+    },
+    {
+      "path": "MELODIESPARK-PRODUCTS-SERVICES-SEO-ANALYTICS-CATALOG-283.docx",
+      "bytes": 57552,
+      "sha256": "36e328587e40a59e5995e98492f5f0a098f15733e1cbaffe34e735d8150d3f2b"
+    },
+    {
+      "path": "MELODIESPARK-SEO-ANALYTICS-GROWTH-PLAYBOOK.docx",
+      "bytes": 40155,
+      "sha256": "d1063760bb901992fa95dcc115b70f8bad652722dd4c7d92ed3dfaaf98b4719e"
+    },
+    {
+      "path": "MELODIESPARK-STRIPE-LIVE-CATALOG-100-FULL.csv",
+      "bytes": 162160,
+      "sha256": "8432193cb46c3718e0faf2fd27f8ea65856182cc55c0911d98b206f26d8bbb9a"
+    },
+    {
+      "path": "MELODIESPARK-STRIPE-LIVE-CATALOG-100-FULL.json",
+      "bytes": 235212,
+      "sha256": "bb61916458a2732e4afac8b4d09ff54f709f99240c5b6b7bc81cc8a01f5377f7"
+    },
+    {
+      "path": "MELODIESPARK-STRIPE-LIVE-CATALOG-100-FULL.txt",
+      "bytes": 195868,
+      "sha256": "6fef90b3c039c7170c9ba20a2a585156bccd7723432d41edd6f6a74b45874265"
+    },
+    {
+      "path": "MELODIESPARK-STRIPE-LIVE-CATALOG-100-FULL.xlsx",
+      "bytes": 51643,
+      "sha256": "48755a671f252c996149ae213c31d855c75650b205efbb5dceff7df5c550ad8b"
+    },
+    {
+      "path": "MELODIESPARK-TITANESQUE-500-AZ-BOTREVENUE-ENTERPRISE-GRID.md",
+      "bytes": 263423,
+      "sha256": "24e6df52eb28d1fec6542ba2f6d426d2cf06ee7ba142a7691a5f0452ab131a38"
+    },
+    {
+      "path": "MELODIESPARK-TREASURY-INTERAC-BNC-TEMPLATE.md",
+      "bytes": 12030,
+      "sha256": "d477ed87acf8a77c807eec159ab27084c0ab4a09e75ccdd5914dfcdee4bd2568"
+    },
+    {
+      "path": "MELODIESPARK-TREASURY-SWAP-TRANSFER-v1.docx",
+      "bytes": 39403,
+      "sha256": "332cb99c030a975662a887efdd9a816f6aa9c6900163505de73ce6e348e02490"
+    },
+    {
+      "path": "MELODIESPARK-ULTIMATE-79-STRIPE-4K-TRANSFER.txt",
+      "bytes": 27462,
+      "sha256": "5c01a32445bb9e0d849386df99f9f71e50195e2ebb1998b2b42de5add4e7130d"
+    },
+    {
+      "path": "MELODIESPARK-ULTIMATE-PLATFORM-TRANSFER-BLUEPRINT.docx",
+      "bytes": 61091,
+      "sha256": "e63531a6323327bb8a5fbe6dc35c08829d5633353d7189e1386e93f8a3cfb533"
+    },
+    {
+      "path": "MELODIESPARK-ULTIMATE-QUANTUM-MATRIX-ENGINE-README.txt",
+      "bytes": 437,
+      "sha256": "2316402b03fd078b5c9acf3140a19174c9277b84084d5285ca16719b1372afe1"
+    },
+    {
+      "path": "MELODIESPARK-ULTIMATE-STRIPE-CATALOG-100.json",
+      "bytes": 203820,
+      "sha256": "b7451c8f82860c6bc2b30f0bc62f355d30f48c492b44c81783c10102327f71c7"
+    },
+    {
+      "path": "MELODIESPARK-ULTIMATE-STRIPE-CATALOG-100.xlsx",
+      "bytes": 23960,
+      "sha256": "8a3a31bd16d9a71fa7d6fc4b1f06fd495c83aaca7a0cc57e80f812afffbd5850"
+    },
+    {
+      "path": "MELODIESPARK-WEB3-WALLET-EXE-1000-BUILD-SPEC.md",
+      "bytes": 446967,
+      "sha256": "4cec641d371a7d80dde9e93db9c2d0d21097db48a9ee5052b001421d4c29dc02"
+    },
+    {
+      "path": "MELODIESPARK_5000_COMMAND_PROTOCOLS.jsonl",
+      "bytes": 4573050,
+      "sha256": "edd42351384affba31997103f398ac6f258c3e4a475e16a68fce07bf3cd00b2c"
+    },
+    {
+      "path": "MELODIESPARK_5000_COMMAND_PROTOCOLS.md",
+      "bytes": 4577917,
+      "sha256": "e0086751b2feda2cbc6afbda645bad5e0e1bb2d4565328063cd09a2ccd42e538"
+    },
+    {
+      "path": "MELODIESPARK_ARENA_GEMINI_WEB3_REVENUE_TRANSFER.txt",
+      "bytes": 28179,
+      "sha256": "939dc96282e9f03e1b6f0a0010ca98d66605d798c58a2c3638d820618fbf1ce2"
+    },
+    {
+      "path": "MELODIESPARK_ARENA_GEMINI_WEB3_REVENUE_TRANSFER.txt.openai-download-6450a5e12ca4409f8e01acc466397abf",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "MELODIESPARK_CLINE_FULL_GAME_RELEASE_TRANSFER.docx",
+      "bytes": 42508,
+      "sha256": "7852c8bb4bca291fbc40cb92ff4c109810e8db4f2ad05b2cd802f0a0b5a30854"
+    },
+    {
+      "path": "MERA-MARKET-PROOF-REPORT-2026-08-24.md",
+      "bytes": 11383,
+      "sha256": "2efa6904862c5da2be94d39570216963189f7b9d792fabaf114a29f647b20c6f"
+    },
+    {
+      "path": "Melodie-Web3-Interac-Gateway-1.0.0-MANIFEST.json",
+      "bytes": 814,
+      "sha256": "35e771cb580f25a0f45c4be67c806d6c13e745e1ea3972039b1e56f6bbbe4546"
+    },
+    {
+      "path": "Melodie_Animated_Transfer_Documentation_README.txt",
+      "bytes": 742,
+      "sha256": "947668b35d1361e43ae6bf037a3d7e8c5a03d89a3fb51029f129047694f38bac"
+    },
+    {
+      "path": "Melodiespark-AZ-Integration-Master-Blueprint.docx",
+      "bytes": 56981,
+      "sha256": "ea84cfea2abca2f8b002a2ea804e6ef59d1911fa8a663ab41fc88ff2d4efa12d"
+    },
+    {
+      "path": "Melodiespark-BotRevenue-ArenaAI-Build-Transfer.docx",
+      "bytes": 45543,
+      "sha256": "8e31b62e50e442c5b541b29cd36762a3c765c8ae08eb5193132b79c2b92c39e4"
+    },
+    {
+      "path": "Melodiespark-Devin-Enterprise-Transfer-Blueprint-v2.docx",
+      "bytes": 88573,
+      "sha256": "0ccb6924f73670ca0164d437e35f47d00aade06d9271d67ab0daf6db0624972c"
+    },
+    {
+      "path": "Melodiespark-Devin-Enterprise-Transfer-Blueprint.docx",
+      "bytes": 80193,
+      "sha256": "b867625ad2ecbd9e60b61429344c1f925af995751df86ff5255e2f5babd8cc80"
+    },
+    {
+      "path": "Melodiespark-Devin-Master-Prompt-v2.md",
+      "bytes": 7048,
+      "sha256": "8d9acf92a8ca57e6ce0c92deccd11e5873c9b20e89c52bc8cdd5760a3c94979c"
+    },
+    {
+      "path": "Melodiespark-Devin-Master-Prompt.md",
+      "bytes": 5144,
+      "sha256": "97dab7637a8c33a2cf20019bda62aa5fb77212255bc6ad2a96e89011592b76e4"
+    },
+    {
+      "path": "Melodiespark-Enterprise-Integrated-Blueprint-Evidence-Audit-Roadmap.docx",
+      "bytes": 68826,
+      "sha256": "2053d6668e0946aa2b0a081f50355a1ae7dd4508b16d531b416db06b940f3c73"
+    },
+    {
+      "path": "Melodiespark-Enterprise-Master-Prompt-Template.md",
+      "bytes": 20732,
+      "sha256": "aaae0a3c1dee581a161a4a4d196157a2bf05222e0b31f9b94607d47fbb27a50f"
+    },
+    {
+      "path": "Melodiespark-Implementation-Backlog-1000.xlsx",
+      "bytes": 102450,
+      "sha256": "04491b93cdcce6bfe33a85b041f8d1a8495bdc13747a919722e21572092e9b38"
+    },
+    {
+      "path": "Melodiespark-Implementation-Backlog-1040-v2.xlsx",
+      "bytes": 110841,
+      "sha256": "4e05190cb8e588def63d8f663062ad7eed2da51aea0da9a56a63b1104a91233f"
+    },
+    {
+      "path": "Melodiespark-Web3-Control-Center-1.0.0-SBOM.cdx.json",
+      "bytes": 361214,
+      "sha256": "524f55118e61a5a33b37e51fbf6e649bdac86fa79569a3469b70adccd33e04eb"
+    },
+    {
+      "path": "Melodiespark_AGY_Transfer_Master_2026-09-24.md",
+      "bytes": 66668,
+      "sha256": "2bb43e016b644329ef7db3bec33c9c446923c60c99c54e0ce6233b3ff7a35092"
+    },
+    {
+      "path": "Melodiespark_Automated_Digital_Product_Catalog.docx",
+      "bytes": 41666,
+      "sha256": "3160a508d59f9a11ff3cf97532176c820bb254f528d1a4a3f78336144225937d"
+    },
+    {
+      "path": "Melodiespark_Earning_Automation_Karma_Ecosystem_Overview.docx",
+      "bytes": 49164,
+      "sha256": "38c0b0ab4653b2f468484b3d1d543afbfa8a1118b389ad65012530d36dced994"
+    },
+    {
+      "path": "Melodiespark_Ecommerce_1000_Project_Catalog.docx",
+      "bytes": 56836,
+      "sha256": "c599cb3665676668834d25368ae135b394e29efe1a7b1195523fcf80804bd785"
+    },
+    {
+      "path": "Melodiespark_INC_Master_Products_Services_100.csv",
+      "bytes": 32913,
+      "sha256": "1d583fb95981dfe36be7bf0c02eb48c9f7dda77cd6881bf92b958d080a8cb0f6"
+    },
+    {
+      "path": "Melodiespark_INC_Phoenix_Continuum_Concept.md",
+      "bytes": 17934,
+      "sha256": "9dfa579c727ced6c65b63a4e7e6a1221727e22bd36ea04dc771e9f7f15235641"
+    },
+    {
+      "path": "Melodiespark_Inc_Complete_Overview_Maxime_Aube.docx",
+      "bytes": 55495,
+      "sha256": "49ed926b8adc63f63d54f5c75708f1c05dff068e2f489bbbc900795ac2e42a07"
+    },
+    {
+      "path": "Melodiespark_Path_of_Melodie_Transfer_Control.docx",
+      "bytes": 44342,
+      "sha256": "1b26431c62dbde81443f5f85ad6b7c44339e56a3b897b7bf84fd4990deded047"
+    },
+    {
+      "path": "MetaMello-D-SHA256SUMS.txt",
+      "bytes": 190,
+      "sha256": "2d3fa4f4ffa19b9ca15ff0600aa6b25636483fd8eb076e544fd6975848791b7f"
+    },
+    {
+      "path": "NEXUS-REAL-WEB3-README.txt",
+      "bytes": 1156,
+      "sha256": "402843f88fbe165cce66fcd93cd8f08dac996607529312d6347cf5bf47aa6c06"
+    },
+    {
+      "path": "OLLAMA-TRANSFER-PATH-OF-MELODIE-RELEASE-BUILDER.md",
+      "bytes": 12728,
+      "sha256": "1af8c28940dc4e4f52d294e2ab15139e9f82911837752bd2384b0c9d2c3360a9"
+    },
+    {
+      "path": "OPENCODE-MELODIESPARK-AZ-TRANSFER.md",
+      "bytes": 35061,
+      "sha256": "64e57d8cec44fab2a01a24059a3a2adbb0fb1813a3fe87cce58e2095a944d087"
+    },
+    {
+      "path": "PATH-OF-MELODIE-DOCKER-TO-UNREAL-TOTAL-BUILD-RUNBOOK.docx",
+      "bytes": 2978573,
+      "sha256": "d84533c4b923f63f4975d8b39bb7e670c7ce6cadaf8391fcd295c1d457e2773d"
+    },
+    {
+      "path": "PATH-OF-MELODIE-GLM-FLASH-TRANSFER.docx",
+      "bytes": 62483,
+      "sha256": "dc0a16afc76b9d38781a399045d2948f19fd29e0998febe7e89792a05b01bb8b"
+    },
+    {
+      "path": "PATH-OF-MELODIE-GLM-FLASH-TRANSFER.md",
+      "bytes": 49132,
+      "sha256": "081d8d0342a1ff782ad07840ea64392bf3697efd951ab32f9b8ad203b33ec86d"
+    },
+    {
+      "path": "PATH-OF-MELODIE-GLM-FLASH-TRANSFER.pdf",
+      "bytes": 508893,
+      "sha256": "e6cc8f88b0dff84badabea64eed094892286e309af19b9a6d7a290082c0adf94"
+    },
+    {
+      "path": "PATH-OF-MELODIE-MAAKARAS-PROTOCOLS-ULTIMATE-GAME-PITCH.docx",
+      "bytes": 2986034,
+      "sha256": "1c2011057a5466e90d18ec4c9dffa96b1fdcb36af38d65f7587b36c245a3803a"
+    },
+    {
+      "path": "PATH-OF-MELODIE-MELODIESPARK-UNIFIED-AZ-BLUEPRINT.md",
+      "bytes": 26186,
+      "sha256": "c3eb523dbbf6333e6419ffd8453cd59dd849d8ebf15715ca2fe6477f7e211a3a"
+    },
+    {
+      "path": "PATH_OF_MELODIE_MAAKARAS_PROTOCOLS_ORIGINAL_ARPG_BLUEPRINT.md",
+      "bytes": 16811,
+      "sha256": "aa08378bd89daec527f9c6eac755d03ab25a64095d690ba8a9cf4e45c04b5e39"
+    },
+    {
+      "path": "Path-of-Melodie-45-Classes-Ascension-KPP.csv",
+      "bytes": 21498,
+      "sha256": "a1d29448bead2de103cdefa2d9fa2804ac4bd99c7a51ca81a516340cd695a8b6"
+    },
+    {
+      "path": "Path-of-Melodie-45-Classes-Ascension-KPP.json",
+      "bytes": 38319,
+      "sha256": "03cd5248ee00df1b260a12ac2ddb8bbd15dab38d4c7103542c63ac1879a6707f"
+    },
+    {
+      "path": "Path-of-Melodie-45-Classes-Ascension-KPP.md",
+      "bytes": 14700,
+      "sha256": "2eae472ec220dfb66d3eff22455e590a8b4dcc349e7baf9f3b0d4368742e4760"
+    },
+    {
+      "path": "Path-of-Melodie-5000-Currency-Ladder.csv",
+      "bytes": 605667,
+      "sha256": "8aa45aeddb18cac17045ab8a1366855699e83c7dc878a5803dda4fd5b994b3e6"
+    },
+    {
+      "path": "Path-of-Melodie-5000-Currency-Ladder.json",
+      "bytes": 1395578,
+      "sha256": "842a7c7fc16b50ae6065f718109ed315f34157933086d712f073593f1d036c7e"
+    },
+    {
+      "path": "Path-of-Melodie-5000-Currency-Ladder.md",
+      "bytes": 2405,
+      "sha256": "01f854ede3568a6f95600036bef2f91490461498a06c33acc633b1c8908876d6"
+    },
+    {
+      "path": "Path-of-Melodie-953-Unique-Items-Catalog.md",
+      "bytes": 299884,
+      "sha256": "0e051474c7e55f2e7e24e2e9c43813690785fa836cb3a961aad0a5118a362b98"
+    },
+    {
+      "path": "Path-of-Melodie-953-Unique-Items.csv",
+      "bytes": 301023,
+      "sha256": "adb8072e896c6fec26149aa3924d092d65cc5014595749a85756404e0949b820"
+    },
+    {
+      "path": "Path-of-Melodie-953-Unique-Items.json",
+      "bytes": 748558,
+      "sha256": "1b91e6785a067bb87fb77a7f9056af28752873305446d9d6bc755b1462230228"
+    },
+    {
+      "path": "Path-of-Melodie-AZ-Complete-Game-Blueprint-30000-Words.docx",
+      "bytes": 50681,
+      "sha256": "c89aa9ac1cd28ec0e6d0f60fe079cf6134cbe85e84dddc354a4d729c017b9f6f"
+    },
+    {
+      "path": "Path-of-Melodie-Antigravity-CLI-Release-Transfer.docx",
+      "bytes": 47308,
+      "sha256": "e49919091972e28142f06a058db6e6cc9edcce2cde06d0cca5da5c35399d2071"
+    },
+    {
+      "path": "Path-of-Melodie-MAAKARA-Missing-Core-Elements-to-Release-v1.md",
+      "bytes": 32661,
+      "sha256": "b0d76271639b01549b2a0d1a33c3f8e0576d625654a16fd4d561d0c34273edcc"
+    },
+    {
+      "path": "Path-of-Melodie-MAAKARA-Protocols-MASTER-MEMORY-2026-09-04.md",
+      "bytes": 24252,
+      "sha256": "24e58b84acc61e7e3a76d54790e08c98b704b71cc89f5a754bffde3db7ba906c"
+    },
+    {
+      "path": "Path-of-Melodie-UNIFIED-79-Currencies.csv",
+      "bytes": 10180,
+      "sha256": "0fdaf8080abf9a381bae6317bf5af7867e7ce935023a49d9f4ac4f3e7b048a38"
+    },
+    {
+      "path": "Path-of-Melodie-UNIFIED-79-Currencies.json",
+      "bytes": 24531,
+      "sha256": "ac6d7bd022a88a47974ac3c69dc07cc0336e0bb498a1caa25da2ab8cd672d05c"
+    },
+    {
+      "path": "Path-of-Melodie-UNIFIED-79-Currencies.md",
+      "bytes": 11156,
+      "sha256": "63f06b39d1977698e2ddb817669fd97e5de50719afd47b37eb49641029df8da9"
+    },
+    {
+      "path": "PathOfMelodie_Ultimate_Transfer_Document_Package.docx",
+      "bytes": 43077,
+      "sha256": "58f0baacb9e6aa7fc7d9e419cef61a8ec58b097ad6658265b83e3470180c6034"
+    },
+    {
+      "path": "Path_of_Melodie_Master_A_to_Z_Release_Record.docx",
+      "bytes": 43392,
+      "sha256": "67b5fc48292be3ff764cacc32ada9a0ea15a78c793d5e9fca5b8c1c8ec39a0aa"
+    },
+    {
+      "path": "Path_of_Melodie_Master_Design.docx",
+      "bytes": 2940199,
+      "sha256": "edfad012e2beea95de23ae9e60cda0c961887bf1b9472c10267fe9d3ddbb563c"
+    },
+    {
+      "path": "Path_of_Melodie_Master_Design.pdf",
+      "bytes": 730314,
+      "sha256": "ce8defb6c12ee8948430d1d0d3a4b5b37a7edb2a300ca92f44a850462144b7e5"
+    },
+    {
+      "path": "Stripe-Live-Catalogue-Export.md",
+      "bytes": 146712,
+      "sha256": "3c09c353d200e4f3a141c512612636defed7697bd1e5a9d9ca71638e98b42514"
+    },
+    {
+      "path": "idea melodiespark app.txt",
+      "bytes": 160544,
+      "sha256": "7194cbf29816237727875bf6fca4442af4d111ed1da66c0972dec58bd3083d75"
+    },
+    {
+      "path": "melodiespark_seo_tags_2000.csv",
+      "bytes": 41512,
+      "sha256": "68350e0548f2d89de275e35c019164bab857a17b4b192c86c0d5072262de405e"
+    },
+    {
+      "path": "promptmelodiebotrevenue(1).txt",
+      "bytes": 380517,
+      "sha256": "83ba81338e118ba1eb1384ea662223336b3486992fa6a56be956e1407e8edc06"
+    },
+    {
+      "path": "promptmelodiebotrevenue.txt",
+      "bytes": 294289,
+      "sha256": "644f4389a343af6777b3404a91309b4d2e79203917b1a100dd84d1af1828e845"
+    }
+  ],
+  "unavailable": [
+    "Path of Melodie — Dark Paradise.txt",
+    "Melodiespark Revenue Gateway.txt",
+    "Melodiespark Inc.txt"
+  ]
+}

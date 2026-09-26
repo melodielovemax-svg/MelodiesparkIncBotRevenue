@@ -1,0 +1,95 @@
+{
+  "manifestVersion": "1.0.0",
+  "release": "0.1.0",
+  "generatedAt": "2026-09-24T08:29:00Z",
+  "environment": {
+    "os": "Windows 11 / PowerShell 5.1 & 7",
+    "node": "v24.19.0",
+    "npm": "11.17.0",
+    "pnpm": "12.6.0",
+    "python": "3.12.10",
+    "pipx": "1.17.6",
+    "godot": "4.7.2.stable.official.ed1daf0bf"
+  },
+  "masterRule": "Définition ≠ Runtime ≠ Infrastructure ≠ UI ≠ Finance",
+  "buildHashes": {
+    "melodiespark-0.1.0.tgz": {
+      "path": "C:/melodie/MelodiesparkCommandCenter/melodiespark-0.1.0.tgz",
+      "sizeBytes": 74059,
+      "sha256": "EA4A57ADCFEE1363DE6BCC2F6614ABB1116BDAA2DEFB71FDBFBB51CCDC9A0524"
+    },
+    "melodiespark-0.1.0-py3-none-any.whl": {
+      "path": "C:/melodie/melodiespark-py/dist/melodiespark-0.1.0-py3-none-any.whl",
+      "sizeBytes": 6764,
+      "sha256": "606C919E12E3B64DFA41680F8A4570920D8531A908257B18AB26BFA04FAFF85C"
+    },
+    "melodiespark-0.1.0.tar.gz": {
+      "path": "C:/melodie/melodiespark-py/dist/melodiespark-0.1.0.tar.gz",
+      "sizeBytes": 6599,
+      "sha256": "69366A08F307E25D4122F11E46B5786DDDD435EA663818ACEB57BD5F2F72B7B7"
+    }
+  },
+  "nodeTestResults": {
+    "total": 8,
+    "passed": 8,
+    "failed": 0,
+    "durationMs": 1517.189,
+    "tests": [
+      { "name": "health, configuration, and demo dashboard are operational", "status": "PASS", "durationMs": 112.8 },
+      { "name": "admin authentication, CSRF, safe workflow, and draft creation work end to end", "status": "PASS", "durationMs": 104.1 },
+      { "name": "state-changing endpoints reject missing CSRF tokens", "status": "PASS", "durationMs": 64.9 },
+      { "name": "game telemetry ingestion and karma rewards function properly", "status": "PASS", "durationMs": 66.7 },
+      { "name": "password hashes verify without storing plaintext", "status": "PASS", "durationMs": 29.2 },
+      { "name": "withdrawal intent canonicalization is deterministic and amount-bound", "status": "PASS", "durationMs": 0.6 },
+      { "name": "atomic ETH conversion rejects invalid or imprecise values", "status": "PASS", "durationMs": 0.7 },
+      { "name": "constant-time text comparison handles unequal lengths", "status": "PASS", "durationMs": 0.3 }
+    ]
+  },
+  "packageManagers": {
+    "npm": { "status": "PASS", "package": "melodiespark@0.1.0", "tarball": "melodiespark-0.1.0.tgz" },
+    "pnpm": { "status": "PASS", "version": "12.6.0", "pack": "verified" },
+    "npx": { "status": "PASS", "cliCommand": "melodiespark", "entry": "bin/melodiespark.mjs" },
+    "pip": { "status": "PASS", "editableInstall": "verified", "wheelBuild": "verified" },
+    "pipx": { "status": "PASS", "isolatedInstall": "verified", "executable": "melodiespark.EXE" }
+  },
+  "godotEngine": {
+    "version": "4.7.2.stable.official.ed1daf0bf",
+    "headlessCompilation": "PASS",
+    "registeredClassesCount": 28,
+    "projects": [
+      { "path": "MelodiesparkCommandCenter/game", "fileCount": 65, "status": "PASS" },
+      { "path": "PathOfMelodie_15Act_ARPG", "fileCount": 71, "status": "PASS" }
+    ]
+  },
+  "apiEndpoints": {
+    "totalAudited": 14,
+    "passed": 14,
+    "failed": 0,
+    "averageLatencyMs": 14.8
+  },
+  "database": {
+    "engine": "SQLite 3 (Node.js DatabaseSync) + PostgreSQL parity",
+    "schemaVersion": "0.1.0",
+    "tableCount": 15,
+    "guardiansSeeded": 600,
+    "productsSeeded": 8,
+    "telemetryEventsRecorded": 1
+  },
+  "security": {
+    "passwordHashing": "Scrypt",
+    "csrfProtection": "HMAC-SHA256 session token",
+    "rateLimiter": "In-memory sliding window",
+    "walletBoundary": "EIP-191 personal_sign (non-custodial, no private keys, user-approval only)"
+  },
+  "scopeAndNonClaims": {
+    "verifiedBuild": "Locally reproducible source, tests, engine compilation, and SHA-256 recorded distribution artifacts",
+    "notClaimed": [
+      "No third-party security audit or penetration testing certification",
+      "No banking, brokerage, PSAN/VASP, or regulatory status",
+      "No custodial key management or automated on-chain execution without user signature",
+      "No guaranteed financial return or monetary investment claims",
+      "No multi-region live cloud deployment certified"
+    ]
+  },
+  "finalMatrix": "PASS (14/14 subsystems validated)"
+}

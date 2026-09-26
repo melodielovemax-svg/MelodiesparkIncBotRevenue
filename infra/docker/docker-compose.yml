@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: melodiespark
+      POSTGRES_PASSWORD: development-only
+      POSTGRES_DB: melodiespark
+    volumes:
+      - ./init-db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U melodiespark"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api-server:
+    build: C:\melodie\melodiespark\api
+    environment:
+      - NODE_ENV=staging
+      - DATABASE_URL=postgresql://melodiespark:development-only@postgres:5432/melodiespark
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    depends_on:
+      - api-server

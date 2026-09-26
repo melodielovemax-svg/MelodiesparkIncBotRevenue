@@ -1,0 +1,61 @@
+{
+  "name": "melodiespark",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Master Command Center & ARPG Foundation: Commerce, read-only integrations, EIP-191 wallet authorization, bounded workflow automation, and telemetry bridge.",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "main": "./src/server.mjs",
+  "bin": {
+    "melodiespark": "./bin/melodiespark.mjs"
+  },
+  "files": [
+    "bin",
+    "src",
+    "db",
+    "data/guardians-600.json",
+    "public",
+    "scripts",
+    "tests",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "melodiespark",
+    "command-center",
+    "path-of-melodie",
+    "shattering-core",
+    "eip-191",
+    "web3",
+    "automation",
+    "guardians",
+    "arpg"
+  ],
+  "scripts": {
+    "start": "node src/server.mjs",
+    "dev": "node --watch src/server.mjs",
+    "test": "node --test --test-reporter=spec",
+    "test:regression": "node scripts/check-regression-baseline.mjs",
+    "test:security": "node scripts/security-audit-suite.mjs",
+    "validate:fresh-install": "node scripts/validate-fresh-install.mjs",
+    "validate:fresh-install:isolated": "node scripts/validate-fresh-install-isolated.mjs",
+    "prepare:clean-env": "node scripts/prepare-clean-environment.mjs",
+    "cli": "node bin/melodiespark.mjs",
+    "init": "node scripts/initialize.mjs",
+    "set-password": "node scripts/set-password.mjs",
+    "cycle": "node scripts/run-safe-cycle.mjs",
+    "quantum-matrix": "node scripts/run-quantum-matrix.mjs",
+    "guardians": "node scripts/generate-guardians.mjs",
+    "scan": "node scripts/scan-public-sites.mjs",
+    "cli:sync": "node scripts/run-safe-cycle.mjs product-sync",
+    "cli:verify": "node scripts/run-safe-cycle.mjs wallet-verify",
+    "cli:task": "node scripts/run-safe-cycle.mjs task-run",
+    "cli:report": "node scripts/run-safe-cycle.mjs rev-report"
+  },
+  "dependencies": {
+    "viem": "^2.33.0"
+  },
+  "license": "MIT"
+}

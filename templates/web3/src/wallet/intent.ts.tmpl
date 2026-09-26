@@ -1,0 +1,586 @@
+/**
+ * Non-custodial withdrawal INTENT builder.
+ *
+ * ===========================================================================
+ * AN INTENT IS UNSIGNED DATA. THAT IS THE WHOLE POINT.
+ * ===========================================================================
+ * An intent produced by this module is a description of what a human would
+ * like to happen, together with the hash of that description. It is not a
+ * transfer, not an authorisation, not a transaction, and not a signature.
+ *
+ * This module NEVER:
+ *   - signs anything;
+ *   - sends anything to any network;
+ *   - touches an RPC endpoint;
+ *   - holds, requests, derives, imports or stores a private key or seed phrase.
+ *
+ * If you want an intent to have any effect, you take the printed payload and
+ * sign it in YOUR OWN WALLET, outside this application. This application must
+ * not move funds by itself, and a valid intent produced here is still only a
+ * piece of text until a human signs it somewhere else.
+ *
+ * ---------------------------------------------------------------------------
+ * Correspondence with the documented product grid
+ * ---------------------------------------------------------------------------
+ *   "Wallet | Withdrawal intent | Expiring signed authorization record |
+ *    Operational; no transfer"
+ *
+ * This file implements the *unsigned, expiring* half of that record. The signed
+ * half lives in the consent-gated module `src/wallet/signing.ts`, which is not
+ * written to disk unless the operator explicitly asks for it. The "no transfer"
+ * half is a property of this file: there is no code path here that can move a
+ * token, native or otherwise.
+ */
+
+import { getAddress, isAddress, keccak256, toHex, type Hex } from 'viem';
+
+export type HexAddress = `0x${string}`;
+
+/** Wire version of the intent record. Bump on any breaking field change. */
+export const INTENT_VERSION = 1;
+
+/**
+ * Hard ceiling on how far in the future an intent may expire. A short expiry
+ * is the whole safety property: an intent that stays valid for a week is an
+ * intent that can be replayed for a week.
+ */
+export const INTENT_MAX_TTL_SECONDS = 3600;
+
+/** Default lifetime when the caller does not choose one. */
+export const INTENT_DEFAULT_TTL_SECONDS = 600;
+
+/** Maximum length of the human-readable memo. */
+export const INTENT_MEMO_MAX_LENGTH = 280;
+
+/**
+ * An obviously-fake validation fixture. It is the standard burn address, used
+ * here only so validation tests have an address that is well-formed but is
+ * nobody's. Do not send funds to it; if funds arrive, they are unrecoverable.
+ */
+export const VALIDATION_FIXTURE_ADDRESS: HexAddress = '0x000000000000000000000000000000000000dEaD';
+
+export type IntentErrorCode =
+  | 'ADDRESS_INVALID'
+  | 'AMOUNT_NOT_FINITE'
+  | 'AMOUNT_NOT_INTEGER'
+  | 'AMOUNT_NEGATIVE'
+  | 'AMOUNT_NOT_SAFE'
+  | 'AMOUNT_NOT_A_NUMBER'
+  | 'AMOUNT_ZERO'
+  | 'CHAIN_ID_INVALID'
+  | 'DESTINATION_IS_SELF'
+  | 'EXPIRY_IN_PAST'
+  | 'EXPIRY_NOT_IN_FUTURE'
+  | 'EXPIRY_WINDOW_TOO_LONG'
+  | 'INTENT_EXPIRED'
+  | 'INTENT_INVALID'
+  | 'INTENT_VERSION_UNSUPPORTED'
+  | 'MEMO_INVALID'
+  | 'MEMO_TOO_LONG'
+  | 'NONCE_INVALID'
+  | 'CANONICAL_UNSUPPORTED_VALUE';
+
+/** Every validation failure in this module is this type, with a stable code. */
+export class IntentValidationError extends Error {
+  readonly code: IntentErrorCode;
+  readonly field: string;
+
+  constructor(code: IntentErrorCode, field: string, message: string) {
+    super(message);
+    this.name = 'IntentValidationError';
+    this.code = code;
+    this.field = field;
+  }
+}
+
+/**
+ * The intent record. Every numeric quantity that can exceed `Number.MAX_SAFE_INTEGER`
+ * is carried as a decimal `string` and handled as a `bigint` in memory. Nothing
+ * in this file performs floating-point arithmetic on an amount.
+ */
+export interface WithdrawalIntentPayload {
+  readonly version: typeof INTENT_VERSION;
+  /** Decimal wei amount, as a string. `0` is never valid. */
+  readonly amountWei: string;
+  readonly chainId: number;
+  readonly destination: HexAddress;
+  /** Caller-supplied uniqueness tag, normalised to a decimal string. */
+  readonly nonce: string;
+  /** Unix milliseconds. */
+  readonly issuedAt: number;
+  /** Unix milliseconds. Bounded by {@link INTENT_MAX_TTL_SECONDS}. */
+  readonly expiresAt: number;
+  /** Human-readable, at most {@link INTENT_MEMO_MAX_LENGTH} characters. */
+  readonly memo: string;
+}
+
+// --- Amount parsing --------------------------------------------------------
+
+/** A non-negative integer with no sign, no decimal point, no exponent. */
+const DECIMAL_INTEGER = /^[0-9]+$/;
+
+/**
+ * Parse a wei amount with `bigint` semantics.
+ *
+ * Rejects: `NaN`, `Infinity`, fractional numbers, negative values, unsafe
+ * integers, empty strings, whitespace-padded garbage, hex, and exponent
+ * notation. Accepts `string`, `number` and `bigint` only.
+ *
+ * @throws {IntentValidationError}
+ */
+export function parseAmountWei(value: string | number | bigint, field = 'amountWei'): bigint {
+  if (typeof value === 'bigint') {
+    if (value < 0n) {
+      throw new IntentValidationError('AMOUNT_NEGATIVE', field, 'amount must not be negative');
+    }
+    return value;
+  }
+
+  if (typeof value === 'number') {
+    if (Number.isNaN(value)) {
+      throw new IntentValidationError('AMOUNT_NOT_FINITE', field, 'amount must be a number, not NaN');
+    }
+    if (!Number.isFinite(value)) {
+      throw new IntentValidationError('AMOUNT_NOT_FINITE', field, 'amount must be finite');
+    }
+    if (!Number.isInteger(value)) {
+      throw new IntentValidationError('AMOUNT_NOT_INTEGER', field, 'amount must be a whole number of wei');
+    }
+    if (value < 0) {
+      throw new IntentValidationError('AMOUNT_NEGATIVE', field, 'amount must not be negative');
+    }
+    if (!Number.isSafeInteger(value)) {
+      throw new IntentValidationError('AMOUNT_NOT_SAFE', field, 'amount exceeds Number.MAX_SAFE_INTEGER; pass it as a string or bigint');
+    }
+    return BigInt(value);
+  }
+
+  if (typeof value !== 'string') {
+    throw new IntentValidationError('AMOUNT_NOT_A_NUMBER', field, `amount must be a string, number or bigint (received ${typeof value})`);
+  }
+
+  const text = value.trim();
+  if (text.startsWith('-')) {
+    throw new IntentValidationError('AMOUNT_NEGATIVE', field, 'amount must not be negative');
+  }
+  if (!DECIMAL_INTEGER.test(text)) {
+    throw new IntentValidationError(
+      'AMOUNT_NOT_INTEGER',
+      field,
+      `amount must be a base-10 whole number of wei, with no sign, decimal point or exponent (received ${JSON.stringify(value)})`
+    );
+  }
+  return BigInt(text);
+}
+
+/** {@link parseAmountWei} plus the "not zero" rule. */
+export function parsePositiveAmountWei(value: string | number | bigint, field = 'amountWei'): bigint {
+  const amount = parseAmountWei(value, field);
+  if (amount === 0n) {
+    throw new IntentValidationError('AMOUNT_ZERO', field, 'amount must be greater than zero');
+  }
+  return amount;
+}
+
+// --- Other field validation ------------------------------------------------
+
+/**
+ * Validate and checksum a destination address.
+ *
+ * Rejects anything `isAddress` rejects, and rejects a destination equal to the
+ * connected address: an intent that moves value to the wallet that is already
+ * connected is either a mistake or an attempt to launder a confirmation, and
+ * neither is worth supporting.
+ *
+ * @throws {IntentValidationError}
+ */
+export function assertDestination(destination: unknown, connectedAddress?: string | null, field = 'destination'): HexAddress {
+  if (typeof destination !== 'string' || destination.trim() === '') {
+    throw new IntentValidationError('ADDRESS_INVALID', field, 'destination must be a non-empty address string');
+  }
+  const value = destination.trim();
+  if (!isAddress(value)) {
+    throw new IntentValidationError('ADDRESS_INVALID', field, `destination is not a valid address: ${JSON.stringify(destination)}`);
+  }
+  const normalized = getAddress(value);
+
+  // Fail closed on a malformed connectedAddress. Silently treating a garbage
+  // value as "no connected address" would quietly switch the self-send guard
+  // off, which is exactly the failure mode a safety check must never have: it
+  // would pass silently instead of stopping.
+  if (typeof connectedAddress === 'string' && connectedAddress.trim() !== '') {
+    const connected = connectedAddress.trim();
+    if (!isAddress(connected)) {
+      throw new IntentValidationError(
+        'ADDRESS_INVALID',
+        'connectedAddress',
+        `connectedAddress is not a valid address: ${JSON.stringify(connectedAddress)}`
+      );
+    }
+    if (getAddress(connected) === normalized) {
+      throw new IntentValidationError(
+        'DESTINATION_IS_SELF',
+        field,
+        'destination is the connected address; an intent must name a different destination'
+      );
+    }
+  }
+
+  return normalized;
+}
+
+/** @throws {IntentValidationError} when the chain id is not a positive integer. */
+export function assertChainId(chainId: unknown, field = 'chainId'): number {
+  if (typeof chainId !== 'number' || !Number.isSafeInteger(chainId) || chainId <= 0) {
+    throw new IntentValidationError('CHAIN_ID_INVALID', field, `chainId must be a positive integer (received ${JSON.stringify(chainId)})`);
+  }
+  return chainId;
+}
+
+/** @throws {IntentValidationError} when the nonce is not a non-negative integer. */
+export function assertNonce(nonce: unknown, field = 'nonce'): string {
+  if (typeof nonce === 'number') {
+    if (!Number.isSafeInteger(nonce) || nonce < 0) {
+      throw new IntentValidationError('NONCE_INVALID', field, 'nonce must be a non-negative safe integer');
+    }
+    return String(nonce);
+  }
+  if (typeof nonce === 'bigint' && nonce >= 0n) return nonce.toString();
+  if (typeof nonce === 'string' && DECIMAL_INTEGER.test(nonce.trim())) return nonce.trim();
+  throw new IntentValidationError('NONCE_INVALID', field, 'nonce must be a non-negative integer (decimal digits only)');
+}
+
+/** @throws {IntentValidationError} when the memo is too long or not a string. */
+export function assertMemo(memo: unknown, field = 'memo'): string {
+  if (memo === undefined || memo === null) return '';
+  if (typeof memo !== 'string') {
+    throw new IntentValidationError('MEMO_INVALID', field, 'memo must be a string');
+  }
+  const text = memo.trim();
+  if (text.length > INTENT_MEMO_MAX_LENGTH) {
+    throw new IntentValidationError('MEMO_TOO_LONG', field, `memo must be at most ${INTENT_MEMO_MAX_LENGTH} characters`);
+  }
+  return text;
+}
+
+/** @throws {IntentValidationError} when the timestamp is not a positive integer. */
+function assertTimestamp(value: unknown, field: string): number {
+  if (typeof value !== 'number' || !Number.isSafeInteger(value) || value <= 0) {
+    throw new IntentValidationError('EXPIRY_NOT_IN_FUTURE', field, `${field} must be a positive integer (unix milliseconds)`);
+  }
+  return value;
+}
+
+// --- Builder ---------------------------------------------------------------
+
+export interface BuildWithdrawalIntentInput {
+  /** Amount in wei. `number` is accepted but discouraged; prefer a string. */
+  readonly amountWei: string | number | bigint;
+  readonly destination: string;
+  readonly chainId: number;
+  readonly nonce: string | number | bigint;
+  readonly memo?: string;
+  /** Unix milliseconds. Defaults to `now`. */
+  readonly issuedAt?: number;
+  /** Unix milliseconds. Defaults to `now + ttlSeconds`. */
+  readonly expiresAt?: number;
+  /** Lifetime in seconds, used when `expiresAt` is omitted. */
+  readonly ttlSeconds?: number;
+  /** The connected address, when there is one. Used to reject a self-send. */
+  readonly connectedAddress?: string | null;
+  /** Injectable clock, in unix milliseconds. Defaults to `Date.now()`. */
+  readonly now?: number;
+}
+
+/**
+ * Build an expiring, unsigned withdrawal intent.
+ *
+ * Performs no I/O of any kind. The returned record is frozen.
+ *
+ * @throws {IntentValidationError} on any validation failure.
+ */
+export function buildWithdrawalIntent(input: BuildWithdrawalIntentInput): WithdrawalIntentPayload {
+  const now = input.now ?? Date.now();
+  assertTimestamp(now, 'now');
+
+  const amountWei = parsePositiveAmountWei(input.amountWei);
+  const destination = assertDestination(input.destination, input.connectedAddress ?? null);
+  const chainId = assertChainId(input.chainId);
+  const nonce = assertNonce(input.nonce);
+  const memo = assertMemo(input.memo);
+
+  const issuedAt = input.issuedAt === undefined ? now : assertTimestamp(input.issuedAt, 'issuedAt');
+
+  let expiresAt: number;
+  if (input.expiresAt !== undefined) {
+    expiresAt = assertTimestamp(input.expiresAt, 'expiresAt');
+  } else {
+    const ttl = input.ttlSeconds ?? INTENT_DEFAULT_TTL_SECONDS;
+    if (typeof ttl !== 'number' || !Number.isSafeInteger(ttl) || ttl <= 0) {
+      throw new IntentValidationError('EXPIRY_NOT_IN_FUTURE', 'ttlSeconds', 'ttlSeconds must be a positive integer number of seconds');
+    }
+    if (ttl > INTENT_MAX_TTL_SECONDS) {
+      throw new IntentValidationError(
+        'EXPIRY_WINDOW_TOO_LONG',
+        'ttlSeconds',
+        `expiry window must be at most ${INTENT_MAX_TTL_SECONDS} seconds (received ${ttl})`
+      );
+    }
+    expiresAt = issuedAt + ttl * 1000;
+  }
+
+  // Two distinct failures, deliberately not conflated. An expiry that equals
+  // the issue time is structurally invalid: the intent was never given a
+  // lifetime. An expiry that precedes the issue time means the caller handed us
+  // an intent that is already dead, which is a different mistake worth naming
+  // differently, so an operator debugging a rejection does not have to guess
+  // which of the two they hit.
+  if (expiresAt < issuedAt) {
+    throw new IntentValidationError('EXPIRY_IN_PAST', 'expiresAt', 'expiresAt precedes issuedAt; an already-expired intent must never be created');
+  }
+  if (expiresAt === issuedAt) {
+    throw new IntentValidationError('EXPIRY_NOT_IN_FUTURE', 'expiresAt', 'expiresAt must be strictly after issuedAt');
+  }
+  const ttlSeconds = Math.floor((expiresAt - issuedAt) / 1000);
+  if (ttlSeconds > INTENT_MAX_TTL_SECONDS) {
+    throw new IntentValidationError(
+      'EXPIRY_WINDOW_TOO_LONG',
+      'expiresAt',
+      `expiry window must be at most ${INTENT_MAX_TTL_SECONDS} seconds (received ${ttlSeconds})`
+    );
+  }
+  if (expiresAt <= now) {
+    throw new IntentValidationError('EXPIRY_IN_PAST', 'expiresAt', 'expiresAt is not in the future; an expired intent must never be created');
+  }
+
+  return Object.freeze({ version: INTENT_VERSION, amountWei: amountWei.toString(), chainId, destination, nonce, issuedAt, expiresAt, memo });
+}
+
+// --- Canonical serialisation and display hash ------------------------------
+
+/**
+ * Deterministic JSON serialisation with lexicographically sorted object keys.
+ *
+ * Two intents with the same field values always produce byte-identical output,
+ * which is what makes the display hash below reproducible. Arrays keep their
+ * order, because order is meaningful in JSON arrays.
+ *
+ * This exists so an operator can eyeball exactly what would be signed, and so
+ * two parties can agree on a hash without either of them signing anything.
+ */
+export function canonicalize(value: unknown): string {
+  if (value === null) return 'null';
+
+  switch (typeof value) {
+    case 'boolean':
+      return value ? 'true' : 'false';
+    case 'number':
+      if (!Number.isFinite(value)) {
+        throw new IntentValidationError('CANONICAL_UNSUPPORTED_VALUE', 'value', `cannot canonicalise the non-finite number ${value}`);
+      }
+      return JSON.stringify(value);
+    case 'bigint':
+      // Carried as a quoted decimal string so a bigint and a string with the
+      // same digits serialise identically.
+      return JSON.stringify(value.toString());
+    case 'string':
+      return JSON.stringify(value);
+    case 'object':
+      break;
+    default:
+      throw new IntentValidationError('CANONICAL_UNSUPPORTED_VALUE', 'value', `cannot canonicalise a value of type ${typeof value}`);
+  }
+
+  if (Array.isArray(value)) {
+    return `[${value.map((entry) => canonicalize(entry)).join(',')}]`;
+  }
+
+  const record = value as Record<string, unknown>;
+  const keys = Object.keys(record).sort();
+  const body = keys.map((key) => `${JSON.stringify(key)}:${canonicalize(record[key])}`).join(',');
+  return `{${body}}`;
+}
+
+/** Canonical, stable serialisation of an intent. Pure. */
+export function intentCanonicalForm(intent: WithdrawalIntentPayload): string {
+  return canonicalize(intent);
+}
+
+/**
+ * keccak256 of the canonical form, for DISPLAY and COMPARISON ONLY.
+ *
+ * This is not a signature, not an authorisation, and not an on-chain hash of
+ * anything. It exists so a human can tell two intents apart and so a future
+ * signed record can commit to this exact byte string.
+ */
+export function intentDigest(intent: WithdrawalIntentPayload): Hex {
+  return keccak256(toHex(canonicalize(intent)));
+}
+
+// --- Expiry ----------------------------------------------------------------
+
+/**
+ * Re-check a whole intent. Returns `false` rather than throwing so callers can
+ * treat a stale record as ordinary data.
+ */
+export function isIntentValid(intent: WithdrawalIntentPayload, now: number = Date.now()): boolean {
+  try {
+    assertIntentValid(intent, now);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Full validity check: shape, amount, addresses, chain, nonce, memo, and the
+ * expiry window relative to `now`.
+ *
+ * @throws {IntentValidationError} with code `INTENT_EXPIRED` when the only
+ *         problem is that the window has closed.
+ */
+export function assertIntentValid(intent: WithdrawalIntentPayload, now: number = Date.now()): void {
+  if (typeof intent !== 'object' || intent === null) {
+    throw new IntentValidationError('INTENT_INVALID', 'intent', 'intent must be an object');
+  }
+  if (intent.version !== INTENT_VERSION) {
+    throw new IntentValidationError('INTENT_VERSION_UNSUPPORTED', 'version', `unsupported intent version ${String(intent.version)}`);
+  }
+  assertTimestamp(now, 'now');
+  assertChainId(intent.chainId);
+  assertNonce(intent.nonce);
+  assertMemo(intent.memo);
+  assertDestination(intent.destination, null);
+  const amount = parseAmountWei(intent.amountWei);
+  if (amount === 0n) {
+    throw new IntentValidationError('AMOUNT_ZERO', 'amountWei', 'amount must be greater than zero');
+  }
+  const issuedAt = assertTimestamp(intent.issuedAt, 'issuedAt');
+  const expiresAt = assertTimestamp(intent.expiresAt, 'expiresAt');
+  // Same distinction as the build path, for the same reason.
+  if (expiresAt < issuedAt) {
+    throw new IntentValidationError('EXPIRY_IN_PAST', 'expiresAt', 'expiresAt precedes issuedAt');
+  }
+  if (expiresAt === issuedAt) {
+    throw new IntentValidationError('EXPIRY_NOT_IN_FUTURE', 'expiresAt', 'expiresAt must be strictly after issuedAt');
+  }
+  if (Math.floor((expiresAt - issuedAt) / 1000) > INTENT_MAX_TTL_SECONDS) {
+    throw new IntentValidationError('EXPIRY_WINDOW_TOO_LONG', 'expiresAt', 'expiry window exceeds the maximum');
+  }
+  if (expiresAt <= now) {
+    throw new IntentValidationError(
+      'INTENT_EXPIRED',
+      'expiresAt',
+      `intent expired at ${new Date(expiresAt).toISOString()} (now ${new Date(now).toISOString()})`
+    );
+  }
+}
+
+/** Milliseconds until the intent expires. `0` once it has expired. */
+export function intentExpiresInMs(intent: WithdrawalIntentPayload, now: number = Date.now()): number {
+  const remaining = intent.expiresAt - now;
+  return remaining > 0 ? remaining : 0;
+}
+
+// --- Presentation ----------------------------------------------------------
+
+export const UNSIGNED_NOTICE =
+  'UNSIGNED DATA. Not a transaction, not an authorisation, not a transfer. Sign it in your own wallet, outside this application.';
+
+export interface IntentSummary {
+  readonly intent: WithdrawalIntentPayload;
+  readonly canonical: string;
+  /** Display/compare hash of the canonical form. Not a signature. */
+  readonly digest: Hex;
+  readonly valid: boolean;
+  readonly expiresInMs: number;
+  readonly note: string;
+}
+
+export function summarizeIntent(intent: WithdrawalIntentPayload, now: number = Date.now()): IntentSummary {
+  return {
+    intent,
+    canonical: intentCanonicalForm(intent),
+    digest: intentDigest(intent),
+    valid: isIntentValid(intent, now),
+    expiresInMs: intentExpiresInMs(intent, now),
+    note: UNSIGNED_NOTICE,
+  };
+}
+
+/** Multi-line, human-readable rendering of an intent. Pure; prints nothing. */
+export function formatIntent(intent: WithdrawalIntentPayload, now: number = Date.now()): string {
+  const summary = summarizeIntent(intent, now);
+  return [
+    `  version     ${intent.version}`,
+    `  chainId     ${intent.chainId}`,
+    `  destination ${intent.destination}`,
+    `  amountWei   ${intent.amountWei}`,
+    `  nonce       ${intent.nonce}`,
+    `  issuedAt    ${new Date(intent.issuedAt).toISOString()}`,
+    `  expiresAt   ${new Date(intent.expiresAt).toISOString()}`,
+    `  memo        ${intent.memo === '' ? '(none)' : intent.memo}`,
+    `  canonical   ${summary.canonical}`,
+    `  digest      ${summary.digest}`,
+    `  valid now   ${summary.valid}`,
+  ].join('\n');
+}
+
+// --- EIP-712 description of the intent (still unsigned) --------------------
+//
+// This describes *what* a human would sign, in their own wallet, if they ever
+// chose to. Describing the payload is not signing it. The code that actually
+// signs it is consent-gated and is not present in a default scaffold.
+
+export const WITHDRAWAL_INTENT_PRIMARY_TYPE = {
+  name: 'WithdrawalIntent',
+  type: 'WithdrawalIntent',
+  fields: [
+    { name: 'version', type: 'uint256' },
+    { name: 'chainId', type: 'uint256' },
+    { name: 'destination', type: 'address' },
+    { name: 'amountWei', type: 'uint256' },
+    { name: 'nonce', type: 'string' },
+    { name: 'issuedAt', type: 'uint256' },
+    { name: 'expiresAt', type: 'uint256' },
+    { name: 'memo', type: 'string' },
+  ],
+} as const;
+
+export const DEFAULT_INTENT_DOMAIN_NAME = 'WithdrawalIntent';
+
+/** EIP-712 domain for a given chain. Never includes a key or a secret. */
+export function withdrawalIntentDomain(chainId: number, name: string = DEFAULT_INTENT_DOMAIN_NAME): {
+  name: string;
+  version: string;
+  chainId: number;
+} {
+  return { name, version: String(INTENT_VERSION), chainId };
+}
+
+/**
+ * The full unsigned EIP-712 typed data for an intent. Display only: nothing here
+ * is signed, and this function performs no I/O.
+ */
+export function withdrawalIntentTypedData(intent: WithdrawalIntentPayload): {
+  domain: { name: string; version: string; chainId: number };
+  types: Record<string, readonly unknown[]>;
+  primaryType: string;
+  message: Record<string, unknown>;
+} {
+  return {
+    domain: withdrawalIntentDomain(intent.chainId),
+    types: { [WITHDRAWAL_INTENT_PRIMARY_TYPE.name]: WITHDRAWAL_INTENT_PRIMARY_TYPE.fields },
+    primaryType: WITHDRAWAL_INTENT_PRIMARY_TYPE.name,
+    message: {
+      version: intent.version,
+      chainId: intent.chainId,
+      destination: intent.destination,
+      amountWei: intent.amountWei,
+      nonce: intent.nonce,
+      issuedAt: intent.issuedAt,
+      expiresAt: intent.expiresAt,
+      memo: intent.memo,
+    },
+  };
+}

@@ -1,0 +1,92 @@
+"""Tests for the pure library helpers.
+
+Standard library only (``unittest``), so ``python -m unittest`` is the whole
+test story.
+"""
+
+from __future__ import annotations
+
+import sys
+import unittest
+from pathlib import Path
+
+# Allow `python tests/test_core.py` without installing the package first.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+
+from {{PY_MODULE}} import __version__, sha256, slugify  # noqa: E402
+
+EMPTY_SHA256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ABC_SHA256 = "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+LONG_SHA256 = "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1"
+
+PRECOMPOSED_E_ACUTE = chr(0x00E9)
+DECOMPOSED_E_ACUTE = "e" + chr(0x0301)
+
+
+class Sha256Tests(unittest.TestCase):
+    def test_empty_string_vector(self) -> None:
+        self.assertEqual(sha256(""), EMPTY_SHA256)
+
+    def test_abc_vector(self) -> None:
+        self.assertEqual(sha256("abc"), ABC_SHA256)
+
+    def test_known_vectors(self) -> None:
+        text = "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq"
+        self.assertEqual(sha256(text), LONG_SHA256)
+
+    def test_returns_lowercase_hex_of_length_64(self) -> None:
+        digest = sha256("melodiespark")
+        self.assertEqual(len(digest), 64)
+        self.assertTrue(all(char in "0123456789abcdef" for char in digest))
+
+    def test_is_byte_exact_so_normalization_forms_differ(self) -> None:
+        # UTF-8 encodes code points, so NFC and NFD forms are different bytes.
+        self.assertNotEqual(sha256(PRECOMPOSED_E_ACUTE), sha256(DECOMPOSED_E_ACUTE))
+        self.assertNotEqual(sha256(PRECOMPOSED_E_ACUTE), sha256("e"))
+
+    def test_rejects_non_string(self) -> None:
+        with self.assertRaises(TypeError):
+            sha256(b"abc")  # type: ignore[arg-type]
+
+
+class SlugifyTests(unittest.TestCase):
+    def test_lowercases_and_hyphenates(self) -> None:
+        self.assertEqual(slugify("Hello, World!"), "hello-world")
+
+    def test_collapses_runs_of_separators(self) -> None:
+        self.assertEqual(slugify("a   b"), "a-b")
+        self.assertEqual(slugify("a---b"), "a-b")
+        self.assertEqual(slugify("a/ b\\c"), "a-b-c")
+
+    def test_trims_leading_and_trailing_hyphens(self) -> None:
+        self.assertEqual(slugify("  --hello--  "), "hello")
+        self.assertEqual(slugify("!!!"), "")
+
+    def test_folds_accented_latin_to_ascii(self) -> None:
+        self.assertEqual(slugify("Crème Brûlée"), "creme-brulee")
+
+    def test_keeps_digits(self) -> None:
+        self.assertEqual(slugify("Version 2 Point 0"), "version-2-point-0")
+
+    def test_empty_result_when_nothing_usable_remains(self) -> None:
+        self.assertEqual(slugify(""), "")
+        self.assertEqual(slugify("   "), "")
+        self.assertEqual(slugify("***"), "")
+
+    def test_is_idempotent(self) -> None:
+        once = slugify("The Long Song")
+        self.assertEqual(slugify(once), once)
+
+    def test_rejects_non_string(self) -> None:
+        with self.assertRaises(TypeError):
+            slugify(None)  # type: ignore[arg-type]
+
+
+class PackageTests(unittest.TestCase):
+    def test_version_is_a_non_empty_string(self) -> None:
+        self.assertIsInstance(__version__, str)
+        self.assertTrue(__version__)
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -1,0 +1,13 @@
+version: 1
+
+products: []
+
+services: []
+
+pricing:
+  currency: CAD
+  entries: []
+
+evidence:
+  required: true
+  references: []

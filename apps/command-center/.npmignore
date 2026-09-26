@@ -1,0 +1,9 @@
+*.db
+*.db-wal
+*.db-shm
+.env
+node_modules/
+tests/
+reports/
+*.zip
+*.tgz

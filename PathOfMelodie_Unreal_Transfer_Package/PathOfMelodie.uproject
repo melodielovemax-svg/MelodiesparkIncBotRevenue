@@ -1,0 +1,13 @@
+{
+  "FileVersion": 3,
+  "EngineAssociation": "5.8",
+  "Category": "Games",
+  "Description": "Path of Melodie Unreal Engine runtime scaffold and smoke-test project.",
+  "Modules": [
+    {
+      "Name": "PathOfMelodie",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ]
+}

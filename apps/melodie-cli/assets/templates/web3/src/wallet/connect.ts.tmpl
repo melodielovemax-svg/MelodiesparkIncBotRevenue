@@ -1,0 +1,218 @@
+/**
+ * EIP-1193 wallet connection. READ-ONLY.
+ *
+ * This module asks an injected wallet to reveal PUBLIC ADDRESSES and nothing
+ * else. It will never:
+ *   - request, generate, derive, import or store a private key or seed phrase;
+ *   - call a signing method (`eth_sign*`, `personal_sign`, `eth_signTypedData_v4`, ...);
+ *   - call a write method (`eth_sendTransaction`, `eth_sendRawTransaction`, ...);
+ *   - persist anything to disk.
+ *
+ * The only RPC methods used are:
+ *   - `eth_requestAccounts` - ask the user to connect their wallet;
+ *   - `eth_accounts`        - read already-granted accounts;
+ *   - `eth_chainId`         - read the current chain.
+ *
+ * Connecting reveals an address. It confers no authority over funds and it is
+ * not an authorisation to spend.
+ */
+
+import { getAddress, isAddress } from 'viem';
+import { DEFAULT_CHAIN } from '../config.ts';
+import type { ChainConfig } from '../config.ts';
+
+/**
+ * A listener that has not been called yet is typed with `never` so that any
+ * concrete handler (for example `(accounts: string[]) => void`) is assignable
+ * without weakening this file to `any`.
+ */
+export type Eip1193Listener = (...args: never[]) => void;
+
+export interface Eip1193RequestArgs {
+  readonly method: string;
+  readonly params?: readonly unknown[] | object;
+}
+
+export interface Eip1193Provider {
+  request(args: Eip1193RequestArgs): Promise<unknown>;
+  on?(event: string, listener: Eip1193Listener): void;
+  removeListener?(event: string, listener: Eip1193Listener): void;
+}
+
+export type HexAddress = `0x${string}`;
+
+/** Thrown when there is no injected wallet to talk to. Not a fatal condition. */
+export class NoInjectedWalletError extends Error {
+  constructor(message = 'No EIP-1193 provider found. Install a browser wallet extension, or run inside one.') {
+    super(message);
+    this.name = 'NoInjectedWalletError';
+  }
+}
+
+/** Thrown when the wallet rejected, or answered with something unusable. */
+export class WalletProtocolError extends Error {
+  readonly method: string;
+  constructor(method: string, message: string) {
+    super(`${method}: ${message}`);
+    this.name = 'WalletProtocolError';
+    this.method = method;
+  }
+}
+
+export interface ConnectOptions {
+  /** Provide a provider explicitly. Otherwise `globalThis.ethereum` is used. */
+  readonly provider?: Eip1193Provider;
+  /** Object to look for `ethereum` on. Defaults to `globalThis`. */
+  readonly scope?: unknown;
+  /** Ask the wallet to connect, or only read already-granted accounts. */
+  readonly request?: boolean;
+}
+
+/**
+ * Find the injected provider. Returns `null` when running outside a browser
+ * wallet, which is a normal, expected state for a CLI or a test run.
+ */
+export function detectInjectedProvider(scope: unknown = globalThis): Eip1193Provider | null {
+  const holder = scope as { ethereum?: unknown } | null | undefined;
+  const candidate = holder?.ethereum;
+  if (typeof candidate !== 'object' || candidate === null) return null;
+  const provider = candidate as Eip1193Provider;
+  return typeof provider.request === 'function' ? provider : null;
+}
+
+/**
+ * Turn an `eth_chainId` response into a number.
+ *
+ * @throws {WalletProtocolError} when the value is not a chain id.
+ */
+export function parseChainId(value: unknown, method = 'eth_chainId'): number {
+  if (typeof value === 'number' && Number.isSafeInteger(value) && value > 0) return value;
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    const parsed = /^0x[0-9a-fA-F]+$/.test(trimmed) ? Number.parseInt(trimmed, 16) : Number(trimmed);
+    if (Number.isSafeInteger(parsed) && parsed > 0) return parsed;
+  }
+  throw new WalletProtocolError(method, `expected a chain id, received ${JSON.stringify(value)}`);
+}
+
+/**
+ * Normalise and checksum an address reported by the wallet.
+ *
+ * @throws {WalletProtocolError} when the wallet returned a malformed address.
+ */
+export function parseAddress(value: unknown, method = 'eth_accounts'): HexAddress {
+  if (typeof value !== 'string' || !isAddress(value.trim())) {
+    throw new WalletProtocolError(method, `expected an address, received ${JSON.stringify(value)}`);
+  }
+  return getAddress(value.trim());
+}
+
+export type AccountsChangedHandler = (accounts: readonly HexAddress[]) => void;
+export type ChainChangedHandler = (chainId: number) => void;
+
+export interface WalletSession {
+  readonly address: HexAddress;
+  readonly chainId: number;
+  readonly provider: Eip1193Provider;
+  readonly connectedAt: number;
+  /** Stop listening to wallet events. Safe to call more than once. */
+  disconnect(): void;
+  onAccountsChanged(handler: AccountsChangedHandler): void;
+  onChainChanged(handler: ChainChangedHandler): void;
+}
+
+async function requestAccounts(provider: Eip1193Provider, method: string): Promise<unknown> {
+  try {
+    return await provider.request({ method });
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    throw new WalletProtocolError(method, `the wallet rejected the request (${reason})`);
+  }
+}
+
+function firstAddress(value: unknown, method: string): HexAddress {
+  const list = Array.isArray(value) ? value : [value];
+  for (const entry of list) {
+    if (typeof entry === 'string' && isAddress(entry.trim())) return getAddress(entry.trim());
+  }
+  throw new WalletProtocolError(method, 'the wallet reported no usable account');
+}
+
+/** Normalise an `accountsChanged` payload into checksummed addresses. */
+function toAddressList(value: unknown): HexAddress[] {
+  const list: unknown[] = Array.isArray(value) ? value : [];
+  return list
+    .filter((entry): entry is string => typeof entry === 'string' && isAddress(entry.trim()))
+    .map((entry) => getAddress(entry.trim()));
+}
+
+/**
+ * Connect to an injected wallet and return a read-only session.
+ *
+ * @throws {NoInjectedWalletError} when no provider is available.
+ * @throws {WalletProtocolError}   when the wallet refuses or misbehaves.
+ */
+export async function connectWallet(options: ConnectOptions = {}): Promise<WalletSession> {
+  const provider = options.provider ?? detectInjectedProvider(options.scope);
+  if (!provider) throw new NoInjectedWalletError();
+
+  const method = options.request === false ? 'eth_accounts' : 'eth_requestAccounts';
+  const accounts = await requestAccounts(provider, method);
+  const address = firstAddress(accounts, method);
+  const chainId = parseChainId(await requestAccounts(provider, 'eth_chainId'));
+
+  let closed = false;
+  const subscriptions: Array<() => void> = [];
+
+  const subscribe = (event: string, listener: Eip1193Listener): void => {
+    if (typeof provider.on !== 'function') return;
+    provider.on(event, listener);
+    subscriptions.push(() => {
+      if (typeof provider.removeListener === 'function') provider.removeListener(event, listener);
+    });
+  };
+
+  const session: WalletSession = {
+    address,
+    chainId,
+    provider,
+    connectedAt: Date.now(),
+    disconnect(): void {
+      if (closed) return;
+      closed = true;
+      for (const unsubscribe of subscriptions.splice(0)) unsubscribe();
+    },
+    onAccountsChanged(handler: AccountsChangedHandler): void {
+      subscribe('accountsChanged', (...args: never[]) => {
+        handler(toAddressList(args[0]));
+      });
+    },
+    onChainChanged(handler: ChainChangedHandler): void {
+      subscribe('chainChanged', (...args: never[]) => {
+        try {
+          handler(parseChainId(args[0], 'chainChanged'));
+        } catch {
+          // A malformed chain notification must not crash the host application.
+        }
+      });
+    },
+  };
+
+  return session;
+}
+
+/** Human-readable, non-committal description of a session. */
+export function describeSession(session: WalletSession, chain: ChainConfig = DEFAULT_CHAIN): string {
+  const known = chain.id === session.chainId ? `${chain.name} (testnet)` : 'unrecognised chain - not configured here';
+  return `${session.address} on chainId ${session.chainId} [${known}] (read-only)`;
+}
+
+/**
+ * Compare two addresses regardless of checksum casing.
+ * Returns `false` when either value is not a valid address.
+ */
+export function isSameAddress(a: string | null | undefined, b: string | null | undefined): boolean {
+  if (typeof a !== 'string' || typeof b !== 'string') return false;
+  if (!isAddress(a.trim()) || !isAddress(b.trim())) return false;
+  return getAddress(a.trim()) === getAddress(b.trim());
+}

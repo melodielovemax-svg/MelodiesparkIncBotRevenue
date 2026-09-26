@@ -1,0 +1,13 @@
+CONTAINER ID   IMAGE                    COMMAND                  CREATED          STATUS                           PORTS                                         NAMES
+f0bddc9a9fe2   docker-api-server        "docker-entrypoint.sÔÇª"   7 minutes ago    Exited (1) 7 minutes ago                                                       docker-api-server-1
+6b6338205d6a   nginx:alpine             "/docker-entrypoint.ÔÇª"   16 minutes ago   Up 15 minutes                    0.0.0.0:80->80/tcp, [::]:80->80/tcp           docker-nginx-1
+8e97528b20d3   postgres:17              "docker-entrypoint.sÔÇª"   16 minutes ago   Up 16 minutes (healthy)          5432/tcp                                      docker-postgres-1
+3e7df123d5e1   redis:7                  "docker-entrypoint.sÔÇª"   16 minutes ago   Up 16 minutes (healthy)          6379/tcp                                      docker-redis-1
+5cf10750f613   nginx:alpine             "/docker-entrypoint.ÔÇª"   38 minutes ago   Created                                                                        melodiespark-nginx
+8e00c2c5d81e   node:20-alpine           "docker-entrypoint.sÔÇª"   38 minutes ago   Created                                                                        melodiespark-api
+5a23dc17065e   grafana/grafana:latest   "/run.sh"                38 minutes ago   Up 38 minutes                    0.0.0.0:3002->3000/tcp, [::]:3002->3000/tcp   melodiespark-grafana
+ac294a964367   postgres:16-alpine       "docker-entrypoint.sÔÇª"   38 minutes ago   Up 38 minutes (healthy)          0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp   melodiespark-db
+8749b9ad7b8a   redis:7-alpine           "docker-entrypoint.sÔÇª"   38 minutes ago   Up 38 minutes (healthy)          0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp   melodiespark-cache
+dcff908a5aaf   prom/prometheus:latest   "/bin/prometheus --cÔÇª"   38 minutes ago   Up 38 minutes                    0.0.0.0:9090->9090/tcp, [::]:9090->9090/tcp   melodiespark-prometheus
+e6b016bd68ed   melodiespark-frontend    "docker-entrypoint.sÔÇª"   38 hours ago     Exited (1) 38 hours ago                                                        melodiespark-ui
+24d00aa28a57   melodiespark-worker      "docker-entrypoint.sÔÇª"   38 hours ago     Exited (255) About an hour ago                                                 melodiespark-worker

@@ -1,0 +1,9 @@
+{
+  "project": "Path of Melodie \u2014 Maakaras Protocols",
+  "engine_target": "Unreal Engine 5.x",
+  "artwork_target": 30000,
+  "artwork_manifest_rows": 30000,
+  "status": "TRANSFER_SPECIFICATION",
+  "unreal_runtime_verified": false,
+  "note": "Existing evidence supports a Godot prototype/scaffold; Unreal implementation requires actual project/build/runtime verification."
+}

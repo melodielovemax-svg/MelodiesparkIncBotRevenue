@@ -1,0 +1,21 @@
+# Unreal Engine
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+.vs/
+.vscode/
+*.VC.db
+*.opensdf
+*.sdf
+*.suo
+*.xcodeproj
+*.xcworkspace
+*.sln
+*.user
+*.xcuserstate
+
+# Credentials and local config: never commit these
+Config/Default*.ini.local
+*.env
+.env

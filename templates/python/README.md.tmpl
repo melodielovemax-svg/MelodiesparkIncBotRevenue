@@ -1,0 +1,116 @@
+# {{PACKAGE_NAME}}
+
+{{DESCRIPTION}}
+
+A zero-dependency Python CLI plus library, scaffolded from the `{{TEMPLATE}}` template
+(version `{{TEMPLATE_VERSION}}`, kind `{{TEMPLATE_KIND}}`) by `@melodiespark/cli` on {{GENERATED_AT}}.
+
+Status: **SCAFFOLD**
+
+The presence of this project is not evidence that it is built, tested, secure, reviewed or
+operational. The code has not been compiled, executed, audited or deployed as part of
+generation. Every command shown below is an instruction, not a report of something that
+happened. Run the commands yourself, read the code, and treat it as unreviewed input.
+
+## Requirements
+
+- Python **>= 3.10**.
+- Only the standard library at runtime. `dependencies` is empty and stays empty unless you
+  change it deliberately.
+- `build` and `twine` for packaging (`dev` extra).
+
+## Install
+
+Editable install, the normal development loop:
+
+```sh
+python -m pip install -e .              # runtime only
+python -m pip install -e ".[dev]"      # plus build + twine
+```
+
+Isolated, as a user would get it:
+
+```sh
+pipx install .
+```
+
+From a built artifact:
+
+```sh
+python -m build          # sdist + wheel in dist/
+python -m pip install dist/<name>-<version>-py3-none-any.whl
+```
+
+## Usage
+
+Two console scripts are installed, both pointing at the same entry point: `{{CLI_BIN}}`
+(hyphenated, for humans) and `{{PY_MODULE}}` (underscored, for scripts). Either works.
+
+```sh
+{{CLI_BIN}} --help
+{{CLI_BIN}} --version
+{{CLI_BIN}} hash "hello"       # -> sha256 hex digest
+{{CLI_BIN}} slug "Hello World" # -> hello-world
+{{CLI_BIN}} selftest           # built-in checks, exits 0 when they pass
+```
+
+Without installing anything, from the project root:
+
+```sh
+PYTHONPATH=src python -m {{PY_MODULE}} hash "hello"
+```
+
+### Library
+
+```python
+from {{PY_MODULE}} import __version__, sha256, slugify
+
+sha256("abc")            # 'ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad'
+slugify("The Long Song") # 'the-long-song'
+```
+
+The import name is the underscored module (`{{PY_MODULE}}`); the distribution name is the
+hyphenated one. Both are declared in `pyproject.toml`.
+
+## Tests
+
+```sh
+python -m unittest discover -s tests -v
+```
+
+`tests/test_core.py` also runs on its own (`python tests/test_core.py`): it puts `src/` on
+`sys.path` so the suite works before the package is installed.
+
+## Layout
+
+```
+pyproject.toml          PEP 621 metadata, setuptools, src/ layout
+MANIFEST.in             sdist contents
+src/{{PY_MODULE}}/
+  __init__.py           public API: __version__, sha256, slugify
+  __main__.py           python -m {{PY_MODULE}}
+  cli.py                argparse front end
+  core.py               the pure functions
+tests/test_core.py      unittest suite
+```
+
+`core.py` has no I/O and no third-party imports, so it is the safe place to add real logic.
+
+## Publishing notes
+
+- `python -m build` requires setuptools >= 77 for the PEP 639 `license` string. Build
+  isolation handles this; `--no-isolation` builds need it installed locally.
+- `[project.urls]` is **not** set. This scaffold cannot know the real repository or
+  homepage and will not invent URLs. Add them before publishing.
+- `dist/` and `*.egg-info/` are build output. Rebuild before publishing, or you will ship
+  a stale wheel.
+
+## Security
+
+- No network access, no subprocesses, no environment variables are read.
+- No wallet, key, token or transaction handling of any kind.
+- Keep it that way unless you have a reason and a reviewer.
+
+## License
+
+{{LICENSE}} — see [LICENSE](./LICENSE). Copyright (c) {{YEAR}} {{AUTHOR}}.

@@ -1,0 +1,792 @@
+[
+  {
+    "rank": 1,
+    "currency_name": "MAAKARA Prime Crown of Genesis",
+    "tier": "T0-ABSOLUTE",
+    "source_5000_rank": 1,
+    "rarity_vs_mirror": 6.0,
+    "mirror_equivalent": "NO",
+    "value_index": 8283588,
+    "crafting_domain": "Apex currency: perfects one eligible endgame item through a deterministic MAAKARA transformation while preserving item identity; intended to be the rarest tradeable drop."
+  },
+  {
+    "rank": 2,
+    "currency_name": "Omega Crown of MAAKARA",
+    "tier": "T0-TRANSCENDENT",
+    "source_5000_rank": 2,
+    "rarity_vs_mirror": 5.46004122,
+    "mirror_equivalent": "NO",
+    "value_index": 7411245,
+    "crafting_domain": "Adds one high-tier modifier with a chance to awaken a hidden Protocol slot."
+  },
+  {
+    "rank": 3,
+    "currency_name": "Fractal Crown of MAAKARA",
+    "tier": "T0-TRANSCENDENT",
+    "source_5000_rank": 3,
+    "rarity_vs_mirror": 4.96867502,
+    "mirror_equivalent": "NO",
+    "value_index": 6630769,
+    "crafting_domain": "Rerolls one modifier group without changing item rarity."
+  },
+  {
+    "rank": 4,
+    "currency_name": "Karma Crown of MAAKARA",
+    "tier": "T0-TRANSCENDENT",
+    "source_5000_rank": 4,
+    "rarity_vs_mirror": 4.5215284,
+    "mirror_equivalent": "NO",
+    "value_index": 5932484,
+    "crafting_domain": "Corrupts an item for extreme upside with irreversible risk."
+  },
+  {
+    "rank": 5,
+    "currency_name": "Sovereign Crown of MAAKARA",
+    "tier": "T0-TRANSCENDENT",
+    "source_5000_rank": 5,
+    "rarity_vs_mirror": 4.11462191,
+    "mirror_equivalent": "NO",
+    "value_index": 5307736,
+    "crafting_domain": "Duplicates one eligible modifier at reduced initial effectiveness."
+  },
+  {
+    "rank": 6,
+    "currency_name": "Void Crown of MAAKARA",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 6,
+    "rarity_vs_mirror": 3.74433421,
+    "mirror_equivalent": "NO",
+    "value_index": 4748780,
+    "crafting_domain": "Elevates one modifier tier if the item meets Karma-alignment requirements."
+  },
+  {
+    "rank": 7,
+    "currency_name": "Astral Crown of MAAKARA",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 7,
+    "rarity_vs_mirror": 3.40736985,
+    "mirror_equivalent": "NO",
+    "value_index": 4248687,
+    "crafting_domain": "Converts one elemental modifier into another compatible element."
+  },
+  {
+    "rank": 8,
+    "currency_name": "Eternal Crown of MAAKARA",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 8,
+    "rarity_vs_mirror": 3.10072997,
+    "mirror_equivalent": "NO",
+    "value_index": 3801259,
+    "crafting_domain": "Rebalances prefixes and suffixes while preserving one locked property."
+  },
+  {
+    "rank": 9,
+    "currency_name": "Prime Crown of MAAKARA",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 9,
+    "rarity_vs_mirror": 2.82168558,
+    "mirror_equivalent": "NO",
+    "value_index": 3400949,
+    "crafting_domain": "Adds Genesis Potential to an eligible item."
+  },
+  {
+    "rank": 10,
+    "currency_name": "Celestial Crown of MAAKARA",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 10,
+    "rarity_vs_mirror": 2.56775326,
+    "mirror_equivalent": "NO",
+    "value_index": 3042796,
+    "crafting_domain": "Reveals one hidden crafting outcome before committing the craft."
+  },
+  {
+    "rank": 11,
+    "currency_name": "Protocol Crown of MAAKARA",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 11,
+    "rarity_vs_mirror": 2.33667311,
+    "mirror_equivalent": "NO",
+    "value_index": 2722360,
+    "crafting_domain": "Opens a deterministic high-tier Protocol Realm."
+  },
+  {
+    "rank": 12,
+    "currency_name": "Oracle Crown of MAAKARA",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 12,
+    "rarity_vs_mirror": 2.12638858,
+    "mirror_equivalent": "NO",
+    "value_index": 2435669,
+    "crafting_domain": "Adds one Fractal evolution opportunity to an eligible item."
+  },
+  {
+    "rank": 13,
+    "currency_name": "Niti Crown of MAAKARA",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 13,
+    "rarity_vs_mirror": 1.93502822,
+    "mirror_equivalent": "NO",
+    "value_index": 2179170,
+    "crafting_domain": "Links one compatible Modifier Protocol to a Protocol Gem."
+  },
+  {
+    "rank": 14,
+    "currency_name": "Prakriti Crown of MAAKARA",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 14,
+    "rarity_vs_mirror": 1.76088897,
+    "mirror_equivalent": "NO",
+    "value_index": 1949682,
+    "crafting_domain": "Changes one Karma-aligned property to another Pillar."
+  },
+  {
+    "rank": 15,
+    "currency_name": "Karuna Crown of MAAKARA",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 15,
+    "rarity_vs_mirror": 1.60242106,
+    "mirror_equivalent": "NO",
+    "value_index": 1744361,
+    "crafting_domain": "Reforges Protocol sockets while preserving socket count."
+  },
+  {
+    "rank": 16,
+    "currency_name": "Vidya Crown of MAAKARA",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 16,
+    "rarity_vs_mirror": 1.45821418,
+    "mirror_equivalent": "NO",
+    "value_index": 1560663,
+    "crafting_domain": "Upgrades a crafting artifact into its next rarity band."
+  },
+  {
+    "rank": 17,
+    "currency_name": "Srujana Crown of MAAKARA",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 17,
+    "rarity_vs_mirror": 1.32698492,
+    "mirror_equivalent": "NO",
+    "value_index": 1396310,
+    "crafting_domain": "Stabilizes one corrupted modifier against further mutation."
+  },
+  {
+    "rank": 18,
+    "currency_name": "Daana Crown of MAAKARA",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 18,
+    "rarity_vs_mirror": 1.20756539,
+    "mirror_equivalent": "NO",
+    "value_index": 1249265,
+    "crafting_domain": "Splits one modifier into two weaker related modifiers."
+  },
+  {
+    "rank": 19,
+    "currency_name": "Pragati Crown of MAAKARA",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 19,
+    "rarity_vs_mirror": 1.0988928,
+    "mirror_equivalent": "NO",
+    "value_index": 1117705,
+    "crafting_domain": "Combines two compatible crafting artifacts into a higher-order artifact."
+  },
+  {
+    "rank": 20,
+    "currency_name": "Genesis Mirror of the Infinite Protocol",
+    "tier": "T0-MIRROR",
+    "source_5000_rank": 20,
+    "rarity_vs_mirror": 1.0,
+    "mirror_equivalent": "YES",
+    "value_index": 1000000,
+    "crafting_domain": "Benchmark apex currency with target drop rarity equal to the Mirror-of-Kalandra reference point."
+  },
+  {
+    "rank": 21,
+    "currency_name": "Samadhana Crown of MAAKARA",
+    "tier": "T1-SOVEREIGN",
+    "source_5000_rank": 21,
+    "rarity_vs_mirror": 0.98001131,
+    "mirror_equivalent": "NO",
+    "value_index": 976456,
+    "crafting_domain": "Reforges an item while preserving its highest-tier modifier."
+  },
+  {
+    "rank": 22,
+    "currency_name": "Svasthya Crown of MAAKARA",
+    "tier": "T1-SOVEREIGN",
+    "source_5000_rank": 23,
+    "rarity_vs_mirror": 0.91753154,
+    "mirror_equivalent": "NO",
+    "value_index": 903426,
+    "crafting_domain": "Rerolls one modifier group without changing item rarity."
+  },
+  {
+    "rank": 23,
+    "currency_name": "Obsidian Crown of MAAKARA",
+    "tier": "T1-SOVEREIGN",
+    "source_5000_rank": 25,
+    "rarity_vs_mirror": 0.84808458,
+    "mirror_equivalent": "NO",
+    "value_index": 823300,
+    "crafting_domain": "Duplicates one eligible modifier at reduced initial effectiveness."
+  },
+  {
+    "rank": 24,
+    "currency_name": "Chrono Crown of MAAKARA",
+    "tier": "T1-SOVEREIGN",
+    "source_5000_rank": 28,
+    "rarity_vs_mirror": 0.74746763,
+    "mirror_equivalent": "NO",
+    "value_index": 709315,
+    "crafting_domain": "Rebalances prefixes and suffixes while preserving one locked property."
+  },
+  {
+    "rank": 25,
+    "currency_name": "Mythic Crown of MAAKARA",
+    "tier": "T1-SOVEREIGN",
+    "source_5000_rank": 31,
+    "rarity_vs_mirror": 0.65819009,
+    "mirror_equivalent": "NO",
+    "value_index": 610456,
+    "crafting_domain": "Opens a deterministic high-tier Protocol Realm."
+  },
+  {
+    "rank": 26,
+    "currency_name": "Spectral Crown of MAAKARA",
+    "tier": "T1-SOVEREIGN",
+    "source_5000_rank": 34,
+    "rarity_vs_mirror": 0.58167914,
+    "mirror_equivalent": "NO",
+    "value_index": 527626,
+    "crafting_domain": "Changes one Karma-aligned property to another Pillar."
+  },
+  {
+    "rank": 27,
+    "currency_name": "Lunar Crown of MAAKARA",
+    "tier": "T1-SOVEREIGN",
+    "source_5000_rank": 37,
+    "rarity_vs_mirror": 0.51688349,
+    "mirror_equivalent": "NO",
+    "value_index": 458990,
+    "crafting_domain": "Stabilizes one corrupted modifier against further mutation."
+  },
+  {
+    "rank": 28,
+    "currency_name": "Genesis Mirror of MAAKARA",
+    "tier": "T1-SOVEREIGN",
+    "source_5000_rank": 41,
+    "rarity_vs_mirror": 0.44578705,
+    "mirror_equivalent": "NO",
+    "value_index": 385452,
+    "crafting_domain": "Reforges an item while preserving its highest-tier modifier."
+  },
+  {
+    "rank": 29,
+    "currency_name": "Sovereign Mirror of MAAKARA",
+    "tier": "T1-SOVEREIGN",
+    "source_5000_rank": 45,
+    "rarity_vs_mirror": 0.3886276,
+    "mirror_equivalent": "NO",
+    "value_index": 327831,
+    "crafting_domain": "Duplicates one eligible modifier at reduced initial effectiveness."
+  },
+  {
+    "rank": 30,
+    "currency_name": "Prime Mirror of MAAKARA",
+    "tier": "T2-GENESIS",
+    "source_5000_rank": 49,
+    "rarity_vs_mirror": 0.34221212,
+    "mirror_equivalent": "NO",
+    "value_index": 282143,
+    "crafting_domain": "Adds Genesis Potential to an eligible item."
+  },
+  {
+    "rank": 31,
+    "currency_name": "Prakriti Mirror of MAAKARA",
+    "tier": "T2-GENESIS",
+    "source_5000_rank": 54,
+    "rarity_vs_mirror": 0.29563126,
+    "mirror_equivalent": "NO",
+    "value_index": 237403,
+    "crafting_domain": "Changes one Karma-aligned property to another Pillar."
+  },
+  {
+    "rank": 32,
+    "currency_name": "Pragati Mirror of MAAKARA",
+    "tier": "T2-GENESIS",
+    "source_5000_rank": 59,
+    "rarity_vs_mirror": 0.25857071,
+    "mirror_equivalent": "NO",
+    "value_index": 202695,
+    "crafting_domain": "Combines two compatible crafting artifacts into a higher-order artifact."
+  },
+  {
+    "rank": 33,
+    "currency_name": "Obsidian Mirror of MAAKARA",
+    "tier": "T2-GENESIS",
+    "source_5000_rank": 65,
+    "rarity_vs_mirror": 0.22328982,
+    "mirror_equivalent": "NO",
+    "value_index": 170477,
+    "crafting_domain": "Duplicates one eligible modifier at reduced initial effectiveness."
+  },
+  {
+    "rank": 34,
+    "currency_name": "Arcane Mirror of MAAKARA",
+    "tier": "T2-GENESIS",
+    "source_5000_rank": 72,
+    "rarity_vs_mirror": 0.19126964,
+    "mirror_equivalent": "NO",
+    "value_index": 142018,
+    "crafting_domain": "Adds one Fractal evolution opportunity to an eligible item."
+  },
+  {
+    "rank": 35,
+    "currency_name": "Storm Mirror of MAAKARA",
+    "tier": "T2-GENESIS",
+    "source_5000_rank": 79,
+    "rarity_vs_mirror": 0.1662726,
+    "mirror_equivalent": "NO",
+    "value_index": 120384,
+    "crafting_domain": "Combines two compatible crafting artifacts into a higher-order artifact."
+  },
+  {
+    "rank": 36,
+    "currency_name": "Void Prism of MAAKARA",
+    "tier": "T2-GENESIS",
+    "source_5000_rank": 86,
+    "rarity_vs_mirror": 0.14633551,
+    "mirror_equivalent": "NO",
+    "value_index": 103541,
+    "crafting_domain": "Elevates one modifier tier if the item meets Karma-alignment requirements."
+  },
+  {
+    "rank": 37,
+    "currency_name": "Karuna Prism of MAAKARA",
+    "tier": "T2-GENESIS",
+    "source_5000_rank": 95,
+    "rarity_vs_mirror": 0.12606467,
+    "mirror_equivalent": "NO",
+    "value_index": 86836,
+    "crafting_domain": "Reforges Protocol sockets while preserving socket count."
+  },
+  {
+    "rank": 38,
+    "currency_name": "Sambandha Prism of MAAKARA",
+    "tier": "T2-GENESIS",
+    "source_5000_rank": 104,
+    "rarity_vs_mirror": 0.11015047,
+    "mirror_equivalent": "NO",
+    "value_index": 74053,
+    "crafting_domain": "Corrupts an item for extreme upside with irreversible risk."
+  },
+  {
+    "rank": 39,
+    "currency_name": "Quantum Prism of MAAKARA",
+    "tier": "T2-GENESIS",
+    "source_5000_rank": 115,
+    "rarity_vs_mirror": 0.09489017,
+    "mirror_equivalent": "NO",
+    "value_index": 62104,
+    "crafting_domain": "Reforges Protocol sockets while preserving socket count."
+  },
+  {
+    "rank": 40,
+    "currency_name": "Void Catalyst of MAAKARA",
+    "tier": "T3-MYTHIC",
+    "source_5000_rank": 126,
+    "rarity_vs_mirror": 0.08292557,
+    "mirror_equivalent": "NO",
+    "value_index": 52973,
+    "crafting_domain": "Elevates one modifier tier if the item meets Karma-alignment requirements."
+  },
+  {
+    "rank": 41,
+    "currency_name": "Pragati Catalyst of MAAKARA",
+    "tier": "T3-MYTHIC",
+    "source_5000_rank": 139,
+    "rarity_vs_mirror": 0.07179625,
+    "mirror_equivalent": "NO",
+    "value_index": 44689,
+    "crafting_domain": "Combines two compatible crafting artifacts into a higher-order artifact."
+  },
+  {
+    "rank": 42,
+    "currency_name": "Arcane Catalyst of MAAKARA",
+    "tier": "T3-MYTHIC",
+    "source_5000_rank": 152,
+    "rarity_vs_mirror": 0.06300966,
+    "mirror_equivalent": "NO",
+    "value_index": 38309,
+    "crafting_domain": "Adds one Fractal evolution opportunity to an eligible item."
+  },
+  {
+    "rank": 43,
+    "currency_name": "Astral Seal of MAAKARA",
+    "tier": "T3-MYTHIC",
+    "source_5000_rank": 167,
+    "rarity_vs_mirror": 0.05495664,
+    "mirror_equivalent": "NO",
+    "value_index": 32600,
+    "crafting_domain": "Converts one elemental modifier into another compatible element."
+  },
+  {
+    "rank": 44,
+    "currency_name": "Sambandha Seal of MAAKARA",
+    "tier": "T3-MYTHIC",
+    "source_5000_rank": 184,
+    "rarity_vs_mirror": 0.0477694,
+    "mirror_equivalent": "NO",
+    "value_index": 27631,
+    "crafting_domain": "Corrupts an item for extreme upside with irreversible risk."
+  },
+  {
+    "rank": 45,
+    "currency_name": "Omega Shard of MAAKARA",
+    "tier": "T3-MYTHIC",
+    "source_5000_rank": 202,
+    "rarity_vs_mirror": 0.04176592,
+    "mirror_equivalent": "NO",
+    "value_index": 23581,
+    "crafting_domain": "Adds one high-tier modifier with a chance to awaken a hidden Protocol slot."
+  },
+  {
+    "rank": 46,
+    "currency_name": "Prerana Shard of MAAKARA",
+    "tier": "T3-MYTHIC",
+    "source_5000_rank": 222,
+    "rarity_vs_mirror": 0.0364823,
+    "mirror_equivalent": "NO",
+    "value_index": 20103,
+    "crafting_domain": "Adds one high-tier modifier with a chance to awaken a hidden Protocol slot."
+  },
+  {
+    "rank": 47,
+    "currency_name": "Karma Orb of MAAKARA",
+    "tier": "T3-MYTHIC",
+    "source_5000_rank": 244,
+    "rarity_vs_mirror": 0.03188163,
+    "mirror_equivalent": "NO",
+    "value_index": 17147,
+    "crafting_domain": "Corrupts an item for extreme upside with irreversible risk."
+  },
+  {
+    "rank": 48,
+    "currency_name": "Chrono Orb of MAAKARA",
+    "tier": "T3-MYTHIC",
+    "source_5000_rank": 268,
+    "rarity_vs_mirror": 0.02790273,
+    "mirror_equivalent": "NO",
+    "value_index": 14651,
+    "crafting_domain": "Rebalances prefixes and suffixes while preserving one locked property."
+  },
+  {
+    "rank": 49,
+    "currency_name": "Karuna Ember of MAAKARA",
+    "tier": "T3-MYTHIC",
+    "source_5000_rank": 295,
+    "rarity_vs_mirror": 0.02435781,
+    "mirror_equivalent": "NO",
+    "value_index": 12481,
+    "crafting_domain": "Reforges Protocol sockets while preserving socket count."
+  },
+  {
+    "rank": 50,
+    "currency_name": "Karma Sigil of MAAKARA",
+    "tier": "T4-RELIC",
+    "source_5000_rank": 324,
+    "rarity_vs_mirror": 0.02134024,
+    "mirror_equivalent": "NO",
+    "value_index": 10677,
+    "crafting_domain": "Corrupts an item for extreme upside with irreversible risk."
+  },
+  {
+    "rank": 51,
+    "currency_name": "Solar Sigil of MAAKARA",
+    "tier": "T4-RELIC",
+    "source_5000_rank": 356,
+    "rarity_vs_mirror": 0.01869362,
+    "mirror_equivalent": "NO",
+    "value_index": 9133,
+    "crafting_domain": "Upgrades a crafting artifact into its next rarity band."
+  },
+  {
+    "rank": 52,
+    "currency_name": "Mythic Relic of MAAKARA",
+    "tier": "T4-RELIC",
+    "source_5000_rank": 391,
+    "rarity_vs_mirror": 0.01639134,
+    "mirror_equivalent": "NO",
+    "value_index": 7821,
+    "crafting_domain": "Opens a deterministic high-tier Protocol Realm."
+  },
+  {
+    "rank": 53,
+    "currency_name": "Singularity Core of MAAKARA",
+    "tier": "T4-RELIC",
+    "source_5000_rank": 430,
+    "rarity_vs_mirror": 0.01435194,
+    "mirror_equivalent": "NO",
+    "value_index": 6686,
+    "crafting_domain": "Reveals one hidden crafting outcome before committing the craft."
+  },
+  {
+    "rank": 54,
+    "currency_name": "Runic Fragment of MAAKARA",
+    "tier": "T4-RELIC",
+    "source_5000_rank": 473,
+    "rarity_vs_mirror": 0.01256672,
+    "mirror_equivalent": "NO",
+    "value_index": 5716,
+    "crafting_domain": "Links one compatible Modifier Protocol to a Protocol Gem."
+  },
+  {
+    "rank": 55,
+    "currency_name": "Storm Glyph of MAAKARA",
+    "tier": "T4-RELIC",
+    "source_5000_rank": 519,
+    "rarity_vs_mirror": 0.01104555,
+    "mirror_equivalent": "NO",
+    "value_index": 4909,
+    "crafting_domain": "Combines two compatible crafting artifacts into a higher-order artifact."
+  },
+  {
+    "rank": 56,
+    "currency_name": "Protocol Heart of MAAKARA",
+    "tier": "T4-RELIC",
+    "source_5000_rank": 571,
+    "rarity_vs_mirror": 0.00967542,
+    "mirror_equivalent": "NO",
+    "value_index": 4198,
+    "crafting_domain": "Opens a deterministic high-tier Protocol Realm."
+  },
+  {
+    "rank": 57,
+    "currency_name": "Abyssal Spindle of MAAKARA",
+    "tier": "T4-RELIC",
+    "source_5000_rank": 627,
+    "rarity_vs_mirror": 0.00850031,
+    "mirror_equivalent": "NO",
+    "value_index": 3604,
+    "crafting_domain": "Converts one elemental modifier into another compatible element."
+  },
+  {
+    "rank": 58,
+    "currency_name": "Prime Rune of MAAKARA",
+    "tier": "T4-RELIC",
+    "source_5000_rank": 689,
+    "rarity_vs_mirror": 0.00746223,
+    "mirror_equivalent": "NO",
+    "value_index": 3090,
+    "crafting_domain": "Adds Genesis Potential to an eligible item."
+  },
+  {
+    "rank": 59,
+    "currency_name": "Blood Spark of MAAKARA",
+    "tier": "T4-RELIC",
+    "source_5000_rank": 758,
+    "rarity_vs_mirror": 0.00654215,
+    "mirror_equivalent": "NO",
+    "value_index": 2646,
+    "crafting_domain": "Splits one modifier into two weaker related modifiers."
+  },
+  {
+    "rank": 60,
+    "currency_name": "Arcane Key of MAAKARA",
+    "tier": "T5-EXALTED",
+    "source_5000_rank": 832,
+    "rarity_vs_mirror": 0.00575492,
+    "mirror_equivalent": "NO",
+    "value_index": 2274,
+    "crafting_domain": "Adds one Fractal evolution opportunity to an eligible item."
+  },
+  {
+    "rank": 61,
+    "currency_name": "Quantum Tear of MAAKARA",
+    "tier": "T5-EXALTED",
+    "source_5000_rank": 915,
+    "rarity_vs_mirror": 0.00504995,
+    "mirror_equivalent": "NO",
+    "value_index": 1949,
+    "crafting_domain": "Reforges Protocol sockets while preserving socket count."
+  },
+  {
+    "rank": 62,
+    "currency_name": "Sovereign Mark of MAAKARA",
+    "tier": "T5-EXALTED",
+    "source_5000_rank": 1005,
+    "rarity_vs_mirror": 0.00443992,
+    "mirror_equivalent": "NO",
+    "value_index": 1675,
+    "crafting_domain": "Duplicates one eligible modifier at reduced initial effectiveness."
+  },
+  {
+    "rank": 63,
+    "currency_name": "Obsidian Bloom of MAAKARA",
+    "tier": "T5-EXALTED",
+    "source_5000_rank": 1105,
+    "rarity_vs_mirror": 0.0038987,
+    "mirror_equivalent": "NO",
+    "value_index": 1436,
+    "crafting_domain": "Duplicates one eligible modifier at reduced initial effectiveness."
+  },
+  {
+    "rank": 64,
+    "currency_name": "Prakriti Pearl of MAAKARA",
+    "tier": "T5-EXALTED",
+    "source_5000_rank": 1214,
+    "rarity_vs_mirror": 0.00342768,
+    "mirror_equivalent": "NO",
+    "value_index": 1234,
+    "crafting_domain": "Changes one Karma-aligned property to another Pillar."
+  },
+  {
+    "rank": 65,
+    "currency_name": "Prakriti Idol of MAAKARA",
+    "tier": "T5-EXALTED",
+    "source_5000_rank": 1334,
+    "rarity_vs_mirror": 0.00301323,
+    "mirror_equivalent": "NO",
+    "value_index": 1060,
+    "crafting_domain": "Changes one Karma-aligned property to another Pillar."
+  },
+  {
+    "rank": 66,
+    "currency_name": "Radiant Facet of MAAKARA",
+    "tier": "T5-EXALTED",
+    "source_5000_rank": 1466,
+    "rarity_vs_mirror": 0.00264891,
+    "mirror_equivalent": "NO",
+    "value_index": 910,
+    "crafting_domain": "Elevates one modifier tier if the item meets Karma-alignment requirements."
+  },
+  {
+    "rank": 67,
+    "currency_name": "Protocol Crown of Genesis",
+    "tier": "T5-EXALTED",
+    "source_5000_rank": 1611,
+    "rarity_vs_mirror": 0.00232905,
+    "mirror_equivalent": "NO",
+    "value_index": 782,
+    "crafting_domain": "Opens a deterministic high-tier Protocol Realm."
+  },
+  {
+    "rank": 68,
+    "currency_name": "Protocol Seal of Genesis",
+    "tier": "T5-EXALTED",
+    "source_5000_rank": 1771,
+    "rarity_vs_mirror": 0.00204701,
+    "mirror_equivalent": "NO",
+    "value_index": 672,
+    "crafting_domain": "Opens a deterministic high-tier Protocol Realm."
+  },
+  {
+    "rank": 69,
+    "currency_name": "Radiant Sigil of Genesis",
+    "tier": "T5-EXALTED",
+    "source_5000_rank": 1946,
+    "rarity_vs_mirror": 0.00180044,
+    "mirror_equivalent": "NO",
+    "value_index": 577,
+    "crafting_domain": "Elevates one modifier tier if the item meets Karma-alignment requirements."
+  },
+  {
+    "rank": 70,
+    "currency_name": "Pragati Lens of Genesis",
+    "tier": "T6-RARE",
+    "source_5000_rank": 2139,
+    "rarity_vs_mirror": 0.001583,
+    "mirror_equivalent": "NO",
+    "value_index": 496,
+    "crafting_domain": "Combines two compatible crafting artifacts into a higher-order artifact."
+  },
+  {
+    "rank": 71,
+    "currency_name": "Singularity Spark of Genesis",
+    "tier": "T6-RARE",
+    "source_5000_rank": 2350,
+    "rarity_vs_mirror": 0.00139287,
+    "mirror_equivalent": "NO",
+    "value_index": 426,
+    "crafting_domain": "Reveals one hidden crafting outcome before committing the craft."
+  },
+  {
+    "rank": 72,
+    "currency_name": "Svasthya Token of Genesis",
+    "tier": "T6-RARE",
+    "source_5000_rank": 2583,
+    "rarity_vs_mirror": 0.00122491,
+    "mirror_equivalent": "NO",
+    "value_index": 366,
+    "crafting_domain": "Rerolls one modifier group without changing item rarity."
+  },
+  {
+    "rank": 73,
+    "currency_name": "Storm Pearl of Genesis",
+    "tier": "T6-RARE",
+    "source_5000_rank": 2839,
+    "rarity_vs_mirror": 0.00107733,
+    "mirror_equivalent": "NO",
+    "value_index": 315,
+    "crafting_domain": "Combines two compatible crafting artifacts into a higher-order artifact."
+  },
+  {
+    "rank": 74,
+    "currency_name": "Storm Thread of Genesis",
+    "tier": "T6-RARE",
+    "source_5000_rank": 3119,
+    "rarity_vs_mirror": 0.00094817,
+    "mirror_equivalent": "NO",
+    "value_index": 271,
+    "crafting_domain": "Combines two compatible crafting artifacts into a higher-order artifact."
+  },
+  {
+    "rank": 75,
+    "currency_name": "Chrono Shard of Ascension",
+    "tier": "T6-RARE",
+    "source_5000_rank": 3428,
+    "rarity_vs_mirror": 0.00083408,
+    "mirror_equivalent": "NO",
+    "value_index": 233,
+    "crafting_domain": "Rebalances prefixes and suffixes while preserving one locked property."
+  },
+  {
+    "rank": 76,
+    "currency_name": "Astral Heart of Ascension",
+    "tier": "T7-FOUNDATIONAL",
+    "source_5000_rank": 3767,
+    "rarity_vs_mirror": 0.00073393,
+    "mirror_equivalent": "NO",
+    "value_index": 200,
+    "crafting_domain": "Converts one elemental modifier into another compatible element."
+  },
+  {
+    "rank": 77,
+    "currency_name": "Sahaaya Star of Ascension",
+    "tier": "T7-FOUNDATIONAL",
+    "source_5000_rank": 4140,
+    "rarity_vs_mirror": 0.00064574,
+    "mirror_equivalent": "NO",
+    "value_index": 172,
+    "crafting_domain": "Rerolls a Realm mutation while preserving Realm seed and boss."
+  },
+  {
+    "rank": 78,
+    "currency_name": "Singularity Idol of Ascension",
+    "tier": "T7-FOUNDATIONAL",
+    "source_5000_rank": 4550,
+    "rarity_vs_mirror": 0.00056816,
+    "mirror_equivalent": "NO",
+    "value_index": 148,
+    "crafting_domain": "Reveals one hidden crafting outcome before committing the craft."
+  },
+  {
+    "rank": 79,
+    "currency_name": "Iron Seal of the First Signal",
+    "tier": "T7-FOUNDATIONAL",
+    "source_5000_rank": 5000,
+    "rarity_vs_mirror": 0.0005,
+    "mirror_equivalent": "NO",
+    "value_index": 127,
+    "crafting_domain": "Rerolls a Realm mutation while preserving Realm seed and boss."
+  }
+]

@@ -1,0 +1,61 @@
+id,domain,module,function,type,dependencies,execution,status,reality_class,notes
+AUTH-001,Identity,Auth,Connexion et session,Core,DB,API,OPERATIONAL,real,Connexion locale avec mot de passe scrypt et cookie de session HttpOnly
+AUTH-002,Identity,Security,CSRF et contrôle d’origine,Security,AUTH-001,API,OPERATIONAL,real,Requis pour les mutations authentifiées
+AUTH-003,Identity,RBAC,Autorisation par rôle,Security,AUTH-001,API,OPERATIONAL,real,Rôles admin analyst operator et viewer ; mutations réservées à admin et operator
+AUTH-004,Identity,MFA,Second facteur,Security,AUTH-001,API,PLANNED,real,Nécessite un modèle de menace de production et un parcours d’inscription
+REV-001,Revenue,Stripe,Lecture et webhook signé,Integration,Stripe credentials,Worker,SCAFFOLD,real,Aucun payout ni ordre de trading automatique
+REV-002,Revenue,Shopify,Lecture et webhook signé,Integration,Shopify credentials,Worker,SCAFFOLD,real,Nécessite HTTPS et un secret de webhook
+REV-003,Revenue,Ledger,Preuves de revenus,Core,REV-001;REV-002,Worker,OPERATIONAL,real,Montants en unités mineures et déduplication par source et identifiant externe
+REV-004,Revenue,Dashboard,Synthèse des revenus,UI,REV-003,Web,OPERATIONAL,real,Les enregistrements de démonstration sont étiquetés
+REV-005,Revenue,Reconciliation,Réconciliation fournisseurs,Core,REV-001;REV-002,Worker,PLANNED,real,Nécessite une politique de correspondance et une revue
+COM-001,Commerce,Products,Catalogue de brouillons,Core,DB,API,OPERATIONAL,real,Les brouillons exigent une revue humaine
+COM-002,Commerce,Orders,Agrégat de commandes,Core,REV-002;COM-001,Worker,PLANNED,real,Les preuves de commandes fournisseurs existent dans le registre de revenus mais aucun agrégat commerce dédié n’est implémenté
+COM-003,Commerce,Subscriptions,Cycle de vie d’abonnement,Core,Provider,Service,PLANNED,real,Nécessite un contrat fournisseur et une revue juridique
+WAL-001,Wallet,Challenge,Challenge EIP-191,Security,Web3 provider,Web,OPERATIONAL,real,Prouve seulement le contrôle de l’adresse
+WAL-002,Wallet,Verify,Vérification de signature,Security,WAL-001,API,OPERATIONAL,real,Le challenge expire et est à usage unique
+WAL-003,Wallet,Binding,Liaison de wallet vérifiée,Data,WAL-002,API,OPERATIONAL,real,Aucune clé privée n’est stockée
+WAL-004,Wallet,Portfolio,Lecture de solde,Read,WAL-003;RPC,API,SCAFFOLD,real,Lecture Ethereum native optionnelle via RPC
+WAL-005,Wallet,Withdrawal,Intention d’autorisation de retrait,Financial,WAL-003,API,OPERATIONAL,real,Aucun payload de transaction ni broadcast ; revue manuelle uniquement
+WAL-006,Wallet,Payout,Payout automatisé,Financial,Provider;Compliance,Worker,BLOCKED,real,Non activé dans la version 0.1.0
+TRA-001,Trading,MarketData,Prix de marché de référence,Read,Provider,API,SCAFFOLD,real,Point d’entrée local dépendant de l’API publique CoinGecko ; aucun ordre ni fonds réel
+TRA-002,Trading,Strategies,Définitions de stratégies,Core,TRA-001,Service,PLANNED,real,Versionnées et sans effet de bord au premier stade
+TRA-003,Trading,PaperAccount,Portefeuille de simulation,Simulation,DB,Service,PLANNED,real,Aucun fonds réel
+TRA-004,Trading,RiskEngine,Décision de risque avant ordre,Core,TRA-002;TRA-003,Service,PLANNED,real,Obligatoire avant toute exécution
+TRA-005,Trading,Execution,Exécution réelle sur une place d’échange,Financial,TRA-004;Approval,Worker,BLOCKED,real,Exige une approbation juridique de sécurité et de fournisseur distincte
+KAR-001,Karma,Ledger,Registre de points interne,Game,DB,API,OPERATIONAL,game,Non transférable et sans valeur monétaire
+KAR-002,Karma,Rewards,Catalogue de récompenses,Game,KAR-001,API,PLANNED,game,Les récompenses doivent être revues avant activation
+KAR-003,Karma,Community,Événements communautaires,Game,KAR-001,Worker,PLANNED,game,Progression de jeu et de communauté uniquement
+GUA-001,Guardians,Registry,600 profils déterministes,Automation,Seed data,API,OPERATIONAL,real,Ni entités juridiques autonomes ni agents garantis
+GUA-002,Guardians,Assignment,Affectation de tâches,Automation,GUA-001,Worker,OPERATIONAL,real,Le workflow associe cinq tâches à des profils puis enregistre leurs mesures
+GUA-003,Guardians,Evolution,Évolution Arc-Angel,Game,GAME-001,Game,OPERATIONAL,game,Évolution du profil Guardian dans le runtime Godot local
+GAME-001,Game,Combat,Moteur de combat,Game,Character,Game,OPERATIONAL,game,Slice vertical Godot
+GAME-002,Game,Shattering,Poise et Shattering,Game,GAME-001,Game,OPERATIONAL,game,L’état Break reste à définir et à tester
+GAME-003,Game,Loot,Butin d’objets,Game,GAME-002,Game,OPERATIONAL,game,L’identité ItemInstance reste orientée jeu
+GAME-004,Game,SoulCore,Progression à cinq piliers,Game,XP,Game,OPERATIONAL,game,Aucune valeur externe
+GAME-005,Game,Ascension,Progression Phoenix,Game,GAME-004,Game,OPERATIONAL,game,Sept rangs existants
+GAME-006,Game,World,Catalogue de campagne et régions,Game,Acts,Game,SCAFFOLD,game,Quinze actes procéduraux ; sept libellés de région récurrents plus All Realms et Maakaras Core
+GAME-007,Game,Endgame,Progression et héritage,Game,GAME-005,Game,PLANNED,game,L’intégration de The Long Song reste une direction de conception
+OPS-001,Automation,Health,Cinq contrôles de workflow,Ops,Services,PS,OPERATIONAL,real,"Santé, registre de revenus, intégrations, sécurité et catalogue"
+OPS-002,Automation,Cycle,Cycle local fini ou continu,Automation,OPS-001,PS,OPERATIONAL,real,Le mode continu respecte un intervalle minimum et s’arrête sur SIGINT
+OPS-003,Automation,Worker,Worker de tâches,Automation,Queue,Worker,SCAFFOLD,real,Le package worker est une structure cible
+OPS-004,Automation,Queue,File de tâches durable,Automation,Redis or DB,Service,PLANNED,real,Redis n’est requis qu’après mesure du besoin
+OPS-005,Automation,Backup,Sauvegarde locale de la base SQLite,Ops,DB,PS,OPERATIONAL,real,Backup.ps1 copie uniquement la base et produit un manifeste SHA-256 ; pas de chiffrement ou de restauration cloud
+OPS-006,Automation,DisasterRecovery,Test de restauration,Ops,Backups,Service,PLANNED,real,Nécessite un test de restauration en préproduction
+OPS-007,Automation,KillSwitch,Arrêt contrôlé,Ops,Process,PS,SCAFFOLD,real,Le wrapper peut arrêter un serveur Node vérifié et le runner continu s’arrête sur SIGINT
+SEC-001,Security,Audit,Événement d’audit,Security,All,API,OPERATIONAL,real,Aucun identifiant ni secret brut dans les détails ; append-only non garanti par SQLite
+SEC-002,Security,RateLimit,Limitation de requêtes,Security,All,API,OPERATIONAL,real,Appliquée à l’authentification aux écritures et à certains points d’entrée publics
+SEC-003,Security,Secrets,Références du gestionnaire de secrets,Security,Environment,Service,SCAFFOLD,real,Ne jamais stocker de clé privée
+INF-001,Infrastructure,Docker,Conteneur local,Ops,Compose,Service,OPERATIONAL,real,Le Dockerfile et compose.yaml existants sont la référence locale
+INF-002,Infrastructure,Kubernetes,Déploiement sur cluster,Infra,Registry;Secrets,Service,PLANNED,real,Seulement après démonstration d’un besoin opérationnel
+INF-003,Infrastructure,CI/CD,Pipeline de compilation et de déploiement,Infra,Tests,Service,PLANNED,real,Aucune revendication de déploiement sans preuve
+DASH-001,Dashboard,Overview,Centre de contrôle,UI,API,Web,OPERATIONAL,real,Le dashboard actuel est statique et alimenté par l’API
+DASH-002,Dashboard,Revenue,Vue des revenus,UI,REV-004,Web,OPERATIONAL,real,Les valeurs de démonstration sont étiquetées
+DASH-003,Dashboard,Wallet,Vue wallet,UI,WAL-004;WAL-005,Web,OPERATIONAL,real,Les actions financières sont désactivées
+DASH-004,Dashboard,Guardians,Registre des Guardians,UI,GUA-001,Web,OPERATIONAL,real,Les profils sont des enregistrements de configuration
+DASH-005,Dashboard,SystemHealth,Santé et audit,UI,OPS-001;SEC-001,Web,OPERATIONAL,real,Lecture sensible réservée aux rôles admin et operator
+TASK-001,TaskEngine,Definitions,Définitions de tâches,Core,Schema,Service,SCAFFOLD,real,Pas de millions de lignes statiques
+TASK-002,TaskEngine,Generator,Génération validée de tâches,Core,TASK-001,Service,PLANNED,real,Générer des paramètres et non des fichiers statiques
+TASK-003,TaskEngine,Runner,Exécution bornée de tâches,Core,Queue;Audit,Worker,PLANNED,real,Timeout nouvelles tentatives et retour arrière requis
+TASK-004,TaskEngine,Metrics,Observabilité des tâches,Analytics,TASK-003,Worker,PLANNED,real,Latence succès échec et profondeur de file
+TASK-005,TaskEngine,LocalExecution,Cycle local lié à une intention signée,Automation,WAL-005;OPS-001,API,OPERATIONAL,real,Exécution durable locale avec migration SQLite 0.2.0, reprise, concurrence, timeout et sans transaction ni fonds
+QMX-001,Automation,QuantumMatrix,Adaptateur de workflow à phases alpha beta theta delta bravo gamma,Core,OPS-001,Node,SCAFFOLD,real,Labels de matrice sur le runner borné existant ; cycles finis uniquement, aucun Polygon, transfert, trading ou agent autonome

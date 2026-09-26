@@ -1,0 +1,105 @@
+"""Command-line interface for {{PACKAGE_NAME}}.
+
+Standard library only. ``main`` returns an exit code instead of calling
+``sys.exit`` so it can be driven from tests.
+"""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from collections.abc import Sequence
+
+from . import __version__
+from .core import sha256, slugify
+
+__all__ = ["build_parser", "main"]
+
+EXIT_OK = 0
+EXIT_FAILURE = 1
+EXIT_USAGE = 2
+
+#: Known vectors, so ``selftest`` fails loudly if the hash ever drifts.
+_SELFTEST_VECTORS: tuple[tuple[str, str], ...] = (
+    ("", "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"),
+    ("abc", "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"),
+)
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """Return the fully configured argument parser."""
+    parser = argparse.ArgumentParser(
+        prog="{{CLI_BIN}}",
+        description="{{DESCRIPTION}}",
+    )
+    parser.add_argument(
+        "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
+        help="print the version and exit",
+    )
+    commands = parser.add_subparsers(dest="command", metavar="COMMAND")
+
+    hash_parser = commands.add_parser(
+        "hash",
+        help="print the SHA-256 hex digest of TEXT",
+    )
+    hash_parser.add_argument("text", help="text to hash")
+
+    slug_parser = commands.add_parser(
+        "slug",
+        help="print a slug form of TEXT",
+    )
+    slug_parser.add_argument("text", help="text to slugify")
+
+    commands.add_parser(
+        "selftest",
+        help="run built-in checks and exit 0 when they pass",
+    )
+    return parser
+
+
+def _selftest() -> int:
+    """Run the built-in checks. Returns 0 on success, 1 on failure."""
+    for text, expected in _SELFTEST_VECTORS:
+        actual = sha256(text)
+        if actual != expected:
+            print(f"selftest FAILED for {text!r}", file=sys.stderr)
+            return EXIT_FAILURE
+    if slugify("Hello, World!") != "hello-world":
+        print("selftest FAILED for slugify", file=sys.stderr)
+        return EXIT_FAILURE
+    print("selftest ok")
+    return EXIT_OK
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    """Run the CLI and return the process exit code.
+
+    argparse handles ``--help`` and ``--version`` by raising SystemExit(0), and
+    reports bad usage by raising SystemExit(2). Both are correct shell
+    behaviour, so they are not intercepted here.
+    """
+    parser = build_parser()
+    args = parser.parse_args(argv)
+
+    if args.command is None:
+        parser.print_help()
+        return EXIT_OK
+    if args.command == "hash":
+        print(sha256(args.text))
+        return EXIT_OK
+    if args.command == "slug":
+        print(slugify(args.text))
+        return EXIT_OK
+    if args.command == "selftest":
+        return _selftest()
+
+    # Unreachable while the choices above cover every subcommand; kept so a
+    # future subcommand is a loud error rather than a silent success.
+    parser.print_help(sys.stderr)
+    return EXIT_USAGE
+
+
+if __name__ == "__main__":  # pragma: no cover - convenience for direct runs
+    raise SystemExit(main())

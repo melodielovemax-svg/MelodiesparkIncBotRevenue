@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "melodiespark"
+version = "0.1.0"
+description = "Melodiespark Python SDK & CLI: Command Center client, EIP-191 wallet verification, and Path of Melodie ARPG telemetry bridge."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Melodiespark Architecture Team" }
+]
+keywords = ["melodiespark", "command-center", "path-of-melodie", "web3", "arpg", "telemetry"]
+dependencies = [
+    "requests>=2.28.0",
+    "click>=8.0.0",
+    "eth-account>=0.8.0; extra == 'crypto'"
+]
+
+[project.optional-dependencies]
+crypto = ["eth-account>=0.8.0"]
+test = ["pytest>=7.0.0"]
+
+[project.scripts]
+melodiespark = "melodiespark.cli:main"
+melodiespark-cli = "melodiespark.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

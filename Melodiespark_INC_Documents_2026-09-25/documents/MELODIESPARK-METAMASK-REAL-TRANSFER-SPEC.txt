@@ -1,0 +1,561 @@
+MELODIESPARK / METAMASK REAL TRANSFER SPEC
+============================================
+
+PURPOSE
+-------
+Implement a real Ethereum transfer flow inside the Melodiespark application using MetaMask as the external signer.
+
+SECURITY MODEL
+--------------
+- The application NEVER stores a seed phrase.
+- The application NEVER stores a raw private key.
+- The application NEVER signs silently.
+- The user must approve every transfer inside the MetaMask popup.
+- The application may PREPARE a transaction, but MetaMask performs signing/broadcast.
+- The application must record the returned transaction hash and confirmed receipt.
+- A displayed "revenue balance" is NOT spendable unless it is actually held by the connected wallet/account or by a contract/account the user is authorized to control.
+
+IMPORTANT GAS RULE
+------------------
+Do NOT assume gas will always equal 0.000006 ETH.
+
+The real maximum transferable ETH must be calculated from:
+    maxSendWei = walletBalanceWei - estimatedGasCostWei - safetyBufferWei
+
+Where:
+    estimatedGasCostWei = estimatedGasUnits * feePerGasWei
+
+For a plain ETH transfer, estimated gas is often around 21,000 gas,
+but the application must call the provider's gas estimation instead of assuming it.
+
+Use live fee data from the currently selected network.
+
+RECOMMENDED SAFETY BUFFER
+-------------------------
+Use a small configurable buffer so the wallet is not left unable to pay for a slightly higher final fee.
+
+Example:
+    safetyBufferWei = 5% of estimated gas cost
+or a small fixed network-specific buffer.
+
+Never set maxSendWei below zero.
+
+============================================================
+APPLICATION FLOW
+============================================================
+
+STEP 1 — CONNECT METAMASK
+-------------------------
+Request accounts from the browser wallet:
+
+JavaScript / TypeScript concept:
+
+const accounts = await window.ethereum.request({
+  method: "eth_requestAccounts"
+});
+
+const sender = accounts[0];
+
+Validate:
+- MetaMask/provider exists
+- account exists
+- selected chain is supported
+- sender is a valid EVM address
+
+STEP 2 — GET REAL ON-CHAIN BALANCE
+----------------------------------
+Use an Ethereum provider such as ethers.js.
+
+Example:
+
+const provider = new ethers.BrowserProvider(window.ethereum);
+const signer = await provider.getSigner();
+const sender = await signer.getAddress();
+const balanceWei = await provider.getBalance(sender);
+
+Display:
+- connected wallet
+- network
+- ETH balance
+- source = RPC/provider
+- timestamp
+
+Do not substitute internal application revenue counters for this on-chain balance.
+
+STEP 3 — GET DESTINATION ADDRESS
+--------------------------------
+Destination must be explicitly provided or selected from an approved address book.
+
+Validate:
+
+if (!ethers.isAddress(destination)) {
+  throw new Error("Invalid destination address");
+}
+
+Do not auto-replace or silently alter the destination address.
+
+STEP 4 — ESTIMATE GAS
+---------------------
+Prepare a transaction request:
+
+const txRequest = {
+  from: sender,
+  to: destination,
+  value: proposedValueWei
+};
+
+Estimate gas:
+
+const gasLimit = await provider.estimateGas(txRequest);
+
+Get network fee information:
+
+const feeData = await provider.getFeeData();
+
+For EIP-1559 networks, use:
+- maxFeePerGas
+- maxPriorityFeePerGas
+
+For legacy networks, use:
+- gasPrice
+
+Conservative gas estimate:
+
+const feePerGas =
+  feeData.maxFeePerGas ??
+  feeData.gasPrice;
+
+if (!feePerGas) {
+  throw new Error("Unable to determine gas price");
+}
+
+const estimatedGasCostWei = gasLimit * feePerGas;
+
+STEP 5 — CALCULATE MAXIMUM SAFE WITHDRAW
+----------------------------------------
+Example logic:
+
+const safetyBufferWei = estimatedGasCostWei / 20n; // 5%
+const maxSendWei =
+  balanceWei > estimatedGasCostWei + safetyBufferWei
+    ? balanceWei - estimatedGasCostWei - safetyBufferWei
+    : 0n;
+
+Display:
+
+Available wallet balance:
+Estimated network fee:
+Safety reserve:
+Maximum safe transfer:
+
+Require the user to confirm the amount.
+
+IMPORTANT:
+The app must re-estimate gas immediately before opening MetaMask because gas can change.
+
+STEP 6 — OPEN METAMASK POPUP
+----------------------------
+Use the signer to request the transaction.
+
+Example:
+
+const tx = await signer.sendTransaction({
+  to: destination,
+  value: maxSendWei
+});
+
+This causes MetaMask to show the transaction confirmation popup.
+
+The user can:
+- inspect destination
+- inspect amount
+- inspect fee
+- reject
+- approve
+
+The application must NOT bypass this popup.
+
+STEP 7 — CAPTURE REAL TRANSACTION HASH
+--------------------------------------
+After MetaMask broadcasts:
+
+const hash = tx.hash;
+
+Record immediately:
+
+{
+  "status": "BROADCAST",
+  "hash": tx.hash,
+  "from": sender,
+  "to": destination,
+  "valueWei": maxSendWei.toString(),
+  "chainId": chainId,
+  "timestamp": ISO_TIMESTAMP
+}
+
+The transaction hash must come from MetaMask/provider response.
+Never generate or invent a hash.
+
+STEP 8 — WAIT FOR CONFIRMATION
+------------------------------
+Wait for a receipt:
+
+const receipt = await tx.wait();
+
+Validate:
+
+if (!receipt) {
+  throw new Error("Transaction receipt unavailable");
+}
+
+if (receipt.status !== 1) {
+  throw new Error("Transaction failed on-chain");
+}
+
+Record:
+
+{
+  "status": "CONFIRMED",
+  "hash": receipt.hash,
+  "blockNumber": receipt.blockNumber,
+  "gasUsed": receipt.gasUsed.toString(),
+  "from": receipt.from,
+  "to": receipt.to,
+  "chainId": chainId
+}
+
+STEP 9 — CALCULATE ACTUAL FEE
+-----------------------------
+Use the confirmed receipt/provider fields where available.
+
+Typical concept:
+
+actualFeeWei = gasUsed * effectiveGasPrice
+
+Do not report the pre-transfer estimate as the final fee.
+
+STEP 10 — LEDGER ENTRY
+----------------------
+Create an append-only transaction ledger entry.
+
+Recommended fields:
+
+transaction_id
+transaction_hash
+chain_id
+network_name
+from_address
+to_address
+requested_amount_wei
+confirmed_amount_wei
+estimated_fee_wei
+actual_fee_wei
+gas_limit
+gas_used
+block_number
+status
+created_at
+broadcast_at
+confirmed_at
+provider
+wallet_type = "MetaMask"
+authorization = "USER_APPROVED_EXTERNAL_SIGNER"
+
+Statuses:
+
+PREPARED
+AWAITING_USER_APPROVAL
+REJECTED
+BROADCAST
+PENDING
+CONFIRMED
+FAILED
+
+Never use CONFIRMED without a successful chain receipt.
+
+============================================================
+ETHERS.JS REFERENCE FUNCTION
+============================================================
+
+Example architecture only. Review against the ethers.js version used by
+the actual Melodiespark repository before implementation.
+
+async function transferMaximumEth(destination) {
+  if (!window.ethereum) {
+    throw new Error("MetaMask or compatible wallet not detected");
+  }
+
+  if (!ethers.isAddress(destination)) {
+    throw new Error("Invalid destination address");
+  }
+
+  const provider = new ethers.BrowserProvider(window.ethereum);
+
+  await provider.send("eth_requestAccounts", []);
+
+  const signer = await provider.getSigner();
+  const sender = await signer.getAddress();
+
+  const network = await provider.getNetwork();
+  const chainId = Number(network.chainId);
+
+  const balanceWei = await provider.getBalance(sender);
+
+  if (balanceWei <= 0n) {
+    throw new Error("Wallet has no ETH balance");
+  }
+
+  const feeData = await provider.getFeeData();
+
+  const feePerGas =
+    feeData.maxFeePerGas ??
+    feeData.gasPrice;
+
+  if (!feePerGas) {
+    throw new Error("Unable to determine network gas price");
+  }
+
+  // Estimate using a preliminary value.
+  // For a normal ETH transfer this is often 21,000 gas,
+  // but always use provider estimation.
+  const preliminaryValue =
+    balanceWei / 2n;
+
+  const gasLimit = await provider.estimateGas({
+    from: sender,
+    to: destination,
+    value: preliminaryValue
+  });
+
+  const estimatedGasCostWei =
+    gasLimit * feePerGas;
+
+  const safetyBufferWei =
+    estimatedGasCostWei / 20n;
+
+  const reservedWei =
+    estimatedGasCostWei + safetyBufferWei;
+
+  if (balanceWei <= reservedWei) {
+    throw new Error("Insufficient ETH balance to cover network fees");
+  }
+
+  const maxSendWei =
+    balanceWei - reservedWei;
+
+  // Re-estimate using final value before requesting signature.
+  const finalGasLimit = await provider.estimateGas({
+    from: sender,
+    to: destination,
+    value: maxSendWei
+  });
+
+  const finalFeeData =
+    await provider.getFeeData();
+
+  const finalFeePerGas =
+    finalFeeData.maxFeePerGas ??
+    finalFeeData.gasPrice;
+
+  if (!finalFeePerGas) {
+    throw new Error("Unable to refresh gas price");
+  }
+
+  const finalEstimatedFeeWei =
+    finalGasLimit * finalFeePerGas;
+
+  const finalBufferWei =
+    finalEstimatedFeeWei / 20n;
+
+  const finalMaxSendWei =
+    balanceWei - finalEstimatedFeeWei - finalBufferWei;
+
+  if (finalMaxSendWei <= 0n) {
+    throw new Error("No safe transferable balance after gas reserve");
+  }
+
+  // UI MUST show a final confirmation screen before this call.
+  const tx = await signer.sendTransaction({
+    to: destination,
+    value: finalMaxSendWei,
+    gasLimit: finalGasLimit
+  });
+
+  const broadcastRecord = {
+    status: "BROADCAST",
+    transactionHash: tx.hash,
+    chainId,
+    from: sender,
+    to: destination,
+    valueWei: finalMaxSendWei.toString(),
+    estimatedFeeWei: finalEstimatedFeeWei.toString(),
+    authorization: "USER_APPROVED_EXTERNAL_SIGNER",
+    walletType: "MetaMask",
+    timestamp: new Date().toISOString()
+  };
+
+  console.log(broadcastRecord);
+
+  const receipt = await tx.wait();
+
+  if (!receipt || receipt.status !== 1) {
+    throw new Error("Transaction was not successfully confirmed");
+  }
+
+  const confirmedRecord = {
+    status: "CONFIRMED",
+    transactionHash: receipt.hash,
+    chainId,
+    from: receipt.from,
+    to: receipt.to,
+    blockNumber: receipt.blockNumber,
+    gasUsed: receipt.gasUsed.toString(),
+    valueWei: finalMaxSendWei.toString(),
+    authorization: "USER_APPROVED_EXTERNAL_SIGNER",
+    walletType: "MetaMask",
+    timestamp: new Date().toISOString()
+  };
+
+  console.log(confirmedRecord);
+
+  return {
+    tx,
+    receipt,
+    broadcastRecord,
+    confirmedRecord
+  };
+}
+
+============================================================
+USER CONFIRMATION SCREEN
+============================================================
+
+Before calling sendTransaction(), display:
+
+TRANSFER REVIEW
+
+Network:
+Connected wallet:
+Destination:
+Current wallet ETH balance:
+Amount to transfer:
+Estimated gas:
+Estimated network fee:
+Safety reserve:
+Estimated remaining balance:
+
+IMPORTANT:
+"This transaction will be signed in MetaMask. Network fees are determined
+by the blockchain and may change. Verify the destination and amount before
+approving."
+
+Buttons:
+
+[CANCEL]
+
+[CONTINUE TO METAMASK]
+
+Only CONTINUE TO METAMASK initiates the wallet request.
+
+============================================================
+REVENUE WITHDRAWAL RULE
+============================================================
+
+If Melodiespark displays "Revenue Available", do not transfer that number
+unless the revenue is backed by an actual withdrawable source.
+
+Examples:
+
+Stripe revenue:
+- must be withdrawn using the Stripe-supported payout flow
+- it is not automatically ETH
+
+Bank balance:
+- must use the bank/payment provider's authorized payout rails
+- it is not automatically a MetaMask balance
+
+On-chain contract revenue:
+- may require a contract withdrawal/claim transaction
+- the application must call the actual contract method
+- MetaMask must present the signing request
+
+Wallet-held ETH:
+- can use the native ETH transfer flow in this document
+
+Therefore:
+
+APPLICATION REVENUE != WALLET BALANCE
+
+unless verified by the actual settlement/on-chain system.
+
+============================================================
+0.000006 ETH GAS TARGET
+============================================================
+
+0.000006 ETH may be used only as a DISPLAY TARGET or alert threshold.
+
+Example:
+
+targetFeeEth = 0.000006
+
+Do NOT force the transaction fee to this value.
+
+Possible UI:
+
+Target fee:
+0.000006 ETH
+
+Current estimated fee:
+<live estimate>
+
+Status:
+WITHIN TARGET / ABOVE TARGET
+
+If current gas is above the target, allow the user to:
+- cancel
+- retry later
+- manually adjust MetaMask fee settings where supported
+
+Never underprice gas automatically in a way that risks stuck transactions.
+
+============================================================
+RECOMMENDED LEDGER INVARIANTS
+============================================================
+
+1. PREPARED is not BROADCAST.
+2. BROADCAST is not CONFIRMED.
+3. A hash must come from the wallet/provider.
+4. CONFIRMED requires a successful receipt.
+5. Amounts are stored in wei/integer form.
+6. Chain ID is always stored.
+7. Destination is never silently changed.
+8. Every financial action has a user authorization event.
+9. No seed/private key is stored.
+10. Revenue is never fabricated.
+
+============================================================
+FINAL IMPLEMENTATION GATE
+============================================================
+
+Before production release verify:
+
+[ ] MetaMask connection works
+[ ] Unsupported chain is blocked
+[ ] Destination validation works
+[ ] Balance comes from live RPC
+[ ] Gas is estimated from provider
+[ ] Max-send calculation reserves gas
+[ ] Final confirmation screen works
+[ ] MetaMask popup opens
+[ ] Rejecting MetaMask leaves funds untouched
+[ ] Approval returns a real hash
+[ ] Pending state is recorded
+[ ] Successful receipt marks CONFIRMED
+[ ] Failed receipt marks FAILED
+[ ] Explorer link uses real chain + hash
+[ ] Ledger record is immutable/auditable
+[ ] No private keys or seed phrases are stored
+[ ] Revenue source is independently verified
+[ ] Testnet verification passes before mainnet use
+
+END OF SPEC

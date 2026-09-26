@@ -1,0 +1,4 @@
+NAME                IMAGE          COMMAND                  SERVICE    CREATED          STATUS                   PORTS
+docker-nginx-1      nginx:alpine   "/docker-entrypoint.ÔÇª"   nginx      9 seconds ago    Up 1 second              0.0.0.0:80->80/tcp, [::]:80->80/tcp
+docker-postgres-1   postgres:17    "docker-entrypoint.sÔÇª"   postgres   10 seconds ago   Up 8 seconds (healthy)   5432/tcp
+docker-redis-1      redis:7        "docker-entrypoint.sÔÇª"   redis      10 seconds ago   Up 7 seconds (healthy)   6379/tcp

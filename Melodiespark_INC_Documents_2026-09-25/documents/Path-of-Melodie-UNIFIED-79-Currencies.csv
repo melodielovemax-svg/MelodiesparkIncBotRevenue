@@ -1,0 +1,80 @@
+﻿rank,currency_name,tier,source_5000_rank,rarity_vs_mirror,mirror_equivalent,value_index,crafting_domain
+1,MAAKARA Prime Crown of Genesis,T0-ABSOLUTE,1,6.0,NO,8283588,Apex currency: perfects one eligible endgame item through a deterministic MAAKARA transformation while preserving item identity; intended to be the rarest tradeable drop.
+2,Omega Crown of MAAKARA,T0-TRANSCENDENT,2,5.46004122,NO,7411245,Adds one high-tier modifier with a chance to awaken a hidden Protocol slot.
+3,Fractal Crown of MAAKARA,T0-TRANSCENDENT,3,4.96867502,NO,6630769,Rerolls one modifier group without changing item rarity.
+4,Karma Crown of MAAKARA,T0-TRANSCENDENT,4,4.5215284,NO,5932484,Corrupts an item for extreme upside with irreversible risk.
+5,Sovereign Crown of MAAKARA,T0-TRANSCENDENT,5,4.11462191,NO,5307736,Duplicates one eligible modifier at reduced initial effectiveness.
+6,Void Crown of MAAKARA,T0-MIRROR,6,3.74433421,NO,4748780,Elevates one modifier tier if the item meets Karma-alignment requirements.
+7,Astral Crown of MAAKARA,T0-MIRROR,7,3.40736985,NO,4248687,Converts one elemental modifier into another compatible element.
+8,Eternal Crown of MAAKARA,T0-MIRROR,8,3.10072997,NO,3801259,Rebalances prefixes and suffixes while preserving one locked property.
+9,Prime Crown of MAAKARA,T0-MIRROR,9,2.82168558,NO,3400949,Adds Genesis Potential to an eligible item.
+10,Celestial Crown of MAAKARA,T0-MIRROR,10,2.56775326,NO,3042796,Reveals one hidden crafting outcome before committing the craft.
+11,Protocol Crown of MAAKARA,T0-MIRROR,11,2.33667311,NO,2722360,Opens a deterministic high-tier Protocol Realm.
+12,Oracle Crown of MAAKARA,T0-MIRROR,12,2.12638858,NO,2435669,Adds one Fractal evolution opportunity to an eligible item.
+13,Niti Crown of MAAKARA,T0-MIRROR,13,1.93502822,NO,2179170,Links one compatible Modifier Protocol to a Protocol Gem.
+14,Prakriti Crown of MAAKARA,T0-MIRROR,14,1.76088897,NO,1949682,Changes one Karma-aligned property to another Pillar.
+15,Karuna Crown of MAAKARA,T0-MIRROR,15,1.60242106,NO,1744361,Reforges Protocol sockets while preserving socket count.
+16,Vidya Crown of MAAKARA,T0-MIRROR,16,1.45821418,NO,1560663,Upgrades a crafting artifact into its next rarity band.
+17,Srujana Crown of MAAKARA,T0-MIRROR,17,1.32698492,NO,1396310,Stabilizes one corrupted modifier against further mutation.
+18,Daana Crown of MAAKARA,T0-MIRROR,18,1.20756539,NO,1249265,Splits one modifier into two weaker related modifiers.
+19,Pragati Crown of MAAKARA,T0-MIRROR,19,1.0988928,NO,1117705,Combines two compatible crafting artifacts into a higher-order artifact.
+20,Genesis Mirror of the Infinite Protocol,T0-MIRROR,20,1.0,YES,1000000,Benchmark apex currency with target drop rarity equal to the Mirror-of-Kalandra reference point.
+21,Samadhana Crown of MAAKARA,T1-SOVEREIGN,21,0.98001131,NO,976456,Reforges an item while preserving its highest-tier modifier.
+22,Svasthya Crown of MAAKARA,T1-SOVEREIGN,23,0.91753154,NO,903426,Rerolls one modifier group without changing item rarity.
+23,Obsidian Crown of MAAKARA,T1-SOVEREIGN,25,0.84808458,NO,823300,Duplicates one eligible modifier at reduced initial effectiveness.
+24,Chrono Crown of MAAKARA,T1-SOVEREIGN,28,0.74746763,NO,709315,Rebalances prefixes and suffixes while preserving one locked property.
+25,Mythic Crown of MAAKARA,T1-SOVEREIGN,31,0.65819009,NO,610456,Opens a deterministic high-tier Protocol Realm.
+26,Spectral Crown of MAAKARA,T1-SOVEREIGN,34,0.58167914,NO,527626,Changes one Karma-aligned property to another Pillar.
+27,Lunar Crown of MAAKARA,T1-SOVEREIGN,37,0.51688349,NO,458990,Stabilizes one corrupted modifier against further mutation.
+28,Genesis Mirror of MAAKARA,T1-SOVEREIGN,41,0.44578705,NO,385452,Reforges an item while preserving its highest-tier modifier.
+29,Sovereign Mirror of MAAKARA,T1-SOVEREIGN,45,0.3886276,NO,327831,Duplicates one eligible modifier at reduced initial effectiveness.
+30,Prime Mirror of MAAKARA,T2-GENESIS,49,0.34221212,NO,282143,Adds Genesis Potential to an eligible item.
+31,Prakriti Mirror of MAAKARA,T2-GENESIS,54,0.29563126,NO,237403,Changes one Karma-aligned property to another Pillar.
+32,Pragati Mirror of MAAKARA,T2-GENESIS,59,0.25857071,NO,202695,Combines two compatible crafting artifacts into a higher-order artifact.
+33,Obsidian Mirror of MAAKARA,T2-GENESIS,65,0.22328982,NO,170477,Duplicates one eligible modifier at reduced initial effectiveness.
+34,Arcane Mirror of MAAKARA,T2-GENESIS,72,0.19126964,NO,142018,Adds one Fractal evolution opportunity to an eligible item.
+35,Storm Mirror of MAAKARA,T2-GENESIS,79,0.1662726,NO,120384,Combines two compatible crafting artifacts into a higher-order artifact.
+36,Void Prism of MAAKARA,T2-GENESIS,86,0.14633551,NO,103541,Elevates one modifier tier if the item meets Karma-alignment requirements.
+37,Karuna Prism of MAAKARA,T2-GENESIS,95,0.12606467,NO,86836,Reforges Protocol sockets while preserving socket count.
+38,Sambandha Prism of MAAKARA,T2-GENESIS,104,0.11015047,NO,74053,Corrupts an item for extreme upside with irreversible risk.
+39,Quantum Prism of MAAKARA,T2-GENESIS,115,0.09489017,NO,62104,Reforges Protocol sockets while preserving socket count.
+40,Void Catalyst of MAAKARA,T3-MYTHIC,126,0.08292557,NO,52973,Elevates one modifier tier if the item meets Karma-alignment requirements.
+41,Pragati Catalyst of MAAKARA,T3-MYTHIC,139,0.07179625,NO,44689,Combines two compatible crafting artifacts into a higher-order artifact.
+42,Arcane Catalyst of MAAKARA,T3-MYTHIC,152,0.06300966,NO,38309,Adds one Fractal evolution opportunity to an eligible item.
+43,Astral Seal of MAAKARA,T3-MYTHIC,167,0.05495664,NO,32600,Converts one elemental modifier into another compatible element.
+44,Sambandha Seal of MAAKARA,T3-MYTHIC,184,0.0477694,NO,27631,Corrupts an item for extreme upside with irreversible risk.
+45,Omega Shard of MAAKARA,T3-MYTHIC,202,0.04176592,NO,23581,Adds one high-tier modifier with a chance to awaken a hidden Protocol slot.
+46,Prerana Shard of MAAKARA,T3-MYTHIC,222,0.0364823,NO,20103,Adds one high-tier modifier with a chance to awaken a hidden Protocol slot.
+47,Karma Orb of MAAKARA,T3-MYTHIC,244,0.03188163,NO,17147,Corrupts an item for extreme upside with irreversible risk.
+48,Chrono Orb of MAAKARA,T3-MYTHIC,268,0.02790273,NO,14651,Rebalances prefixes and suffixes while preserving one locked property.
+49,Karuna Ember of MAAKARA,T3-MYTHIC,295,0.02435781,NO,12481,Reforges Protocol sockets while preserving socket count.
+50,Karma Sigil of MAAKARA,T4-RELIC,324,0.02134024,NO,10677,Corrupts an item for extreme upside with irreversible risk.
+51,Solar Sigil of MAAKARA,T4-RELIC,356,0.01869362,NO,9133,Upgrades a crafting artifact into its next rarity band.
+52,Mythic Relic of MAAKARA,T4-RELIC,391,0.01639134,NO,7821,Opens a deterministic high-tier Protocol Realm.
+53,Singularity Core of MAAKARA,T4-RELIC,430,0.01435194,NO,6686,Reveals one hidden crafting outcome before committing the craft.
+54,Runic Fragment of MAAKARA,T4-RELIC,473,0.01256672,NO,5716,Links one compatible Modifier Protocol to a Protocol Gem.
+55,Storm Glyph of MAAKARA,T4-RELIC,519,0.01104555,NO,4909,Combines two compatible crafting artifacts into a higher-order artifact.
+56,Protocol Heart of MAAKARA,T4-RELIC,571,0.00967542,NO,4198,Opens a deterministic high-tier Protocol Realm.
+57,Abyssal Spindle of MAAKARA,T4-RELIC,627,0.00850031,NO,3604,Converts one elemental modifier into another compatible element.
+58,Prime Rune of MAAKARA,T4-RELIC,689,0.00746223,NO,3090,Adds Genesis Potential to an eligible item.
+59,Blood Spark of MAAKARA,T4-RELIC,758,0.00654215,NO,2646,Splits one modifier into two weaker related modifiers.
+60,Arcane Key of MAAKARA,T5-EXALTED,832,0.00575492,NO,2274,Adds one Fractal evolution opportunity to an eligible item.
+61,Quantum Tear of MAAKARA,T5-EXALTED,915,0.00504995,NO,1949,Reforges Protocol sockets while preserving socket count.
+62,Sovereign Mark of MAAKARA,T5-EXALTED,1005,0.00443992,NO,1675,Duplicates one eligible modifier at reduced initial effectiveness.
+63,Obsidian Bloom of MAAKARA,T5-EXALTED,1105,0.0038987,NO,1436,Duplicates one eligible modifier at reduced initial effectiveness.
+64,Prakriti Pearl of MAAKARA,T5-EXALTED,1214,0.00342768,NO,1234,Changes one Karma-aligned property to another Pillar.
+65,Prakriti Idol of MAAKARA,T5-EXALTED,1334,0.00301323,NO,1060,Changes one Karma-aligned property to another Pillar.
+66,Radiant Facet of MAAKARA,T5-EXALTED,1466,0.00264891,NO,910,Elevates one modifier tier if the item meets Karma-alignment requirements.
+67,Protocol Crown of Genesis,T5-EXALTED,1611,0.00232905,NO,782,Opens a deterministic high-tier Protocol Realm.
+68,Protocol Seal of Genesis,T5-EXALTED,1771,0.00204701,NO,672,Opens a deterministic high-tier Protocol Realm.
+69,Radiant Sigil of Genesis,T5-EXALTED,1946,0.00180044,NO,577,Elevates one modifier tier if the item meets Karma-alignment requirements.
+70,Pragati Lens of Genesis,T6-RARE,2139,0.001583,NO,496,Combines two compatible crafting artifacts into a higher-order artifact.
+71,Singularity Spark of Genesis,T6-RARE,2350,0.00139287,NO,426,Reveals one hidden crafting outcome before committing the craft.
+72,Svasthya Token of Genesis,T6-RARE,2583,0.00122491,NO,366,Rerolls one modifier group without changing item rarity.
+73,Storm Pearl of Genesis,T6-RARE,2839,0.00107733,NO,315,Combines two compatible crafting artifacts into a higher-order artifact.
+74,Storm Thread of Genesis,T6-RARE,3119,0.00094817,NO,271,Combines two compatible crafting artifacts into a higher-order artifact.
+75,Chrono Shard of Ascension,T6-RARE,3428,0.00083408,NO,233,Rebalances prefixes and suffixes while preserving one locked property.
+76,Astral Heart of Ascension,T7-FOUNDATIONAL,3767,0.00073393,NO,200,Converts one elemental modifier into another compatible element.
+77,Sahaaya Star of Ascension,T7-FOUNDATIONAL,4140,0.00064574,NO,172,Rerolls a Realm mutation while preserving Realm seed and boss.
+78,Singularity Idol of Ascension,T7-FOUNDATIONAL,4550,0.00056816,NO,148,Reveals one hidden crafting outcome before committing the craft.
+79,Iron Seal of the First Signal,T7-FOUNDATIONAL,5000,0.0005,NO,127,Rerolls a Realm mutation while preserving Realm seed and boss.

@@ -1,0 +1,200 @@
+/* eslint-disable */
+/**
+ * ===========================================================================
+ * CONSENT-GATED MODULE - READ BEFORE ENABLING
+ * ===========================================================================
+ *
+ * This file is NOT written to disk by a normal
+ *
+ *     melodie init <dir> --template web3
+ *
+ * run. It is only produced when the operator explicitly passes
+ *
+ *     --{{CONSENT_FLAG}}
+ *
+ * at generation time. By then the code is on disk and the operator owns every
+ * line of it. Read this header before you keep it.
+ *
+ * WHAT THIS MODULE CAN DO
+ *   It can PRODUCE A SIGNATURE. It wraps `signTypedData` so that a withdrawal
+ *   intent can be signed as EIP-712 typed data by an injected wallet.
+ *
+ * WHAT IT DELIBERATELY DOES NOT DO
+ *   - It does NOT handle a private key. No account-derivation helper from the
+ *     library is used, no seed phrase is ever read, no key is imported, no
+ *     keystore is created, and nothing is derived or stored. Signing is done
+ *     by the user's own wallet software, which holds whatever it holds.
+ *   - It does NOT broadcast. It returns a signature and stops. Sending that
+ *     transaction to a network is a separate, separately consent-gated module
+ *     (`./broadcast.ts`), and that module is never called automatically.
+ *   - It does NOT run on a schedule, on a timer, in a retry loop, in a queue
+ *     worker, or on any event other than an explicit call by the operator's
+ *     own code.
+ *
+ * WHY IT REQUIRES AN EXPLICIT CONSENT TOKEN
+ *   Every exported entry point takes a `consentToken` supplied by the caller.
+ *   If it does not match {@link SIGNING_CONSENT_TOKEN} exactly, this module
+ *   throws {@link SigningConsentError} and does nothing. There is no
+ *   environment variable that can set it, no default, and no fallback, so
+ *   simply having this file present does not make signing possible.
+ *
+ * The token is a deliberate tripwire, not a secret. It exists so that adding
+ * this file to a project is a separate, visible step from actually using it.
+ *
+ * ===========================================================================
+ */
+
+import { createWalletClient, custom, getAddress, isAddress, type EIP1193Provider, type Hex } from 'viem';
+import type { Chain } from 'viem/chains';
+import {
+  assertIntentValid,
+  intentCanonicalForm,
+  intentDigest,
+  withdrawalIntentTypedData,
+  type WithdrawalIntentPayload,
+} from './intent.ts';
+import type { Eip1193Provider, HexAddress } from './connect.ts';
+
+/** Identity of this consent-gated module, used by the startup feature detection. */
+export const moduleId = 'melodiespark.consent-gated.signing' as const;
+
+/** Marker: this module cannot be used without an explicit operator consent token. */
+export const requiresOperatorConsent = true as const;
+
+/**
+ * The exact string a caller must pass as `consentToken`. It is derived from the
+ * `melodie init` flag that produced this file, so it is obvious in review.
+ */
+export const SIGNING_CONSENT_TOKEN = 'operator-consent:--{{CONSENT_FLAG}}';
+
+/** Thrown when signing is attempted without the explicit consent token. */
+export class SigningConsentError extends Error {
+  constructor(message = 'Refusing to sign: the caller did not supply the explicit operator consent token.') {
+    super(message);
+    this.name = 'SigningConsentError';
+  }
+}
+
+/**
+ * Enforce operator consent. Called first by every entry point in this file.
+ *
+ * @throws {SigningConsentError} when `token` is not exactly the consent token.
+ */
+export function assertSigningConsent(token: unknown): void {
+  if (typeof token !== 'string' || token !== SIGNING_CONSENT_TOKEN) {
+    throw new SigningConsentError(
+      'Refusing to sign: consentToken must be passed by the caller and must match SIGNING_CONSENT_TOKEN exactly.'
+    );
+  }
+}
+
+export interface SignIntentRequest {
+  /** The unsigned intent. It is re-validated, including expiry, before signing. */
+  readonly intent: WithdrawalIntentPayload;
+  /** The injected EIP-1193 provider from the user's own wallet. */
+  readonly provider: Eip1193Provider;
+  /** The chain object for the intent's chain. Used to build the wallet client. */
+  readonly chain: Chain;
+  /** Must equal {@link SIGNING_CONSENT_TOKEN}. Supplied by the caller. */
+  readonly consentToken: string;
+  /** Which of the wallet's accounts to sign with. Defaults to the first. */
+  readonly account?: HexAddress;
+}
+
+export interface SignIntentResult {
+  readonly signature: Hex;
+  /** Hash of the canonical intent form. This is what the signature commits to. */
+  readonly digest: Hex;
+  readonly canonical: string;
+  /** Always `false`. This module does not broadcast. See the header. */
+  readonly broadcasted: false;
+  /** The exact bytes the wallet was asked to sign, for the caller's records. */
+  readonly typedData: ReturnType<typeof withdrawalIntentTypedData>;
+}
+
+function asViemProvider(provider: Eip1193Provider): EIP1193Provider {
+  // The local EIP-1193 shape is a structural subset of viem's. The cast keeps
+  // the project free of a second copy of the provider typings.
+  return provider as unknown as EIP1193Provider;
+}
+
+/**
+ * Resolve the account to sign with, or fail loudly.
+ *
+ * `signTypedData` needs a concrete account: signing on behalf of "no account in
+ * particular" is not a thing a wallet can do. Rather than defaulting to
+ * `account[0]` and hoping, an omitted `request.account` is resolved through
+ * `eth_accounts` and rejected if the wallet exposes none. A silent fallback to
+ * the first account is exactly the kind of default that signs with the wrong
+ * key when a user has several.
+ *
+ * @throws {SigningConsentError} when no usable account can be determined.
+ */
+async function resolveSigningAccount(request: SignIntentRequest): Promise<HexAddress> {
+  if (request.account) return request.account;
+  let accounts: unknown;
+  try {
+    accounts = await request.provider.request({ method: 'eth_accounts' });
+  } catch (error) {
+    throw new SigningConsentError(
+      `Could not read eth_accounts: ${error instanceof Error ? error.message : String(error)}`
+    );
+  }
+  const first = Array.isArray(accounts) ? accounts[0] : undefined;
+  if (typeof first !== 'string' || !isAddress(first)) {
+    throw new SigningConsentError(
+      'No account available to sign with. Pass `account` explicitly, or connect a wallet that has an unlocked account.'
+    );
+  }
+  return getAddress(first) as HexAddress;
+}
+
+/**
+ * Ask the user's own wallet to sign the intent as EIP-712 typed data.
+ *
+ * This produces a signature. It does not send anything. The caller receives
+ * the signature and is responsible for deciding what, if anything, to do with
+ * it - and broadcasting is a separate consent-gated module that requires its
+ * own human confirmation.
+ *
+ * @throws {SigningConsentError}     when the consent token is absent or wrong.
+ * @throws {IntentValidationError}   when the intent is malformed or expired.
+ */
+export async function signWithdrawalIntent(request: SignIntentRequest): Promise<SignIntentResult> {
+  assertSigningConsent(request.consentToken);
+  assertIntentValid(request.intent);
+
+  const typedData = withdrawalIntentTypedData(request.intent);
+  const account = await resolveSigningAccount(request);
+  const client = createWalletClient({ account, chain: request.chain, transport: custom(asViemProvider(request.provider)) });
+
+  const signature = await client.signTypedData({
+    account,
+    domain: typedData.domain,
+    types: { WithdrawalIntent: typedData.types.WithdrawalIntent },
+    primaryType: 'WithdrawalIntent',
+    message: typedData.message,
+  });
+
+  return {
+    signature,
+    digest: intentDigest(request.intent),
+    canonical: intentCanonicalForm(request.intent),
+    broadcasted: false,
+    typedData,
+  };
+}
+
+/**
+ * Explicit, one-line reminder suitable for an operator log line. Useful so a
+ * reviewer can grep a codebase for every place that can produce a signature.
+ */
+export function describeSigningModule(): string {
+  return [
+    'consent-gated signing module',
+    'produces: EIP-712 signatures for withdrawal intents',
+    'handles: no private key, ever',
+    'broadcasts: no',
+    'requires: explicit operator consent token passed by the caller',
+  ].join(' | ');
+}

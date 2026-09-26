@@ -1,0 +1,85 @@
+
+Profile                         : Domain
+Enabled                         : True
+DefaultInboundAction            : Block
+DefaultOutboundAction           : Allow
+AllowInboundRules               : NotConfigured
+AllowLocalFirewallRules         : True
+AllowLocalIPsecRules            : True
+AllowUserApps                   : NotConfigured
+AllowUserPorts                  : NotConfigured
+AllowUnicastResponseToMulticast : NotConfigured
+NotifyOnListen                  : True
+EnableStealthModeForIPsec       : NotConfigured
+LogMaxSizeKilobytes             : 4096
+LogAllowed                      : False
+LogBlocked                      : False
+LogIgnored                      : NotConfigured
+Caption                         : 
+Description                     : 
+ElementName                     : 
+InstanceID                      : MSFT|FW|FirewallProfile|Domain
+DisabledInterfaceAliases        : {NotConfigured}
+LogFileName                     : %systemroot%\system32\LogFiles\Firewall\pfirewall.log
+Name                            : Domain
+PSComputerName                  : 
+CimClass                        : root/standardcimv2 : MSFT_NetFirewallProfile
+CimInstanceProperties           : {Caption, Description, ElementName, InstanceID…}
+CimSystemProperties             : Microsoft.Management.Infrastructure.CimSystemProperties
+
+Profile                         : Private
+Enabled                         : True
+DefaultInboundAction            : Block
+DefaultOutboundAction           : Allow
+AllowInboundRules               : NotConfigured
+AllowLocalFirewallRules         : True
+AllowLocalIPsecRules            : True
+AllowUserApps                   : NotConfigured
+AllowUserPorts                  : NotConfigured
+AllowUnicastResponseToMulticast : NotConfigured
+NotifyOnListen                  : True
+EnableStealthModeForIPsec       : NotConfigured
+LogMaxSizeKilobytes             : 4096
+LogAllowed                      : False
+LogBlocked                      : False
+LogIgnored                      : NotConfigured
+Caption                         : 
+Description                     : 
+ElementName                     : 
+InstanceID                      : MSFT|FW|FirewallProfile|Private
+DisabledInterfaceAliases        : {NotConfigured}
+LogFileName                     : %systemroot%\system32\LogFiles\Firewall\pfirewall.log
+Name                            : Private
+PSComputerName                  : 
+CimClass                        : root/standardcimv2 : MSFT_NetFirewallProfile
+CimInstanceProperties           : {Caption, Description, ElementName, InstanceID…}
+CimSystemProperties             : Microsoft.Management.Infrastructure.CimSystemProperties
+
+Profile                         : Public
+Enabled                         : True
+DefaultInboundAction            : Block
+DefaultOutboundAction           : Allow
+AllowInboundRules               : NotConfigured
+AllowLocalFirewallRules         : True
+AllowLocalIPsecRules            : True
+AllowUserApps                   : NotConfigured
+AllowUserPorts                  : NotConfigured
+AllowUnicastResponseToMulticast : NotConfigured
+NotifyOnListen                  : True
+EnableStealthModeForIPsec       : NotConfigured
+LogMaxSizeKilobytes             : 4096
+LogAllowed                      : False
+LogBlocked                      : False
+LogIgnored                      : NotConfigured
+Caption                         : 
+Description                     : 
+ElementName                     : 
+InstanceID                      : MSFT|FW|FirewallProfile|Public
+DisabledInterfaceAliases        : {NotConfigured}
+LogFileName                     : %systemroot%\system32\LogFiles\Firewall\pfirewall.log
+Name                            : Public
+PSComputerName                  : 
+CimClass                        : root/standardcimv2 : MSFT_NetFirewallProfile
+CimInstanceProperties           : {Caption, Description, ElementName, InstanceID…}
+CimSystemProperties             : Microsoft.Management.Infrastructure.CimSystemProperties
+

@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+node_modules/
+data/*.db
+data/*.db-*
+data/*.log
+data/exports/
+coverage/
+*.pem
+*.key
+*.pfx
+*.p12
+Ultimate_*.zip
+.DS_Store
+Thumbs.db

@@ -1,0 +1,2 @@
+064912a2e4d6ca283db7a770009c570ea111fd7b90676f5f3767570c58b65420  MetaMello-D-Wallet-Windows-x64.zip
+72c830147823ac210f2bb0dbc4d23a5e42c7f31a1cbb1fb34d5642976f4af84e  MetaMello-D-Source.zip

@@ -1,0 +1,3 @@
+[console_scripts]
+melodiespark = melodiespark_cli.cli:main
+melodiespark-cli = melodiespark_cli.cli:main
