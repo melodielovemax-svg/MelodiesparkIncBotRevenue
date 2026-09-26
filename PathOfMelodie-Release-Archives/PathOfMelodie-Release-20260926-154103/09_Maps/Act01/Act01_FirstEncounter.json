@@ -1,0 +1,7 @@
+EncounterID: ACT01_FIRST_BLOOD
+Map: Act01_CombatZone_01
+EnemyType: Soul_Sentry_Basic
+EnemyCount: 3
+SpawnPoints: [ (100,0,100), (200,0,100), (150,0,200) ]
+VictoryCondition: ALL_ENEMIES_DEAD
+LootTable: Basic_Sentry_Drop

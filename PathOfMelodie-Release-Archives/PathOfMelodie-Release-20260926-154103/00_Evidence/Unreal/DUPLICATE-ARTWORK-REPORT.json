@@ -1,0 +1,37 @@
+{
+  "duplicate_groups": 1,
+  "duplicate_files": [
+    {
+      "sha256": "",
+      "count": 26,
+      "files": [
+        "C:\\melodie\\Melodiespark_Source\\MelodieCLI\\BotRevenue-RevOps\\apps\\dashboard\\public\\file.svg",
+        "C:\\melodie\\Melodiespark_Source\\MelodieCLI\\BotRevenue-RevOps\\apps\\dashboard\\public\\globe.svg",
+        "C:\\melodie\\Melodiespark_Source\\MelodieCLI\\BotRevenue-RevOps\\apps\\dashboard\\public\\next.svg",
+        "C:\\melodie\\Melodiespark_Source\\MelodieCLI\\BotRevenue-RevOps\\apps\\dashboard\\public\\vercel.svg",
+        "C:\\melodie\\Melodiespark_Source\\MelodieCLI\\BotRevenue-RevOps\\apps\\dashboard\\public\\window.svg",
+        "C:\\melodie\\Melodiespark_Source\\MelodieCLI\\free-claude-code\\pic.png",
+        "C:\\melodie\\Melodiespark_Source\\MelodieCLI\\MELODIEBOTREVENUE\\public\\images\\phoenix_ai_engine.jpg",
+        "C:\\melodie\\Melodiespark_Source\\MelodieCLI\\MELODIEBOTREVENUE\\public\\images\\powershell_cli_suite.jpg",
+        "C:\\melodie\\Melodiespark_Source\\MelodieCLI\\MELODIEBOTREVENUE\\public\\images\\sovereign_fintech_vault.jpg",
+        "C:\\melodie\\Melodiespark_Source\\MelodieCLI\\MELODIEBOTREVENUE\\public\\images\\web3_paymaster_bridge.jpg",
+        "C:\\melodie\\Melodiespark_Source\\MelodieCLI\\star-cliproxy\\docs\\images\\dashboard.png",
+        "C:\\melodie\\Melodiespark_Source\\MelodieCLI\\star-cliproxy\\docs\\images\\star_cliproxy_architecture_english.svg",
+        "C:\\melodie\\Melodiespark_Source\\MelodieCLI\\star-cliproxy\\docs\\images\\star_cliproxy_full_architecture.svg",
+        "C:\\melodie\\Melodiespark_Source\\MelodieCLI\\star-cliproxy\\packages\\dashboard\\public\\favicon.svg",
+        "C:\\melodie\\PathOfMelodie-Unreal\\Content\\Art\\Verified\\dashboard.png",
+        "C:\\melodie\\PathOfMelodie-Unreal\\Content\\Art\\Verified\\favicon-16x16.png",
+        "C:\\melodie\\PathOfMelodie-Unreal\\Content\\Art\\Verified\\favicon-32x32.png",
+        "C:\\melodie\\PathOfMelodie-Unreal\\Content\\Art\\Verified\\phoenix_ai_engine.jpg",
+        "C:\\melodie\\PathOfMelodie-Unreal\\Content\\Art\\Verified\\pic.png",
+        "C:\\melodie\\PathOfMelodie-Unreal\\Content\\Art\\Verified\\pino-banner.png",
+        "C:\\melodie\\PathOfMelodie-Unreal\\Content\\Art\\Verified\\pino-logo-hire.png",
+        "C:\\melodie\\PathOfMelodie-Unreal\\Content\\Art\\Verified\\pino-tree.png",
+        "C:\\melodie\\PathOfMelodie-Unreal\\Content\\Art\\Verified\\powershell_cli_suite.jpg",
+        "C:\\melodie\\PathOfMelodie-Unreal\\Content\\Art\\Verified\\pretty-demo.png",
+        "C:\\melodie\\PathOfMelodie-Unreal\\Content\\Art\\Verified\\sovereign_fintech_vault.jpg",
+        "C:\\melodie\\PathOfMelodie-Unreal\\Content\\Art\\Verified\\web3_paymaster_bridge.jpg"
+      ]
+    }
+  ]
+}

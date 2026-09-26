@@ -1,0 +1,12 @@
+﻿{
+    "Dev_Standard":  {
+                         "GPU_Power":  "Balanced",
+                         "Memory_Lock":  "False",
+                         "CPU_Priority":  "Normal"
+                     },
+    "Ultra_Extraction":  {
+                             "GPU_Power":  "Maximum",
+                             "Memory_Lock":  "True",
+                             "CPU_Priority":  "High"
+                         }
+}

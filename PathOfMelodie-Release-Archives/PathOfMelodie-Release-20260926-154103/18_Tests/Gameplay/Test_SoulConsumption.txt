@@ -1,0 +1,3 @@
+TestID: Test_SoulConsumption
+Expected: SUCCESS
+Result: PENDING

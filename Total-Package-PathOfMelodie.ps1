@@ -36,17 +36,17 @@ $PriorRelease = "C:\melodie\PathOfMelodie-Release"
 $WorkspaceRoot = "C:\melodie\PathOfMelodie-Release"
 
 # ============================================================================
-# EVIDENCE REGISTRY — every file we find gets classified
+# EVIDENCE REGISTRY
 # ============================================================================
 $EvidenceRegistry = [System.Collections.ArrayList]::new()
-$Script:FileInventory = @{}  # relative path -> @{ source; status; hash; bytes; category }
+$Script:FileInventory = @{}
 
 function Add-Evidence {
     param(
         [string]$RelativePath,
         [string]$SourcePath,
-        [string]$Status,       # VERIFIED | GENERATED | IMPORTED | PLANNED | MISSING | BLOCKED
-        [string]$Category,     # Source | Artwork | Audio | Data | Map | UI | Test | Doc | Evidence | Build
+        [string]$Status,
+        [string]$Category,
         [string]$Description = ""
     )
 
@@ -78,9 +78,9 @@ function Add-Evidence {
 }
 
 # ============================================================================
-# STEP 0 — VALIDATE SOURCES EXIST
+# STEP 0 - VALIDATE SOURCES EXIST
 # ============================================================================
-Write-Host "=== Path of Melodie — Total Package ===" -ForegroundColor Cyan
+Write-Host "=== Path of Melodie - Total Package ===" -ForegroundColor Cyan
 Write-Host "Timestamp: $Timestamp"
 Write-Host ""
 
@@ -92,7 +92,7 @@ foreach ($dir in @($GodotSource, $UnrealSource)) {
 Write-Host "[OK] Sources verified" -ForegroundColor Green
 
 # ============================================================================
-# STEP 1 — SCAN GODOT SOURCE (VERIFIED code)
+# STEP 1 - SCAN GODOT SOURCE (VERIFIED code)
 # ============================================================================
 Write-Host "[1/8] Scanning Godot source..." -ForegroundColor Yellow
 
@@ -114,7 +114,7 @@ foreach ($f in $godotFiles) {
         -Description "Godot source file (GDScript/data/scene)"
 }
 
-# Also capture .uid files (VERIFIED but tracked separately)
+# Also capture .uid files
 $uidFiles = Get-ChildItem -Path $GodotSource -Recurse -File -Filter '*.uid'
 foreach ($f in $uidFiles) {
     $rel = $f.FullName.Substring($GodotSource.Length).TrimStart('\')
@@ -126,11 +126,11 @@ foreach ($f in $uidFiles) {
 }
 
 # ============================================================================
-# STEP 2 — SCAN UNREAL PROJECT
+# STEP 2 - SCAN UNREAL PROJECT
 # ============================================================================
 Write-Host "[2/8] Scanning Unreal project..." -ForegroundColor Yellow
 
-# 2a. C++ Source (VERIFIED — scaffolded code)
+# 2a. C++ Source
 $cppFiles = Get-ChildItem -Path "$UnrealSource\Source" -Recurse -File
 foreach ($f in $cppFiles) {
     $rel = $f.FullName.Substring($UnrealSource.Length).TrimStart('\')
@@ -151,7 +151,7 @@ foreach ($f in $uproject) {
         -Description "Unreal project descriptor"
 }
 
-# 2c. Content — Art (VERIFIED for verified dir, IMPORTED for others)
+# 2c. Content - Art (VERIFIED for verified dir, IMPORTED for others)
 $artVerified = Get-ChildItem -Path "$UnrealSource\Content\Art\Verified" -Recurse -File -ErrorAction SilentlyContinue
 foreach ($f in $artVerified) {
     $rel = $f.FullName.Substring($UnrealSource.Length).TrimStart('\')
@@ -172,7 +172,7 @@ foreach ($f in $artConcept) {
         -Description "Concept/reference artwork (imported)"
 }
 
-# Other art dirs (Enemies, Characters, etc.) — PLANNED (empty dirs)
+# Other art dirs
 $artDirs = @('Armor', 'Characters', 'Cinematics', 'Enemies', 'Environments', 'Generated', 'Guardians', 'Loot', 'UI', 'VFX', 'Weapons')
 foreach ($d in $artDirs) {
     $dirPath = "$UnrealSource\Content\Art\$d"
@@ -186,13 +186,12 @@ foreach ($d in $artDirs) {
                 -Description "Artwork in $d"
         }
     }
-    # Always register the directory as PLANNED if empty
     if (-not (Test-Path $dirPath) -or (Get-ChildItem -Path $dirPath -Recurse -File -ErrorAction SilentlyContinue).Count -eq 0) {
         Add-Evidence -RelativePath "10_Art\$d\" `
             -SourcePath $null `
             -Status 'PLANNED' `
             -Category 'Artwork' `
-            -Description "Artwork directory $d — no assets yet"
+            -Description "Artwork directory $d - no assets yet"
     }
 }
 
@@ -230,7 +229,7 @@ foreach ($f in $mapFiles) {
         -Description "Map configuration for $actName"
 }
 
-# 2g. Audio (MISSING — no audio dir content)
+# 2g. Audio
 $audioDir = "$UnrealSource\Content\Audio"
 if (Test-Path $audioDir) {
     $audioFiles = Get-ChildItem -Path $audioDir -Recurse -File -ErrorAction SilentlyContinue
@@ -247,7 +246,7 @@ foreach ($sub in @('Music', 'Ambience', 'Combat', 'Skills', 'UI', 'Voice')) {
         -SourcePath $null `
         -Status 'MISSING' `
         -Category 'Audio' `
-        -Description "Audio subdirectory $sub — no assets"
+        -Description "Audio subdirectory $sub - no assets"
 }
 
 # 2h. UI
@@ -269,7 +268,7 @@ foreach ($sub in @('HUD', 'Inventory', 'Character', 'Skills', 'Map', 'Quest', 'S
             -SourcePath $null `
             -Status 'PLANNED' `
             -Category 'UI' `
-            -Description "UI module $sub — not yet created"
+            -Description "UI module $sub - not yet created"
     }
 }
 
@@ -290,7 +289,7 @@ foreach ($sub in @('Intro', 'Acts', 'Bosses', 'Ending')) {
         -SourcePath $null `
         -Status 'PLANNED' `
         -Category 'Cinematics' `
-        -Description "Cinematic sequence $sub — not yet created"
+        -Description "Cinematic sequence $sub - not yet created"
 }
 
 # 2j. FX
@@ -309,7 +308,7 @@ if (Test-Path $fxDir) {
         -SourcePath $null `
         -Status 'PLANNED' `
         -Category 'Artwork' `
-        -Description "VFX directory — not yet created"
+        -Description "VFX directory - not yet created"
 }
 
 # 2k. Localization
@@ -328,7 +327,7 @@ if (Test-Path $locDir) {
         -SourcePath $null `
         -Status 'PLANNED' `
         -Category 'Localization' `
-        -Description "Localization directory — not yet created"
+        -Description "Localization directory - not yet created"
 }
 
 # 2l. Materials
@@ -345,7 +344,7 @@ if (Test-Path $matDir) {
 }
 
 # ============================================================================
-# STEP 3 — SCAN EVIDENCE & DOCS
+# STEP 3 - SCAN EVIDENCE and DOCS
 # ============================================================================
 Write-Host "[3/8] Scanning evidence and documentation..." -ForegroundColor Yellow
 
@@ -367,7 +366,6 @@ foreach ($f in $docFiles) {
         -Description "Project documentation"
 }
 
-# Prior release artifacts
 if (Test-Path $PriorRelease) {
     $priorFiles = Get-ChildItem -Path $PriorRelease -File -ErrorAction SilentlyContinue
     foreach ($f in $priorFiles) {
@@ -380,7 +378,7 @@ if (Test-Path $PriorRelease) {
 }
 
 # ============================================================================
-# STEP 4 — SCAN TESTS
+# STEP 4 - SCAN TESTS
 # ============================================================================
 Write-Host "[4/8] Scanning tests..." -ForegroundColor Yellow
 
@@ -403,11 +401,10 @@ foreach ($f in $testFiles) {
 }
 
 # ============================================================================
-# STEP 5 — REGISTER PLANNED / MISSING / BLOCKED DOMAINS
+# STEP 5 - REGISTER PLANNED / MISSING / BLOCKED DOMAINS
 # ============================================================================
 Write-Host "[5/8] Registering planned/missing/blocked domains..." -ForegroundColor Yellow
 
-# Game domains — PLANNED
 $gameDomains = @('15 Acts', 'World', 'Quests', 'NPCs', 'Bosses', 'Encounters')
 foreach ($d in $gameDomains) {
     $safeName = $d -replace ' ', ''
@@ -418,7 +415,6 @@ foreach ($d in $gameDomains) {
         -Description "Game domain: $d"
 }
 
-# Player domains — PLANNED (C++ scaffold exists but not full)
 $playerDomains = @('Controller', 'Movement', 'Dodge', 'Attributes', 'Progression', 'SaveLoad')
 foreach ($d in $playerDomains) {
     Add-Evidence -RelativePath "02_Player\$d\" `
@@ -428,7 +424,6 @@ foreach ($d in $playerDomains) {
         -Description "Player system: $d"
 }
 
-# Combat domains — VERIFIED (C++ exists) or PLANNED
 $combatDomains = @('PlayerCombat', 'EnemyAI', 'Aggro', 'Damage', 'Resistances', 'StatusEffects', 'Death', 'CombatEvents')
 foreach ($d in $combatDomains) {
     $hasCpp = $cppFiles | Where-Object { $_.Name -match $d }
@@ -440,7 +435,6 @@ foreach ($d in $combatDomains) {
         -Description "Combat system: $d"
 }
 
-# Classes — VERIFIED (data exists)
 $classes = @('Phoenix Warrior', 'Soul Reaper', 'Guardian Knight', 'Arc-Angel', 'Void Hunter', 'Shatter Berserker')
 foreach ($c in $classes) {
     $safe = $c -replace ' ', ''
@@ -451,7 +445,6 @@ foreach ($c in $classes) {
         -Description "Archetype: $c"
 }
 
-# Guardians — VERIFIED (C++ exists)
 $guardianDomains = @('Guardians', 'Sub-Guardians', 'Guardian AI', 'Guardian progression')
 foreach ($d in $guardianDomains) {
     $safe = $d -replace ' ', ''
@@ -462,7 +455,6 @@ foreach ($d in $guardianDomains) {
         -Description "Guardian system: $d"
 }
 
-# SoulCore — VERIFIED
 $soulCoreDomains = @('Soul Core', 'Phoenix Ascension', 'Karma Points', 'Power Points')
 foreach ($d in $soulCoreDomains) {
     $safe = $d -replace ' ', ''
@@ -473,7 +465,6 @@ foreach ($d in $soulCoreDomains) {
         -Description "SoulCore system: $d"
 }
 
-# Items — VERIFIED (data exists)
 $itemDomains = @('Weapons', 'Armor', 'Accessories', 'Loot', 'Affixes', 'Rarities', 'Uniques')
 foreach ($d in $itemDomains) {
     Add-Evidence -RelativePath "07_Items\$d\" `
@@ -483,7 +474,6 @@ foreach ($d in $itemDomains) {
         -Description "Item system: $d"
 }
 
-# Inventory — PLANNED
 $invDomains = @('Inventory', 'Equipment', 'Stash', 'Item persistence')
 foreach ($d in $invDomains) {
     $safe = $d -replace ' ', ''
@@ -494,35 +484,30 @@ foreach ($d in $invDomains) {
         -Description "Inventory system: $d"
 }
 
-# Accessibility — MISSING
 Add-Evidence -RelativePath "15_Accessibility\" `
     -SourcePath $null `
     -Status 'MISSING' `
     -Category 'Doc' `
-    -Description "Accessibility module — not yet created"
+    -Description "Accessibility module - not yet created"
 
-# Achievements — PLANNED
 Add-Evidence -RelativePath "16_Achievements\" `
     -SourcePath $null `
     -Status 'PLANNED' `
     -Category 'Source' `
-    -Description "Achievements system — not yet implemented"
+    -Description "Achievements system - not yet implemented"
 
-# Endgame — PLANNED
 Add-Evidence -RelativePath "17_Endgame\" `
     -SourcePath $null `
     -Status 'PLANNED' `
     -Category 'Source' `
-    -Description "Endgame systems — not yet implemented"
+    -Description "Endgame systems - not yet implemented"
 
-# 30K Artwork — BLOCKED
 Add-Evidence -RelativePath "10_Art\Generated\" `
     -SourcePath $null `
     -Status 'BLOCKED' `
     -Category 'Artwork' `
-    -Description "30,000 artwork target — NOT VERIFIED. Release blocked until gate passes."
+    -Description "30,000 artwork target - NOT VERIFIED. Release blocked until gate passes."
 
-# Build configs — PLANNED
 foreach ($cfg in @('Development', 'Test', 'Shipping')) {
     Add-Evidence -RelativePath "20_Builds\$cfg\" `
         -SourcePath $null `
@@ -532,14 +517,13 @@ foreach ($cfg in @('Development', 'Test', 'Shipping')) {
 }
 
 # ============================================================================
-# STEP 6 — BUILD RELEASE WORKSPACE
+# STEP 6 - BUILD RELEASE WORKSPACE
 # ============================================================================
 Write-Host "[6/8] Building release workspace..." -ForegroundColor Yellow
 
 $releaseStage = Join-Path $OutputDir "$ArchiveName"
 if (Test-Path $releaseStage) { Remove-Item -Recurse -Force $releaseStage }
 
-# Create directory structure
 $dirs = @(
     '00_Evidence',
     '01_Game\15 Acts', '01_Game\World', '01_Game\Quests', '01_Game\NPCs',
@@ -587,7 +571,7 @@ foreach ($d in $dirs) {
     if (-not (Test-Path $full)) { New-Item -ItemType Directory -Path $full -Force | Out-Null }
 }
 
-# Copy verified files from inventory
+# Copy verified files
 $copiedCount = 0
 foreach ($entry in $EvidenceRegistry) {
     if ($entry.Status -in @('VERIFIED', 'GENERATED', 'IMPORTED') -and $entry.SourcePath -and (Test-Path $entry.SourcePath)) {
@@ -602,7 +586,7 @@ foreach ($entry in $EvidenceRegistry) {
 Write-Host "  Copied $copiedCount verified files" -ForegroundColor Green
 
 # ============================================================================
-# STEP 7 — GENERATE MANIFESTS
+# STEP 7 - GENERATE MANIFESTS
 # ============================================================================
 Write-Host "[7/8] Generating evidence manifests..." -ForegroundColor Yellow
 
@@ -628,9 +612,9 @@ $releaseManifest = [ordered]@{
         planned_items         = @($EvidenceRegistry | Where-Object { $_.Status -eq 'PLANNED' }).Count
         missing_items         = @($EvidenceRegistry | Where-Object { $_.Status -eq 'MISSING' }).Count
         blocked_items         = @($EvidenceRegistry | Where-Object { $_.Status -eq 'BLOCKED' }).Count
-        verified_artwork      = @($artVerified.Count)
+        verified_artwork      = ($artVerified | Measure-Object).Count
         target_artwork        = 30000
-        artwork_gap           = 30000 - @($artVerified.Count)
+        artwork_gap           = 30000 - ($artVerified | Measure-Object).Count
         godot_source_files    = @($godotFiles.Count)
         unreal_cpp_files     = @($cppFiles.Count)
         map_directories       = 15
@@ -668,7 +652,7 @@ $releaseManifest = [ordered]@{
 
 $releaseManifest | ConvertTo-Json -Depth 10 | Set-Content -Path "$releaseStage\00_Evidence\RELEASE-MANIFEST.json" -Encoding UTF8
 
-# 7b. SOURCE-MANIFEST.json — every scanned file
+# 7b. SOURCE-MANIFEST.json
 $sourceManifest = @($EvidenceRegistry | ForEach-Object {
     [ordered]@{
         path        = $_.RelativePath
@@ -683,7 +667,7 @@ $sourceManifest = @($EvidenceRegistry | ForEach-Object {
 
 $sourceManifest | ConvertTo-Json -Depth 10 | Set-Content -Path "$releaseStage\00_Evidence\SOURCE-MANIFEST.json" -Encoding UTF8
 
-# 7c. ARTWORK-MANIFEST.json — artwork-specific with hashes
+# 7c. ARTWORK-MANIFEST.json
 $artworkManifest = @($EvidenceRegistry | Where-Object { $_.Category -eq 'Artwork' } | ForEach-Object {
     [ordered]@{
         path        = $_.RelativePath
@@ -758,7 +742,7 @@ foreach ($entry in ($EvidenceRegistry | Where-Object { $_.SHA256 } | Sort-Object
 $sb.ToString() | Set-Content -Path "$releaseStage\00_Evidence\SHA256SUMS.txt" -Encoding UTF8
 
 # ============================================================================
-# STEP 8 — PACKAGE ARCHIVE
+# STEP 8 - PACKAGE ARCHIVE
 # ============================================================================
 Write-Host "[8/8] Packaging archive..." -ForegroundColor Yellow
 
@@ -767,7 +751,6 @@ if (-not (Test-Path $OutputDir)) { New-Item -ItemType Directory -Path $OutputDir
 $archivePath = Join-Path $OutputDir "$ArchiveName.zip"
 Compress-Archive -Path "$releaseStage\*" -DestinationPath $archivePath -CompressionLevel Optimal
 
-# Verify archive
 if (Test-Path $archivePath) {
     $archiveSize = (Get-Item $archivePath).Length
     $archiveHash = (Get-FileHash $archivePath -Algorithm SHA256).Hash
@@ -794,13 +777,12 @@ if (Test-Path $archivePath) {
     Write-Host "The release remains BLOCKED until missing gates pass." -ForegroundColor Yellow
     Write-Host "============================================" -ForegroundColor Green
 
-    # Write a companion info file
     $infoFile = Join-Path $OutputDir "$ArchiveName-INFO.txt"
-    @"
-Path of Melodie — Release Package
+    $infoContent = @"
+Path of Melodie - Release Package
 ==================================
 Generated:    $($releaseManifest.generated_utc)
-Archive:      $archiveName.zip
+Archive:      $ArchiveName.zip
 Size:         $([math]::Round($archiveSize / 1MB, 2)) MB
 SHA256:       $archiveHash
 
@@ -810,31 +792,32 @@ The package contains all verified game content organized by domain.
 The 30,000-artwork target is NOT met. No assets are fabricated.
 
 Evidence-controlled release workspace:
-  00_Evidence/       — Manifests, hashes, build status
-  01_Game/           — Acts, World, Quests, NPCs, Bosses, Encounters
-  02_Player/         — Controller, Movement, Dodge, Attributes, Progression, SaveLoad
-  03_Combat/         — PlayerCombat, EnemyAI, Aggro, Damage, Resistances, StatusEffects, Death, CombatEvents
-  04_Classes/        — 6 archetypes
-  05_Guardians/      — Guardians, Sub-Guardians, AI, Progression
-  06_SoulCore/       — Soul Core, Phoenix Ascension, Karma Points, Power Points
-  07_Items/          — Weapons, Armor, Accessories, Loot, Affixes, Rarities, Uniques
-  08_Inventory/      — Inventory, Equipment, Stash, Persistence
-  09_Maps/           — Act01–Act15
-  10_Art/            — Characters, Enemies, Guardians, Weapons, Armor, Environments, Loot, VFX, UI, Cinematics, Concept, Generated, Verified
-  11_Audio/          — Music, Ambience, Combat, Skills, UI, Voice
-  12_UI/             — HUD, Inventory, Character, Skills, Map, Quest, Settings, Menus
-  13_Cinematics/     — Intro, Acts, Bosses, Ending
+  00_Evidence/       - Manifests, hashes, build status
+  01_Game/           - Acts, World, Quests, NPCs, Bosses, Encounters
+  02_Player/         - Controller, Movement, Dodge, Attributes, Progression, SaveLoad
+  03_Combat/         - PlayerCombat, EnemyAI, Aggro, Damage, Resistances, StatusEffects, Death, CombatEvents
+  04_Classes/        - 6 archetypes
+  05_Guardians/      - Guardians, Sub-Guardians, AI, Progression
+  06_SoulCore/       - Soul Core, Phoenix Ascension, Karma Points, Power Points
+  07_Items/          - Weapons, Armor, Accessories, Loot, Affixes, Rarities, Uniques
+  08_Inventory/      - Inventory, Equipment, Stash, Persistence
+  09_Maps/           - Act01-Act15
+  10_Art/            - Characters, Enemies, Guardians, Weapons, Armor, Environments, Loot, VFX, UI, Cinematics, Concept, Generated, Verified
+  11_Audio/          - Music, Ambience, Combat, Skills, UI, Voice
+  12_UI/             - HUD, Inventory, Character, Skills, Map, Quest, Settings, Menus
+  13_Cinematics/     - Intro, Acts, Bosses, Ending
   14_Localization/
   15_Accessibility/
   16_Achievements/
   17_Endgame/
-  18_Tests/          — Unit, Integration, Gameplay, SaveLoad, Combat, Packaging
-  19_UnrealProject/  — PathOfMelodie.uproject
-  20_Builds/         — Development, Test, Shipping
+  18_Tests/          - Unit, Integration, Gameplay, SaveLoad, Combat, Packaging
+  19_UnrealProject/  - PathOfMelodie.uproject
+  20_Builds/         - Development, Test, Shipping
 
 To verify: sha256sum -c SHA256SUMS.txt
 To inspect: Extract and read 00_Evidence/RELEASE-MANIFEST.json
-"@ | Set-Content -Path $infoFile -Encoding UTF8
+"@
+    $infoContent | Set-Content -Path $infoFile -Encoding UTF8
 
 } else {
     throw "Archive creation failed: $archivePath not found"

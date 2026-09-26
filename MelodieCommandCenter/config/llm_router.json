@@ -1,0 +1,6 @@
+﻿{
+    "Router":  "OpenRouter-Auto",
+    "Reasoning":  "Mistral-Large",
+    "Coding":  "GPT-4-Turbo",
+    "FastChat":  "GPT-3.5-Turbo"
+}

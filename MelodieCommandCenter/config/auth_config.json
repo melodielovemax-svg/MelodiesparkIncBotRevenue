@@ -1,0 +1,11 @@
+﻿{
+    "Scopes":  [
+                   "openid",
+                   "profile",
+                   "email",
+                   "drive.file"
+               ],
+    "LedgerAPI":  "https://api.ledger.com/v1",
+    "ClientID":  "PENDING_GOOGLE_CONSENT",
+    "ClientSecret":  "SECRET_ENCRYPTED"
+}

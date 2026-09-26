@@ -1,0 +1,37 @@
+﻿Path of Melodie - Release Package
+==================================
+Generated:    2026-09-26T15:41:29.9450744-04:00
+Archive:      PathOfMelodie-Release-20260926-154127.zip
+Size:         7.6 MB
+SHA256:       78724791AA47A790EF0BA96BB6406F6D0E1552F3D6A690B47ECBD8EEF565AE55
+
+STATUS: BLOCKED
+
+The package contains all verified game content organized by domain.
+The 30,000-artwork target is NOT met. No assets are fabricated.
+
+Evidence-controlled release workspace:
+  00_Evidence/       - Manifests, hashes, build status
+  01_Game/           - Acts, World, Quests, NPCs, Bosses, Encounters
+  02_Player/         - Controller, Movement, Dodge, Attributes, Progression, SaveLoad
+  03_Combat/         - PlayerCombat, EnemyAI, Aggro, Damage, Resistances, StatusEffects, Death, CombatEvents
+  04_Classes/        - 6 archetypes
+  05_Guardians/      - Guardians, Sub-Guardians, AI, Progression
+  06_SoulCore/       - Soul Core, Phoenix Ascension, Karma Points, Power Points
+  07_Items/          - Weapons, Armor, Accessories, Loot, Affixes, Rarities, Uniques
+  08_Inventory/      - Inventory, Equipment, Stash, Persistence
+  09_Maps/           - Act01-Act15
+  10_Art/            - Characters, Enemies, Guardians, Weapons, Armor, Environments, Loot, VFX, UI, Cinematics, Concept, Generated, Verified
+  11_Audio/          - Music, Ambience, Combat, Skills, UI, Voice
+  12_UI/             - HUD, Inventory, Character, Skills, Map, Quest, Settings, Menus
+  13_Cinematics/     - Intro, Acts, Bosses, Ending
+  14_Localization/
+  15_Accessibility/
+  16_Achievements/
+  17_Endgame/
+  18_Tests/          - Unit, Integration, Gameplay, SaveLoad, Combat, Packaging
+  19_UnrealProject/  - PathOfMelodie.uproject
+  20_Builds/         - Development, Test, Shipping
+
+To verify: sha256sum -c SHA256SUMS.txt
+To inspect: Extract and read 00_Evidence/RELEASE-MANIFEST.json

@@ -1,0 +1,30 @@
+﻿[
+    {
+        "Tool":  "npm",
+        "Status":  "INSTALLED"
+    },
+    {
+        "Tool":  "pnpm",
+        "Status":  "INSTALLED"
+    },
+    {
+        "Tool":  "npx",
+        "Status":  "INSTALLED"
+    },
+    {
+        "Tool":  "pip",
+        "Status":  "INSTALLED"
+    },
+    {
+        "Tool":  "pipx",
+        "Status":  "INSTALLED"
+    },
+    {
+        "Tool":  "git",
+        "Status":  "INSTALLED"
+    },
+    {
+        "Tool":  "make",
+        "Status":  "MISSING"
+    }
+]
