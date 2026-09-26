@@ -1,10 +1,15 @@
 #!/usr/bin/env node
+import path from "node:path";
+import { execSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 import { config, saveConfig, ensureHome, setSecret, deleteSecret, hasSecret, audit } from "./core.js";
 import { providers, providerStatus } from "./providers.js";
 import { listModels, findModel, setActiveModel, getActiveModel } from "./models.js";
 import { listProfiles, setActiveProfile, getActiveProfile } from "./profiles.js";
 import { executeRoute } from "./router.js";
 import { checkModelHealth } from "./health.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 ensureHome();
 const rawArgv = process.argv.slice(2);
@@ -130,6 +135,90 @@ async function main() {
       } else {
         print("profile: use <instant|flash|thinking|deepcoder|pro-max> | current");
       }
+      break;
+    }
+
+    case "platforms": {
+      const sub = argv.shift() || "status";
+      if (sub === "install") {
+        const installer = path.resolve(__dirname, "..", "..", "scripts", "Install-MelodiePlatforms.ps1");
+        print(`[Melodie] Launching multi-platform installer: ${installer}`);
+        execSync(`powershell.exe -NoProfile -ExecutionPolicy Bypass -File "${installer}"`, {
+          stdio: "inherit"
+        });
+      } else if (sub === "list") {
+        print({
+          platforms: [
+            { name: "Node / npm / pnpm / npx", role: "Core Model Gateway & PRO-MAX Router", package: "@melodiespark/melodie-cli" },
+            { name: "Python / pip / pipx", role: "Content Catalog & Scaffolding Frontend", package: "melodiespark-cli" },
+            { name: "BotRevenue Automation", role: "Golden-Path & Non-Custodial Revenue Safeguards", package: "MelodiesparkIncBotRevenue" },
+            { name: "Coding Agents", role: "Orchestrated Multi-Agent Execution", supported: ["antigravity", "gemini", "claude", "openai", "openrouter", "ollama"] }
+          ]
+        });
+      } else if (sub === "doctor") {
+        const ps = providers();
+        const activeModel = getActiveModel();
+        const modelHealth = await checkModelHealth(activeModel);
+        print({
+          doctor: "Melodiespark Platform Diagnostic",
+          node: process.version,
+          platform: process.platform,
+          activeModel: { id: activeModel.id, health: modelHealth },
+          financialSafety: {
+            treasury_broadcast: "DISABLED",
+            server_private_keys: false,
+            autonomous_spending: "DISABLED",
+            autonomous_transfers: "DISABLED",
+            human_approval_required: true,
+            external_signer_required: true
+          },
+          evidenceTaxonomy: ["VERIFIED", "UNVERIFIED", "BLOCKED", "DRAFT", "PENDING_APPROVAL", "FAILED", "COMPLETED", "DISABLED"],
+          providers: ps
+        });
+      } else if (sub === "botrevenue") {
+        print({
+          goldenPath: "catalog -> checkout -> verified payment -> fulfillment -> entitlement -> evidence",
+          revenuePolicy: "Checkout creation is not revenue. Production revenue remains UNVERIFIED unless supported by real evidence.",
+          financialSafety: {
+            treasury_broadcast: "DISABLED",
+            server_private_keys: false,
+            autonomous_spending: "DISABLED",
+            autonomous_transfers: "DISABLED",
+            autonomous_payouts: "DISABLED",
+            human_approval_required: true,
+            external_signer_required: true
+          }
+        });
+      } else {
+        print({
+          platforms: "Melodie Platform CLI Infrastructure",
+          version: "1.1.0",
+          node: process.version,
+          commands: [
+            "melodiespark-cli platforms install",
+            "melodiespark-cli platforms doctor",
+            "melodiespark-cli platforms list",
+            "melodiespark-cli platforms botrevenue"
+          ]
+        });
+      }
+      break;
+    }
+
+    case "botrevenue": {
+      print({
+        goldenPath: "catalog -> checkout -> verified payment -> fulfillment -> entitlement -> evidence",
+        revenuePolicy: "Checkout creation is not revenue. Production revenue remains UNVERIFIED unless supported by real evidence.",
+        financialSafety: {
+          treasury_broadcast: "DISABLED",
+          server_private_keys: false,
+          autonomous_spending: "DISABLED",
+          autonomous_transfers: "DISABLED",
+          autonomous_payouts: "DISABLED",
+          human_approval_required: true,
+          external_signer_required: true
+        }
+      });
       break;
     }
 
@@ -260,6 +349,12 @@ Models & Profiles:
   melodie profiles
   melodie profile use <instant|flash|thinking|deepcoder|pro-max>
   melodie profile current
+
+Platforms & BotRevenue:
+  melodiespark-cli platforms install
+  melodiespark-cli platforms doctor
+  melodiespark-cli platforms list
+  melodiespark-cli botrevenue
 
 Execution:
   melodie run [--model <model>] [--profile <profile>] [--stream] <prompt>

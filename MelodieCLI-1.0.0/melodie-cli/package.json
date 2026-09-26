@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "bin": {
-    "melodie": "./src/cli.js"
+    "melodie": "./src/cli.js",
+    "melodiespark-cli": "./src/cli.js"
   },
   "scripts": {
     "start": "node src/cli.js",
