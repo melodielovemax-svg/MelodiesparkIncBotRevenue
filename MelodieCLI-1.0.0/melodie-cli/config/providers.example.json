@@ -1,0 +1,8 @@
+{
+  "executables": {
+    "antigravity": "agy",
+    "gemini": "gemini",
+    "claude": "claude",
+    "openai": "codex"
+  }
+}

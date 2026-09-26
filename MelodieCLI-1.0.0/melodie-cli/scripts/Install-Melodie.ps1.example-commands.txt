@@ -1,0 +1,12 @@
+# After installation (new PowerShell):
+melodie status
+melodie providers
+melodie auth login antigravity
+melodie auth login gemini
+melodie auth login claude
+melodie auth login openai
+melodie auth set openrouter YOUR_OPENROUTER_KEY
+melodie agent use ollama
+melodie models
+melodie run --provider ollama "Explain this repository architecture"
+melodie run --provider openrouter --model openai/gpt-4o-mini "Review this code"

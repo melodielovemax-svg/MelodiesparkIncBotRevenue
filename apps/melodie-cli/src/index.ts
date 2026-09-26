@@ -1,25 +1,49 @@
 #!/usr/bin/env node
 /**
- * @melodiespark/cli - cross-platform content catalog and template CLI.
+ * @melodiespark/cli - Melodie CLI Coding-Agent Platform & Catalog CLI.
  *
- * One catalog, two frontends. The Python package in `python/melodiespark-cli`
- * is a thin compatibility frontend over the same catalog and templates, so the
- * two implementations cannot disagree about extraction policy.
+ * Governed execution platform with evidence-first status tracking:
+ *   CATALOG ENTRY != CONNECTED PROVIDER != SUCCESSFUL INFERENCE != PRODUCTION READY
  *
- * Command surface (identical in both frontends):
- *   catalog   build / summarize the content catalog
- *   inspect   query catalog metadata (never prints file contents)
- *   extract   copy content, deny-by-default, with an audit trail
- *   template  list and describe scaffolding templates
- *   init      scaffold a project from a template
- *   verify    prove catalog integrity and scan for secret leakage
- *   status    report real capability state per TRUTH_PROTOCOL.md
+ * Command Surface:
+ *   System & Diagnostics:
+ *     doctor       check runtime, sandbox boundaries, and provider configurations
+ *     status       report capability and platform dashboard per TRUTH_PROTOCOL.md
+ *     verify       prove catalog integrity, policy rules, and secret scans
+ *     audit        query immutable audit event logs
+ *
+ *   Models & Providers:
+ *     models       list, sync, search, inspect, or test AI models
+ *     provider     list, add, verify, or remove model gateway adapters
+ *
+ *   Project Engine (Builder Studio):
+ *     project      create, inspect, analyze, plan, build, test, and package projects
+ *
+ *   Coding-Agent Engine:
+ *     agent        list, plan, code, review, test, security, or execute governed agent tasks
+ *
+ *   Workflows & Orchestration:
+ *     workflow     orchestrate Quantum Fractal Matrix (ALPHA->BETA->THETA->DELTA->BRAVO->GAMMA->OMEGA)
+ *
+ *   Evidence & Sandbox:
+ *     evidence     inspect and cryptographically verify execution records
+ *     sandbox      inspect and reset sandbox execution boundaries
+ *     deployment   plan, verify, and release deployment gates (gated by default)
+ *
+ *   Catalog & Scaffolding (Legacy Compatibility):
+ *     catalog      build / summarize the content catalog
+ *     inspect      query catalog metadata (never prints file contents)
+ *     extract      copy content, deny-by-default, with an audit trail
+ *     template     list and describe scaffolding templates
+ *     init         scaffold a project from a template or agent blueprint
  */
 
 import { parseArgs, shiftCommand } from './args.ts';
 import { ClassificationError } from './classifier.ts';
 import { CatalogError } from './store.ts';
+import { SandboxError, PolicyViolationError } from './sandbox/sandbox.ts';
 import { fail, heading, line, style } from './output.ts';
+
 import { runCatalog, NAME, VERSION } from './commands/catalog.ts';
 import { runInspect } from './commands/inspect.ts';
 import { runExtract } from './commands/extract.ts';
@@ -27,8 +51,19 @@ import { runTemplate } from './commands/template.ts';
 import { runInit } from './commands/init.ts';
 import { runVerify } from './commands/verify.ts';
 import { runStatus } from './commands/status.ts';
+import { runDoctor } from './commands/doctor.ts';
+import { runModels } from './commands/models.ts';
+import { runProvider } from './commands/provider.ts';
+import { runProject } from './commands/project.ts';
+import { runAgent } from './commands/agent.ts';
+import { runWorkflow } from './commands/workflow.ts';
+import { runEvidence } from './commands/evidence.ts';
+import { runSandbox } from './commands/sandbox.ts';
+import { runDeployment } from './commands/deployment.ts';
+import { runAudit } from './commands/audit.ts';
 
-const COMMANDS: Record<string, (args: ReturnType<typeof parseArgs>) => void> = {
+const COMMANDS: Record<string, (args: ReturnType<typeof parseArgs>) => void | Promise<void>> = {
+  // Catalog & Scaffolding
   catalog: runCatalog,
   inspect: runInspect,
   extract: runExtract,
@@ -36,51 +71,96 @@ const COMMANDS: Record<string, (args: ReturnType<typeof parseArgs>) => void> = {
   init: runInit,
   verify: runVerify,
   status: runStatus,
+
+  // Platform Diagnostics & Audit
+  doctor: runDoctor,
+  audit: runAudit,
+
+  // Models & Providers
+  models: runModels,
+  provider: runProvider,
+
+  // Builder Studio & Agents
+  project: runProject,
+  agent: runAgent,
+
+  // Workflows & Matrix
+  workflow: runWorkflow,
+
+  // Evidence, Sandbox & Deployment
+  evidence: runEvidence,
+  sandbox: runSandbox,
+  deployment: runDeployment,
 };
 
 function help(): void {
-  heading(`${NAME} ${VERSION}`);
-  line('  Content catalog and template CLI for the Melodiespark source tree.');
+  heading(`${NAME} ${VERSION} - Melodie CLI Coding-Agent Platform`);
+  line('  Evidence-first governed coding agent platform, model router, and catalog CLI.');
   line();
-  line('  Usage: melodie <command> [options]');
+  line('  Usage: melodie <command> [subcommand] [options]');
   line();
-  line('  Commands');
-  line('    catalog                 Summarize the catalog');
-  line('      --build               Rebuild from the source tree (hashes every file)');
-  line('      --source <dir>        Source root (default: C:/melodie/Melodiespark_Source)');
-  line('      --out <dir>           Output directory for the catalog artifacts');
-  line('      --repos               Repository provenance table');
-  line('      --category <name>     List files in one category');
-  line('    inspect <path...>       Show metadata for catalog entries');
-  line('      --repo <name>         Filter by repository');
-  line('      --category <name>     Filter by category');
-  line('      --flag <name>         Filter by classification flag');
-  line('      --limit <n>           Max rows (default 50)   --json   Machine output');
+  line('  Platform Commands');
+  line('    doctor                  Verify runtime, environment, sandbox, and provider health');
+  line('    status                  Display platform dashboard and capability status matrix');
+  line('    verify                  Catalog integrity, secret scanning, and security tests');
+  line('    audit [query]           Inspect tamper-evident audit event trail');
+  line();
+  line('  Models & Providers');
+  line('    models [list]           List models in registry');
+  line('    models sync             Sync dynamic model catalog from OpenRouter API');
+  line('    models search <query>   Search model registry by capability, provider, or name');
+  line('    models inspect <model>  Show metadata, context window, and pricing');
+  line('    models test <model>     Run live inference test probe');
+  line('    provider list           List configured model gateway adapters');
+  line('    provider verify <name>  Test provider connectivity and health');
+  line('    provider add <name>     Register custom model provider');
+  line('    provider remove <name>  Unregister model provider');
+  line();
+  line('  Project Engine (Builder Studio)');
+  line('    project create <name>   Initialize a new project scaffold');
+  line('    project inspect [dir]   Inspect repository structure');
+  line('    project analyze [dir]   Deep repository analysis (languages, tests, security)');
+  line('    project plan [dir]      Synthesize architecture proposal & task roadmap');
+  line('    project build [dir]     Build project artifacts via sandbox');
+  line('    project test [dir]      Execute project test suite');
+  line('    project package [dir]   Package project for distribution');
+  line();
+  line('  Coding-Agent Engine');
+  line('    agent list              List registered agent profiles (80,000 logical capacity)');
+  line('    agent create <name>     Create custom agent profile');
+  line('    agent plan <task>       Decompose a task into architectural steps');
+  line('    agent code <task>       Synthesize code patch proposal');
+  line('    agent review <target>   Review patch or file for security and style');
+  line('    agent test              Execute test suite in sandbox');
+  line('    agent security          Inspect sandbox boundaries and active policies');
+  line('    agent execute <task_id> Governed agent execution (--i-approve-execution required)');
+  line();
+  line('  Workflows & Orchestration');
+  line('    workflow run <task>     Execute Quantum Fractal Matrix (7-Node Pipeline)');
+  line('    workflow history        Inspect past workflow execution traces');
+  line('    workflow create/pause/resume/cancel');
+  line();
+  line('  Evidence & Sandbox');
+  line('    evidence list           List cryptographic evidence records');
+  line('    evidence verify <id>    Verify SHA-256 integrity of evidence record');
+  line('    evidence export         Export evidence registry as JSON');
+  line('    sandbox inspect         Inspect sandbox confinement and limits');
+  line('    sandbox permissions     Display active permissions');
+  line('    sandbox reset           Reset sandbox execution workspace');
+  line();
+  line('  Deployment Gates');
+  line('    deployment plan         Evaluate deployment readiness and gating checks');
+  line('    deployment verify       Verify target cloud provider environment');
+  line('    deployment release      Attempt release (gated by default; requires approval)');
+  line();
+  line('  Content Catalog (Legacy)');
+  line('    catalog                 Summarize catalog (--build to re-hash tree)');
+  line('    inspect <path...>       Show catalog metadata (never prints file contents)');
   line('    extract <path...>       Copy content. DENY BY DEFAULT');
-  line('      --out <dir>           Destination (default ./SOURCE)');
-  line('      --dry-run             Decide and audit, write nothing');
-  line('      --i-have-authorization  Allow SENSITIVE / excluded categories');
-  line('                            (SECRET stays permanently denied)');
   line('    template [name]         List or describe templates');
-  line('      list                  List all templates (same as no argument)');
-  line('      show <name>           Describe one template (same as: template <name>)');
-  line("      --files               List a template's files            --json");
-  line('    init <dir>              Scaffold a project');
-  line('      --template <name>     Template to use    --force  Allow non-empty dir');
-  line('      --i-understand-this-signs-transactions');
-  line('                            Include Web3 signing/broadcast code (off by default)');
-  line('    verify                  Catalog integrity + secret-leak scan');
-  line('      --deep                Re-hash every source file and compare');
-  line('    status                  Capability status per TRUTH_PROTOCOL.md');
+  line('    init <dir>              Scaffold a project from template');
   line();
-  line('  Environment');
-  line('    MELODIESPARK_CATALOG    Path to a catalog file');
-  line('    MELODIESPARK_RULES      Path to classification rules');
-  line('    MELODIESPARK_TEMPLATES  Path to the templates directory');
-  line('    MELODIESPARK_SOURCE     Source root override');
-  line('    MELODIESPARK_ACTOR      Actor recorded in the audit log');
-  line();
-  line(style.dim('  The catalog records that a file exists. It does not expose its contents.'));
+  line(style.dim('  Governance rule: Catalog entry != Connected provider != Live inference != Production ready.'));
 }
 
 async function main(): Promise<void> {
@@ -88,9 +168,6 @@ async function main(): Promise<void> {
   const args = parseArgs(argv);
   const command = args.positionals[0];
 
-  // Version is checked BEFORE the help branch. `--version` parses to a flag
-  // with no positional command, so checking help first made `melodie
-  // --version` print the help text instead of the version.
   if (
     command === 'version' ||
     command === '--version' ||
@@ -115,9 +192,14 @@ async function main(): Promise<void> {
   }
 
   try {
-    handler(shiftCommand(args));
+    await handler(shiftCommand(args));
   } catch (error) {
-    if (error instanceof CatalogError || error instanceof ClassificationError) {
+    if (
+      error instanceof CatalogError ||
+      error instanceof ClassificationError ||
+      error instanceof SandboxError ||
+      error instanceof PolicyViolationError
+    ) {
       fail(error.message);
       process.exitCode = 1;
       return;

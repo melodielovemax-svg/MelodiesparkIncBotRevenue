@@ -1,7 +1,7 @@
 {
   "name": "@melodiespark/cli",
   "version": "0.1.0",
-  "description": "Cross-platform Melodiespark content catalog and template CLI. Deny-by-default extraction, Web3-safe scaffolding, npm/pnpm/npx distribution.",
+  "description": "Cross-platform Melodie CLI Coding-Agent Platform and content catalog. Governed execution, model gateway, sandbox, and evidence engine.",
   "type": "module",
   "license": "UNLICENSED",
   "engines": {
@@ -25,6 +25,10 @@
     "dist",
     "src",
     "assets",
+    "models",
+    "agents",
+    "tasks",
+    "docs",
     "README.md",
     "BUILD_MANIFEST.json"
   ],

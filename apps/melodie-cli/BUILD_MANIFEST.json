@@ -1,12 +1,12 @@
 {
   "package": "@melodiespark/cli",
   "version": "0.1.0",
-  "built_at": "2026-09-26T06:00:55.008Z",
+  "built_at": "2026-09-26T06:32:38.384Z",
   "node": "24.19.0",
   "platform": "win32-x64",
   "catalog": {
     "contract_version": "1.0.0",
-    "generated_at": "2026-09-26T05:57:46.092Z",
+    "generated_at": "2026-09-26T06:31:25.256Z",
     "file_count": 6799,
     "total_bytes": 689348002,
     "excluded_count": 415,
@@ -84,17 +84,17 @@
     }
   ],
   "file_count": 102,
-  "total_bytes": 6390861,
+  "total_bytes": 6391301,
   "files": [
     {
       "path": "assets/catalog/content-catalog.json",
-      "bytes": 4992124,
-      "sha256": "c09e0f647db0aaa4fcb00a1da7634e393408da575152a1308031b4873b42022e"
+      "bytes": 4992123,
+      "sha256": "7c5f700c986ac884722572b5459293c7b5146b0c2e08582ceaf41be3eb214a02"
     },
     {
       "path": "assets/catalog/exclusions.json",
       "bytes": 217289,
-      "sha256": "f9fe115b0df84c6651048acc61771ef8b01e042d2018f068f088d17f5b140080"
+      "sha256": "fc9fa4e89232621a0d1d9ee14809092a5a5f35244b092695e7e71a2cf5281a9d"
     },
     {
       "path": "assets/catalog/files.sha256",
@@ -104,7 +104,7 @@
     {
       "path": "assets/catalog/repositories.json",
       "bytes": 2595,
-      "sha256": "dbfdaaa5f0787cfabe14982f06f8289ea7fd68a7265313d01e2dd22763e6c6bc"
+      "sha256": "92cde59df1b7fa7ed47898efda52985ac897b4462c94f6872f595d3b46a93a2e"
     },
     {
       "path": "assets/rules/classification-rules.json",
@@ -493,8 +493,8 @@
     },
     {
       "path": "dist/commands/status.js",
-      "bytes": 6892,
-      "sha256": "dbfdb800ffbddd0a5b83777716900dae22d2457c8df701833a07055da9f11f65"
+      "bytes": 7333,
+      "sha256": "8881c64816925ef53d4b37e852aafe8d3c2da16b44065b394c7ad099dbfbea67"
     },
     {
       "path": "dist/commands/template.d.ts",

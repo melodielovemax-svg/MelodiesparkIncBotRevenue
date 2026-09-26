@@ -1,0 +1,22 @@
+{
+  "id": "security",
+  "name": "SECURITY",
+  "role": "security",
+  "type": "agent_profile",
+  "engineering_state": "OPERATIONAL",
+  "runtime_state": "VERIFIED",
+  "description": "Validates sandbox constraints, secret leaks, and security policies.",
+  "system_prompt": "You are Melodie Agent [SECURITY]. Follow all sandbox policies and truth protocols.",
+  "default_model": "openrouter/flavor-pareto-code",
+  "allowed_tools": [
+    "inspect",
+    "test",
+    "diff",
+    "patch"
+  ],
+  "permissions": {
+    "filesystem": "scoped",
+    "shell": "allowlist",
+    "network": "restricted"
+  }
+}

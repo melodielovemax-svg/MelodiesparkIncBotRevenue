@@ -1,0 +1,107 @@
+{
+  "version": "1.1.0",
+  "defaultProfile": "pro-max",
+  "profiles": [
+    {
+      "id": "instant",
+      "name": "INSTANT",
+      "description": "Ultra-low latency responses for quick lookups and single-turn commands.",
+      "defaultModel": "openrouter/auto",
+      "targetLatency": "low",
+      "strategy": "direct-fast",
+      "reasoningLevel": "none",
+      "maxTokens": 1024,
+      "pipeline": [
+        "model-selection",
+        "provider-adapter",
+        "direct-inference"
+      ],
+      "fallbackModels": [
+        "openrouter/auto",
+        "mistralai/mistral-large-2407"
+      ]
+    },
+    {
+      "id": "flash",
+      "name": "FLASH",
+      "description": "High-throughput, balanced speed and competence for common coding and editing tasks.",
+      "defaultModel": "openrouter/auto",
+      "targetLatency": "medium-low",
+      "strategy": "fast-code",
+      "reasoningLevel": "standard",
+      "maxTokens": 4096,
+      "pipeline": [
+        "model-selection",
+        "provider-adapter",
+        "streaming-inference"
+      ],
+      "fallbackModels": [
+        "mistralai/mistral-large-2407",
+        "gpt-4-turbo"
+      ]
+    },
+    {
+      "id": "thinking",
+      "name": "THINKING",
+      "description": "Extended chain-of-thought reasoning for complex architectural decisions and debugging.",
+      "defaultModel": "openrouter/auto",
+      "targetLatency": "high",
+      "strategy": "chain-of-thought",
+      "reasoningLevel": "deep",
+      "maxTokens": 8192,
+      "pipeline": [
+        "model-selection",
+        "provider-adapter",
+        "deep-reasoning",
+        "streaming-inference"
+      ],
+      "fallbackModels": [
+        "mistralai/mistral-large-2407",
+        "gpt-4-turbo"
+      ]
+    },
+    {
+      "id": "deepcoder",
+      "name": "DEEPCODER",
+      "description": "Specialized code generation, test generation, and deep refactoring pipeline.",
+      "defaultModel": "mistralai/mistral-large-2407",
+      "targetLatency": "medium",
+      "strategy": "code-first-with-tests",
+      "reasoningLevel": "high",
+      "maxTokens": 8192,
+      "pipeline": [
+        "model-selection",
+        "provider-adapter",
+        "code-synthesis",
+        "test-generation"
+      ],
+      "fallbackModels": [
+        "openrouter/auto",
+        "gpt-4-turbo"
+      ]
+    },
+    {
+      "id": "pro-max",
+      "name": "PRO-MAX",
+      "description": "Melodie flagship orchestration policy: Auto Router -> model selection -> adapter -> streaming -> tool execution -> tests -> validated result.",
+      "defaultModel": "openrouter/auto",
+      "targetLatency": "adaptive",
+      "strategy": "full-agentic-pipeline",
+      "reasoningLevel": "maximum",
+      "maxTokens": 16384,
+      "pipeline": [
+        "auto-router",
+        "model-selection",
+        "provider-adapter",
+        "streaming-inference",
+        "tool-execution",
+        "verification-tests",
+        "validated-result"
+      ],
+      "fallbackModels": [
+        "mistralai/mistral-large-2407",
+        "gpt-4-turbo"
+      ]
+    }
+  ]
+}

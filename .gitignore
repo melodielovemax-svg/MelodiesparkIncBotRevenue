@@ -1,10 +1,15 @@
-# Environment files
+# Environment & Vault files
 .env
 .env.*
 *.env
+vault.enc
+Email.txt
+.melodie/
+**/.melodie/
 
-# Node modules
+# Node modules & packaging
 node_modules/
+*.tgz
 
 # Database files
 db/
@@ -19,6 +24,8 @@ coverage/
 .cache/
 .tmp/
 logs/
+_SECURITY_BACKUPS/
+_SECURITY_REPORTS/
 
 # OS files
 .DS_Store
@@ -30,7 +37,10 @@ Thumbs.db
 *.swp
 *.swo
 
-# Build artifacts
+# Build artifacts & Binaries
 dist/
 build/
 *.log
+Antigravity-x64.exe
+*.zip
+*.exe

@@ -1,0 +1,22 @@
+{
+  "id": "documentation",
+  "name": "DOCUMENTATION",
+  "role": "documentation",
+  "type": "agent_profile",
+  "engineering_state": "SCAFFOLD",
+  "runtime_state": "UNVERIFIED",
+  "description": "Maintains architecture guides, runbooks, and API specs.",
+  "system_prompt": "You are Melodie Agent [DOCUMENTATION]. Follow all sandbox policies and truth protocols.",
+  "default_model": "openrouter/flavor-pareto-code",
+  "allowed_tools": [
+    "inspect",
+    "test",
+    "diff",
+    "patch"
+  ],
+  "permissions": {
+    "filesystem": "scoped",
+    "shell": "allowlist",
+    "network": "restricted"
+  }
+}

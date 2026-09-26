@@ -1,0 +1,925 @@
+{
+  "version": "1.0.0",
+  "updated_at": "2026-09-26T07:35:50.311Z",
+  "logical_agent_count": 80000,
+  "profiles": [
+    {
+      "id": "coder",
+      "name": "CODER",
+      "role": "coder",
+      "type": "agent_profile",
+      "engineering_state": "OPERATIONAL",
+      "runtime_state": "VERIFIED",
+      "description": "Synthesizes code edits, inspects repos, and builds patches.",
+      "system_prompt": "You are Melodie Agent [CODER]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "tester",
+      "name": "TESTER",
+      "role": "tester",
+      "type": "agent_profile",
+      "engineering_state": "OPERATIONAL",
+      "runtime_state": "VERIFIED",
+      "description": "Executes test suites and verifies non-regression.",
+      "system_prompt": "You are Melodie Agent [TESTER]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "security",
+      "name": "SECURITY",
+      "role": "security",
+      "type": "agent_profile",
+      "engineering_state": "OPERATIONAL",
+      "runtime_state": "VERIFIED",
+      "description": "Validates sandbox constraints, secret leaks, and security policies.",
+      "system_prompt": "You are Melodie Agent [SECURITY]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "forensic",
+      "name": "FORENSIC",
+      "role": "forensic",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Audits execution traces, cryptographic hashes, and provenance.",
+      "system_prompt": "You are Melodie Agent [FORENSIC]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "research",
+      "name": "RESEARCH",
+      "role": "research",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Surveys documentation, dependency trees, and external specifications.",
+      "system_prompt": "You are Melodie Agent [RESEARCH]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "documentation",
+      "name": "DOCUMENTATION",
+      "role": "documentation",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Maintains architecture guides, runbooks, and API specs.",
+      "system_prompt": "You are Melodie Agent [DOCUMENTATION]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "product",
+      "name": "PRODUCT",
+      "role": "product",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Tracks requirements, issue states, and project roadmaps.",
+      "system_prompt": "You are Melodie Agent [PRODUCT]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "sales",
+      "name": "SALES",
+      "role": "sales",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Catalog presentation and developer portal integration.",
+      "system_prompt": "You are Melodie Agent [SALES]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "revenue",
+      "name": "REVENUE",
+      "role": "revenue",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Revenue automation simulation and boundary enforcement.",
+      "system_prompt": "You are Melodie Agent [REVENUE]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "web3",
+      "name": "WEB3",
+      "role": "web3",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Web3 contracts and safe transactional boundary scaffolding.",
+      "system_prompt": "You are Melodie Agent [WEB3]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "compliance",
+      "name": "COMPLIANCE",
+      "role": "compliance",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Enforces governance, license validity, and Truth Protocol.",
+      "system_prompt": "You are Melodie Agent [COMPLIANCE]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "deployment",
+      "name": "DEPLOYMENT",
+      "role": "deployment",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Gated deployment verification and release controls.",
+      "system_prompt": "You are Melodie Agent [DEPLOYMENT]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "observability",
+      "name": "OBSERVABILITY",
+      "role": "observability",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Monitors runtime metrics, queue depths, and worker status.",
+      "system_prompt": "You are Melodie Agent [OBSERVABILITY]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "data",
+      "name": "DATA",
+      "role": "data",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Schema validation, migrations, and catalog index persistence.",
+      "system_prompt": "You are Melodie Agent [DATA]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "qa",
+      "name": "QA",
+      "role": "qa",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "End-to-end integration and smoke test validation.",
+      "system_prompt": "You are Melodie Agent [QA]. Follow all sandbox policies and truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "test",
+        "diff",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "benzen",
+      "name": "Benzen",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: Benzen",
+      "system_prompt": "You are specialized agent Benzen. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "tamtek",
+      "name": "Tamtek",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: Tamtek",
+      "system_prompt": "You are specialized agent Tamtek. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "bitsum",
+      "name": "Bitsum",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: Bitsum",
+      "system_prompt": "You are specialized agent Bitsum. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "gate",
+      "name": "Gate",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: Gate",
+      "system_prompt": "You are specialized agent Gate. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: Power",
+      "system_prompt": "You are specialized agent Power. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "pro-power-shield",
+      "name": "Pro_Power_Shield",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: Pro_Power_Shield",
+      "system_prompt": "You are specialized agent Pro_Power_Shield. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "pro-c",
+      "name": "Pro_C",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: Pro_C",
+      "system_prompt": "You are specialized agent Pro_C. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "top",
+      "name": "Top",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: Top",
+      "system_prompt": "You are specialized agent Top. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "exodius",
+      "name": "Exodius",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: Exodius",
+      "system_prompt": "You are specialized agent Exodius. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "bittheme",
+      "name": "BitTheme",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: BitTheme",
+      "system_prompt": "You are specialized agent BitTheme. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "grapsflix",
+      "name": "GrapsFlix",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: GrapsFlix",
+      "system_prompt": "You are specialized agent GrapsFlix. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "otamzen",
+      "name": "Otamzen",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: Otamzen",
+      "system_prompt": "You are specialized agent Otamzen. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "llm",
+      "name": "LLM",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: LLM",
+      "system_prompt": "You are specialized agent LLM. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "caguran",
+      "name": "Caguran",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: Caguran",
+      "system_prompt": "You are specialized agent Caguran. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "iwhyprogatogate",
+      "name": "IWHYPROGATOGATE",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: IWHYPROGATOGATE",
+      "system_prompt": "You are specialized agent IWHYPROGATOGATE. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "azurix",
+      "name": "AZURIX",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: AZURIX",
+      "system_prompt": "You are specialized agent AZURIX. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "cli-bot",
+      "name": "CLI-BOT",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: CLI-BOT",
+      "system_prompt": "You are specialized agent CLI-BOT. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "revenue-automation",
+      "name": "Revenue-Automation",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: Revenue-Automation",
+      "system_prompt": "You are specialized agent Revenue-Automation. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "carseski",
+      "name": "CARSESKI",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: CARSESKI",
+      "system_prompt": "You are specialized agent CARSESKI. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "phoenix-blake",
+      "name": "Phoenix_Blake",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: Phoenix_Blake",
+      "system_prompt": "You are specialized agent Phoenix_Blake. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "hydra",
+      "name": "HYDRA",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: HYDRA",
+      "system_prompt": "You are specialized agent HYDRA. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "blaze",
+      "name": "BLAZE",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: BLAZE",
+      "system_prompt": "You are specialized agent BLAZE. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "watson",
+      "name": "WATSON",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: WATSON",
+      "system_prompt": "You are specialized agent WATSON. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "whatson",
+      "name": "WHATSON",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: WHATSON",
+      "system_prompt": "You are specialized agent WHATSON. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "whatzone",
+      "name": "WHATZONE",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: WHATZONE",
+      "system_prompt": "You are specialized agent WHATZONE. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "sherlock-lock-holmes",
+      "name": "SHERLOCK_LOCK_HOLMES",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: SHERLOCK_LOCK_HOLMES",
+      "system_prompt": "You are specialized agent SHERLOCK_LOCK_HOLMES. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "homes-deduction",
+      "name": "HOMES_DEDUCTION",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: HOMES_DEDUCTION",
+      "system_prompt": "You are specialized agent HOMES_DEDUCTION. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    },
+    {
+      "id": "arlocktwins",
+      "name": "ARLOCKTWINS",
+      "role": "coder",
+      "namespace": "custom",
+      "type": "agent_profile",
+      "engineering_state": "SCAFFOLD",
+      "runtime_state": "UNVERIFIED",
+      "description": "Namespace specialized profile: ARLOCKTWINS",
+      "system_prompt": "You are specialized agent ARLOCKTWINS. Adhere strictly to Melodie truth protocols.",
+      "default_model": "openrouter/flavor-pareto-code",
+      "allowed_tools": [
+        "inspect",
+        "patch"
+      ],
+      "permissions": {
+        "filesystem": "scoped",
+        "shell": "allowlist",
+        "network": "restricted"
+      }
+    }
+  ]
+}

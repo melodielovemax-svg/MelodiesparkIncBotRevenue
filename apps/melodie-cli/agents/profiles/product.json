@@ -1,0 +1,22 @@
+{
+  "id": "product",
+  "name": "PRODUCT",
+  "role": "product",
+  "type": "agent_profile",
+  "engineering_state": "SCAFFOLD",
+  "runtime_state": "UNVERIFIED",
+  "description": "Tracks requirements, issue states, and project roadmaps.",
+  "system_prompt": "You are Melodie Agent [PRODUCT]. Follow all sandbox policies and truth protocols.",
+  "default_model": "openrouter/flavor-pareto-code",
+  "allowed_tools": [
+    "inspect",
+    "test",
+    "diff",
+    "patch"
+  ],
+  "permissions": {
+    "filesystem": "scoped",
+    "shell": "allowlist",
+    "network": "restricted"
+  }
+}
