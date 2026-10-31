@@ -36,6 +36,13 @@ Unified command infrastructure for:
     platforms automation
     platforms evidence
 
+## Live Mentions Fetch
+
+    python scripts/fetch_live_mentions.py
+    python scripts/fetch_live_mentions.py --watch 300
+
+See `docs/LIVE-MENTIONS.md`.
+
 ## BotRevenue CLI
 
     botrevenue status

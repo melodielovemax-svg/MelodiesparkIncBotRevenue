@@ -1,0 +1,532 @@
+{
+  "fetched_at": "2026-10-31T02:48:26+00:00",
+  "queries": [
+    "melodeathspark",
+    "melodiespark inc",
+    "melodiespark"
+  ],
+  "total_items": 60,
+  "sources_ok": 13,
+  "sources_failed": 0,
+  "sources": [
+    {
+      "source": "github.repos:melodeathspark",
+      "ok": true,
+      "items": [
+        {
+          "full_name": "melodielovemax-svg/ssss-bot-revenue-automation-melodeathspark-inc",
+          "url": "https://github.com/melodielovemax-svg/ssss-bot-revenue-automation-melodeathspark-inc",
+          "description": "Read-only Stripe catalog extraction and evidence verification CLI",
+          "updated_at": "2026-10-02T03:43:25Z",
+          "created_at": "2026-10-02T03:41:01Z",
+          "stars": 0,
+          "archived": false
+        }
+      ]
+    },
+    {
+      "source": "github.users:melodeathspark",
+      "ok": true,
+      "items": []
+    },
+    {
+      "source": "npm:melodeathspark",
+      "ok": true,
+      "items": [
+        {
+          "name": "melodielitellm-mcp-gateway-cli",
+          "version": "984.321.232",
+          "description": "Local LLM gateway starter and CLI",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/melodielitellm-mcp-gateway-cli"
+        },
+        {
+          "name": "phoenix-bot-revenue-game",
+          "version": "984.321.232",
+          "description": "Phoenix game product and release toolkit",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/phoenix-bot-revenue-game"
+        },
+        {
+          "name": "@melodiesparkmaxie/melodie-melodeath-bot-revenue",
+          "version": "934.34.2",
+          "description": "Melodeathspark local-first revenue diagnostics CLI",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@melodiesparkmaxie/melodie-melodeath-bot-revenue"
+        },
+        {
+          "name": "melodie-lite-llm-mcp",
+          "version": "984.321.232",
+          "description": "Lightweight LLM adapter toolkit",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/melodie-lite-llm-mcp"
+        },
+        {
+          "name": "@melodiesparkmaxie/melodie-cli",
+          "version": "0.1.2",
+          "description": "Melodeathspark developer CLI and local project diagnostics",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@melodiesparkmaxie/melodie-cli"
+        },
+        {
+          "name": "melodie-melodeath",
+          "version": "984.321.232",
+          "description": "MelodieDeath creative software toolkit",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/melodie-melodeath"
+        },
+        {
+          "name": "melodie-cli",
+          "version": "984.321.232",
+          "description": "MelodieCLI developer toolkit",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/melodie-cli"
+        }
+      ]
+    },
+    {
+      "source": "github.repos:melodiespark inc",
+      "ok": true,
+      "items": [
+        {
+          "full_name": "melodielovemax-svg/MelodiesparkIncBotRevenue",
+          "url": "https://github.com/melodielovemax-svg/MelodiesparkIncBotRevenue",
+          "description": "Melodiespark Inc. Platforms CLI and BotRevenue command infrastructure with evidence-first validation.",
+          "updated_at": "2026-09-11T06:40:09Z",
+          "created_at": "2026-09-11T06:16:59Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "Melodiespark949394/MelodiesparkINC-Bot-Revenue-Automation-SAAS-CLOUD-DEPLOYMENT-PHOENIXLLM_GATE_GAME_BOT_REVENUE",
+          "url": "https://github.com/Melodiespark949394/MelodiesparkINC-Bot-Revenue-Automation-SAAS-CLOUD-DEPLOYMENT-PHOENIXLLM_GATE_GAME_BOT_REVENUE",
+          "description": "MelodiesparkINC-Bot-Revenue-Automation-SAAS-CLOUD-DEPLOYMENT-PHOENIXLLM_GATE_GAME_BOT_REVENUE",
+          "updated_at": "2026-07-02T22:18:04Z",
+          "created_at": "2026-07-02T22:16:44Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "deathdemigodzmaks-alt/melodiespark-enterprise",
+          "url": "https://github.com/deathdemigodzmaks-alt/melodiespark-enterprise",
+          "description": "SAAS AUTOMATION DEPLOYMENT BOT REVENUE MELODIESPARK INC",
+          "updated_at": "2026-07-01T19:39:02Z",
+          "created_at": "2026-06-30T21:30:27Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "maximeaube46-ops/melodiespark-inc",
+          "url": "https://github.com/maximeaube46-ops/melodiespark-inc",
+          "description": "BOT REVENUE KARMA POWER POINT MA TOKEN BITCOIN AUTOMATED ECOMMERCE DIGITAL PRODUCTS AND SERVICES ECOSYSTEM PORTFOLIO",
+          "updated_at": "2026-05-27T03:59:15Z",
+          "created_at": "2026-05-27T03:59:14Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "dmelodiespark-lgtm/MelodiesparkIncExtension",
+          "url": "https://github.com/dmelodiespark-lgtm/MelodiesparkIncExtension",
+          "description": "Ultimate Business Blueprint Automation Framework Enterprise Digital Products and services full automation cryptocurrency ecosystems gamification karma power point MA TOKEN",
+          "updated_at": "2026-05-14T11:22:02Z",
+          "created_at": "2026-05-14T11:22:01Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "demigodmelodeathspark-blip/MelodiesparkIncCryptoEcosystemV7",
+          "url": "https://github.com/demigodmelodeathspark-blip/MelodiesparkIncCryptoEcosystemV7",
+          "description": "MelodiesparkIncCryptoEcosystemV7 is a lightweight, modular, full-stack web application designed to serve as a foundation for a next-generation cryptocurrency ecosystem.  The project focuses on performance, simplicity, and scalability, providing a clean architecture that can evolve into advanced crypto-related services",
+          "updated_at": "2026-02-04T16:14:44Z",
+          "created_at": "2026-02-04T16:10:01Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "demigodmelodeathspark-blip/melodiespark-website",
+          "url": "https://github.com/demigodmelodeathspark-blip/melodiespark-website",
+          "description": "World International Cybersecurity App Melodiespark Inc",
+          "updated_at": "2026-01-27T19:33:05Z",
+          "created_at": "2026-01-27T19:29:43Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "demigodmelodeathspark-blip/Melodiespark-INC",
+          "url": "https://github.com/demigodmelodeathspark-blip/Melodiespark-INC",
+          "description": "Crypto Currency Full Ecosystem",
+          "updated_at": "2026-01-26T15:35:02Z",
+          "created_at": "2026-01-26T15:33:23Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "demigodmelodeathspark-blip/MelodiesparkInc",
+          "url": "https://github.com/demigodmelodeathspark-blip/MelodiesparkInc",
+          "description": "Crypto Currency Full Ecosystem",
+          "updated_at": "2026-01-26T13:47:06Z",
+          "created_at": "2026-01-26T13:44:47Z",
+          "stars": 0,
+          "archived": false
+        }
+      ]
+    },
+    {
+      "source": "github.users:melodiespark inc",
+      "ok": true,
+      "items": [
+        {
+          "login": "Melodiespark-Inc-Ma-Toke-Maxime-Aube",
+          "url": "https://github.com/Melodiespark-Inc-Ma-Toke-Maxime-Aube",
+          "type": "Organization"
+        }
+      ]
+    },
+    {
+      "source": "npm:melodiespark inc",
+      "ok": true,
+      "items": [
+        {
+          "name": "melodiespark-melodie-cli",
+          "version": "8343.39.394",
+          "description": "Melodiespark Inc. unified A-Z CLI, ecosystem index, workspace doctor and platform control plane.",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/melodiespark-melodie-cli"
+        },
+        {
+          "name": "@melodiespark56/melodie",
+          "version": "0.1.0",
+          "description": "Melodiespark Inc. unified CLI for the Melodiespark ecosystem.",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@melodiespark56/melodie"
+        },
+        {
+          "name": "@braze/web-sdk",
+          "version": "7.1.0",
+          "description": "Braze SDK for web sites and other JS platforms.",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@braze/web-sdk"
+        },
+        {
+          "name": "@dbos-inc/dbos-sdk",
+          "version": "5.4.0",
+          "description": "Lightweight durable workflows built on Postgres",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@dbos-inc/dbos-sdk"
+        },
+        {
+          "name": "tailwind-variants",
+          "version": "4.0.0",
+          "description": "🦄 Tailwindcss first-class variant API",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/tailwind-variants"
+        },
+        {
+          "name": "@mole-inc/bin-wrapper",
+          "version": "8.0.1",
+          "description": "Binary wrapper that makes your programs seamlessly available as local dependencies",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@mole-inc/bin-wrapper"
+        },
+        {
+          "name": "@serverless/utils",
+          "version": "6.15.0",
+          "description": "Serverless CLI utilities",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@serverless/utils"
+        },
+        {
+          "name": "@heroui/accordion",
+          "version": "2.2.29",
+          "description": "Collapse display a list of high-level options that can expand/collapse to reveal more information.",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@heroui/accordion"
+        },
+        {
+          "name": "@braze/react-native-sdk",
+          "version": "24.0.0",
+          "description": "Braze SDK for React Native.",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@braze/react-native-sdk"
+        },
+        {
+          "name": "@workos-inc/authkit-nextjs",
+          "version": "4.6.2",
+          "description": "Authentication and session helpers for using WorkOS & AuthKit with Next.js",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@workos-inc/authkit-nextjs"
+        },
+        {
+          "name": "@heroui/react-rsc-utils",
+          "version": "2.1.9",
+          "description": "A set of utilities for react compatible with RSC",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@heroui/react-rsc-utils"
+        },
+        {
+          "name": "@workos-inc/node",
+          "version": "12.1.0",
+          "description": "A Node wrapper for the WorkOS API",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@workos-inc/node"
+        },
+        {
+          "name": "@heroui/react-utils",
+          "version": "2.1.14",
+          "description": "A set of utilities for react on client side",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@heroui/react-utils"
+        },
+        {
+          "name": "@heroui/shared-icons",
+          "version": "2.1.10",
+          "description": "Internal icons set, commonly used in the components stories",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@heroui/shared-icons"
+        },
+        {
+          "name": "@heroui/spinner",
+          "version": "2.2.29",
+          "description": "Loaders express an unspecified wait time or display the length of a process.",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@heroui/spinner"
+        },
+        {
+          "name": "@heroui/system-rsc",
+          "version": "2.3.24",
+          "description": "HeroUI system primitives compatibles with RSC imports",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@heroui/system-rsc"
+        },
+        {
+          "name": "@heroui/button",
+          "version": "2.2.32",
+          "description": "Buttons allow users to perform actions and choose with a single tap.",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@heroui/button"
+        },
+        {
+          "name": "@heroui/framer-utils",
+          "version": "2.1.28",
+          "description": "A set of framer motion transitions for react",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@heroui/framer-utils"
+        },
+        {
+          "name": "@heroui/theme",
+          "version": "2.4.26",
+          "description": "The default theme for HeroUI components",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@heroui/theme"
+        },
+        {
+          "name": "@heroui/system",
+          "version": "2.4.28",
+          "description": "HeroUI system primitives",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@heroui/system"
+        }
+      ]
+    },
+    {
+      "source": "github.repos:melodiespark",
+      "ok": true,
+      "items": [
+        {
+          "full_name": "melodiesparka-tech/svgmelodiespark-ultimate",
+          "url": "https://github.com/melodiesparka-tech/svgmelodiespark-ultimate",
+          "description": "Melodiespark Ultimate — unified AI, BotRevenue, Web3, desktop, mobile, web, API, automation, CI/CD, and deployment platform.",
+          "updated_at": "2026-09-20T01:49:40Z",
+          "created_at": "2026-09-20T01:49:39Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "melodielovemax-svg/MelodiesparkIncBotRevenue",
+          "url": "https://github.com/melodielovemax-svg/MelodiesparkIncBotRevenue",
+          "description": "Melodiespark Inc. Platforms CLI and BotRevenue command infrastructure with evidence-first validation.",
+          "updated_at": "2026-09-11T06:40:09Z",
+          "created_at": "2026-09-11T06:16:59Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "Melodiespark949394/MelodiesparkINC-Bot-Revenue-Automation-SAAS-CLOUD-DEPLOYMENT-PHOENIXLLM_GATE_GAME_BOT_REVENUE",
+          "url": "https://github.com/Melodiespark949394/MelodiesparkINC-Bot-Revenue-Automation-SAAS-CLOUD-DEPLOYMENT-PHOENIXLLM_GATE_GAME_BOT_REVENUE",
+          "description": "MelodiesparkINC-Bot-Revenue-Automation-SAAS-CLOUD-DEPLOYMENT-PHOENIXLLM_GATE_GAME_BOT_REVENUE",
+          "updated_at": "2026-07-02T22:18:04Z",
+          "created_at": "2026-07-02T22:16:44Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "deathdemigodzmaks-alt/melodiespark-enterprise",
+          "url": "https://github.com/deathdemigodzmaks-alt/melodiespark-enterprise",
+          "description": "SAAS AUTOMATION DEPLOYMENT BOT REVENUE MELODIESPARK INC",
+          "updated_at": "2026-07-01T19:39:02Z",
+          "created_at": "2026-06-30T21:30:27Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "maximeaube46-ops/melodiespark-inc",
+          "url": "https://github.com/maximeaube46-ops/melodiespark-inc",
+          "description": "BOT REVENUE KARMA POWER POINT MA TOKEN BITCOIN AUTOMATED ECOMMERCE DIGITAL PRODUCTS AND SERVICES ECOSYSTEM PORTFOLIO",
+          "updated_at": "2026-05-27T03:59:15Z",
+          "created_at": "2026-05-27T03:59:14Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "dmelodiespark-lgtm/MelodiesparkIncExtension",
+          "url": "https://github.com/dmelodiespark-lgtm/MelodiesparkIncExtension",
+          "description": "Ultimate Business Blueprint Automation Framework Enterprise Digital Products and services full automation cryptocurrency ecosystems gamification karma power point MA TOKEN",
+          "updated_at": "2026-05-14T11:22:02Z",
+          "created_at": "2026-05-14T11:22:01Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "demigodmelodeathspark-blip/melodiespark-saas",
+          "url": "https://github.com/demigodmelodeathspark-blip/melodiespark-saas",
+          "description": "BOT REVENUE",
+          "updated_at": "2026-04-17T00:42:09Z",
+          "created_at": "2026-04-13T00:01:23Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "demigodmelodeathspark-blip/MelodiesparkIncCryptoEcosystemV7",
+          "url": "https://github.com/demigodmelodeathspark-blip/MelodiesparkIncCryptoEcosystemV7",
+          "description": "MelodiesparkIncCryptoEcosystemV7 is a lightweight, modular, full-stack web application designed to serve as a foundation for a next-generation cryptocurrency ecosystem.  The project focuses on performance, simplicity, and scalability, providing a clean architecture that can evolve into advanced crypto-related services",
+          "updated_at": "2026-02-04T16:14:44Z",
+          "created_at": "2026-02-04T16:10:01Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "demigodmelodeathspark-blip/CryptoMiningMelodiesparkBot",
+          "url": "https://github.com/demigodmelodeathspark-blip/CryptoMiningMelodiesparkBot",
+          "description": "CryptoMiningMelodiesparkInc is a Web3 reward simulation platform showcasing how real DeFi systems operate. It features mining-style dashboards, MetaMask wallet connection, and user-approved on-chain withdrawals. Rewards are generated off-chain for scalability, while transfers occur on low-gas networks like Polygon, Arbitrum, and Optimism.",
+          "updated_at": "2026-01-29T10:29:16Z",
+          "created_at": "2026-01-29T10:27:47Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "demigodmelodeathspark-blip/melodiespark-website",
+          "url": "https://github.com/demigodmelodeathspark-blip/melodiespark-website",
+          "description": "World International Cybersecurity App Melodiespark Inc",
+          "updated_at": "2026-01-27T19:33:05Z",
+          "created_at": "2026-01-27T19:29:43Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "demigodmelodeathspark-blip/Melodiespark-INC",
+          "url": "https://github.com/demigodmelodeathspark-blip/Melodiespark-INC",
+          "description": "Crypto Currency Full Ecosystem",
+          "updated_at": "2026-01-26T15:35:02Z",
+          "created_at": "2026-01-26T15:33:23Z",
+          "stars": 0,
+          "archived": false
+        },
+        {
+          "full_name": "demigodmelodeathspark-blip/MelodiesparkInc",
+          "url": "https://github.com/demigodmelodeathspark-blip/MelodiesparkInc",
+          "description": "Crypto Currency Full Ecosystem",
+          "updated_at": "2026-01-26T13:47:06Z",
+          "created_at": "2026-01-26T13:44:47Z",
+          "stars": 0,
+          "archived": false
+        }
+      ]
+    },
+    {
+      "source": "github.users:melodiespark",
+      "ok": true,
+      "items": [
+        {
+          "login": "demigodmelodeathspark-blip",
+          "url": "https://github.com/demigodmelodeathspark-blip",
+          "type": "User"
+        },
+        {
+          "login": "Melodiespark-Inc-Ma-Toke-Maxime-Aube",
+          "url": "https://github.com/Melodiespark-Inc-Ma-Toke-Maxime-Aube",
+          "type": "Organization"
+        },
+        {
+          "login": "melodiesparkmaxime-sudo",
+          "url": "https://github.com/melodiesparkmaxime-sudo",
+          "type": "User"
+        },
+        {
+          "login": "melodiesparka-tech",
+          "url": "https://github.com/melodiesparka-tech",
+          "type": "User"
+        },
+        {
+          "login": "Melodiespark949394",
+          "url": "https://github.com/Melodiespark949394",
+          "type": "User"
+        },
+        {
+          "login": "melodiesparkd-byte",
+          "url": "https://github.com/melodiesparkd-byte",
+          "type": "User"
+        },
+        {
+          "login": "melodiesparkdemigoddess-lab",
+          "url": "https://github.com/melodiesparkdemigoddess-lab",
+          "type": "User"
+        },
+        {
+          "login": "MelodiesparkMaxie",
+          "url": "https://github.com/MelodiesparkMaxie",
+          "type": "User"
+        }
+      ]
+    },
+    {
+      "source": "npm:melodiespark",
+      "ok": true,
+      "items": [
+        {
+          "name": "melodiespark-melodie-cli",
+          "version": "8343.39.394",
+          "description": "Melodiespark Inc. unified A-Z CLI, ecosystem index, workspace doctor and platform control plane.",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/melodiespark-melodie-cli"
+        },
+        {
+          "name": "@melodiespark56/melodie",
+          "version": "0.1.0",
+          "description": "Melodiespark Inc. unified CLI for the Melodiespark ecosystem.",
+          "updated_at": null,
+          "url": "https://www.npmjs.com/package/@melodiespark56/melodie"
+        }
+      ]
+    },
+    {
+      "source": "pypi:melodeathspark",
+      "ok": true,
+      "items": []
+    },
+    {
+      "source": "pypi:melodiespark",
+      "ok": true,
+      "items": []
+    },
+    {
+      "source": "pypi:melodiespark-inc",
+      "ok": true,
+      "items": []
+    },
+    {
+      "source": "pypi:melodiespark-platform-cli",
+      "ok": true,
+      "items": []
+    }
+  ]
+}
