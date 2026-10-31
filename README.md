@@ -86,3 +86,26 @@ D:\MelodieCLII
 - FAILED
 - COMPLETED
 - DISABLED
+
+## MetaMello-D web command center (review build)
+
+This repository now also includes a **database-backed web application**. It does not replace the CLI.
+It starts with an empty database. Finance and external provider execution are disabled; no
+customers, transactions or revenue are seeded. See [implementation plan](docs/IMPLEMENTATION-PLAN.md)
+and [delivery and deployment guide](docs/METAMELLO-D.md) for architecture, boundaries and tests.
+
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -e '.[dev]'
+export MMD_DB_PATH=./var/metamello.db
+export MMD_ADMIN_EMAIL=admin@example.com
+export MMD_ADMIN_PASSWORD='use-a-unique-password-of-at-least-14-characters'
+python -m melodie_platforms.web.bootstrap
+unset MMD_ADMIN_PASSWORD
+uvicorn melodie_platforms.web.app:app --host 127.0.0.1 --port 8000
+```
+
+Open http://127.0.0.1:8000. For **local HTTP only**, set `MMD_COOKIE_SECURE=false` before starting
+Uvicorn; keep it `true` behind HTTPS. Do not commit credentials or the local database.
+Run `pytest`, `ruff check src tests`, and `python -m build` before reviewing a release.
