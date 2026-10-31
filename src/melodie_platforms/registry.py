@@ -5,7 +5,8 @@ from pathlib import Path
 
 
 def registry_path() -> Path:
-    return Path(__file__).resolve().parents[2] / "config" / "platforms.json"
+    source = Path(__file__).resolve().parents[2] / "config" / "platforms.json"
+    return source if source.exists() else Path(__file__).parent / "config" / "platforms.json"
 
 
 def load_registry() -> dict:

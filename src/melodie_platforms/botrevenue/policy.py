@@ -1,6 +1,11 @@
 from __future__ import annotations
 
 FINANCIAL_POLICY = {
+    "payments_automatic": False,
+    "wallet_automatic_broadcast": False,
+    "evidence_required": True,
+    "production_release_requires_approval": True,
+    "secrets_in_source": False,
     "autonomous_spending": False,
     "autonomous_payouts": False,
     "autonomous_transfers": False,
