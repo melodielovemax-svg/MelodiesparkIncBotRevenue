@@ -1,0 +1,13 @@
+{
+  "name": "Melodie_Ultimate_Final_Release",
+  "description": "Independent source snapshots, not an integrated application or production certification.",
+  "repositories": [
+    {"name": "MelodiesparkIncBotRevenue", "sha": "62059d50c0551dd7cc146787bf7bdd998e47402d", "kind": "Python platform CLI"},
+    {"name": "MelodieAutomationMIlitarySSSS-revenue-automation", "sha": "a0bdb98bee423fb1bfc5c4f30166cd9ac98e0d4e", "kind": "Node.js revenue automation server"},
+    {"name": "ssss-bot-revenue-automation-melodeathspark-inc", "sha": "d121d291ce858e4aa9881c745b343c9ca6fb33e3", "kind": "Node.js catalog and evidence CLI"},
+    {"name": "ultimate-coding-agent-reducer-tokens-usage", "sha": "9a0e3bb484a627450ee86b31a4cef34ae74d4dcf", "kind": "Node.js coding agent token reducer"},
+    {"name": "melodielovemax-svg", "sha": "905edc11e800bfb2b56fd66198b98cc310d29177", "kind": "GitHub profile"},
+    {"name": "KIMINI-CLI-Agents_CODING-Unlimited_Crypto_Karma_Earning", "sha": "4c3a526e5a16364a2166dfc4927ad0b32dbda283", "kind": "Python Kimini CLI"}
+  ],
+  "excluded_empty_repositories": ["BOT_REVENUE_MELODIE"]
+}
